@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.dist/
+build/
+dist/
+.ai/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.coverage
+poetry.lock

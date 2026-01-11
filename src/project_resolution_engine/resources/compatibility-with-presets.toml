@@ -1,0 +1,22 @@
+[contexts.prod-linux]
+preset = "modern-linux"  # Loads sensible defaults
+python = "3.11-3.12"
+arches = ["x86_64", "aarch64"]
+exclude = ["cp310-*"]
+
+[contexts.dev]
+preset = "permissive"
+python = "3.12"
+
+# Define presets elsewhere
+# e.g., include in library
+[presets.modern-linux]
+python = ">=3.10"
+types = ["cp"]
+platforms = ["manylinux>=2.17", "musllinux>=1.1"]
+arches = ["x86_64", "aarch64"]
+
+[presets.permissive]
+python = "*"
+types = ["cp", "pp", "py"]
+platforms = ["*"]

@@ -1,0 +1,14 @@
+[contexts.prod-linux]
+python = ["3.11", "3.12"]
+types = ["cp"]
+arches = ["x86_64", "aarch64"]
+platforms = [
+    "manylinux_2_17",
+    "manylinux_2_28",
+    "musllinux_1_1"
+]
+# Generates all combinations, then applies filters
+exclude = [
+    "cp310-*",
+    "*-musllinux_1_1_i686"
+]

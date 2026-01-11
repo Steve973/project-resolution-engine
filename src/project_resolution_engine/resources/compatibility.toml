@@ -1,0 +1,67 @@
+[contexts.my-context]
+name = "my-context"
+
+# Universal defaults
+[contexts.my-context.universal.interpreter]
+types = ["py", "cp"]  # Used for both interpreter AND abi
+accept_universal = true
+
+[contexts.my-context.universal.interpreter.python_version]
+range = ">=3.10,<4.0"
+
+[contexts.my-context.universal.interpreter.python_version.filters]
+include = ["py3"]
+specific_only = false
+
+[contexts.my-context.universal.interpreter.filters]
+exclude = ["cp310"]
+
+[contexts.my-context.universal.abi]
+include_debug = false
+include_stable = true
+
+[contexts.my-context.universal.abi.filters]
+include = ["cp310", "cp311", "cp312", "cp313", "py310", "py311", "py312", "py313"]
+exclude = ["cp310d"]
+specific_only = false
+
+# Linux-specific overrides
+[contexts.my-context.linux.platform]
+enabled = true
+arches = ["x86_64", "aarch64"]
+
+[contexts.my-context.linux.platform.variants.manylinux]
+enabled = true
+[contexts.my-context.linux.platform.variants.manylinux.version]
+range = ">=2.17,<=2.42"
+
+[contexts.my-context.linux.platform.variants.musllinux]
+enabled = true
+[contexts.my-context.linux.platform.variants.musllinux.version]
+range = ">=1.1"
+
+[contexts.my-context.linux.platform.filters]
+include = [
+    "manylinux_2_17_x86_64",
+    "manylinux_2_17_aarch64",
+    "musllinux_1_1_x86_64",
+]
+exclude = ["musllinux_1_1*"]
+specific_only = false
+
+# Optional: Complete tag override for linux
+[contexts.my-context.linux.compatibility_tags]
+include = [
+    "cp310-cp310-manylinux_2_17_x86_64",
+    "cp310-abi3-manylinux_2_17_x86_64",
+    # ... etc
+]
+exclude = [
+    "cp310-cp310-musllinux_1_1_x86_64",
+    "cp310-cp310-musllinux_1_1_aarch64"
+]
+specific_only = false
+
+# ABI override example (linux uses different ABIs)
+[contexts.my-context.linux.abi.filters]
+exclude = ["cp310d", "py310"]  # Additional excludes for linux
