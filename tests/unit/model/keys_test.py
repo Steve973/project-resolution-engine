@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 
-from project_resolution_engine.model import keys as keys_mod
+from project_resolution_engine.model import keys as keys_mod, keys
 
 # ==============================================================================
 # Case matrix (per TESTING_CONTRACT)
@@ -38,14 +40,14 @@ BASE_FROM_MAPPING_ERROR_CASES = [
 BASE_FROM_MAPPING_DISPATCH_CASES = [
     {
         "name": "dispatch index metadata",
-        "mapping": {"kind": keys_mod.ArtifactKind.INDEX_METADATA.value, "index_base": "X", "project": "P"},
+        "mapping": {"kind": keys.ArtifactKind.INDEX_METADATA.value, "index_base": "X", "project": "P"},
         "expected_type": keys_mod.IndexMetadataKey,
         "covers": ["C001M001B0004"],
     },
     {
         "name": "dispatch core metadata",
         "mapping": {
-            "kind": keys_mod.ArtifactKind.CORE_METADATA.value,
+            "kind": keys.ArtifactKind.CORE_METADATA.value,
             "name": "n",
             "version": "v",
             "tag": "t",
@@ -56,7 +58,7 @@ BASE_FROM_MAPPING_DISPATCH_CASES = [
     },
     {
         "name": "dispatch wheel",
-        "mapping": {"kind": keys_mod.ArtifactKind.WHEEL.value, "name": "n", "version": "1", "tag": "py3-none-any"},
+        "mapping": {"kind": keys.ArtifactKind.WHEEL.value, "name": "n", "version": "1", "tag": "py3-none-any"},
         "expected_type": keys_mod.WheelKey,
         "covers": ["C001M001B0006"],
     },
@@ -140,6 +142,74 @@ WHEEL_VALIDATE_HASH_CASES = [
     },
 ]
 
+REQTXT_CASES = [
+    {
+        "id": "key-none_fmt-none",
+        "kwargs": {"key": None, "fmt": None},
+        "expected": {"reqtxt": True},
+        "covers": [
+            "C000F001B0001",
+            "C000F001B0003",
+            "C000F001B0005",
+            "C000F001B0006",
+        ],
+    },
+    {
+        "id": "key-set_fmt-none",
+        "kwargs": {"key": "k", "fmt": None},
+        "expected": {"reqtxt": True, "reqtxt_key": "k"},
+        "covers": [
+            "C000F001B0001",
+            "C000F001B0002",
+            "C000F001B0005",
+            "C000F001B0006",
+        ],
+    },
+    {
+        "id": "key-none_fmt-set",
+        "kwargs": {"key": None, "fmt": "f"},
+        "expected": {"reqtxt": True, "reqtxt_fmt": "f"},
+        "covers": [
+            "C000F001B0001",
+            "C000F001B0003",
+            "C000F001B0004",
+            "C000F001B0006",
+        ],
+    },
+    {
+        "id": "key-set_fmt-set",
+        "kwargs": {"key": "k", "fmt": "f"},
+        "expected": {"reqtxt": True, "reqtxt_key": "k", "reqtxt_fmt": "f"},
+        "covers": [
+            "C000F001B0001",
+            "C000F001B0002",
+            "C000F001B0004",
+            "C000F001B0006",
+        ],
+    },
+]
+
+EMPTY_COLLECTION_CASES = [
+    {
+        "id": "not-a-collection",
+        "v": object(),
+        "expected": False,
+        "covers": ["C000F002B0001"],
+    },
+    {
+        "id": "empty-list",
+        "v": [],
+        "expected": True,
+        "covers": ["C000F002B0002"],
+    },
+    {
+        "id": "nonempty-list",
+        "v": [1],
+        "expected": False,
+        "covers": ["C000F002B0003"],
+    },
+]
+
 WHEEL_FROM_MAPPING_REQUIRED_KEY_ERROR_CASES = [
     {"name": "missing name", "mapping": {"version": "1", "tag": "t"}, "exc_sub": "name", "covers": ["C004M017B0002"]},
     {"name": "missing version", "mapping": {"name": "n", "tag": "t"}, "exc_sub": "version",
@@ -201,7 +271,7 @@ def test_indexmetadatakey_to_mapping():
     # Covers: C002M001B0001
     k = keys_mod.IndexMetadataKey(project="proj", index_base="https://example/simple")
     assert k.to_mapping() == {
-        "kind": keys_mod.ArtifactKind.INDEX_METADATA.value,
+        "kind": keys.ArtifactKind.INDEX_METADATA.value,
         "index_base": "https://example/simple",
         "project": "proj",
     }
@@ -220,14 +290,14 @@ def test_indexmetadatakey_from_mapping_success():
     k = keys_mod.IndexMetadataKey.from_mapping({"index_base": "X", "project": "P"})
     assert k.index_base == "X"
     assert k.project == "P"
-    assert k.kind == keys_mod.ArtifactKind.INDEX_METADATA
+    assert k.kind == keys.ArtifactKind.INDEX_METADATA
 
 
 def test_coremetadatakey_to_mapping():
     # Covers: C003M001B0001
     k = keys_mod.CoreMetadataKey(name="n", version="v", tag="t", file_url="u")
     assert k.to_mapping() == {
-        "kind": keys_mod.ArtifactKind.CORE_METADATA.value,
+        "kind": keys.ArtifactKind.CORE_METADATA.value,
         "name": "n",
         "version": "v",
         "tag": "t",
@@ -247,7 +317,7 @@ def test_coremetadatakey_from_mapping_success():
     # Covers: C003M002B0001
     k = keys_mod.CoreMetadataKey.from_mapping({"name": "n", "version": "1", "tag": "t", "file_url": "u"})
     assert (k.name, k.version, k.tag, k.file_url) == ("n", "1", "t", "u")
-    assert k.kind == keys_mod.ArtifactKind.CORE_METADATA
+    assert k.kind == keys.ArtifactKind.CORE_METADATA
 
 
 def test_wheelkey_post_init_normalizes_name_and_version(monkeypatch):
@@ -299,6 +369,42 @@ def test_wheelkey_validate_hash_and_set_spec(case, monkeypatch):
     )
     assert wk._hash_spec is not None
     assert wk._hash_spec.startswith(case["expect_hash_spec_prefix"])
+
+
+@pytest.mark.parametrize(
+    "case",
+    REQTXT_CASES,
+    ids=[c["id"] for c in REQTXT_CASES],
+)
+def test_reqtxt_case_matrix(case: dict[str, Any]) -> None:
+    # Covers: Needs an update
+    got = keys.reqtxt(**case["kwargs"])
+    assert got == case["expected"]
+
+
+@pytest.mark.parametrize(
+    "case",
+    EMPTY_COLLECTION_CASES,
+    ids=[c["id"] for c in EMPTY_COLLECTION_CASES],
+)
+def test__is_empty_collection_case_matrix(case: dict[str, Any]) -> None:
+    # Covers: C000F002B0001-B0003 (see EMPTY_COLLECTION_CASES[*]["covers"])
+    got = keys._is_empty_collection(case["v"])
+    assert got is case["expected"]
+
+
+def test_normalize_project_name_delegates_to_canonicalize_name(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Covers: C000F003B0001
+    calls: list[str] = []
+
+    def _fake_canon(s: str) -> str:
+        calls.append(s)
+        return "normalized!"
+
+    monkeypatch.setattr(keys, "canonicalize_name", _fake_canon)
+
+    assert keys.normalize_project_name("Some_Project") == "normalized!"
+    assert calls == ["Some_Project"]
 
 
 def test_wheelkey_set_dependency_ids_set_and_error(monkeypatch):
@@ -410,11 +516,13 @@ def test_wheelkey_req_txt_block_branches(monkeypatch):
 
     wk.set_content_hash(hash_algorithm="sha256", content_hash="a" * 64)
 
-    monkeypatch.setattr(keys_mod, "_reqtxt_comment_lines", lambda _obj: ["# k: v", "# other: 2"])
     block = wk.req_txt_block
     assert block.splitlines() == [
-        "# k: v",
-        "# other: 2",
+        "# name: my-project",
+        "# version: 9.9",
+        "# tag: py3-none-any",
+        "# origin_uri: https://example/wheel.whl",
+        "# hash: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         wk.requirement_str,
     ]
 

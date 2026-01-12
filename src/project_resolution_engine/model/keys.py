@@ -4,19 +4,49 @@ import re
 from abc import ABC
 from collections.abc import Callable
 from dataclasses import dataclass, field, fields
+from enum import Enum
 from functools import total_ordering
 from typing import Mapping, Any, TypeVar, Iterable
 
+from packaging.utils import canonicalize_name
 from packaging.version import Version, InvalidVersion
 from typing_extensions import Self
 
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
-from project_resolution_engine.repository import reqtxt, ArtifactKind, normalize_project_name, _is_empty_collection
 
 _SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 _SHA384_RE = re.compile(r"^[0-9a-fA-F]{96}$")
 _SHA512_RE = re.compile(r"^[0-9a-fA-F]{128}$")
 _REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {"csv": lambda v: ",".join(sorted(v))}
+
+
+class ArtifactKind(Enum):
+    INDEX_METADATA = "index_metadata"
+    CORE_METADATA = "core_metadata"
+    WHEEL = "wheel"
+    NONE = "none"
+
+
+def _is_empty_collection(v: object) -> bool:
+    return isinstance(v, (set, frozenset, list, tuple, dict)) and len(v) == 0
+
+
+def normalize_project_name(project: str) -> str:
+    """
+    Normalize a project name for consistent keying.
+
+    This uses packaging's canonicalize_name, which is what pip uses for normalization.
+    """
+    return canonicalize_name(project)
+
+
+def reqtxt(*, key: str | None = None, fmt: str | None = None) -> dict[str, object]:
+    md: dict[str, object] = {"reqtxt": True}
+    if key is not None:
+        md["reqtxt_key"] = key
+    if fmt is not None:
+        md["reqtxt_fmt"] = fmt
+    return md
 
 
 def _reqtxt_comment_lines(obj: WheelKey) -> list[str]:

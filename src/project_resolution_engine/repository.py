@@ -3,50 +3,14 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Generic, Any, Mapping, TYPE_CHECKING, TypeVar
+from typing import Generic, Any, Mapping
 
-from packaging.utils import canonicalize_name
 from typing_extensions import Self
 
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
-
-if TYPE_CHECKING:
-    from project_resolution_engine.model.keys import BaseArtifactKey
-
-    ArtifactKeyType = TypeVar("ArtifactKeyType", bound="BaseArtifactKey")
-else:
-    ArtifactKeyType = TypeVar("ArtifactKeyType")
+from project_resolution_engine.model.keys import BaseArtifactKey, ArtifactKeyType
 
 REPOSITORY_ENTRYPOINT_GROUP = "project_resolution_engine.repositories"
-
-
-def reqtxt(*, key: str | None = None, fmt: str | None = None) -> dict[str, object]:
-    md: dict[str, object] = {"reqtxt": True}
-    if key is not None:
-        md["reqtxt_key"] = key
-    if fmt is not None:
-        md["reqtxt_fmt"] = fmt
-    return md
-
-
-def _is_empty_collection(v: object) -> bool:
-    return isinstance(v, (set, frozenset, list, tuple, dict)) and len(v) == 0
-
-
-def normalize_project_name(project: str) -> str:
-    """
-    Normalize a project name for consistent keying.
-
-    This uses packaging's canonicalize_name, which is what pip uses for normalization.
-    """
-    return canonicalize_name(project)
-
-
-class ArtifactKind(Enum):
-    INDEX_METADATA = "index_metadata"
-    CORE_METADATA = "core_metadata"
-    WHEEL = "wheel"
-    NONE = "none"
 
 
 class ArtifactSource(Enum):

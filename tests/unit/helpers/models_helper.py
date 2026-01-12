@@ -1,14 +1,17 @@
 from __future__ import annotations
 
+import hashlib
+from abc import ABC, abstractmethod
 from collections.abc import Callable
 from dataclasses import dataclass, field, fields
 from email.parser import Parser
-from typing import Any, Iterable, Mapping, Sequence, cast, TypedDict
+from typing import Any, Iterable, Mapping, Sequence, cast, TypedDict, Literal, TypeVar, Generic, ClassVar
 
 import pytest
 from packaging.markers import Marker, Environment, default_environment
 from packaging.specifiers import SpecifierSet
 
+from project_resolution_engine.model.keys import ArtifactKind
 from project_resolution_engine.model.resolution import (
     ResolutionMode,
     RequiresDistUrlPolicy,
@@ -16,8 +19,9 @@ from project_resolution_engine.model.resolution import (
     PreReleasePolicy,
     InvalidRequiresDistPolicy
 )
-from project_resolution_engine.repository import ArtifactKind
-from project_resolution_engine.strategies import StrategyCriticality
+from project_resolution_engine.repository import ArtifactSource, ArtifactRepository
+from project_resolution_engine.strategies import StrategyCriticality, IndexMetadataStrategy, CoreMetadataStrategy, \
+    WheelFileStrategy, InstantiationPolicy, BaseArtifactResolutionStrategy
 from unit.helpers.helper_validation import MirrorValidatableFake
 
 
@@ -96,7 +100,27 @@ def validate_typed_dict(
 
 
 @dataclass(frozen=True, slots=True)
-class FakeWheelKey(MirrorValidatableFake):
+class FakeBaseArtifactKey(MirrorValidatableFake, ABC):
+    kind: ArtifactKind
+
+    @classmethod
+    def from_mapping(cls, mapping: Mapping[str, Any],
+                     **_: Any) -> FakeWheelKey | FakeIndexMetadataKey | FakeCoreMetadataKey:
+        kind_mapping = mapping.get("kind", "none")
+        kind = ArtifactKind(kind_mapping)
+        match kind:
+            case ArtifactKind.INDEX_METADATA:
+                return FakeIndexMetadataKey.from_mapping(mapping)
+            case ArtifactKind.CORE_METADATA:
+                return FakeCoreMetadataKey.from_mapping(mapping)
+            case ArtifactKind.WHEEL:
+                return FakeWheelKey.from_mapping(mapping)
+            case _:
+                raise ValueError(f"Unknown artifact key kind: {kind_mapping!r}")
+
+
+@dataclass(frozen=True, slots=True)
+class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
     # ---- dataclass fields (match real names) ----
     name: str = field(metadata=_reqtxt_meta())
     version: str = field(metadata=_reqtxt_meta())
@@ -241,7 +265,7 @@ class FakeWheelSpec(MirrorValidatableFake):
 
 
 @dataclass(frozen=True, slots=True)
-class FakeIndexMetadataKey(MirrorValidatableFake):
+class FakeIndexMetadataKey(FakeBaseArtifactKey, MirrorValidatableFake):
     project: str
     index_base: str = field(default="https://pypi.org/simple")
     kind: ArtifactKind = field(default=ArtifactKind.INDEX_METADATA, init=False)
@@ -261,7 +285,7 @@ class FakeIndexMetadataKey(MirrorValidatableFake):
 
 
 @dataclass(frozen=True, slots=True)
-class FakeCoreMetadataKey(MirrorValidatableFake):
+class FakeCoreMetadataKey(FakeBaseArtifactKey, MirrorValidatableFake):
     name: str
     version: str
     tag: str
@@ -663,6 +687,128 @@ class FakeResolverCandidate(MirrorValidatableFake):
         return cls(wheel_key=FakeWheelKey.from_mapping(mapping["wheel_key"]))
 
 
+@dataclass(frozen=True, slots=True)
+class FakeArtifactRecord(MirrorValidatableFake):
+    key: FakeBaseArtifactKey
+    destination_uri: str
+    origin_uri: str
+    source: ArtifactSource = ArtifactSource.OTHER
+    content_sha256: str | None = None
+    size: int | None = None
+    created_at_epoch_s: float | None = None
+    content_hashes: dict[str, str] = field(default_factory=dict)
+
+    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+        mapping: dict[str, Any] = {
+            "key": self.key.to_mapping(),
+            "destination_uri": self.destination_uri,
+            "origin_uri": self.origin_uri,
+            "source": self.source.value,
+            "content_sha256": self.content_sha256,
+            "size": self.size,
+            "created_at_epoch_s": self.created_at_epoch_s
+        }
+        if self.content_hashes:
+            mapping.update({"content_hashes": self.content_hashes})
+        return mapping
+
+    @classmethod
+    def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakeArtifactRecord:
+        incoming_hashes = mapping.get("content_hashes", {})
+        return cls(
+            key=FakeBaseArtifactKey.from_mapping(mapping["key"]),
+            destination_uri=mapping["destination_uri"],
+            origin_uri=mapping["origin_uri"],
+            source=ArtifactSource(mapping.get("source", ArtifactSource.OTHER.value)),
+            content_sha256=mapping.get("content_sha256"),
+            size=mapping.get("size"),
+            created_at_epoch_s=mapping.get("created_at_epoch_s"),
+            content_hashes=dict(incoming_hashes))
+
+
+ArtifactKeyType = TypeVar("ArtifactKeyType", bound=FakeBaseArtifactKey)
+
+
+# ---------------------------------------------------------------------------
+# Strategy fakes (MUST subclass the real base classes so isinstance(...) works)
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class ConcreteFakeBaseArtifactResolutionStrategy(BaseArtifactResolutionStrategy):
+    def resolve(self, *, key: Any, destination_uri: str) -> FakeArtifactRecord | None:
+        return BaseArtifactResolutionStrategy.resolve(self, key=key, destination_uri=destination_uri)
+
+
+@dataclass(frozen=True, slots=True)
+class FakeIndexMetadataStrategy(IndexMetadataStrategy):
+    def resolve(self, *, key: FakeIndexMetadataKey, destination_uri: str) -> FakeArtifactRecord | None:
+        raise NotImplementedError("FakeIndexMetadataStrategy.resolve is not used by services.py tests")
+
+
+@dataclass(frozen=True, slots=True)
+class FakeCoreMetadataStrategy(CoreMetadataStrategy):
+    def resolve(self, *, key: FakeCoreMetadataKey, destination_uri: str) -> FakeArtifactRecord | None:
+        raise NotImplementedError("FakeCoreMetadataStrategy.resolve is not used by services.py tests")
+
+
+@dataclass(frozen=True, slots=True)
+class FakeWheelFileStrategy(WheelFileStrategy):
+    def resolve(self, *, key: FakeWheelKey, destination_uri: str) -> FakeArtifactRecord | None:
+        raise NotImplementedError("FakeWheelFileStrategy.resolve is not used by services.py tests")
+
+
+# ---------------------------------------------------------------------------
+# Capturing stub for services.load_strategies (patch services.load_strategies)
+# ---------------------------------------------------------------------------
+
+@dataclass(slots=True)
+class CapturingLoadStrategies:
+    """
+    Callable stub for services.load_strategies that records calls and returns a preset list.
+    """
+    return_value: Sequence[BaseArtifactResolutionStrategy[Any]]
+    calls: list[dict[str, Any]] = field(default_factory=list)
+
+    def __call__(self, **kwargs: Any) -> list[BaseArtifactResolutionStrategy[Any]]:
+        self.calls.append(dict(kwargs))
+        return list(self.return_value)
+
+
+# ---------------------------------------------------------------------------
+# In-memory repository fake (generally useful; also good for coordinator tests)
+# ---------------------------------------------------------------------------
+
+@dataclass(slots=True)
+class InMemoryArtifactRepository(ArtifactRepository):
+    """
+    Minimal ArtifactRepository implementation backed by an in-memory dict.
+    """
+    records: dict[FakeBaseArtifactKey, FakeArtifactRecord] = field(default_factory=dict)
+
+    get_calls: list[FakeBaseArtifactKey] = field(default_factory=list)
+    put_calls: list[FakeArtifactRecord] = field(default_factory=list)
+    delete_calls: list[FakeBaseArtifactKey] = field(default_factory=list)
+    allocate_calls: list[FakeBaseArtifactKey] = field(default_factory=list)
+
+    def get(self, key: FakeBaseArtifactKey) -> FakeArtifactRecord | None:
+        self.get_calls.append(key)
+        return self.records.get(key)
+
+    def put(self, record: FakeArtifactRecord) -> None:
+        self.put_calls.append(record)
+        self.records[record.key] = record
+
+    def delete(self, key: FakeBaseArtifactKey) -> None:
+        self.delete_calls.append(key)
+        self.records.pop(key, None)
+
+    def allocate_destination_uri(self, key: FakeBaseArtifactKey) -> str:
+        self.allocate_calls.append(key)
+        payload = repr(key.to_mapping()).encode("utf-8")
+        digest = hashlib.sha256(payload).hexdigest()[:12]
+        return f"mem://artifact/{key.kind.value}/{digest}"
+
+
 # =============================================================================
 # BUILDERS (fakes + mapping shapes that your real models expect)
 # =============================================================================
@@ -747,6 +893,46 @@ def resolved_graph_mapping(
     }
 
 
+# noinspection PyTypeChecker
+def make_fake_strategy(
+        kind: Literal["index", "core", "wheel"],
+        *,
+        name: str,
+        instance_id: str = "",
+        precedence: int = 100,
+        criticality: StrategyCriticality = StrategyCriticality.OPTIONAL,
+        source: ArtifactSource = ArtifactSource.OTHER) -> BaseArtifactResolutionStrategy[Any]:
+    """
+    Factory for creating strategy instances for services.py tests.
+
+    Note: instance_id defaults to the value of `name` if empty (via BaseArtifactResolutionStrategy.__post_init__).
+    """
+    match kind:
+        case "index":
+            return FakeIndexMetadataStrategy(
+                name=name,
+                instance_id=instance_id,
+                precedence=precedence,
+                criticality=criticality,
+                source=source)
+        case "core":
+            return FakeCoreMetadataStrategy(
+                name=name,
+                instance_id=instance_id,
+                precedence=precedence,
+                criticality=criticality,
+                source=source)
+        case "wheel":
+            return FakeWheelFileStrategy(
+                name=name,
+                instance_id=instance_id,
+                precedence=precedence,
+                criticality=criticality,
+                source=source)
+        case _:
+            raise ValueError(f"Unknown kind: {kind!r}")
+
+
 # =============================================================================
 # PATCH UTILITIES (opt-in)
 # =============================================================================
@@ -786,3 +972,17 @@ def patch_models_wheelspec(monkeypatch: pytest.MonkeyPatch) -> type[FakeWheelSpe
     from project_resolution_engine.model import resolution as model_resolution
     patch_wheel_spec_refs(monkeypatch, model_resolution)
     return FakeWheelSpec
+
+
+def patch_services_load_strategies(
+        monkeypatch: pytest.MonkeyPatch,
+        *,
+        return_value: Sequence[BaseArtifactResolutionStrategy[Any]]) -> CapturingLoadStrategies:
+    """
+    Patch the imported name inside services.py and return the capturing stub.
+    """
+    from project_resolution_engine import services as services_mod
+
+    stub = CapturingLoadStrategies(return_value=return_value)
+    monkeypatch.setattr(services_mod, "load_strategies", stub, raising=True)
+    return stub

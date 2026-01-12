@@ -7,7 +7,9 @@ from typing import ClassVar, Generic, TypedDict
 
 from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
 from project_resolution_engine.repository import (
-    ArtifactKeyType, ArtifactRecord, ArtifactSource,
+    ArtifactKeyType,
+    ArtifactRecord,
+    ArtifactSource,
 )
 
 

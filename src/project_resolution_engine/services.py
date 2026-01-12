@@ -23,7 +23,6 @@ from project_resolution_engine.strategies import (
 
 BUILTIN_STRATEGY_PACKAGE = "project_resolution_engine.internal.builtin_strategies"
 STRATEGY_ENTRYPOINT_GROUP = "project_resolution_engine.strategies"
-
 BUILTIN_STRATEGY_CONFIG_PACKAGE = "project_resolution_engine.internal.builtin_strategy_configs"
 STRATEGY_CONFIG_ENTRYPOINT_GROUP = "project_resolution_engine.strategy_configs"
 
