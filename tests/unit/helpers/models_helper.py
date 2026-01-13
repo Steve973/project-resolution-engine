@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import hashlib
-from abc import ABC, abstractmethod
+from abc import ABC
 from collections.abc import Callable
 from dataclasses import dataclass, field, fields
 from email.parser import Parser
-from typing import Any, Iterable, Mapping, Sequence, cast, TypedDict, Literal, TypeVar, Generic, ClassVar
+from typing import Any, Iterable, Mapping, Sequence, cast, TypedDict, Literal, TypeVar
 
 import pytest
 from packaging.markers import Marker, Environment, default_environment
@@ -21,7 +21,7 @@ from project_resolution_engine.model.resolution import (
 )
 from project_resolution_engine.repository import ArtifactSource, ArtifactRepository
 from project_resolution_engine.strategies import StrategyCriticality, IndexMetadataStrategy, CoreMetadataStrategy, \
-    WheelFileStrategy, InstantiationPolicy, BaseArtifactResolutionStrategy
+    WheelFileStrategy, BaseArtifactResolutionStrategy
 from unit.helpers.helper_validation import MirrorValidatableFake
 
 

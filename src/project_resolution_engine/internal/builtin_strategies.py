@@ -17,7 +17,10 @@ import requests
 from project_resolution_engine.repository import ArtifactRecord, ArtifactSource
 from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
 from project_resolution_engine.strategies import (
-    StrategyNotApplicable, WheelFileStrategy, CoreMetadataStrategy, IndexMetadataStrategy,
+    StrategyNotApplicable,
+    WheelFileStrategy,
+    CoreMetadataStrategy,
+    IndexMetadataStrategy,
 )
 
 _INVALID_SEGMENT_CHARS: Final[re.Pattern[str]] = re.compile(r"[^A-Za-z0-9._-]+")

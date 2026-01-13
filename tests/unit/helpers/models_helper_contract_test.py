@@ -8,11 +8,12 @@ from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataK
 from project_resolution_engine.model.pep import Pep658Metadata, Pep691FileMetadata, Pep691Metadata
 from project_resolution_engine.model.resolution import WheelSpec, ResolutionPolicy, ResolutionEnv, ResolutionParams, \
     ResolutionResult
+from project_resolution_engine.repository import ArtifactRecord
 from unit.helpers.helper_validation import MirrorValidatableFake
 from unit.helpers.models_helper import FakeWheelKey, FakeWheelSpec, FakeIndexMetadataKey, FakeCoreMetadataKey, \
     FakeResolvedNode, FakeResolvedGraph, FakePep658Metadata, FakePep691FileMetadata, FakePep691Metadata, \
     FakeResolutionPolicy, FakeResolutionEnv, FakeResolutionParams, FakeResolutionResult, FakeResolverRequirement, \
-    FakeResolverCandidate
+    FakeResolverCandidate, FakeArtifactRecord
 
 """
 This module tests that the models helpers contracts (fakes for various model
@@ -37,6 +38,7 @@ MIRROR_PAIRS = [
     (ResolutionResult, FakeResolutionResult),
     (ResolverRequirement, FakeResolverRequirement),
     (ResolverCandidate, FakeResolverCandidate),
+    (ArtifactRecord, FakeArtifactRecord),
 ]
 
 
