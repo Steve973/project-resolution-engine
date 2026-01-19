@@ -17,7 +17,9 @@ from project_resolution_engine.internal.util.multiformat import MultiformatModel
 _SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 _SHA384_RE = re.compile(r"^[0-9a-fA-F]{96}$")
 _SHA512_RE = re.compile(r"^[0-9a-fA-F]{128}$")
-_REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {"csv": lambda v: ",".join(sorted(v))}
+_REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {
+    "csv": lambda v: ",".join(sorted(v))
+}
 
 
 class ArtifactKind(Enum):
@@ -100,14 +102,12 @@ class IndexMetadataKey(BaseArtifactKey):
         return {
             "kind": self.kind.value,
             "index_base": self.index_base,
-            "project": self.project
+            "project": self.project,
         }
 
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
-        return cls(
-            index_base=mapping["index_base"],
-            project=mapping["project"])
+        return cls(index_base=mapping["index_base"], project=mapping["project"])
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,7 +133,8 @@ class CoreMetadataKey(BaseArtifactKey):
             name=mapping["name"],
             version=mapping["version"],
             tag=mapping["tag"],
-            file_url=mapping["file_url"])
+            file_url=mapping["file_url"],
+        )
 
 
 @total_ordering
@@ -171,20 +172,28 @@ class WheelKey(BaseArtifactKey):
         kind (ArtifactKind): The artifact type, which is always set to `WHEEL` for
             this class.
     """
+
     name: str = field(metadata=reqtxt())
     version: str = field(metadata=reqtxt())
     tag: str = field(metadata=reqtxt())
     requires_python: str | None = field(default=None, compare=False, metadata=reqtxt())
-    satisfied_tags: frozenset[str] = field(default_factory=frozenset, compare=False, metadata=reqtxt(fmt="csv"))
-    dependency_ids: frozenset[str] | None = field(default=None, compare=False,
-                                                  metadata=reqtxt(key="dependencies", fmt="csv"))
+    satisfied_tags: frozenset[str] = field(
+        default_factory=frozenset, compare=False, metadata=reqtxt(fmt="csv")
+    )
+    dependency_ids: frozenset[str] | None = field(
+        default=None, compare=False, metadata=reqtxt(key="dependencies", fmt="csv")
+    )
     origin_uri: str | None = field(default=None, compare=False, metadata=reqtxt())
     content_hash: str | None = field(default=None, compare=False)
     hash_algorithm: str | None = field(default=None, compare=False)
     marker: str | None = field(default=None, compare=False, metadata=reqtxt())
-    extras: frozenset[str] | None = field(default=None, compare=False, metadata=reqtxt(fmt="csv"))
+    extras: frozenset[str] | None = field(
+        default=None, compare=False, metadata=reqtxt(fmt="csv")
+    )
     kind: ArtifactKind = field(default=ArtifactKind.WHEEL, init=False, compare=False)
-    _hash_spec: str | None = field(default=None, init=False, repr=False, compare=False, metadata=reqtxt(key="hash"))
+    _hash_spec: str | None = field(
+        default=None, init=False, repr=False, compare=False, metadata=reqtxt(key="hash")
+    )
 
     def _validate_hash_and_set_spec(self) -> None:
         if self.hash_algorithm is None or self.content_hash is None:
@@ -222,7 +231,9 @@ class WheelKey(BaseArtifactKey):
     def set_dependency_ids(self, dependencies: Iterable[WheelKey]) -> None:
         if self.dependency_ids is not None:
             raise ValueError("WheelKey.dependency_ids is already set")
-        object.__setattr__(self, "dependency_ids", frozenset(dep.identifier for dep in dependencies))
+        object.__setattr__(
+            self, "dependency_ids", frozenset(dep.identifier for dep in dependencies)
+        )
 
     def set_origin_uri(self, origin_uri: str) -> None:
         if self.origin_uri is None:
@@ -279,9 +290,13 @@ class WheelKey(BaseArtifactKey):
     @property
     def requirement_str(self) -> str:
         if self.origin_uri is None:
-            raise ValueError(f"{self.identifier}: origin_uri is required to render a requirement string")
+            raise ValueError(
+                f"{self.identifier}: origin_uri is required to render a requirement string"
+            )
         if self._hash_spec is None:
-            raise ValueError(f"{self.identifier}: _hash_spec is required to render a requirement string")
+            raise ValueError(
+                f"{self.identifier}: _hash_spec is required to render a requirement string"
+            )
         return f"{self.name} @ {self.origin_uri} --hash={self._hash_spec}"
 
     @property
@@ -307,9 +322,13 @@ class WheelKey(BaseArtifactKey):
             requirement line for the package.
         """
         if self.origin_uri is None:
-            raise ValueError(f"{self.identifier}: origin_uri is required to render requirements")
+            raise ValueError(
+                f"{self.identifier}: origin_uri is required to render requirements"
+            )
         if self._hash_spec is None:
-            raise ValueError(f"{self.identifier}: _hash_spec is required to render requirements")
+            raise ValueError(
+                f"{self.identifier}: _hash_spec is required to render requirements"
+            )
 
         meta_lines = _reqtxt_comment_lines(self)
         req_line = self.requirement_str
@@ -323,12 +342,14 @@ class WheelKey(BaseArtifactKey):
             "tag": self.tag,
             "requires_python": self.requires_python,
             "satisfied_tags": list(self.satisfied_tags),
-            "dependencies": list(self.dependency_ids) if self.dependency_ids is not None else None,
+            "dependencies": (
+                list(self.dependency_ids) if self.dependency_ids is not None else None
+            ),
             "origin_uri": self.origin_uri,
             "content_hash": self.content_hash,
             "hash_algorithm": self.hash_algorithm,
             "marker": self.marker,
-            "extras": list(self.extras) if self.extras is not None else None
+            "extras": list(self.extras) if self.extras is not None else None,
         }
 
     @classmethod
@@ -341,9 +362,14 @@ class WheelKey(BaseArtifactKey):
             tag=mapping["tag"],
             requires_python=mapping.get("requires_python"),
             satisfied_tags=frozenset(mapping.get("satisfied_tags", [])),
-            dependency_ids=frozenset(dependencies_mapping) if dependencies_mapping is not None else None,
+            dependency_ids=(
+                frozenset(dependencies_mapping)
+                if dependencies_mapping is not None
+                else None
+            ),
             origin_uri=mapping.get("origin_uri"),
             content_hash=mapping.get("content_hash"),
             hash_algorithm=mapping.get("hash_algorithm"),
             marker=mapping.get("marker"),
-            extras=frozenset(extras_mapping) if extras_mapping is not None else None)
+            extras=frozenset(extras_mapping) if extras_mapping is not None else None,
+        )

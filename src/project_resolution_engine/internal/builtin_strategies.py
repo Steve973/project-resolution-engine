@@ -14,8 +14,12 @@ from urllib.parse import urlparse
 
 import requests
 
+from project_resolution_engine.model.keys import (
+    IndexMetadataKey,
+    CoreMetadataKey,
+    WheelKey,
+)
 from project_resolution_engine.repository import ArtifactRecord, ArtifactSource
-from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
 from project_resolution_engine.strategies import (
     StrategyNotApplicable,
     WheelFileStrategy,
@@ -62,6 +66,7 @@ def _url_basename(url: str) -> str | None:
 # helpers
 # -------------------------
 
+
 def _require_file_destination(destination_uri: str) -> Path:
     """
     Built-in strategies are intentionally file-only.
@@ -70,7 +75,9 @@ def _require_file_destination(destination_uri: str) -> Path:
     """
     parsed = urlparse(destination_uri)
     if parsed.scheme != "file":
-        raise ValueError(f"Built-in strategies require file:// destination URIs, got: {destination_uri!r}")
+        raise ValueError(
+            f"Built-in strategies require file:// destination URIs, got: {destination_uri!r}"
+        )
     return Path(parsed.path)
 
 
@@ -94,7 +101,9 @@ def _simple_project_json_url(index_base: str, project: str) -> str:
 
 def _write_canonical_json(path: Path, payload: Any) -> None:
     # Deterministic output for stable hashes.
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 def _pep658_metadata_url(file_url: str) -> str:
@@ -118,6 +127,7 @@ def _find_dist_info_metadata_path(zf: zipfile.ZipFile) -> str:
 # strategies
 # -------------------------
 
+
 @dataclass(frozen=True)
 class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
     name: str = "pep691_http"
@@ -125,7 +135,9 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
     timeout_s: float = 30.0
     user_agent: str = "project-resolution-engine/0"
 
-    def resolve(self, *, key: IndexMetadataKey, destination_uri: str) -> ArtifactRecord | None:
+    def resolve(
+        self, *, key: IndexMetadataKey, destination_uri: str
+    ) -> ArtifactRecord | None:
         if not isinstance(key, IndexMetadataKey):
             raise StrategyNotApplicable()
 
@@ -154,7 +166,8 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )
 
 
 @dataclass(frozen=True)
@@ -177,7 +190,9 @@ class HttpWheelFileStrategy(WheelFileStrategy):
         if key.origin_uri is None:
             raise ValueError("WheelKey must have origin_uri set")
 
-        with requests.get(key.origin_uri, headers=headers, timeout=self.timeout_s, stream=True) as resp:
+        with requests.get(
+            key.origin_uri, headers=headers, timeout=self.timeout_s, stream=True
+        ) as resp:
             resp.raise_for_status()
             with dest_path.open("wb") as f:
                 for chunk in resp.iter_content(chunk_size=self.chunk_bytes):
@@ -194,7 +209,8 @@ class HttpWheelFileStrategy(WheelFileStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )
 
 
 @dataclass(frozen=True)
@@ -202,12 +218,15 @@ class Pep658CoreMetadataHttpStrategy(CoreMetadataStrategy):
     """
     Download core metadata via PEP 658 sidecar (<file_url>.metadata).
     """
+
     name: str = "pep658_http"
     precedence: int = 50
     timeout_s: float = 30.0
     user_agent: str = "project-resolution-engine/0"
 
-    def resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None:
+    def resolve(
+        self, *, key: CoreMetadataKey, destination_uri: str
+    ) -> ArtifactRecord | None:
         if not isinstance(key, CoreMetadataKey):
             raise StrategyNotApplicable()
 
@@ -235,7 +254,8 @@ class Pep658CoreMetadataHttpStrategy(CoreMetadataStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )
 
 
 @dataclass(frozen=True)
@@ -244,12 +264,15 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
     Fallback: download the wheel (using an injected WheelFileStrategy) and extract
     *.dist-info/METADATA into destination_uri.
     """
+
     name: str = "wheel_extracted_metadata"
     precedence: int = 90
     source: ArtifactSource = ArtifactSource.WHEEL_EXTRACTED
     wheel_strategy: WheelFileStrategy = field(kw_only=True)
 
-    def resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None:
+    def resolve(
+        self, *, key: CoreMetadataKey, destination_uri: str
+    ) -> ArtifactRecord | None:
         if not isinstance(key, CoreMetadataKey):
             raise StrategyNotApplicable()
 
@@ -257,10 +280,8 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
         _ensure_parent_dir(dest_path)
 
         wheel_key = WheelKey(
-            name=key.name,
-            version=key.version,
-            tag=key.tag,
-            origin_uri=key.file_url)
+            name=key.name, version=key.version, tag=key.tag, origin_uri=key.file_url
+        )
 
         with tempfile.TemporaryDirectory(prefix="pre-wheel-extract-") as td:
             wheel_path = Path(td) / "artifact.whl"
@@ -285,7 +306,8 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )
 
 
 @dataclass(frozen=True)
@@ -309,7 +331,11 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
         _ensure_parent_dir(dest_path)
 
         # src path
-        src_path = Path(src_parsed.path) if src_parsed.scheme == "file" else Path(key.origin_uri)
+        src_path = (
+            Path(src_parsed.path)
+            if src_parsed.scheme == "file"
+            else Path(key.origin_uri)
+        )
         if not src_path.exists():
             raise FileNotFoundError(str(src_path))
 
@@ -328,7 +354,8 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )
 
 
 @dataclass(frozen=True)
@@ -337,11 +364,14 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
     Resolve core metadata for a wheel whose CoreMetadataKey.file_url is a local path
     or file:// URI by extracting *.dist-info/METADATA directly from the wheel.
     """
+
     name: str = "direct_uri_core_metadata"
     precedence: int = 40
     source: ArtifactSource = ArtifactSource.URI_WHEEL
 
-    def resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None:
+    def resolve(
+        self, *, key: CoreMetadataKey, destination_uri: str
+    ) -> ArtifactRecord | None:
         if not isinstance(key, CoreMetadataKey):
             raise StrategyNotApplicable()
 
@@ -349,7 +379,11 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
         if parsed.scheme not in ("", "file"):
             raise StrategyNotApplicable()
 
-        wheel_path = Path(unquote(parsed.path)) if parsed.scheme == "file" else Path(key.file_url)
+        wheel_path = (
+            Path(unquote(parsed.path))
+            if parsed.scheme == "file"
+            else Path(key.file_url)
+        )
         if not wheel_path.exists():
             raise FileNotFoundError(str(wheel_path))
         if not wheel_path.is_file():
@@ -373,4 +407,5 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
             source=self.source,
             content_sha256=sha256,
             size=size,
-            content_hashes={"sha256": sha256})
+            content_hashes={"sha256": sha256},
+        )

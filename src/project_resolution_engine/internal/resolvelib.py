@@ -16,15 +16,33 @@ from resolvelib import AbstractProvider, Resolver
 from resolvelib.resolvers import Result
 from resolvelib.structs import RequirementInformation
 
-from project_resolution_engine.internal.resolvelib_types import ResolverRequirement, ResolverCandidate, \
-    ProjectResolutionReporter, Preference
-from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
-from project_resolution_engine.model.pep import Pep691Metadata, Pep658Metadata, Pep691FileMetadata
-from project_resolution_engine.model.resolution import ResolutionEnv, WheelSpec, YankedWheelPolicy
+from project_resolution_engine.internal.resolvelib_types import (
+    ResolverRequirement,
+    ResolverCandidate,
+    ProjectResolutionReporter,
+    Preference,
+)
+from project_resolution_engine.model.keys import (
+    IndexMetadataKey,
+    CoreMetadataKey,
+    WheelKey,
+)
+from project_resolution_engine.model.pep import (
+    Pep691Metadata,
+    Pep658Metadata,
+    Pep691FileMetadata,
+)
+from project_resolution_engine.model.resolution import (
+    ResolutionEnv,
+    WheelSpec,
+    YankedWheelPolicy,
+)
 from project_resolution_engine.services import ResolutionServices
 
 
-def _expand_tags_for_context(*, python_version: Version, context_tag: Tag) -> frozenset[Tag]:
+def _expand_tags_for_context(
+    *, python_version: Version, context_tag: Tag
+) -> frozenset[Tag]:
     major = python_version.major
     minor = python_version.minor
     plat = context_tag.platform
@@ -42,7 +60,10 @@ def _expand_tags_for_context(*, python_version: Version, context_tag: Tag) -> fr
     }
 
     # CPython-ish ABI fallbacks when the seed is cpXY-...
-    if context_tag.interpreter.startswith("cp") and context_tag.interpreter[2:].isdigit():
+    if (
+        context_tag.interpreter.startswith("cp")
+        and context_tag.interpreter[2:].isdigit()
+    ):
         cp = context_tag.interpreter  # e.g. "cp311"
         tags |= {
             Tag(cp, "abi3", plat),
@@ -71,7 +92,7 @@ def _env_python_version(env: ResolutionEnv) -> Version:
     # Prefer the full version if present (e.g., 3.11.7); else python_version (e.g., 3.11).
     full = env.marker_environment.get("python_full_version")
     short = env.marker_environment.get("python_version")
-    raw = (full or short or "0")
+    raw = full or short or "0"
     try:
         return Version(str(raw))
     except InvalidVersion:
@@ -86,11 +107,18 @@ def _version_sort_key(v: str) -> tuple[int, Version | str]:
         return 0, v
 
 
-class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCandidate, str]):
+class ProjectResolutionProvider(
+    AbstractProvider[ResolverRequirement, ResolverCandidate, str]
+):
     """A minimal resolvelib Provider for project_resolution_engine."""
 
-    def __init__(self, *, services: ResolutionServices, env: ResolutionEnv,
-                 index_base: str = "https://pypi.org/simple") -> None:
+    def __init__(
+        self,
+        *,
+        services: ResolutionServices,
+        env: ResolutionEnv,
+        index_base: str = "https://pypi.org/simple",
+    ) -> None:
         self._services = services
         self._env = env
         self._index_base = index_base
@@ -99,7 +127,9 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         self._core_metadata_cache: dict[tuple[str, str, str, str], Pep658Metadata] = {}
         self._requested_extras_by_name: dict[str, frozenset[str]] = {}
 
-    def identify(self, requirement_or_candidate: ResolverRequirement | ResolverCandidate) -> str:
+    def identify(
+        self, requirement_or_candidate: ResolverRequirement | ResolverCandidate
+    ) -> str:
         return requirement_or_candidate.name
 
     @staticmethod
@@ -114,10 +144,11 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         return None
 
     def find_matches(
-            self,
-            identifier: str,
-            requirements: Mapping[str, Iterator[ResolverRequirement]],
-            incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> Iterable[ResolverCandidate]:
+        self,
+        identifier: str,
+        requirements: Mapping[str, Iterator[ResolverRequirement]],
+        incompatibilities: Mapping[str, Iterator[ResolverCandidate]],
+    ) -> Iterable[ResolverCandidate]:
         name = canonicalize_name(identifier)
 
         req_list = self._materialize_requirements(requirements, name)
@@ -139,17 +170,20 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             pep691=pep691,
             combined_spec=combined_spec,
             py_version=str(py_version),
-            bad=bad)
+            bad=bad,
+        )
 
         return self._sort_candidates(named_candidates)
 
     @staticmethod
     def _materialize_requirements(
-            requirements: Mapping[str, Iterator[ResolverRequirement]],
-            name: str) -> list[ResolverRequirement]:
+        requirements: Mapping[str, Iterator[ResolverRequirement]], name: str
+    ) -> list[ResolverRequirement]:
         return list(requirements.get(name, iter(())))
 
-    def _update_requested_extras(self, name: str, req_list: Sequence[ResolverRequirement]) -> None:
+    def _update_requested_extras(
+        self, name: str, req_list: Sequence[ResolverRequirement]
+    ) -> None:
         if not req_list:
             return
 
@@ -165,18 +199,19 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
 
     @staticmethod
     def _compute_bad_set(
-            name: str,
-            incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> set[tuple[str, str, str]]:
+        name: str, incompatibilities: Mapping[str, Iterator[ResolverCandidate]]
+    ) -> set[tuple[str, str, str]]:
         return {
             (c.name, c.wheel_key.version, c.wheel_key.tag)
             for c in incompatibilities.get(name, iter(()))
         }
 
     def _build_uri_candidates(
-            self,
-            name: str,
-            req_list: Sequence[ResolverRequirement],
-            bad: set[tuple[str, str, str]]) -> list[ResolverCandidate] | None:
+        self,
+        name: str,
+        req_list: Sequence[ResolverRequirement],
+        bad: set[tuple[str, str, str]],
+    ) -> list[ResolverCandidate] | None:
         uri_reqs = [r for r in req_list if r.uri]
         if not uri_reqs:
             return None
@@ -193,11 +228,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         return candidates
 
     def _candidate_from_uri_req(
-            self,
-            *,
-            name: str,
-            req: ResolverRequirement,
-            bad: set[tuple[str, str, str]]) -> ResolverCandidate | None:
+        self, *, name: str, req: ResolverRequirement, bad: set[tuple[str, str, str]]
+    ) -> ResolverCandidate | None:
         assert req.uri is not None
 
         try:
@@ -205,7 +237,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             dist, ver, _build, tags = parse_wheel_filename(filename)
         except Exception:
             raise ValueError(
-                f"Direct URI requirement does not look like a wheel file for {name!r}: {req.uri!r}")
+                f"Direct URI requirement does not look like a wheel file for {name!r}: {req.uri!r}"
+            )
 
         if canonicalize_name(dist) != name:
             return None
@@ -221,7 +254,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             tag=best_tag,
             requires_python=None,
             satisfied_tags=frozenset(file_tag_set),
-            origin_uri=req.uri)
+            origin_uri=req.uri,
+        )
 
         tup = (wk.name, wk.version, wk.tag)
         if tup in bad:
@@ -238,7 +272,11 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         for r in req_list:
             if r.version is None:
                 continue
-            combined_spec = r.version if combined_spec is None else SpecifierSet(f"{combined_spec},{r.version}")
+            combined_spec = (
+                r.version
+                if combined_spec is None
+                else SpecifierSet(f"{combined_spec},{r.version}")
+            )
         return combined_spec
 
     def _load_pep691(self, name: str) -> Pep691Metadata:
@@ -256,13 +294,14 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         return pep691
 
     def _build_index_candidates(
-            self,
-            *,
-            name: str,
-            pep691: Pep691Metadata,
-            combined_spec: SpecifierSet | None,
-            py_version: str,
-            bad: set[tuple[str, str, str]]) -> list[ResolverCandidate]:
+        self,
+        *,
+        name: str,
+        pep691: Pep691Metadata,
+        combined_spec: SpecifierSet | None,
+        py_version: str,
+        bad: set[tuple[str, str, str]],
+    ) -> list[ResolverCandidate]:
         candidates: list[ResolverCandidate] = []
         for f in pep691.files:
             c = self._candidate_from_index_file(
@@ -270,19 +309,21 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
                 f=f,
                 combined_spec=combined_spec,
                 py_version=py_version,
-                bad=bad)
+                bad=bad,
+            )
             if c is not None:
                 candidates.append(c)
         return candidates
 
     def _candidate_from_index_file(
-            self,
-            *,
-            name: str,
-            f: Pep691FileMetadata,
-            combined_spec: SpecifierSet | None,
-            py_version: str,
-            bad: set[tuple[str, str, str]]) -> ResolverCandidate | None:
+        self,
+        *,
+        name: str,
+        f: Pep691FileMetadata,
+        combined_spec: SpecifierSet | None,
+        py_version: str,
+        bad: set[tuple[str, str, str]],
+    ) -> ResolverCandidate | None:
         if not f.filename.lower().endswith(".whl"):
             return None
 
@@ -327,7 +368,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             satisfied_tags=frozenset(file_tag_set),
             origin_uri=f.url,
             content_hash=h,
-            hash_algorithm=alg)
+            hash_algorithm=alg,
+        )
 
         tup = (wk.name, wk.version, wk.tag)
         if tup in bad:
@@ -348,7 +390,9 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         return next((t for t in ordered if t in file_tag_set), None)
 
     @staticmethod
-    def _sort_candidates(candidates: list[ResolverCandidate]) -> list[ResolverCandidate]:
+    def _sort_candidates(
+        candidates: list[ResolverCandidate],
+    ) -> list[ResolverCandidate]:
         """
         Current behavior: version desc, then tag desc (lexical), stable enough for now.
 
@@ -356,11 +400,13 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         secondary key with a tag rank derived from env.supported_tags_ordered.
         """
         candidates.sort(
-            key=lambda c: (_version_sort_key(c.version), c.wheel_key.tag),
-            reverse=True)
+            key=lambda c: (_version_sort_key(c.version), c.wheel_key.tag), reverse=True
+        )
         return candidates
 
-    def is_satisfied_by(self, requirement: ResolverRequirement, candidate: ResolverCandidate) -> bool:
+    def is_satisfied_by(
+        self, requirement: ResolverRequirement, candidate: ResolverCandidate
+    ) -> bool:
         if candidate.name != requirement.name:
             return False
 
@@ -375,7 +421,9 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         except Exception:
             return False
 
-    def get_dependencies(self, candidate: ResolverCandidate) -> Iterable[ResolverRequirement]:
+    def get_dependencies(
+        self, candidate: ResolverCandidate
+    ) -> Iterable[ResolverRequirement]:
         wk = candidate.wheel_key
         if wk.origin_uri is None:
             return ()
@@ -384,10 +432,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         meta = self._core_metadata_cache.get(cache_key)
         if meta is None:
             cm_key = CoreMetadataKey(
-                name=wk.name,
-                version=wk.version,
-                tag=wk.tag,
-                file_url=wk.origin_uri)
+                name=wk.name, version=wk.version, tag=wk.tag, file_url=wk.origin_uri
+            )
             cm_record = self._services.core_metadata.resolve(cm_key)
             cm_path = path_from_file_uri(cm_record.destination_uri)
             text = cm_path.read_text(encoding="utf-8", errors="replace")
@@ -395,7 +441,9 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             self._core_metadata_cache[cache_key] = meta
 
         requested_extras = self._requested_extras_by_name.get(wk.name, frozenset())
-        marker_env_base = cast(dict[str, str], cast(object, self._env.marker_environment))
+        marker_env_base = cast(
+            dict[str, str], cast(object, self._env.marker_environment)
+        )
         marker_env_base.setdefault("extra", "")
 
         deps: list[ResolverRequirement] = []
@@ -427,17 +475,26 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
                         version=req.specifier if str(req.specifier) else None,
                         extras=frozenset(req.extras),
                         marker=req.marker,
-                        uri=req.url if req.url else None)))
+                        uri=req.url if req.url else None,
+                    )
+                )
+            )
 
         return deps
 
     def get_preference(
-            self,
-            identifier: str,
-            resolutions: Mapping[str, ResolverCandidate],
-            candidates: Mapping[str, Iterator[ResolverCandidate]],
-            information: Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]],
-            backtrack_causes: Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> Preference:
+        self,
+        identifier: str,
+        resolutions: Mapping[str, ResolverCandidate],
+        candidates: Mapping[str, Iterator[ResolverCandidate]],
+        information: Mapping[
+            str,
+            Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]],
+        ],
+        backtrack_causes: Sequence[
+            RequirementInformation[ResolverRequirement, ResolverCandidate]
+        ],
+    ) -> Preference:
         """
         Decide which identifier resolvelib should try to resolve next.
 
@@ -461,7 +518,8 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
         # backtrack_causes holds RequirementInformation entries; match by identifier.
         is_backtrack_cause = any(
             getattr(ri.requirement, "name", None) == identifier
-            for ri in backtrack_causes)
+            for ri in backtrack_causes
+        )
 
         # If already pinned (should be rare in get_preference calls), deprioritize.
         is_already_resolved = identifier in resolutions
@@ -479,12 +537,16 @@ class ProjectResolutionProvider(AbstractProvider[ResolverRequirement, ResolverCa
             0 if is_root else 1,
             -parent_count,
             1 if is_already_resolved else 0,
-            identifier)
+            identifier,
+        )
 
 
-def resolve(*, services, env: ResolutionEnv, roots: Sequence[ResolverRequirement]) -> Result[
-    ResolverRequirement, ResolverCandidate, str]:
+def resolve(
+    *, services, env: ResolutionEnv, roots: Sequence[ResolverRequirement]
+) -> Result[ResolverRequirement, ResolverCandidate, str]:
     provider = ProjectResolutionProvider(services=services, env=env)
     reporter = ProjectResolutionReporter()
-    resolver: Resolver[ResolverRequirement, ResolverCandidate, str] = Resolver(provider, reporter)
+    resolver: Resolver[ResolverRequirement, ResolverCandidate, str] = Resolver(
+        provider, reporter
+    )
     return resolver.resolve(roots)

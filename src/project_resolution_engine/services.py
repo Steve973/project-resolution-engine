@@ -8,7 +8,11 @@ from project_resolution_engine.internal.orchestration import (
     ArtifactCoordinator,
 )
 from project_resolution_engine.internal.util.strategy import load_strategies
-from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
+from project_resolution_engine.model.keys import (
+    IndexMetadataKey,
+    CoreMetadataKey,
+    WheelKey,
+)
 from project_resolution_engine.repository import (
     ArtifactRepository,
 )
@@ -23,13 +27,16 @@ from project_resolution_engine.strategies import (
 
 BUILTIN_STRATEGY_PACKAGE = "project_resolution_engine.internal.builtin_strategies"
 STRATEGY_ENTRYPOINT_GROUP = "project_resolution_engine.strategies"
-BUILTIN_STRATEGY_CONFIG_PACKAGE = "project_resolution_engine.internal.builtin_strategy_configs"
+BUILTIN_STRATEGY_CONFIG_PACKAGE = (
+    "project_resolution_engine.internal.builtin_strategy_configs"
+)
 STRATEGY_CONFIG_ENTRYPOINT_GROUP = "project_resolution_engine.strategy_configs"
 
 
 # -------------------------
 # service wiring
 # -------------------------
+
 
 @dataclass(frozen=True, slots=True)
 class ResolutionServices:
@@ -38,34 +45,43 @@ class ResolutionServices:
 
     The engine layer should depend on this object, not on raw repositories/strategies.
     """
+
     index_metadata: ArtifactCoordinator[IndexMetadataKey]
     core_metadata: ArtifactCoordinator[CoreMetadataKey]
     wheel: ArtifactCoordinator[WheelKey]
 
 
 def build_services(
-        *,
-        repo: ArtifactRepository,
-        index_metadata_strategies: Sequence[IndexMetadataStrategy],
-        core_metadata_strategies: Sequence[CoreMetadataStrategy],
-        wheel_strategies: Sequence[WheelFileStrategy]) -> ResolutionServices:
+    *,
+    repo: ArtifactRepository,
+    index_metadata_strategies: Sequence[IndexMetadataStrategy],
+    core_metadata_strategies: Sequence[CoreMetadataStrategy],
+    wheel_strategies: Sequence[WheelFileStrategy],
+) -> ResolutionServices:
     index_resolver: StrategyChainArtifactResolver[IndexMetadataKey] = (
-        StrategyChainArtifactResolver(index_metadata_strategies))
+        StrategyChainArtifactResolver(index_metadata_strategies)
+    )
     core_resolver: StrategyChainArtifactResolver[CoreMetadataKey] = (
-        StrategyChainArtifactResolver(core_metadata_strategies))
+        StrategyChainArtifactResolver(core_metadata_strategies)
+    )
     wheel_resolver: StrategyChainArtifactResolver[WheelKey] = (
-        StrategyChainArtifactResolver(wheel_strategies))
+        StrategyChainArtifactResolver(wheel_strategies)
+    )
 
     return ResolutionServices(
         index_metadata=ArtifactCoordinator(repo=repo, resolver=index_resolver),
         core_metadata=ArtifactCoordinator(repo=repo, resolver=core_resolver),
-        wheel=ArtifactCoordinator(repo=repo, resolver=wheel_resolver))
+        wheel=ArtifactCoordinator(repo=repo, resolver=wheel_resolver),
+    )
 
 
 def load_services(
-        *,
-        repo: ArtifactRepository,
-        strategy_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None = None) -> ResolutionServices:
+    *,
+    repo: ArtifactRepository,
+    strategy_configs_by_instance_id: (
+        Mapping[str, ResolutionStrategyConfig] | None
+    ) = None,
+) -> ResolutionServices:
     """
     Discover -> plan -> topo sort -> instantiate strategies, then build service coordinators.
 
@@ -79,18 +95,22 @@ def load_services(
         strategy_entrypoint_group=STRATEGY_ENTRYPOINT_GROUP,
         builtin_config_package=BUILTIN_STRATEGY_CONFIG_PACKAGE,
         config_entrypoint_group=STRATEGY_CONFIG_ENTRYPOINT_GROUP,
-        raw_configs_by_instance_id=strategy_configs_by_instance_id)
+        raw_configs_by_instance_id=strategy_configs_by_instance_id,
+    )
 
     if not discovered:
         raise RuntimeError("no strategies were loaded")
 
     # Criticality gating rule:
     # If any are IMPERATIVE, only IMPERATIVE strategies are allowed to participate.
-    has_imperative = any(s.criticality is StrategyCriticality.IMPERATIVE for s in discovered)
+    has_imperative = any(
+        s.criticality is StrategyCriticality.IMPERATIVE for s in discovered
+    )
     acceptable = (
         (StrategyCriticality.IMPERATIVE,)
         if has_imperative
-        else (StrategyCriticality.REQUIRED, StrategyCriticality.OPTIONAL))
+        else (StrategyCriticality.REQUIRED, StrategyCriticality.OPTIONAL)
+    )
 
     crit_rank = {
         StrategyCriticality.IMPERATIVE: 0,
@@ -100,7 +120,8 @@ def load_services(
 
     discovered = sorted(
         [s for s in discovered if s.criticality in acceptable],
-        key=lambda s: (s.precedence, crit_rank[s.criticality], s.instance_id))
+        key=lambda s: (s.precedence, crit_rank[s.criticality], s.instance_id),
+    )
 
     index_strats = [s for s in discovered if isinstance(s, IndexMetadataStrategy)]
     core_strats = [s for s in discovered if isinstance(s, CoreMetadataStrategy)]
@@ -110,4 +131,5 @@ def load_services(
         repo=repo,
         index_metadata_strategies=list(index_strats),
         core_metadata_strategies=list(core_strats),
-        wheel_strategies=list(wheel_strats))
+        wheel_strategies=list(wheel_strats),
+    )

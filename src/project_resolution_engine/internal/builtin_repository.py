@@ -4,9 +4,18 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
-from project_resolution_engine.internal.builtin_strategies import _short_hash, _safe_segment, _url_basename
+from project_resolution_engine.internal.builtin_strategies import (
+    _short_hash,
+    _safe_segment,
+    _url_basename,
+)
+from project_resolution_engine.model.keys import (
+    BaseArtifactKey,
+    IndexMetadataKey,
+    CoreMetadataKey,
+    WheelKey,
+)
 from project_resolution_engine.repository import ArtifactRepository, ArtifactRecord
-from project_resolution_engine.model.keys import BaseArtifactKey, IndexMetadataKey, CoreMetadataKey, WheelKey
 
 
 @dataclass(slots=True)
@@ -143,7 +152,14 @@ class EphemeralArtifactRepository(ArtifactRepository):
                 tag = _safe_segment(k.tag)
                 url_hash = _short_hash(k.file_url)
                 # Store as .metadata for clarity.
-                return self._root / "core_metadata" / name / version / tag / f"{url_hash}.metadata"
+                return (
+                    self._root
+                    / "core_metadata"
+                    / name
+                    / version
+                    / tag
+                    / f"{url_hash}.metadata"
+                )
 
             case WheelKey() as k:
                 name = _safe_segment(k.name)

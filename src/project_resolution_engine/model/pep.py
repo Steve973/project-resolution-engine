@@ -4,6 +4,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from email.parser import Parser
 from typing import Any
+
 from typing_extensions import Self
 
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
@@ -37,6 +38,7 @@ class Pep658Metadata(MultiformatModelMixin):
         requires_dist (frozenset[str]): A frozen set of dependencies required by
             the package.
     """
+
     name: str
     version: str
     requires_python: str | None
@@ -74,7 +76,8 @@ class Pep658Metadata(MultiformatModelMixin):
             name=str(mapping["name"]),
             version=str(mapping["version"]),
             requires_python=(mapping.get("requires_python") or None),
-            requires_dist=frozenset(mapping.get("requires_dist") or []))
+            requires_dist=frozenset(mapping.get("requires_dist") or []),
+        )
 
     @classmethod
     def from_core_metadata_text(cls, text: str) -> Pep658Metadata:
@@ -102,12 +105,14 @@ class Pep658Metadata(MultiformatModelMixin):
         rd_headers = msg.get_all("Requires-Dist") or []
         requires_dist = [h.strip() for h in rd_headers if h.strip()]
 
-        return cls.from_mapping({
-            "name": name,
-            "version": version,
-            "requires_python": requires_python,
-            "requires_dist": requires_dist,
-        })
+        return cls.from_mapping(
+            {
+                "name": name,
+                "version": version,
+                "requires_python": requires_python,
+                "requires_dist": requires_dist,
+            }
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -133,8 +138,12 @@ class Pep691FileMetadata(MultiformatModelMixin):
 
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
-        core_metadata: bool | Mapping[str, str] = _coerce_field(mapping.get("core-metadata"))
-        data_dist_info_metadata: bool | Mapping[str, str] = _coerce_field(mapping.get("data-dist-info-metadata"))
+        core_metadata: bool | Mapping[str, str] = _coerce_field(
+            mapping.get("core-metadata")
+        )
+        data_dist_info_metadata: bool | Mapping[str, str] = _coerce_field(
+            mapping.get("data-dist-info-metadata")
+        )
         return cls(
             filename=mapping["filename"],
             url=mapping["url"],
@@ -142,7 +151,8 @@ class Pep691FileMetadata(MultiformatModelMixin):
             requires_python=mapping.get("requires_python"),
             yanked=mapping["yanked"],
             core_metadata=core_metadata,
-            data_dist_info_metadata=data_dist_info_metadata)
+            data_dist_info_metadata=data_dist_info_metadata,
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -155,7 +165,7 @@ class Pep691Metadata(MultiformatModelMixin):
         return {
             "name": self.name,
             "files": [f.to_mapping() for f in self.files],
-            "last_serial": self.last_serial
+            "last_serial": self.last_serial,
         }
 
     @classmethod
@@ -169,4 +179,5 @@ class Pep691Metadata(MultiformatModelMixin):
         return cls(
             name=mapping["name"],
             files=files,
-            last_serial=int(last_serial) if last_serial is not None else None)
+            last_serial=int(last_serial) if last_serial is not None else None,
+        )

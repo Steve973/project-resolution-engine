@@ -55,6 +55,7 @@ resolvelib = ">=1.2.1"
 tomli = ">=2.3.0"
 tomli-w = ">=1.2.0"
 typing-extensions = ">=4.15.0"
+black = "^26.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=25.12.0"

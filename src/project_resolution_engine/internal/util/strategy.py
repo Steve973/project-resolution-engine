@@ -17,7 +17,9 @@ from project_resolution_engine.strategies import (
     ResolutionStrategyConfig,
 )
 
-ArtifactStrategyType = TypeVar("ArtifactStrategyType", bound="BaseArtifactResolutionStrategy")
+ArtifactStrategyType = TypeVar(
+    "ArtifactStrategyType", bound="BaseArtifactResolutionStrategy"
+)
 T = TypeVar("T")
 
 
@@ -32,13 +34,16 @@ class StrategyRef:
 
     normalized_instance_id must resolve to a concrete instance_id that exists in the plan set.
     """
+
     strategy_name: str = ""
     instance_id: str = ""
 
     def normalized_instance_id(self) -> str:
         iid = self.instance_id or self.strategy_name
         if not iid:
-            raise StrategyConfigError("StrategyRef requires strategy_name or instance_id")
+            raise StrategyConfigError(
+                "StrategyRef requires strategy_name or instance_id"
+            )
         return iid
 
 
@@ -50,6 +55,7 @@ class StrategyPlan:
     ctor_kwargs may contain StrategyRef values; they are replaced with actual instances
     during instantiation. depends_on must contain instance_id values.
     """
+
     strategy_name: str
     instance_id: str
     strategy_cls: type[BaseArtifactResolutionStrategy]
@@ -76,10 +82,11 @@ class BaseArtifactResolutionStrategyConfig(Generic[ArtifactStrategyType], ABC):
 
     @classmethod
     def plan(
-            cls,
-            *,
-            strategy_cls: type[BaseArtifactResolutionStrategy],
-            config: Mapping[str, Any]) -> list[StrategyPlan]:
+        cls,
+        *,
+        strategy_cls: type[BaseArtifactResolutionStrategy],
+        config: Mapping[str, Any],
+    ) -> list[StrategyPlan]:
         raise NotImplementedError
 
 
@@ -90,12 +97,15 @@ ConfigSpecCls = type[BaseArtifactResolutionStrategyConfig[Any]]
 class DefaultStrategyConfig(BaseArtifactResolutionStrategyConfig, ABC):
     @classmethod
     def plan(
-            cls,
-            *,
-            strategy_cls: type[BaseArtifactResolutionStrategy],
-            config: Mapping[str, Any]) -> list[StrategyPlan]:
+        cls,
+        *,
+        strategy_cls: type[BaseArtifactResolutionStrategy],
+        config: Mapping[str, Any],
+    ) -> list[StrategyPlan]:
         # Use config binding first; fall back to discovery only when missing.
-        strategy_name = config.get("strategy_name") or _strategy_name_for_class(strategy_cls)
+        strategy_name = config.get("strategy_name") or _strategy_name_for_class(
+            strategy_cls
+        )
         if not isinstance(strategy_name, str) or not strategy_name:
             raise StrategyConfigError("strategy_name must be a non-empty string")
 
@@ -105,7 +115,9 @@ class DefaultStrategyConfig(BaseArtifactResolutionStrategyConfig, ABC):
 
         precedence = config.get("precedence", getattr(strategy_cls, "precedence", 100))
         if not isinstance(precedence, int):
-            raise StrategyConfigError(f"precedence: expected int, got {type(precedence).__name__}")
+            raise StrategyConfigError(
+                f"precedence: expected int, got {type(precedence).__name__}"
+            )
 
         # Only forward *strategy-specific* keys here.
         ctor_kwargs = dict(config)
@@ -121,13 +133,15 @@ class DefaultStrategyConfig(BaseArtifactResolutionStrategyConfig, ABC):
                 strategy_cls=strategy_cls,
                 ctor_kwargs=ctor_kwargs,
                 depends_on=(),  # planner will scan ctor_kwargs for StrategyRef deps
-                precedence=precedence)
+                precedence=precedence,
+            )
         ]
 
 
 # --------------------------------------------------------------------------- #
 # Discovery
 # --------------------------------------------------------------------------- #
+
 
 @dataclass(frozen=True, slots=True)
 class _StrategyClassInfo:
@@ -145,7 +159,9 @@ def _iter_module_objects(package_name: str) -> Iterable[Any]:
     if not package_name:
         yield from ()
     package = importlib.import_module(package_name)
-    for _finder, mod_name, _ispkg in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
+    for _finder, mod_name, _ispkg in pkgutil.walk_packages(
+        package.__path__, package.__name__ + "."
+    ):
         module = importlib.import_module(mod_name)
         yield from vars(module).values()
     return None
@@ -159,7 +175,9 @@ def _iter_entrypoint_objects(group: str) -> Iterable[Any]:
     return None
 
 
-def _builtin_strategy_classes(package_name: str) -> list[type[BaseArtifactResolutionStrategy[Any]]]:
+def _builtin_strategy_classes(
+    package_name: str,
+) -> list[type[BaseArtifactResolutionStrategy[Any]]]:
     out: list[type[BaseArtifactResolutionStrategy[Any]]] = []
     for obj in _iter_module_objects(package_name):
         if inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy):
@@ -167,7 +185,9 @@ def _builtin_strategy_classes(package_name: str) -> list[type[BaseArtifactResolu
     return out
 
 
-def _entrypoint_strategy_classes(group: str) -> list[type[BaseArtifactResolutionStrategy[Any]]]:
+def _entrypoint_strategy_classes(
+    group: str,
+) -> list[type[BaseArtifactResolutionStrategy[Any]]]:
     out: list[type[BaseArtifactResolutionStrategy[Any]]] = []
     for obj in _iter_entrypoint_objects(group):
         if inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy):
@@ -175,18 +195,26 @@ def _entrypoint_strategy_classes(group: str) -> list[type[BaseArtifactResolution
     return out
 
 
-def _builtin_config_spec_classes(package_name: str) -> list[type[BaseArtifactResolutionStrategyConfig[Any]]]:
+def _builtin_config_spec_classes(
+    package_name: str,
+) -> list[type[BaseArtifactResolutionStrategyConfig[Any]]]:
     out: list[type[BaseArtifactResolutionStrategyConfig[Any]]] = []
     for obj in _iter_module_objects(package_name):
-        if inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig):
+        if inspect.isclass(obj) and issubclass(
+            obj, BaseArtifactResolutionStrategyConfig
+        ):
             out.append(obj)
     return out
 
 
-def _entrypoint_config_spec_classes(group: str) -> list[type[BaseArtifactResolutionStrategyConfig[Any]]]:
+def _entrypoint_config_spec_classes(
+    group: str,
+) -> list[type[BaseArtifactResolutionStrategyConfig[Any]]]:
     out: list[type[BaseArtifactResolutionStrategyConfig[Any]]] = []
     for obj in _iter_entrypoint_objects(group):
-        if inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig):
+        if inspect.isclass(obj) and issubclass(
+            obj, BaseArtifactResolutionStrategyConfig
+        ):
             out.append(obj)
     return out
 
@@ -206,9 +234,8 @@ def _strategy_name_for_class(strategy_cls: type[BaseArtifactResolutionStrategy])
 
 
 def discover_strategy_classes(
-        *,
-        strategy_package: str,
-        strategy_entrypoint_group: str) -> dict[str, _StrategyClassInfo]:
+    *, strategy_package: str, strategy_entrypoint_group: str
+) -> dict[str, _StrategyClassInfo]:
     """
     Returns mapping strategy_name -> class info.
 
@@ -232,17 +259,17 @@ def discover_strategy_classes(
 
 
 def discover_config_specs(
-        *,
-        builtin_config_package: str,
-        config_entrypoint_group: str) -> dict[str, type]:
+    *, builtin_config_package: str, config_entrypoint_group: str
+) -> dict[str, type]:
     """
     Returns mapping strategy_name -> config spec class.
 
     Config spec classes must declare class attr: strategy_name = "<name>".
     Duplicate strategy_name is an error.
     """
-    classes = (_builtin_config_spec_classes(builtin_config_package) +
-               _entrypoint_config_spec_classes(config_entrypoint_group))
+    classes = _builtin_config_spec_classes(
+        builtin_config_package
+    ) + _entrypoint_config_spec_classes(config_entrypoint_group)
     by_strategy_name: dict[str, type] = {}
 
     for cls in classes:
@@ -250,7 +277,9 @@ def discover_config_specs(
         if not (isinstance(strategy_name, str) and strategy_name):
             continue
         if strategy_name in by_strategy_name:
-            raise StrategyConfigError(f"duplicate config spec for strategy_name '{strategy_name}'")
+            raise StrategyConfigError(
+                f"duplicate config spec for strategy_name '{strategy_name}'"
+            )
         by_strategy_name[strategy_name] = cls
 
     return by_strategy_name
@@ -260,16 +289,23 @@ def discover_config_specs(
 # Planning
 # --------------------------------------------------------------------------- #
 
+
 def _ensure_dict(cfg: Mapping[str, Any]) -> dict[str, Any]:
     return dict(cfg)
 
 
-def _effective_precedence(*, cfg: Mapping[str, Any], strategy_cls: type[BaseArtifactResolutionStrategy],
-                          fallback: int) -> int:
+def _effective_precedence(
+    *,
+    cfg: Mapping[str, Any],
+    strategy_cls: type[BaseArtifactResolutionStrategy],
+    fallback: int,
+) -> int:
     if "precedence" in cfg:
         v = cfg["precedence"]
         if not isinstance(v, int):
-            raise StrategyConfigError(f"precedence: expected int, got {type(v).__name__}")
+            raise StrategyConfigError(
+                f"precedence: expected int, got {type(v).__name__}"
+            )
         return v
     v2 = getattr(strategy_cls, "precedence", fallback)
     if not isinstance(v2, int):
@@ -277,8 +313,9 @@ def _effective_precedence(*, cfg: Mapping[str, Any], strategy_cls: type[BaseArti
     return v2
 
 
-def _effective_criticality(*, cfg: Mapping[str, Any],
-                           strategy_cls: type[BaseArtifactResolutionStrategy]) -> StrategyCriticality:
+def _effective_criticality(
+    *, cfg: Mapping[str, Any], strategy_cls: type[BaseArtifactResolutionStrategy]
+) -> StrategyCriticality:
     if "criticality" in cfg:
         v = cfg["criticality"]
         if isinstance(v, StrategyCriticality):
@@ -288,7 +325,9 @@ def _effective_criticality(*, cfg: Mapping[str, Any],
                 return StrategyCriticality(v)
             except ValueError as e:
                 raise StrategyConfigError(f"criticality: invalid value '{v}'") from e
-        raise StrategyConfigError(f"criticality: expected StrategyCriticality or str, got {type(v).__name__}")
+        raise StrategyConfigError(
+            f"criticality: expected StrategyCriticality or str, got {type(v).__name__}"
+        )
     v2 = getattr(strategy_cls, "criticality", StrategyCriticality.OPTIONAL)
     if isinstance(v2, StrategyCriticality):
         return v2
@@ -315,10 +354,11 @@ def _scan_deps(val: Any, out: set[str]) -> None:
 
 
 def build_strategy_plans(
-        *,
-        strategy_classes: Mapping[str, _StrategyClassInfo],
-        config_specs: Mapping[str, type[BaseArtifactResolutionStrategyConfig]],
-        raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None) -> list[StrategyPlan]:
+    *,
+    strategy_classes: Mapping[str, _StrategyClassInfo],
+    config_specs: Mapping[str, type[BaseArtifactResolutionStrategyConfig]],
+    raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None,
+) -> list[StrategyPlan]:
     """
     Bind configs to discovered strategy types and produce instantiation plans.
 
@@ -330,35 +370,36 @@ def build_strategy_plans(
     """
     ingested = _ingest_raw_configs(
         raw_configs_by_instance_id=raw_configs_by_instance_id,
-        strategy_classes=strategy_classes)
+        strategy_classes=strategy_classes,
+    )
 
     plans, effective_cfg_by_iid = _plan_all_strategies(
         strategy_classes=strategy_classes,
         config_specs=config_specs,
         cfg_by_instance_id=ingested.cfg_by_instance_id,
-        bound_iids_by_strategy=ingested.bound_iids_by_strategy)
+        bound_iids_by_strategy=ingested.bound_iids_by_strategy,
+    )
     if not plans:
         return []
 
     enabled_plans, crit_by_iid = _enable_plans(
-        plans=plans,
-        effective_cfg_by_iid=effective_cfg_by_iid)
+        plans=plans, effective_cfg_by_iid=effective_cfg_by_iid
+    )
     if not enabled_plans:
         return []
 
     _validate_enabled_dependencies_exist(enabled_plans)
 
-    _enforce_imperative_closure(
-        enabled_plans=enabled_plans,
-        crit_by_iid=crit_by_iid)
+    _enforce_imperative_closure(enabled_plans=enabled_plans, crit_by_iid=crit_by_iid)
 
     return enabled_plans
 
 
 def _ingest_raw_configs(
-        *,
-        raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None,
-        strategy_classes: Mapping[str, _StrategyClassInfo]) -> _IngestedConfigs:
+    *,
+    raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None,
+    strategy_classes: Mapping[str, _StrategyClassInfo],
+) -> _IngestedConfigs:
     raw_configs_by_instance_id = raw_configs_by_instance_id or {}
 
     cfg_by_instance_id: dict[str, dict[str, Any]] = {}
@@ -373,9 +414,8 @@ def _ingest_raw_configs(
         _validate_or_set_cfg_instance_id(iid, cfg)
 
         strategy_name = _normalize_and_validate_strategy_name(
-            iid=iid,
-            cfg=cfg,
-            strategy_classes=strategy_classes)
+            iid=iid, cfg=cfg, strategy_classes=strategy_classes
+        )
         cfg["strategy_name"] = strategy_name
 
         cfg_by_instance_id[iid] = cfg
@@ -383,12 +423,15 @@ def _ingest_raw_configs(
 
     return _IngestedConfigs(
         cfg_by_instance_id=cfg_by_instance_id,
-        bound_iids_by_strategy=dict(bound_iids_by_strategy))
+        bound_iids_by_strategy=dict(bound_iids_by_strategy),
+    )
 
 
 def _validate_instance_id_key(iid: Any) -> None:
     if not isinstance(iid, str) or not iid:
-        raise StrategyConfigError("strategy config keys must be non empty strings (instance_id)")
+        raise StrategyConfigError(
+            "strategy config keys must be non empty strings (instance_id)"
+        )
 
 
 def _validate_raw_cfg_mapping(iid: str, raw_cfg: Any) -> None:
@@ -399,35 +442,38 @@ def _validate_raw_cfg_mapping(iid: str, raw_cfg: Any) -> None:
 def _validate_or_set_cfg_instance_id(iid: str, cfg: dict[str, Any]) -> None:
     if "instance_id" in cfg and cfg["instance_id"] != iid:
         raise StrategyConfigError(
-            f"config instance_id mismatch for key '{iid}': cfg['instance_id']={cfg['instance_id']!r}")
+            f"config instance_id mismatch for key '{iid}': cfg['instance_id']={cfg['instance_id']!r}"
+        )
     cfg["instance_id"] = iid
 
 
 def _normalize_and_validate_strategy_name(
-        *,
-        iid: str,
-        cfg: dict[str, Any],
-        strategy_classes: Mapping[str, _StrategyClassInfo]) -> str:
+    *, iid: str, cfg: dict[str, Any], strategy_classes: Mapping[str, _StrategyClassInfo]
+) -> str:
     strategy_name = cfg.get("strategy_name")
     if strategy_name is None:
         strategy_name = iid
 
     if not isinstance(strategy_name, str) or not strategy_name:
-        raise StrategyConfigError(f"strategy_name for instance_id '{iid}' must be a non empty string")
+        raise StrategyConfigError(
+            f"strategy_name for instance_id '{iid}' must be a non empty string"
+        )
 
     if strategy_name not in strategy_classes:
         raise StrategyConfigError(
-            f"unknown strategy_name '{strategy_name}' for instance_id '{iid}' (not discovered)")
+            f"unknown strategy_name '{strategy_name}' for instance_id '{iid}' (not discovered)"
+        )
 
     return strategy_name
 
 
 def _plan_all_strategies(
-        *,
-        strategy_classes: Mapping[str, _StrategyClassInfo],
-        config_specs: Mapping[str, type[BaseArtifactResolutionStrategyConfig]],
-        cfg_by_instance_id: Mapping[str, dict[str, Any]],
-        bound_iids_by_strategy: Mapping[str, list[str]]) -> tuple[list[StrategyPlan], dict[str, dict[str, Any]]]:
+    *,
+    strategy_classes: Mapping[str, _StrategyClassInfo],
+    config_specs: Mapping[str, type[BaseArtifactResolutionStrategyConfig]],
+    cfg_by_instance_id: Mapping[str, dict[str, Any]],
+    bound_iids_by_strategy: Mapping[str, list[str]],
+) -> tuple[list[StrategyPlan], dict[str, dict[str, Any]]]:
     plans: list[StrategyPlan] = []
     defaults_cfg_by_iid: dict[str, dict[str, Any]] = {}
     effective_cfg_by_iid: dict[str, dict[str, Any]] = {}
@@ -435,7 +481,9 @@ def _plan_all_strategies(
     for strategy_name, info in strategy_classes.items():
         strategy_cls = info.strategy_cls
         spec_cls = config_specs.get(strategy_name, DefaultStrategyConfig)
-        policy = getattr(strategy_cls, "instantiation_policy", InstantiationPolicy.SINGLETON)
+        policy = getattr(
+            strategy_cls, "instantiation_policy", InstantiationPolicy.SINGLETON
+        )
 
         iids = list(bound_iids_by_strategy.get(strategy_name, []))
 
@@ -444,14 +492,17 @@ def _plan_all_strategies(
             info=info,
             iids=iids,
             spec_cls=spec_cls,
-            defaults_cfg_by_iid=defaults_cfg_by_iid)
+            defaults_cfg_by_iid=defaults_cfg_by_iid,
+        )
 
         _enforce_singleton_policy(strategy_name=strategy_name, policy=policy, iids=iids)
 
         for iid in iids:
             raw = cfg_by_instance_id.get(iid) or defaults_cfg_by_iid.get(iid)
             if raw is None:
-                raise StrategyConfigError(f"internal error: missing config for planned instance_id '{iid}'")
+                raise StrategyConfigError(
+                    f"internal error: missing config for planned instance_id '{iid}'"
+                )
 
             merged = dict(spec_cls.defaults())
             merged.update(raw)
@@ -465,12 +516,13 @@ def _plan_all_strategies(
 
 
 def _select_instance_ids_for_strategy(
-        *,
-        strategy_name: str,
-        info: _StrategyClassInfo,
-        iids: list[str],
-        spec_cls: type[BaseArtifactResolutionStrategyConfig],
-        defaults_cfg_by_iid: dict[str, dict[str, Any]]) -> list[str]:
+    *,
+    strategy_name: str,
+    info: _StrategyClassInfo,
+    iids: list[str],
+    spec_cls: type[BaseArtifactResolutionStrategyConfig],
+    defaults_cfg_by_iid: dict[str, dict[str, Any]],
+) -> list[str]:
     if info.origin == "entrypoint":
         if not iids:
             return []
@@ -487,36 +539,46 @@ def _select_instance_ids_for_strategy(
     return iids
 
 
-def _enforce_singleton_policy(*, strategy_name: str, policy: Any, iids: list[str]) -> None:
+def _enforce_singleton_policy(
+    *, strategy_name: str, policy: Any, iids: list[str]
+) -> None:
     if policy is InstantiationPolicy.SINGLETON:
         if len(iids) != 1:
             raise StrategyConfigError(
-                f"strategy '{strategy_name}' is SINGLETON but {len(iids)} instances were configured: {iids}")
+                f"strategy '{strategy_name}' is SINGLETON but {len(iids)} instances were configured: {iids}"
+            )
         if iids[0] != strategy_name:
             raise StrategyConfigError(
-                f"strategy '{strategy_name}' is SINGLETON but instance_id '{iids[0]}' != strategy_name")
+                f"strategy '{strategy_name}' is SINGLETON but instance_id '{iids[0]}' != strategy_name"
+            )
 
 
 def _enable_plans(
-        *,
-        plans: list[StrategyPlan],
-        effective_cfg_by_iid: Mapping[str, dict[str, Any]]) -> tuple[list[StrategyPlan], dict[str, StrategyCriticality]]:
+    *, plans: list[StrategyPlan], effective_cfg_by_iid: Mapping[str, dict[str, Any]]
+) -> tuple[list[StrategyPlan], dict[str, StrategyCriticality]]:
     seen: set[str] = set()
     enabled_plans: list[StrategyPlan] = []
     crit_by_iid: dict[str, StrategyCriticality] = {}
 
     for plan in plans:
         if plan.instance_id in seen:
-            raise StrategyConfigError(f"duplicate instance_id planned: '{plan.instance_id}'")
+            raise StrategyConfigError(
+                f"duplicate instance_id planned: '{plan.instance_id}'"
+            )
         seen.add(plan.instance_id)
 
         merged_cfg = effective_cfg_by_iid.get(plan.instance_id)
         if merged_cfg is None:
             raise StrategyConfigError(
-                f"planned instance_id '{plan.instance_id}' has no originating config mapping")
+                f"planned instance_id '{plan.instance_id}' has no originating config mapping"
+            )
 
-        precedence = _effective_precedence(cfg=merged_cfg, strategy_cls=plan.strategy_cls, fallback=plan.precedence)
-        criticality = _effective_criticality(cfg=merged_cfg, strategy_cls=plan.strategy_cls)
+        precedence = _effective_precedence(
+            cfg=merged_cfg, strategy_cls=plan.strategy_cls, fallback=plan.precedence
+        )
+        criticality = _effective_criticality(
+            cfg=merged_cfg, strategy_cls=plan.strategy_cls
+        )
 
         if criticality is StrategyCriticality.DISABLED:
             continue
@@ -534,7 +596,9 @@ def _enable_plans(
                 ctor_kwargs=ctor_kwargs,
                 depends_on=tuple(sorted(deps)),
                 precedence=precedence,
-                criticality=criticality))
+                criticality=criticality,
+            )
+        )
 
     return enabled_plans, crit_by_iid
 
@@ -554,14 +618,16 @@ def _validate_enabled_dependencies_exist(enabled_plans: list[StrategyPlan]) -> N
         for dep in p.depends_on:
             if dep not in enabled_ids:
                 raise StrategyConfigError(
-                    f"strategy instance '{p.instance_id}' depends on missing or disabled instance '{dep}'")
+                    f"strategy instance '{p.instance_id}' depends on missing or disabled instance '{dep}'"
+                )
 
 
 def _enforce_imperative_closure(
-        *,
-        enabled_plans: list[StrategyPlan],
-        crit_by_iid: Mapping[str, StrategyCriticality]) -> None:
-    imperative = {iid for iid, c in crit_by_iid.items() if c is StrategyCriticality.IMPERATIVE}
+    *, enabled_plans: list[StrategyPlan], crit_by_iid: Mapping[str, StrategyCriticality]
+) -> None:
+    imperative = {
+        iid for iid, c in crit_by_iid.items() if c is StrategyCriticality.IMPERATIVE
+    }
     if not imperative:
         return
 
@@ -580,7 +646,8 @@ def _enforce_imperative_closure(
             if crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE:
                 raise StrategyConfigError(
                     f"IMPERATIVE instance '{root}' depends on non IMPERATIVE instance '{dep}'. "
-                    f"Set '{dep}' criticality to IMPERATIVE or disable '{root}'.")
+                    f"Set '{dep}' criticality to IMPERATIVE or disable '{root}'."
+                )
 
             stack.extend(deps_by_iid.get(dep, ()))
 
@@ -588,6 +655,7 @@ def _enforce_imperative_closure(
 # --------------------------------------------------------------------------- #
 # Topological sort
 # --------------------------------------------------------------------------- #
+
 
 def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
     """
@@ -603,7 +671,9 @@ def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
     for p in plans:
         for dep in p.depends_on:
             if dep not in by_id:
-                raise StrategyConfigError(f"{p.instance_id}: depends_on unknown instance_id '{dep}'")
+                raise StrategyConfigError(
+                    f"{p.instance_id}: depends_on unknown instance_id '{dep}'"
+                )
             out_edges[dep].add(p.instance_id)
             in_degree[p.instance_id] += 1
 
@@ -633,8 +703,13 @@ def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
 # Instantiation
 # --------------------------------------------------------------------------- #
 
-def _validate_ctor_kwargs(*, strategy_cls: type[BaseArtifactResolutionStrategy], ctor_kwargs: Mapping[str, Any],
-                          ctx: str) -> None:
+
+def _validate_ctor_kwargs(
+    *,
+    strategy_cls: type[BaseArtifactResolutionStrategy],
+    ctor_kwargs: Mapping[str, Any],
+    ctx: str,
+) -> None:
     """
     Validate that ctor_kwargs can be passed to strategy_cls(...) deterministically.
 
@@ -652,12 +727,16 @@ def _validate_ctor_kwargs(*, strategy_cls: type[BaseArtifactResolutionStrategy],
         raise StrategyConfigError(f"{ctx}: ctor does not accept kwargs: {extra}")
 
 
-def _resolve_ctor_kwargs(ctor_kwargs: Mapping[str, Any], registry: Mapping[str, Any]) -> dict[str, Any]:
+def _resolve_ctor_kwargs(
+    ctor_kwargs: Mapping[str, Any], registry: Mapping[str, Any]
+) -> dict[str, Any]:
     def _resolve(val: Any) -> Any:
         if isinstance(val, StrategyRef):
             iid = val.normalized_instance_id()
             if iid not in registry:
-                raise StrategyConfigError(f"dependency '{iid}' was not instantiated before injection")
+                raise StrategyConfigError(
+                    f"dependency '{iid}' was not instantiated before injection"
+                )
             return registry[iid]
         if isinstance(val, Mapping):
             return {k: _resolve(v) for k, v in val.items()}
@@ -711,7 +790,9 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
         call_kwargs.pop("precedence", None)
         call_kwargs.pop("criticality", None)
 
-        _validate_ctor_kwargs(strategy_cls=plan.strategy_cls, ctor_kwargs=call_kwargs, ctx=ctx)
+        _validate_ctor_kwargs(
+            strategy_cls=plan.strategy_cls, ctor_kwargs=call_kwargs, ctx=ctx
+        )
 
         inst = plan.strategy_cls(**call_kwargs)
 
@@ -720,7 +801,8 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
         if getattr(inst, "instance_id", None) != plan.instance_id:
             raise StrategyConfigError(
                 f"{ctx}: constructed instance_id '{getattr(inst, 'instance_id', None)}' "
-                f"does not match planned instance_id '{plan.instance_id}'")
+                f"does not match planned instance_id '{plan.instance_id}'"
+            )
 
         registry[plan.instance_id] = inst
         instances.append(inst)
@@ -732,13 +814,15 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
 # Public loader
 # --------------------------------------------------------------------------- #
 
+
 def load_strategies(
-        *,
-        strategy_package: str,
-        strategy_entrypoint_group: str,
-        builtin_config_package: str = "",
-        config_entrypoint_group: str = "",
-        raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None = None) -> list:
+    *,
+    strategy_package: str,
+    strategy_entrypoint_group: str,
+    builtin_config_package: str = "",
+    config_entrypoint_group: str = "",
+    raw_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None = None,
+) -> list:
     """
     Discover -> plan -> topo sort -> instantiate.
 
@@ -748,12 +832,14 @@ def load_strategies(
     """
     strategy_classes = discover_strategy_classes(
         strategy_package=strategy_package,
-        strategy_entrypoint_group=strategy_entrypoint_group)
+        strategy_entrypoint_group=strategy_entrypoint_group,
+    )
 
     config_specs = (
         discover_config_specs(
             builtin_config_package=builtin_config_package,
-            config_entrypoint_group=config_entrypoint_group)
+            config_entrypoint_group=config_entrypoint_group,
+        )
         if (builtin_config_package or config_entrypoint_group)
         else {}
     )
@@ -761,7 +847,8 @@ def load_strategies(
     plans = build_strategy_plans(
         strategy_classes=strategy_classes,
         config_specs=config_specs,
-        raw_configs_by_instance_id=raw_configs_by_instance_id)
+        raw_configs_by_instance_id=raw_configs_by_instance_id,
+    )
 
     ordered = topo_sort_plans(plans)
     return instantiate_plans(ordered)

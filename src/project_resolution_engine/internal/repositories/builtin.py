@@ -7,11 +7,16 @@ from project_resolution_engine.repository import ArtifactRepository
 
 
 class RepoFactory(Protocol):
-    def __call__(self, *, config: Mapping[str, Any] | None = None) -> ArtifactRepository: ...
+    def __call__(
+        self, *, config: Mapping[str, Any] | None = None
+    ) -> ArtifactRepository: ...
 
 
 def _create_ephemeral(*, config: Mapping[str, Any] | None = None) -> ArtifactRepository:
-    from project_resolution_engine.internal.builtin_repository import EphemeralArtifactRepository
+    from project_resolution_engine.internal.builtin_repository import (
+        EphemeralArtifactRepository,
+    )
+
     return EphemeralArtifactRepository()
 
 

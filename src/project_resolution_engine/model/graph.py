@@ -28,6 +28,7 @@ class ResolvedNode(MultiformatModelMixin):
             node. It contains details like name, version, tag, required Python
             version, and other relevant metadata.
     """
+
     wheel_key: WheelKey
 
     @property
@@ -91,9 +92,7 @@ class ResolvedNode(MultiformatModelMixin):
             dict[str, Any]: A dictionary representation of the object with the
             attribute `wheel_key` mapped using its `to_mapping` method.
         """
-        return {
-            "wheel_key": self.wheel_key.to_mapping()
-        }
+        return {"wheel_key": self.wheel_key.to_mapping()}
 
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
@@ -113,8 +112,7 @@ class ResolvedNode(MultiformatModelMixin):
             Self: An instance of the class initialized using the provided mapping.
         """
 
-        return cls(
-            wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))
+        return cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))
 
 
 @dataclass(slots=True)
@@ -137,6 +135,7 @@ class ResolvedGraph(MultiformatModelMixin):
             (name, version) pairs to ResolvedWheelNodes representing resolved
             dependencies and their metadata.
     """
+
     supported_python_band: SpecifierSet
     _roots: set[WheelKey]
     nodes: dict[WheelKey, ResolvedNode]
@@ -234,4 +233,6 @@ class ResolvedGraph(MultiformatModelMixin):
         for _, node_mapping in raw_nodes.items():
             node = ResolvedNode.from_mapping(node_mapping)
             nodes[node.key] = node
-        return cls(supported_python_band=supported_python_band, _roots=roots, nodes=nodes)
+        return cls(
+            supported_python_band=supported_python_band, _roots=roots, nodes=nodes
+        )

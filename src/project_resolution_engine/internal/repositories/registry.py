@@ -5,12 +5,19 @@ from dataclasses import dataclass
 from importlib.metadata import entry_points
 from typing import Any, Mapping, Protocol
 
-from project_resolution_engine.internal.repositories.builtin import BUILTIN_REPOSITORY_FACTORIES
-from project_resolution_engine.repository import ArtifactRepository, REPOSITORY_ENTRYPOINT_GROUP
+from project_resolution_engine.internal.repositories.builtin import (
+    BUILTIN_REPOSITORY_FACTORIES,
+)
+from project_resolution_engine.repository import (
+    ArtifactRepository,
+    REPOSITORY_ENTRYPOINT_GROUP,
+)
 
 
 class RepoFactory(Protocol):
-    def __call__(self, *, config: Mapping[str, Any] | None = None) -> ArtifactRepository: ...
+    def __call__(
+        self, *, config: Mapping[str, Any] | None = None
+    ) -> ArtifactRepository: ...
 
 
 class RepositoryRegistryError(RuntimeError):
@@ -29,6 +36,7 @@ class RepositoryRegistry:
     builtins: factories shipped with the library
     externals: factories discovered via entry points
     """
+
     builtins: Mapping[str, RepoFactory]
     externals: Mapping[str, RepoFactory]
 
@@ -36,7 +44,8 @@ class RepositoryRegistry:
         dupes = set(self.builtins).intersection(self.externals)
         if dupes:
             raise RepositoryRegistryError(
-                f"duplicate repository ids found in builtins and entry points: {sorted(dupes)}")
+                f"duplicate repository ids found in builtins and entry points: {sorted(dupes)}"
+            )
         merged: dict[str, RepoFactory] = dict(self.builtins)
         merged.update(self.externals)
         return merged
@@ -54,23 +63,30 @@ def _validate_repo_factory_callable(repo_id: str, factory_obj: object) -> RepoFa
     """
     if not callable(factory_obj):
         raise RepositoryEntrypointError(
-            f"repo entry point '{repo_id}' must load a callable factory; got {type(factory_obj).__name__}")
+            f"repo entry point '{repo_id}' must load a callable factory; got {type(factory_obj).__name__}"
+        )
 
     if inspect.isclass(factory_obj):
         raise RepositoryEntrypointError(
-            f"repo entry point '{repo_id}' must load a callable factory; got class {factory_obj.__name__}")
+            f"repo entry point '{repo_id}' must load a callable factory; got class {factory_obj.__name__}"
+        )
 
     sig = inspect.signature(factory_obj)
     params = sig.parameters
 
     if "config" not in params:
         raise RepositoryEntrypointError(
-            f"repo entry point '{repo_id}' factory must accept keyword argument 'config'. Signature={sig}")
+            f"repo entry point '{repo_id}' factory must accept keyword argument 'config'. Signature={sig}"
+        )
 
     p = params["config"]
-    if p.kind not in (inspect.Parameter.KEYWORD_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD):
+    if p.kind not in (
+        inspect.Parameter.KEYWORD_ONLY,
+        inspect.Parameter.POSITIONAL_OR_KEYWORD,
+    ):
         raise RepositoryEntrypointError(
-            f"repo entry point '{repo_id}' factory param 'config' must be keywordable. Signature={sig}")
+            f"repo entry point '{repo_id}' factory param 'config' must be keywordable. Signature={sig}"
+        )
 
     return factory_obj
 
@@ -100,7 +116,8 @@ def _load_entrypoint_repo_factories(*, group: str) -> dict[str, RepoFactory]:
 
     if dupes:
         raise RepositoryEntrypointError(
-            f"duplicate repository ids found in entry points group '{group}': {sorted(dupes)}")
+            f"duplicate repository ids found in entry points group '{group}': {sorted(dupes)}"
+        )
 
     return factories
 
@@ -111,8 +128,10 @@ def build_repository_registry() -> RepositoryRegistry:
 
     This is intentionally the only place that knows about REPOSITORY_ENTRYPOINT_GROUP.
     """
-    externals: dict[str, RepoFactory] = _load_entrypoint_repo_factories(group=REPOSITORY_ENTRYPOINT_GROUP)
+    externals: dict[str, RepoFactory] = _load_entrypoint_repo_factories(
+        group=REPOSITORY_ENTRYPOINT_GROUP
+    )
 
     return RepositoryRegistry(
-        builtins=BUILTIN_REPOSITORY_FACTORIES,
-        externals=externals)
+        builtins=BUILTIN_REPOSITORY_FACTORIES, externals=externals
+    )

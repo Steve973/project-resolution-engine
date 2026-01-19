@@ -5,7 +5,11 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import ClassVar, Generic, TypedDict
 
-from project_resolution_engine.model.keys import IndexMetadataKey, CoreMetadataKey, WheelKey
+from project_resolution_engine.model.keys import (
+    IndexMetadataKey,
+    CoreMetadataKey,
+    WheelKey,
+)
 from project_resolution_engine.repository import (
     ArtifactKeyType,
     ArtifactRecord,
@@ -20,6 +24,7 @@ class InstantiationPolicy(str, Enum):
     SINGLETON: exactly one instance is allowed (instance_id must equal strategy name).
     PROTOTYPE: one or more instances are allowed (instance_id values may differ).
     """
+
     SINGLETON = "singleton"
     PROTOTYPE = "prototype"
 
@@ -33,6 +38,7 @@ class StrategyCriticality(str, Enum):
     OPTIONAL: strategy may be considered (if no IMPERATIVE strategies exist).
     DISABLED: strategy is not instantiated and not considered.
     """
+
     IMPERATIVE = "imperative"
     REQUIRED = "required"
     OPTIONAL = "optional"
@@ -54,6 +60,7 @@ class ResolutionStrategyConfig(TypedDict, total=False):
     Any additional keys are passed through to the strategy constructor and/or consumed by
     the strategy config spec.
     """
+
     strategy_name: str
     instance_id: str
     precedence: int
@@ -64,6 +71,7 @@ class StrategyNotApplicable(Exception):
     """
     Used for normal control flow: "this strategy does not apply to this key".
     """
+
     pass
 
 
@@ -77,6 +85,7 @@ class BaseArtifactResolutionStrategy(Generic[ArtifactKeyType], ABC):
 
     instance_id defaults to `name` if empty.
     """
+
     name: str
     instance_id: str = ""
     precedence: int = 100
@@ -90,7 +99,9 @@ class BaseArtifactResolutionStrategy(Generic[ArtifactKeyType], ABC):
             object.__setattr__(self, "instance_id", self.name)
 
     @abstractmethod
-    def resolve(self, *, key: ArtifactKeyType, destination_uri: str) -> ArtifactRecord | None:
+    def resolve(
+        self, *, key: ArtifactKeyType, destination_uri: str
+    ) -> ArtifactRecord | None:
         """
         Attempt to resolve the key into a destination_uri.
 
@@ -107,6 +118,7 @@ class BaseArtifactResolutionStrategy(Generic[ArtifactKeyType], ABC):
 # -------------------------
 # typed specializations
 # -------------------------
+
 
 @dataclass(frozen=True, slots=True)
 class IndexMetadataStrategy(BaseArtifactResolutionStrategy[IndexMetadataKey], ABC):

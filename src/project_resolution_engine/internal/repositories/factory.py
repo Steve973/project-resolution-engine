@@ -4,7 +4,9 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Any, Iterator, Literal, Mapping
 
-from project_resolution_engine.internal.repositories.builtin import DEFAULT_REPOSITORY_ID
+from project_resolution_engine.internal.repositories.builtin import (
+    DEFAULT_REPOSITORY_ID,
+)
 from project_resolution_engine.internal.repositories.registry import (
     RepoFactory,
     RepositoryRegistry,
@@ -25,24 +27,30 @@ class RepositorySelection:
     factory: RepoFactory
 
 
-def _select_repository(*, repo_id: str | None, registry: RepositoryRegistry) -> RepositorySelection:
+def _select_repository(
+    *, repo_id: str | None, registry: RepositoryRegistry
+) -> RepositorySelection:
     rid = repo_id or DEFAULT_REPOSITORY_ID
 
     merged = registry.merged()
     if rid not in merged:
         raise RepositorySelectionError(
-            f"unknown repository id {rid!r}. available={sorted(merged)}")
+            f"unknown repository id {rid!r}. available={sorted(merged)}"
+        )
 
-    origin: Literal["builtin", "entrypoint"] = "builtin" if rid in registry.builtins else "entrypoint"
+    origin: Literal["builtin", "entrypoint"] = (
+        "builtin" if rid in registry.builtins else "entrypoint"
+    )
     return RepositorySelection(repo_id=rid, origin=origin, factory=merged[rid])
 
 
 @contextmanager
 def open_repository(
-        *,
-        repo_id: str | None,
-        config: Mapping[str, Any] | None = None,
-        registry: RepositoryRegistry | None = None) -> Iterator[ArtifactRepository]:
+    *,
+    repo_id: str | None,
+    config: Mapping[str, Any] | None = None,
+    registry: RepositoryRegistry | None = None,
+) -> Iterator[ArtifactRepository]:
     """
     Create exactly one repository instance for the run and manage its lifecycle.
 

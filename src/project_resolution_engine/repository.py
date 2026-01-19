@@ -69,7 +69,7 @@ class ArtifactRecord(MultiformatModelMixin):
             "source": self.source.value,
             "content_sha256": self.content_sha256,
             "size": self.size,
-            "created_at_epoch_s": self.created_at_epoch_s
+            "created_at_epoch_s": self.created_at_epoch_s,
         }
         if self.content_hashes:
             mapping.update({"content_hashes": self.content_hashes})
@@ -86,4 +86,5 @@ class ArtifactRecord(MultiformatModelMixin):
             content_sha256=mapping.get("content_sha256"),
             size=mapping.get("size"),
             created_at_epoch_s=mapping.get("created_at_epoch_s"),
-            content_hashes=dict(incoming_hashes))
+            content_hashes=dict(incoming_hashes),
+        )

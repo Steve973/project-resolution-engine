@@ -14,13 +14,13 @@ from project_resolution_engine.internal.builtin_strategies import (
 from project_resolution_engine.internal.util.strategy import (
     BaseArtifactResolutionStrategyConfig,
     StrategyPlan,
-    StrategyRef
+    StrategyRef,
 )
-
 
 # --------------------------------------------------------------------------- #
 # small helpers (no Protocol, deterministic validation)
 # --------------------------------------------------------------------------- #
+
 
 class StrategyConfigError(ValueError):
     pass
@@ -65,12 +65,13 @@ def _opt_float(cfg: Mapping[str, Any], key: str) -> float | None:
 
 
 def _plan_single(
-        *,
-        strategy_name: str,
-        strategy_cls: type,
-        config: Mapping[str, Any],
-        ctor_kwargs: Mapping[str, Any],
-        depends_on: tuple[str, ...] = ()) -> list[StrategyPlan]:
+    *,
+    strategy_name: str,
+    strategy_cls: type,
+    config: Mapping[str, Any],
+    ctor_kwargs: Mapping[str, Any],
+    depends_on: tuple[str, ...] = (),
+) -> list[StrategyPlan]:
     instance_id = str(config.get("instance_id") or "") or strategy_name
     precedence = int(config.get("precedence", getattr(strategy_cls, "precedence", 100)))
 
@@ -86,13 +87,15 @@ def _plan_single(
             strategy_cls=strategy_cls,
             ctor_kwargs=full_kwargs,
             depends_on=depends_on,
-            precedence=precedence)
+            precedence=precedence,
+        )
     ]
 
 
 # --------------------------------------------------------------------------- #
 # builtin config specs (these are what discover_config_specs loads)
 # --------------------------------------------------------------------------- #
+
 
 class Pep691IndexMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
     strategy_name: ClassVar[str] = Pep691IndexMetadataHttpStrategy.name
@@ -107,7 +110,9 @@ class Pep691IndexMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS | {"timeout_s", "user_agent"}
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -121,7 +126,8 @@ class Pep691IndexMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig
             strategy_name=cls.strategy_name,
             strategy_cls=strategy_cls,
             config=config,
-            ctor_kwargs=ctor)
+            ctor_kwargs=ctor,
+        )
 
 
 class HttpWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
@@ -137,7 +143,9 @@ class HttpWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS | {"timeout_s", "user_agent", "chunk_bytes"}
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -153,7 +161,8 @@ class HttpWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
             strategy_name=cls.strategy_name,
             strategy_cls=strategy_cls,
             config=config,
-            ctor_kwargs=ctor)
+            ctor_kwargs=ctor,
+        )
 
 
 class Pep658CoreMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
@@ -168,7 +177,9 @@ class Pep658CoreMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig[
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS | {"timeout_s", "user_agent"}
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -182,10 +193,13 @@ class Pep658CoreMetadataHttpStrategyConfig(BaseArtifactResolutionStrategyConfig[
             strategy_name=cls.strategy_name,
             strategy_cls=strategy_cls,
             config=config,
-            ctor_kwargs=ctor)
+            ctor_kwargs=ctor,
+        )
 
 
-class WheelExtractedCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
+class WheelExtractedCoreMetadataStrategyConfig(
+    BaseArtifactResolutionStrategyConfig[Any]
+):
     strategy_name: ClassVar[str] = WheelExtractedCoreMetadataStrategy.name
 
     @classmethod
@@ -198,7 +212,9 @@ class WheelExtractedCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyCon
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS | {"wheel_strategy_id", "wheel_timeout_s"}
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -218,7 +234,8 @@ class WheelExtractedCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyCon
             strategy_cls=strategy_cls,
             config=config,
             ctor_kwargs=ctor,
-            depends_on=(wheel_ref.normalized_instance_id(),))
+            depends_on=(wheel_ref.normalized_instance_id(),),
+        )
 
 
 class DirectUriWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
@@ -232,7 +249,9 @@ class DirectUriWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS | {"chunk_bytes"}
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -244,7 +263,8 @@ class DirectUriWheelFileStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]
             strategy_name=cls.strategy_name,
             strategy_cls=strategy_cls,
             config=config,
-            ctor_kwargs=ctor)
+            ctor_kwargs=ctor,
+        )
 
 
 class DirectUriCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyConfig[Any]):
@@ -260,6 +280,7 @@ class DirectUriCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyConfig[A
     Attributes:
         strategy_name (ClassVar[str]): The name of the strategy leveraged by the class.
     """
+
     strategy_name: ClassVar[str] = DirectUriCoreMetadataStrategy.name
 
     @classmethod
@@ -269,7 +290,9 @@ class DirectUriCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyConfig[A
         }
 
     @classmethod
-    def plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]:
+    def plan(
+        cls, *, strategy_cls: type, config: Mapping[str, Any]
+    ) -> list[StrategyPlan]:
         allowed = _RESERVED_KEYS
         _unknown_keys(config, allowed, ctx=cls.strategy_name)
 
@@ -277,4 +300,5 @@ class DirectUriCoreMetadataStrategyConfig(BaseArtifactResolutionStrategyConfig[A
             strategy_name=cls.strategy_name,
             strategy_cls=strategy_cls,
             config=config,
-            ctor_kwargs={})
+            ctor_kwargs={},
+        )

@@ -11,10 +11,11 @@ from project_resolution_engine.internal.util.multiformat import MultiformatModel
 
 
 def validate_typed_dict(
-        desc: str,
-        mapping: Mapping[str, Any],
-        validation_type: type,
-        value_type: type | tuple[type, ...]) -> None:
+    desc: str,
+    mapping: Mapping[str, Any],
+    validation_type: type,
+    value_type: type | tuple[type, ...],
+) -> None:
     """
     Validates a mapping against a given TypedDict definition for its keys and values.
 
@@ -36,13 +37,18 @@ def validate_typed_dict(
     bad_keys = set(mapping.keys()) - allowed_env_keys
     if bad_keys:
         raise ValueError(f"Invalid {desc} keys: {bad_keys}")
-    bad_vals = [(k, type(v).__name__) for k, v in mapping.items() if not isinstance(v, value_type)]
+    bad_vals = [
+        (k, type(v).__name__)
+        for k, v in mapping.items()
+        if not isinstance(v, value_type)
+    ]
     if bad_vals:
         details = ", ".join(f"{k} (got {t})" for k, t in bad_vals)
         expected = (
             value_type.__name__
             if isinstance(value_type, type)
-            else " | ".join(t.__name__ for t in value_type))
+            else " | ".join(t.__name__ for t in value_type)
+        )
         raise ValueError(f"Invalid {desc} values: expected {expected}; {details}")
 
 
@@ -59,6 +65,7 @@ class MarkerModeType(Enum):
         EXACT (str): Represents the "exact" mode. This mode requires an
             exact, precise handling or matching of markers.
     """
+
     MERGE = "merge"
     EXACT = "exact"
 
@@ -94,7 +101,10 @@ class MarkerEnvConfig(MultiformatModelMixin):
                 - "merge": Derive defaults, then override specific keys.
                 - "exact": Use only the overrides as the configuration.
     """
-    overrides: EnvironmentOverrides = field(default_factory=lambda: cast(EnvironmentOverrides, cast(object, {})))
+
+    overrides: EnvironmentOverrides = field(
+        default_factory=lambda: cast(EnvironmentOverrides, cast(object, {}))
+    )
     mode: MarkerModeType = MarkerModeType.MERGE
 
     def to_mapping(self) -> Mapping[str, Any]:
@@ -107,14 +117,19 @@ class MarkerEnvConfig(MultiformatModelMixin):
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> MarkerEnvConfig:
         overrides = mapping.get("overrides", {})
         if not isinstance(overrides, dict):
-            raise ValueError(f"Invalid overrides value: expected dict; got {type(overrides).__name__}")
+            raise ValueError(
+                f"Invalid overrides value: expected dict; got {type(overrides).__name__}"
+            )
         overrides_map = overrides
-        validate_typed_dict("marker_env overrides", overrides_map, EnvironmentOverrides, str)
+        validate_typed_dict(
+            "marker_env overrides", overrides_map, EnvironmentOverrides, str
+        )
         env_overrides = cast(EnvironmentOverrides, cast(object, overrides_map))
 
         return cls(
             overrides=env_overrides,
-            mode=MarkerModeType(mapping.get("mode", MarkerModeType.MERGE.value)))
+            mode=MarkerModeType(mapping.get("mode", MarkerModeType.MERGE.value)),
+        )
 
 
 @dataclass
@@ -133,9 +148,12 @@ class Filter(MultiformatModelMixin):
         specific_only (bool): If True, only use the include list and
             ignore generation.
     """
+
     include: list[str] = field(default_factory=list)
     exclude: list[str] = field(default_factory=list)
-    specific_only: bool = False  # If true, ignore generation and only use the include list
+    specific_only: bool = (
+        False  # If true, ignore generation and only use the include list
+    )
 
     def to_mapping(self) -> Mapping[str, Any]:
         return {
@@ -149,7 +167,8 @@ class Filter(MultiformatModelMixin):
         return cls(
             include=mapping.get("include", []),
             exclude=mapping.get("exclude", []),
-            specific_only=mapping.get("specific_only", False))
+            specific_only=mapping.get("specific_only", False),
+        )
 
 
 @dataclass
@@ -169,6 +188,7 @@ class VersionSpec(MultiformatModelMixin):
         filters (Filter | None): Optional filters applied to further refine the
             version specification.
     """
+
     range: str | None = None  # PEP 440: ">=3.10,<4.0" or None for "all"
     filters: Filter | None = None
 
@@ -185,9 +205,7 @@ class VersionSpec(MultiformatModelMixin):
         filters_data = mapping.get("filters")
         filters = Filter.from_mapping(filters_data) if filters_data else None
 
-        return cls(
-            range=mapping.get("range"),
-            filters=filters)
+        return cls(range=mapping.get("range"), filters=filters)
 
 
 @dataclass
@@ -207,6 +225,7 @@ class InterpreterConfig(MultiformatModelMixin):
         filters (Filter | None): Specifies additional filters to apply, or None if no filters
             are defined.
     """
+
     python_version: VersionSpec
     types: list[str]
     accept_universal: bool = True
@@ -231,7 +250,8 @@ class InterpreterConfig(MultiformatModelMixin):
             python_version=VersionSpec.from_mapping(mapping["python_version"]),
             types=mapping.get("types", ["cp"]),
             accept_universal=mapping.get("accept_universal", True),
-            filters=filters)
+            filters=filters,
+        )
 
 
 @dataclass
@@ -254,6 +274,7 @@ class AbiConfig(MultiformatModelMixin):
             configuration. The filters are represented by a `Filter` object or set
             to None if no filters are defined.
     """
+
     include_debug: bool = False
     include_stable: bool = True  # abi3
     filters: Filter | None = None
@@ -275,7 +296,8 @@ class AbiConfig(MultiformatModelMixin):
         return cls(
             include_debug=mapping.get("include_debug", False),
             include_stable=mapping.get("include_stable", True),
-            filters=filters)
+            filters=filters,
+        )
 
 
 @dataclass
@@ -293,6 +315,7 @@ class PlatformVariant(MultiformatModelMixin):
         version (VersionSpec | None): The version specification of the platform
             variant, or None if no specific version is defined.
     """
+
     enabled: bool = True
     version: VersionSpec | None = None
 
@@ -309,9 +332,7 @@ class PlatformVariant(MultiformatModelMixin):
         version_data = mapping.get("version")
         version = VersionSpec.from_mapping(version_data) if version_data else None
 
-        return cls(
-            enabled=mapping.get("enabled", True),
-            version=version)
+        return cls(enabled=mapping.get("enabled", True), version=version)
 
 
 @dataclass
@@ -333,10 +354,13 @@ class PlatformConfig(MultiformatModelMixin):
         filters (Filter | None): An optional `Filter` object used to specify filtering
             criteria for the platform configuration.
     """
+
     enabled: bool = True
     arches: list[str] = field(default_factory=list)
     # Variants by name
-    variants: dict[str, PlatformVariant] = field(default_factory=dict)  # "manylinux", "musllinux", etc.
+    variants: dict[str, PlatformVariant] = field(
+        default_factory=dict
+    )  # "manylinux", "musllinux", etc.
     filters: Filter | None = None
 
     def to_mapping(self) -> Mapping[str, Any]:
@@ -344,8 +368,7 @@ class PlatformConfig(MultiformatModelMixin):
             "enabled": self.enabled,
             "arches": self.arches,
             "variants": {
-                name: variant.to_mapping()
-                for name, variant in self.variants.items()
+                name: variant.to_mapping() for name, variant in self.variants.items()
             },
         }
         if self.filters is not None:
@@ -366,7 +389,8 @@ class PlatformConfig(MultiformatModelMixin):
             enabled=mapping.get("enabled", True),
             arches=mapping.get("arches", []),
             variants=variants,
-            filters=filters)
+            filters=filters,
+        )
 
 
 @dataclass
@@ -386,6 +410,7 @@ class PlatformContext(MultiformatModelMixin):
         compatibility_tags (Filter | None): Filter or complete override for compatibility tags.
         marker_env (MarkerEnvConfig | None): Configuration for marker environment handling.
     """
+
     interpreter: InterpreterConfig | None = None
     abi: AbiConfig | None = None
     platform: PlatformConfig | None = None
@@ -410,7 +435,11 @@ class PlatformContext(MultiformatModelMixin):
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformContext:
         interpreter_data = mapping.get("interpreter")
-        interpreter = InterpreterConfig.from_mapping(interpreter_data) if interpreter_data else None
+        interpreter = (
+            InterpreterConfig.from_mapping(interpreter_data)
+            if interpreter_data
+            else None
+        )
         abi_data = mapping.get("abi")
         abi = AbiConfig.from_mapping(abi_data) if abi_data else None
         platform_data = mapping.get("platform")
@@ -418,14 +447,17 @@ class PlatformContext(MultiformatModelMixin):
         tags_data = mapping.get("compatibility_tags")
         compatibility_tags = Filter.from_mapping(tags_data) if tags_data else None
         marker_env_data = mapping.get("marker_env")
-        marker_env = MarkerEnvConfig.from_mapping(marker_env_data) if marker_env_data else None
+        marker_env = (
+            MarkerEnvConfig.from_mapping(marker_env_data) if marker_env_data else None
+        )
 
         return cls(
             interpreter=interpreter,
             abi=abi,
             platform=platform,
             compatibility_tags=compatibility_tags,
-            marker_env=marker_env)
+            marker_env=marker_env,
+        )
 
 
 class PlatformOverrides(TypedDict, total=False):
@@ -450,6 +482,7 @@ class PlatformOverrides(TypedDict, total=False):
         windows (PlatformContext | None): The context override for the Windows platform.
             Set to None if there is no specific override for Windows.
     """
+
     android: PlatformContext
     ios: PlatformContext
     linux: PlatformContext
@@ -473,9 +506,12 @@ class ResolutionContext(MultiformatModelMixin):
         platform_overrides (PlatformOverrides): A dictionary containing platform-specific
             overrides for the resolution context.
     """
+
     name: str
     universal: PlatformContext
-    platform_overrides: PlatformOverrides = field(default_factory=lambda: cast(PlatformOverrides, cast(object, {})))
+    platform_overrides: PlatformOverrides = field(
+        default_factory=lambda: cast(PlatformOverrides, cast(object, {}))
+    )
 
     def to_mapping(self) -> Mapping[str, Any]:
         out: dict[str, Any] = {
@@ -487,7 +523,8 @@ class ResolutionContext(MultiformatModelMixin):
                 platform_overrides={
                     k: cast(PlatformContext, v).to_mapping()
                     for k, v in self.platform_overrides.items()
-                })
+                }
+            )
         return out
 
     @classmethod
@@ -501,12 +538,17 @@ class ResolutionContext(MultiformatModelMixin):
             if value is None:
                 continue
             if not isinstance(value, Mapping):
-                raise ValueError(f"platform_overrides.{platform_name} must be a mapping")
+                raise ValueError(
+                    f"platform_overrides.{platform_name} must be a mapping"
+                )
             parsed[platform_name] = PlatformContext.from_mapping(value)
 
-        validate_typed_dict("platform overrides", parsed, PlatformOverrides, PlatformContext)
+        validate_typed_dict(
+            "platform overrides", parsed, PlatformOverrides, PlatformContext
+        )
 
         return cls(
             name=mapping["name"],
             universal=PlatformContext.from_mapping(mapping["universal"]),
-            platform_overrides=cast(PlatformOverrides, cast(object, parsed)))
+            platform_overrides=cast(PlatformOverrides, cast(object, parsed)),
+        )

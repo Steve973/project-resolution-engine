@@ -1,0 +1,1134 @@
+docKind: derived-ids
+schemaVersion: "1"
+unit:
+  name: "project_resolution_engine.internal.resolvelib"
+  language: "python"
+  unitId: "C000"
+assigned:
+  entries:
+    - id: C000F001
+      kind: callable
+      name: _expand_tags_for_context
+      address: "C000::_expand_tags_for_context@L27"
+    - id: C000F002
+      kind: callable
+      name: _safe_url_basename
+      address: "C000::_safe_url_basename@L55"
+    - id: C000F003
+      kind: callable
+      name: path_from_file_uri
+      address: "C000::path_from_file_uri@L63"
+    - id: C000F004
+      kind: callable
+      name: _env_python_version
+      address: "C000::_env_python_version@L70"
+    - id: C000F005
+      kind: callable
+      name: _version_sort_key
+      address: "C000::_version_sort_key@L81"
+    - id: C001
+      kind: class
+      name: ProjectResolutionProvider
+      address: "C000::ProjectResolutionProvider@L89"
+    - id: C001M001
+      kind: callable
+      name: __init__
+      address: "C000::ProjectResolutionProvider.__init__@L92"
+    - id: C001M002
+      kind: callable
+      name: identify
+      address: "C000::ProjectResolutionProvider.identify@L102"
+    - id: C001M003
+      kind: callable
+      name: _best_hash
+      address: "C000::ProjectResolutionProvider._best_hash@L106"
+    - id: C001M004
+      kind: callable
+      name: find_matches
+      address: "C000::ProjectResolutionProvider.find_matches@L116"
+    - id: C001M005
+      kind: callable
+      name: _materialize_requirements
+      address: "C000::ProjectResolutionProvider._materialize_requirements@L147"
+    - id: C001M006
+      kind: callable
+      name: _update_requested_extras
+      address: "C000::ProjectResolutionProvider._update_requested_extras@L152"
+    - id: C001M007
+      kind: callable
+      name: _compute_bad_set
+      address: "C000::ProjectResolutionProvider._compute_bad_set@L167"
+    - id: C001M008
+      kind: callable
+      name: _build_uri_candidates
+      address: "C000::ProjectResolutionProvider._build_uri_candidates@L175"
+    - id: C001M009
+      kind: callable
+      name: _candidate_from_uri_req
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@L195"
+    - id: C001M010
+      kind: callable
+      name: _combined_spec
+      address: "C000::ProjectResolutionProvider._combined_spec@L236"
+    - id: C001M011
+      kind: callable
+      name: _load_pep691
+      address: "C000::ProjectResolutionProvider._load_pep691@L244"
+    - id: C001M012
+      kind: callable
+      name: _build_index_candidates
+      address: "C000::ProjectResolutionProvider._build_index_candidates@L258"
+    - id: C001M013
+      kind: callable
+      name: _candidate_from_index_file
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@L278"
+    - id: C001M014
+      kind: callable
+      name: _best_tag
+      address: "C000::ProjectResolutionProvider._best_tag@L338"
+    - id: C001M015
+      kind: callable
+      name: _sort_candidates
+      address: "C000::ProjectResolutionProvider._sort_candidates@L351"
+    - id: C001M016
+      kind: callable
+      name: is_satisfied_by
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@L363"
+    - id: C001M017
+      kind: callable
+      name: get_dependencies
+      address: "C000::ProjectResolutionProvider.get_dependencies@L378"
+    - id: C001M018
+      kind: callable
+      name: get_preference
+      address: "C000::ProjectResolutionProvider.get_preference@L434"
+    - id: C000F006
+      kind: callable
+      name: resolve
+      address: "C000::resolve@L485"
+  branches:
+    - id: C000F001B0001
+      parent: C000F001
+      address: "C000::_expand_tags_for_context@if context_tag.interpreter.startswith('cp') and context_tag.interpreter[2:].isdigit()@L45"
+      summary: "CPython-ish ABI fallback tags added"
+    - id: C000F001B0002
+      parent: C000F001
+      address: "C000::_expand_tags_for_context@else@L45"
+      summary: "no ABI fallback tags added"
+    - id: C000F002B0001
+      parent: C000F002
+      address: "C000::_safe_url_basename@if not base@L58"
+      summary: "base empty -> raise ValueError"
+    - id: C000F002B0002
+      parent: C000F002
+      address: "C000::_safe_url_basename@else@L58"
+      summary: "base non-empty -> return basename"
+    - id: C000F003B0001
+      parent: C000F003
+      address: "C000::path_from_file_uri@if u.scheme != 'file'@L65"
+      summary: "non-file scheme -> raise ValueError"
+    - id: C000F003B0002
+      parent: C000F003
+      address: "C000::path_from_file_uri@else@L65"
+      summary: "file scheme -> return filesystem Path"
+    - id: C000F004B0001
+      parent: C000F004
+      address: "C000::_env_python_version@try Version(str(raw))@L75"
+      summary: "raw parses as Version"
+    - id: C000F004B0002
+      parent: C000F004
+      address: "C000::_env_python_version@except InvalidVersion@L77"
+      summary: "raw invalid -> Version('0')"
+    - id: C000F005B0001
+      parent: C000F005
+      address: "C000::_version_sort_key@try Version(v)@L83"
+      summary: "v parses as Version"
+    - id: C000F005B0002
+      parent: C000F005
+      address: "C000::_version_sort_key@except InvalidVersion@L85"
+      summary: "v invalid -> treat as string"
+    - id: C001M003B0001
+      parent: C001M003
+      address: "C000::ProjectResolutionProvider._best_hash@if not (item.hashes or {})@L109"
+      summary: "hashes empty -> None"
+    - id: C001M003B0002
+      parent: C001M003
+      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha256')@L110"
+      summary: "sha256 present -> return sha256"
+    - id: C001M003B0003
+      parent: C001M003
+      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha512')@L110"
+      summary: "sha512 present (sha256 absent) -> return sha512"
+    - id: C001M003B0004
+      parent: C001M003
+      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha384')@L110"
+      summary: "sha384 present (sha256/sha512 absent) -> return sha384"
+    - id: C001M003B0005
+      parent: C001M003
+      address: "C000::ProjectResolutionProvider._best_hash@no preferred hash found@L114"
+      summary: "hashes present but no preferred alg -> None"
+    - id: C001M004B0001
+      parent: C001M004
+      address: "C000::ProjectResolutionProvider.find_matches@if uri_candidates is not None@L129"
+      summary: "direct-URI candidates present -> return sorted uri candidates"
+    - id: C001M004B0002
+      parent: C001M004
+      address: "C000::ProjectResolutionProvider.find_matches@else@L129"
+      summary: "no direct-URI candidates -> build index candidates and return sorted"
+    - id: C001M006B0001
+      parent: C001M006
+      address: "C000::ProjectResolutionProvider._update_requested_extras@if not req_list@L153"
+      summary: "no requirements -> no update"
+    - id: C001M006B0002
+      parent: C001M006
+      address: "C000::ProjectResolutionProvider._update_requested_extras@if not extras_union@L160"
+      summary: "no extras across requirements -> no update"
+    - id: C001M006B0003
+      parent: C001M006
+      address: "C000::ProjectResolutionProvider._update_requested_extras@update requested extras@L163"
+      summary: "extras present -> union into _requested_extras_by_name[name]"
+    - id: C001M008B0001
+      parent: C001M008
+      address: "C000::ProjectResolutionProvider._build_uri_candidates@if not uri_reqs@L181"
+      summary: "no uri requirements -> None"
+    - id: C001M008B0002
+      parent: C001M008
+      address: "C000::ProjectResolutionProvider._build_uri_candidates@if not parsed.scheme@L187"
+      summary: "uri missing scheme -> raise ValueError"
+    - id: C001M008B0003
+      parent: C001M008
+      address: "C000::ProjectResolutionProvider._build_uri_candidates@all candidates None@L193"
+      summary: "uri reqs but no usable candidates -> empty list"
+    - id: C001M008B0004
+      parent: C001M008
+      address: "C000::ProjectResolutionProvider._build_uri_candidates@at least one candidate appended@L190"
+      summary: "uri reqs yield candidates -> list"
+    - id: C001M009B0001
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@except Exception@L206"
+      summary: "wheel filename parse fails -> raise ValueError"
+    - id: C001M009B0002
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if canonicalize_name(dist) != name@L210"
+      summary: "dist mismatch -> None"
+    - id: C001M009B0003
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if best_tag is None@L215"
+      summary: "no supported tag match -> None"
+    - id: C001M009B0004
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if (wk.name,wk.version,wk.tag) in bad@L227"
+      summary: "candidate in incompatibilities -> None"
+    - id: C001M009B0005
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if req.version is not None and not req.version.contains(wk.version)@L230"
+      summary: "direct uri version not allowed by requirement -> None"
+    - id: C001M009B0006
+      parent: C001M009
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@success@L233"
+      summary: "construct WheelKey and ResolverCandidate"
+    - id: C001M010B0001
+      parent: C001M010
+      address: "C000::ProjectResolutionProvider._combined_spec@no r.version found@L242"
+      summary: "all requirement versions None -> returns None"
+    - id: C001M010B0002
+      parent: C001M010
+      address: "C000::ProjectResolutionProvider._combined_spec@at least one r.version combined@L241"
+      summary: "returns SpecifierSet (possibly multi-part)"
+    - id: C001M011B0001
+      parent: C001M011
+      address: "C000::ProjectResolutionProvider._load_pep691@if pep691 is not None@L246"
+      summary: "cache hit -> return cached Pep691Metadata"
+    - id: C001M011B0002
+      parent: C001M011
+      address: "C000::ProjectResolutionProvider._load_pep691@cache miss load@L249"
+      summary: "load index metadata JSON from filesystem, parse, cache, return"
+    - id: C001M012B0001
+      parent: C001M012
+      address: "C000::ProjectResolutionProvider._build_index_candidates@pep691.files empty@L267"
+      summary: "no files -> empty list"
+    - id: C001M012B0002
+      parent: C001M012
+      address: "C000::ProjectResolutionProvider._build_index_candidates@all c is None@L274"
+      summary: "no usable files -> empty list"
+    - id: C001M012B0003
+      parent: C001M012
+      address: "C000::ProjectResolutionProvider._build_index_candidates@at least one candidate appended@L274"
+      summary: "returns list of ResolverCandidate"
+    - id: C001M013B0001
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if not f.filename.lower().endswith('.whl')@L286"
+      summary: "non-wheel file -> None"
+    - id: C001M013B0002
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if f.yanked and policy==SKIP@L289"
+      summary: "yanked wheel skipped -> None"
+    - id: C001M013B0003
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@except Exception parse_wheel_filename@L292"
+      summary: "parse_wheel_filename fails -> None"
+    - id: C001M013B0004
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if canonicalize_name(dist) != name@L297"
+      summary: "dist mismatch -> None"
+    - id: C001M013B0005
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if combined_spec excludes ver_str@L302"
+      summary: "version not in combined spec -> None"
+    - id: C001M013B0006
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if f.requires_python and not SpecifierSet(...).contains(py_version)@L305"
+      summary: "requires_python excludes env python -> None"
+    - id: C001M013B0007
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@except Exception parsing requires_python@L309"
+      summary: "requires_python parse error -> ignore and continue"
+    - id: C001M013B0008
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if best_tag is None@L314"
+      summary: "no supported tag match -> None"
+    - id: C001M013B0009
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if hash_spec is None@L318"
+      summary: "no acceptable hash present -> None"
+    - id: C001M013B0010
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if (wk.name,wk.version,wk.tag) in bad@L333"
+      summary: "candidate in incompatibilities -> None"
+    - id: C001M013B0011
+      parent: C001M013
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@success@L336"
+      summary: "construct WheelKey and ResolverCandidate"
+    - id: C001M014B0001
+      parent: C001M014
+      address: "C000::ProjectResolutionProvider._best_tag@if ordered is not None and match found@L345"
+      summary: "ordered tag list present -> return first matching tag"
+    - id: C001M014B0002
+      parent: C001M014
+      address: "C000::ProjectResolutionProvider._best_tag@if ordered is not None and no match@L348"
+      summary: "ordered tag list present -> no match -> None"
+    - id: C001M014B0003
+      parent: C001M014
+      address: "C000::ProjectResolutionProvider._best_tag@if ordered is None and match found@L346"
+      summary: "fallback supported_tags used -> return first matching tag"
+    - id: C001M014B0004
+      parent: C001M014
+      address: "C000::ProjectResolutionProvider._best_tag@if ordered is None and no match@L348"
+      summary: "fallback supported_tags used -> no match -> None"
+    - id: C001M016B0001
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@if candidate.name != requirement.name@L364"
+      summary: "name mismatch -> False"
+    - id: C001M016B0002
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.uri is not None and origin_uri matches@L367"
+      summary: "direct uri requirement satisfied -> True"
+    - id: C001M016B0003
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.uri is not None and origin_uri differs@L367"
+      summary: "direct uri requirement not satisfied -> False"
+    - id: C001M016B0004
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.version is None@L370"
+      summary: "no version constraint -> True"
+    - id: C001M016B0005
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@try requirement.version.contains(candidate.version) True@L373"
+      summary: "version constraint satisfied -> True"
+    - id: C001M016B0006
+      parent: C001M016
+      address: "C000::ProjectResolutionProvider.is_satisfied_by@contains False or raises@L375"
+      summary: "version constraint not satisfied -> False"
+    - id: C001M017B0001
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if wk.origin_uri is None@L380"
+      summary: "no origin uri -> return empty iterable"
+    - id: C001M017B0002
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if meta cache hit@L384"
+      summary: "use cached Pep658Metadata"
+    - id: C001M017B0003
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if meta is None@L385"
+      summary: "load core metadata from filesystem, parse, cache"
+    - id: C001M017B0004
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@except Exception Requirement(raw)@L403"
+      summary: "invalid requires_dist entry -> skipped"
+    - id: C001M017B0005
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if req.marker is None@L408"
+      summary: "no marker -> dependency appended"
+    - id: C001M017B0006
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if requested_extras and some extra evaluates True@L409"
+      summary: "marker satisfied for at least one requested extra -> appended"
+    - id: C001M017B0007
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if requested_extras and none evaluate True@L417"
+      summary: "marker not satisfied by any requested extra -> skipped"
+    - id: C001M017B0008
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if not requested_extras and marker evaluates True@L420"
+      summary: "marker satisfied under base env -> appended"
+    - id: C001M017B0009
+      parent: C001M017
+      address: "C000::ProjectResolutionProvider.get_dependencies@if not requested_extras and marker evaluates False@L420"
+      summary: "marker not satisfied under base env -> skipped"
+    - id: C001M018B0001
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@0 if is_backtrack_cause else 1 (True)@L477"
+      summary: "backtrack cause -> first tuple element 0"
+    - id: C001M018B0002
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@0 if is_backtrack_cause else 1 (False)@L477"
+      summary: "not backtrack cause -> first tuple element 1"
+    - id: C001M018B0003
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@0 if is_root else 1 (True)@L478"
+      summary: "root requirement -> second tuple element 0"
+    - id: C001M018B0004
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@0 if is_root else 1 (False)@L478"
+      summary: "non-root -> second tuple element 1"
+    - id: C001M018B0005
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@1 if is_already_resolved else 0 (True)@L481"
+      summary: "already resolved -> fourth tuple element 1"
+    - id: C001M018B0006
+      parent: C001M018
+      address: "C000::ProjectResolutionProvider.get_preference@1 if is_already_resolved else 0 (False)@L481"
+      summary: "not resolved -> fourth tuple element 0"
+---
+docKind: ledger
+schemaVersion: "1"
+unit:
+  id: C000
+  name: "project_resolution_engine.internal.resolvelib"
+  kind: unit
+  children:
+    - id: C000F001
+      name: _expand_tags_for_context
+      kind: callable
+      signature: "_expand_tags_for_context(*, python_version: Version, context_tag: Tag) -> frozenset[Tag]"
+      callable:
+        params:
+          - name: python_version
+            type:
+              name: Version
+          - name: context_tag
+            type:
+              name: Tag
+        branches:
+          - id: C000F001B0001
+            condition: "if context_tag.interpreter.startswith('cp') and context_tag.interpreter[2:].isdigit()"
+            outcome: "returned tag set includes cp-abi3 and cp-none for context_tag.platform"
+          - id: C000F001B0002
+            condition: "else"
+            outcome: "returned tag set omits cp-abi3/cp-none fallback tags"
+    - id: C000F002
+      name: _safe_url_basename
+      kind: callable
+      signature: "_safe_url_basename(url: str) -> str"
+      callable:
+        params:
+          - name: url
+            type:
+              name: str
+        branches:
+          - id: C000F002B0001
+            condition: "if not base"
+            outcome: "raises ValueError('URL has no path basename: ...')"
+          - id: C000F002B0002
+            condition: "else"
+            outcome: "returns Path(unquote(urlparse(url).path)).name"
+    - id: C000F003
+      name: path_from_file_uri
+      kind: callable
+      signature: "path_from_file_uri(uri: str) -> Path"
+      callable:
+        params:
+          - name: uri
+            type:
+              name: str
+        branches:
+          - id: C000F003B0001
+            condition: "if u.scheme != 'file'"
+            outcome: "raises ValueError('Expected file URI, got: ...')"
+          - id: C000F003B0002
+            condition: "else"
+            outcome: "returns Path(url2pathname(u.path))"
+    - id: C000F004
+      name: _env_python_version
+      kind: callable
+      signature: "_env_python_version(env: ResolutionEnv) -> Version"
+      callable:
+        params:
+          - name: env
+            type:
+              name: ResolutionEnv
+        branches:
+          - id: C000F004B0001
+            condition: "try: Version(str(raw))"
+            outcome: "returns Version(parsed from env.marker_environment python_full_version/python_version)"
+          - id: C000F004B0002
+            condition: "except InvalidVersion"
+            outcome: "returns Version('0')"
+    - id: C000F005
+      name: _version_sort_key
+      kind: callable
+      signature: "_version_sort_key(v: str) -> tuple[int, Version | str]"
+      callable:
+        params:
+          - name: v
+            type:
+              name: str
+        branches:
+          - id: C000F005B0001
+            condition: "try: Version(v)"
+            outcome: "returns (1, Version(v))"
+          - id: C000F005B0002
+            condition: "except InvalidVersion"
+            outcome: "returns (0, v)"
+    - id: C001
+      name: ProjectResolutionProvider
+      kind: class
+      children:
+        - id: C001M001
+          name: __init__
+          kind: callable
+          signature: "__init__(self, *, services: ResolutionServices, env: ResolutionEnv, index_base: str = 'https://pypi.org/simple') -> None"
+          callable:
+            params:
+              - name: services
+                type:
+                  name: ResolutionServices
+              - name: env
+                type:
+                  name: ResolutionEnv
+              - name: index_base
+                type:
+                  name: str
+                default: "https://pypi.org/simple"
+            branches:
+              - id: C001M001B0001
+                condition: "always"
+                outcome: "initializes provider state and empty caches"
+        - id: C001M002
+          name: identify
+          kind: callable
+          signature: "identify(self, requirement_or_candidate: ResolverRequirement | ResolverCandidate) -> str"
+          callable:
+            params:
+              - name: requirement_or_candidate
+                type:
+                  name: "ResolverRequirement | ResolverCandidate"
+            branches:
+              - id: C001M002B0001
+                condition: "always"
+                outcome: "returns requirement_or_candidate.name"
+        - id: C001M003
+          name: _best_hash
+          kind: callable
+          decorators:
+            - name: staticmethod
+          signature: "_best_hash(item: Pep691FileMetadata) -> tuple[str, str] | None"
+          callable:
+            params:
+              - name: item
+                type:
+                  name: Pep691FileMetadata
+            branches:
+              - id: C001M003B0001
+                condition: "if not (item.hashes or {})"
+                outcome: "returns None"
+              - id: C001M003B0002
+                condition: "if (item.hashes or {}).get('sha256')"
+                outcome: "returns ('sha256', <hash>)"
+              - id: C001M003B0003
+                condition: "if (item.hashes or {}).get('sha512') and sha256 not present"
+                outcome: "returns ('sha512', <hash>)"
+              - id: C001M003B0004
+                condition: "if (item.hashes or {}).get('sha384') and sha256/sha512 not present"
+                outcome: "returns ('sha384', <hash>)"
+              - id: C001M003B0005
+                condition: "hashes present but none of ('sha256','sha512','sha384') present"
+                outcome: "returns None"
+        - id: C001M004
+          name: find_matches
+          kind: callable
+          signature: "find_matches(self, identifier: str, requirements: Mapping[str, Iterator[ResolverRequirement]], incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> Iterable[ResolverCandidate]"
+          callable:
+            params:
+              - name: identifier
+                type:
+                  name: str
+              - name: requirements
+                type:
+                  name: "Mapping[str, Iterator[ResolverRequirement]]"
+              - name: incompatibilities
+                type:
+                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+            integration:
+              interunit:
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._materialize_requirements"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._update_requested_extras"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._compute_bad_set"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._build_uri_candidates"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._combined_spec"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._load_pep691"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib._env_python_version"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._build_index_candidates"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._sort_candidates"
+                  kind: call
+            branches:
+              - id: C001M004B0001
+                condition: "if uri_candidates is not None"
+                outcome: "returns _sort_candidates(uri_candidates)"
+              - id: C001M004B0002
+                condition: "else"
+                outcome: "returns _sort_candidates(named_candidates)"
+        - id: C001M005
+          name: _materialize_requirements
+          kind: callable
+          decorators:
+            - name: staticmethod
+          signature: "_materialize_requirements(requirements: Mapping[str, Iterator[ResolverRequirement]], name: str) -> list[ResolverRequirement]"
+          callable:
+            params:
+              - name: requirements
+                type:
+                  name: "Mapping[str, Iterator[ResolverRequirement]]"
+              - name: name
+                type:
+                  name: str
+            branches:
+              - id: C001M005B0001
+                condition: "always"
+                outcome: "returns list(requirements.get(name, iter(())))"
+        - id: C001M006
+          name: _update_requested_extras
+          kind: callable
+          signature: "_update_requested_extras(self, name: str, req_list: Sequence[ResolverRequirement]) -> None"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: req_list
+                type:
+                  name: "Sequence[ResolverRequirement]"
+            branches:
+              - id: C001M006B0001
+                condition: "if not req_list"
+                outcome: "returns without updating _requested_extras_by_name"
+              - id: C001M006B0002
+                condition: "if not extras_union"
+                outcome: "returns without updating _requested_extras_by_name"
+              - id: C001M006B0003
+                condition: "else"
+                outcome: "_requested_extras_by_name[name] updated to union of existing and collected extras"
+        - id: C001M007
+          name: _compute_bad_set
+          kind: callable
+          decorators:
+            - name: staticmethod
+          signature: "_compute_bad_set(name: str, incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> set[tuple[str, str, str]]"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: incompatibilities
+                type:
+                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+            branches:
+              - id: C001M007B0001
+                condition: "always"
+                outcome: "returns {(c.name, c.wheel_key.version, c.wheel_key.tag) for c in incompatibilities.get(name, iter(()))}"
+        - id: C001M008
+          name: _build_uri_candidates
+          kind: callable
+          signature: "_build_uri_candidates(self, name: str, req_list: Sequence[ResolverRequirement], bad: set[tuple[str, str, str]]) -> list[ResolverCandidate] | None"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: req_list
+                type:
+                  name: "Sequence[ResolverRequirement]"
+              - name: bad
+                type:
+                  name: "set[tuple[str, str, str]]"
+            integration:
+              interunit:
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._candidate_from_uri_req"
+                  kind: call
+              boundaries:
+                - target: "urllib.parse.urlparse"
+                  kind: call
+            branches:
+              - id: C001M008B0001
+                condition: "if not uri_reqs"
+                outcome: "returns None"
+              - id: C001M008B0002
+                condition: "if not parsed.scheme"
+                outcome: "raises ValueError('Invalid resolver requirement URI: ...')"
+              - id: C001M008B0003
+                condition: "uri_reqs present and all c is None"
+                outcome: "returns []"
+              - id: C001M008B0004
+                condition: "uri_reqs present and some c is not None"
+                outcome: "returns list of ResolverCandidate"
+        - id: C001M009
+          name: _candidate_from_uri_req
+          kind: callable
+          signature: "_candidate_from_uri_req(self, *, name: str, req: ResolverRequirement, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: req
+                type:
+                  name: ResolverRequirement
+              - name: bad
+                type:
+                  name: "set[tuple[str, str, str]]"
+            integration:
+              interunit:
+                - target: "project_resolution_engine.internal.resolvelib._safe_url_basename"
+                  kind: call
+                - target: "project_resolution_engine.model.keys.WheelKey"
+                  kind: construct
+                - target: "project_resolution_engine.internal.resolvelib_types.ResolverCandidate"
+                  kind: construct
+            branches:
+              - id: C001M009B0001
+                condition: "except Exception"
+                outcome: "raises ValueError('Direct URI requirement does not look like a wheel file ...')"
+              - id: C001M009B0002
+                condition: "if canonicalize_name(dist) != name"
+                outcome: "returns None"
+              - id: C001M009B0003
+                condition: "if best_tag is None"
+                outcome: "returns None"
+              - id: C001M009B0004
+                condition: "if (wk.name, wk.version, wk.tag) in bad"
+                outcome: "returns None"
+              - id: C001M009B0005
+                condition: "if req.version is not None and not req.version.contains(wk.version)"
+                outcome: "returns None"
+              - id: C001M009B0006
+                condition: "else"
+                outcome: "returns ResolverCandidate(wheel_key=wk)"
+        - id: C001M010
+          name: _combined_spec
+          kind: callable
+          decorators:
+            - name: staticmethod
+          signature: "_combined_spec(req_list: Sequence[ResolverRequirement]) -> SpecifierSet | None"
+          callable:
+            params:
+              - name: req_list
+                type:
+                  name: "Sequence[ResolverRequirement]"
+            branches:
+              - id: C001M010B0001
+                condition: "no r.version present"
+                outcome: "returns None"
+              - id: C001M010B0002
+                condition: "at least one r.version present"
+                outcome: "returns SpecifierSet constructed from versions (comma-combined)"
+        - id: C001M011
+          name: _load_pep691
+          kind: callable
+          signature: "_load_pep691(self, name: str) -> Pep691Metadata"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+            integration:
+              interunit:
+                - target: "project_resolution_engine.model.keys.IndexMetadataKey"
+                  kind: construct
+                - target: "project_resolution_engine.services.ResolutionServices.index_metadata.resolve"
+                  kind: call
+                - target: "project_resolution_engine.model.pep.Pep691Metadata.from_mapping"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.path_from_file_uri"
+                  kind: call
+              boundaries:
+                - target: "pathlib.Path.read_text"
+                  kind: io
+                  boundary:
+                    kind: filesystem
+                    operation: read
+            branches:
+              - id: C001M011B0001
+                condition: "if pep691 is not None"
+                outcome: "returns cached Pep691Metadata"
+              - id: C001M011B0002
+                condition: "else"
+                outcome: "reads cached index JSON from filesystem, parses to Pep691Metadata, caches, returns"
+        - id: C001M012
+          name: _build_index_candidates
+          kind: callable
+          signature: "_build_index_candidates(self, *, name: str, pep691: Pep691Metadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> list[ResolverCandidate]"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: pep691
+                type:
+                  name: Pep691Metadata
+              - name: combined_spec
+                type:
+                  name: "SpecifierSet | None"
+              - name: py_version
+                type:
+                  name: str
+              - name: bad
+                type:
+                  name: "set[tuple[str, str, str]]"
+            integration:
+              interunit:
+                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._candidate_from_index_file"
+                  kind: call
+            branches:
+              - id: C001M012B0001
+                condition: "for f in pep691.files has zero iterations"
+                outcome: "returns []"
+              - id: C001M012B0002
+                condition: "for f in pep691.files and all c is None"
+                outcome: "returns []"
+              - id: C001M012B0003
+                condition: "for f in pep691.files and some c is not None"
+                outcome: "returns list of ResolverCandidate"
+        - id: C001M013
+          name: _candidate_from_index_file
+          kind: callable
+          signature: "_candidate_from_index_file(self, *, name: str, f: Pep691FileMetadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None"
+          callable:
+            params:
+              - name: name
+                type:
+                  name: str
+              - name: f
+                type:
+                  name: Pep691FileMetadata
+              - name: combined_spec
+                type:
+                  name: "SpecifierSet | None"
+              - name: py_version
+                type:
+                  name: str
+              - name: bad
+                type:
+                  name: "set[tuple[str, str, str]]"
+            integration:
+              interunit:
+                - target: "project_resolution_engine.model.keys.WheelKey"
+                  kind: construct
+                - target: "project_resolution_engine.internal.resolvelib_types.ResolverCandidate"
+                  kind: construct
+            branches:
+              - id: C001M013B0001
+                condition: "if not f.filename.lower().endswith('.whl')"
+                outcome: "returns None"
+              - id: C001M013B0002
+                condition: "if f.yanked and self._policy.yanked_wheel_policy == YankedWheelPolicy.SKIP"
+                outcome: "returns None"
+              - id: C001M013B0003
+                condition: "except Exception (parse_wheel_filename)"
+                outcome: "returns None"
+              - id: C001M013B0004
+                condition: "if canonicalize_name(dist) != name"
+                outcome: "returns None"
+              - id: C001M013B0005
+                condition: "if combined_spec is not None and not combined_spec.contains(ver_str)"
+                outcome: "returns None"
+              - id: C001M013B0006
+                condition: "if f.requires_python and not SpecifierSet(f.requires_python).contains(py_version)"
+                outcome: "returns None"
+              - id: C001M013B0007
+                condition: "except Exception (SpecifierSet(f.requires_python))"
+                outcome: "ignores requires_python filter and continues evaluation"
+              - id: C001M013B0008
+                condition: "if best_tag is None"
+                outcome: "returns None"
+              - id: C001M013B0009
+                condition: "if hash_spec is None"
+                outcome: "returns None"
+              - id: C001M013B0010
+                condition: "if (wk.name, wk.version, wk.tag) in bad"
+                outcome: "returns None"
+              - id: C001M013B0011
+                condition: "else"
+                outcome: "returns ResolverCandidate(wheel_key=wk)"
+        - id: C001M014
+          name: _best_tag
+          kind: callable
+          signature: "_best_tag(self, file_tag_set: set[str]) -> str | None"
+          callable:
+            params:
+              - name: file_tag_set
+                type:
+                  name: "set[str]"
+            branches:
+              - id: C001M014B0001
+                condition: "ordered = getattr(self._env, 'supported_tags_ordered', None) is not None and match exists"
+                outcome: "returns first matching tag from ordered"
+              - id: C001M014B0002
+                condition: "ordered is not None and no match exists"
+                outcome: "returns None"
+              - id: C001M014B0003
+                condition: "ordered is None and fallback self._env.supported_tags has match"
+                outcome: "returns first matching tag from fallback"
+              - id: C001M014B0004
+                condition: "ordered is None and fallback has no match"
+                outcome: "returns None"
+        - id: C001M015
+          name: _sort_candidates
+          kind: callable
+          decorators:
+            - name: staticmethod
+          signature: "_sort_candidates(candidates: list[ResolverCandidate]) -> list[ResolverCandidate]"
+          callable:
+            params:
+              - name: candidates
+                type:
+                  name: "list[ResolverCandidate]"
+            branches:
+              - id: C001M015B0001
+                condition: "always"
+                outcome: "sorts candidates in place (reverse=True) and returns same list object"
+        - id: C001M016
+          name: is_satisfied_by
+          kind: callable
+          signature: "is_satisfied_by(self, requirement: ResolverRequirement, candidate: ResolverCandidate) -> bool"
+          callable:
+            params:
+              - name: requirement
+                type:
+                  name: ResolverRequirement
+              - name: candidate
+                type:
+                  name: ResolverCandidate
+            branches:
+              - id: C001M016B0001
+                condition: "if candidate.name != requirement.name"
+                outcome: "returns False"
+              - id: C001M016B0002
+                condition: "if requirement.uri is not None and candidate.wheel_key.origin_uri == requirement.uri"
+                outcome: "returns True"
+              - id: C001M016B0003
+                condition: "if requirement.uri is not None and candidate.wheel_key.origin_uri != requirement.uri"
+                outcome: "returns False"
+              - id: C001M016B0004
+                condition: "if requirement.version is None"
+                outcome: "returns True"
+              - id: C001M016B0005
+                condition: "try: requirement.version.contains(candidate.version) is True"
+                outcome: "returns True"
+              - id: C001M016B0006
+                condition: "except Exception or contains(...) is False"
+                outcome: "returns False"
+        - id: C001M017
+          name: get_dependencies
+          kind: callable
+          signature: "get_dependencies(self, candidate: ResolverCandidate) -> Iterable[ResolverRequirement]"
+          callable:
+            params:
+              - name: candidate
+                type:
+                  name: ResolverCandidate
+            integration:
+              interunit:
+                - target: "project_resolution_engine.model.keys.CoreMetadataKey"
+                  kind: construct
+                - target: "project_resolution_engine.services.ResolutionServices.core_metadata.resolve"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib.path_from_file_uri"
+                  kind: call
+                - target: "project_resolution_engine.model.pep.Pep658Metadata.from_core_metadata_text"
+                  kind: call
+                - target: "project_resolution_engine.internal.resolvelib_types.ResolverRequirement"
+                  kind: construct
+                - target: "project_resolution_engine.model.resolution.WheelSpec"
+                  kind: construct
+              boundaries:
+                - target: "pathlib.Path.read_text"
+                  kind: io
+                  boundary:
+                    kind: filesystem
+                    operation: read
+            branches:
+              - id: C001M017B0001
+                condition: "if wk.origin_uri is None"
+                outcome: "returns ()"
+              - id: C001M017B0002
+                condition: "if meta is not None (cache hit)"
+                outcome: "uses cached Pep658Metadata"
+              - id: C001M017B0003
+                condition: "if meta is None (cache miss)"
+                outcome: "loads core metadata text from filesystem, parses, caches"
+              - id: C001M017B0004
+                condition: "except Exception when parsing Requirement(raw)"
+                outcome: "skips that requires_dist entry"
+              - id: C001M017B0005
+                condition: "if req.marker is None"
+                outcome: "appends ResolverRequirement for req"
+              - id: C001M017B0006
+                condition: "if req.marker is not None and requested_extras and marker evaluates True for some extra"
+                outcome: "appends ResolverRequirement for req"
+              - id: C001M017B0007
+                condition: "if req.marker is not None and requested_extras and marker evaluates False for all extras"
+                outcome: "skips req"
+              - id: C001M017B0008
+                condition: "if req.marker is not None and not requested_extras and marker evaluates True"
+                outcome: "appends ResolverRequirement for req"
+              - id: C001M017B0009
+                condition: "if req.marker is not None and not requested_extras and marker evaluates False"
+                outcome: "skips req"
+        - id: C001M018
+          name: get_preference
+          kind: callable
+          signature: "get_preference(self, identifier: str, resolutions: Mapping[str, ResolverCandidate], candidates: Mapping[str, Iterator[ResolverCandidate]], information: Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]], backtrack_causes: Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> Preference"
+          callable:
+            params:
+              - name: identifier
+                type:
+                  name: str
+              - name: resolutions
+                type:
+                  name: "Mapping[str, ResolverCandidate]"
+              - name: candidates
+                type:
+                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+              - name: information
+                type:
+                  name: "Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]]"
+              - name: backtrack_causes
+                type:
+                  name: "Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]"
+            branches:
+              - id: C001M018B0001
+                condition: "0 if is_backtrack_cause else 1 (is_backtrack_cause True)"
+                outcome: "preference tuple element[0] == 0"
+              - id: C001M018B0002
+                condition: "0 if is_backtrack_cause else 1 (is_backtrack_cause False)"
+                outcome: "preference tuple element[0] == 1"
+              - id: C001M018B0003
+                condition: "0 if is_root else 1 (is_root True)"
+                outcome: "preference tuple element[1] == 0"
+              - id: C001M018B0004
+                condition: "0 if is_root else 1 (is_root False)"
+                outcome: "preference tuple element[1] == 1"
+              - id: C001M018B0005
+                condition: "1 if is_already_resolved else 0 (is_already_resolved True)"
+                outcome: "preference tuple element[3] == 1"
+              - id: C001M018B0006
+                condition: "1 if is_already_resolved else 0 (is_already_resolved False)"
+                outcome: "preference tuple element[3] == 0"
+    - id: C000F006
+      name: resolve
+      kind: callable
+      signature: "resolve(*, services, env: ResolutionEnv, roots: Sequence[ResolverRequirement]) -> Result[ResolverRequirement, ResolverCandidate, str]"
+      callable:
+        params:
+          - name: services
+          - name: env
+            type:
+              name: ResolutionEnv
+          - name: roots
+            type:
+              name: "Sequence[ResolverRequirement]"
+        integration:
+          interunit:
+            - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider"
+              kind: construct
+            - target: "project_resolution_engine.internal.resolvelib_types.ProjectResolutionReporter"
+              kind: construct
+            - target: "resolvelib.Resolver"
+              kind: construct
+            - target: "resolvelib.Resolver.resolve"
+              kind: call
+        branches:
+          - id: C000F006B0001
+            condition: "always"
+            outcome: "returns Resolver(provider, reporter).resolve(roots)"
+---
+docKind: ledger-generation-review
+schemaVersion: "1"
+unit:
+  name: "project_resolution_engine.internal.resolvelib"
+  language: "python"
+findings:
+  - severity: warn
+    category: anomaly
+    message: "Presence of any URI requirement short-circuits index resolution, even if all URI candidates are filtered out (returns empty list and does not fall back to PEP 691 index files)."
+    appliesTo:
+      - "C000::ProjectResolutionProvider.find_matches@L116"
+      - "C000::ProjectResolutionProvider._build_uri_candidates@L175"
+    evidence:
+      address: "C000::ProjectResolutionProvider.find_matches@L128"
+      lineStart: 128
+      lineEnd: 145
+      snippet: "uri_candidates = self._build_uri_candidates(...)\nif uri_candidates is not None:\n    return self._sort_candidates(uri_candidates)"
+    recommendedAction: "Confirm intended behavior: if URI reqs exist but yield 0 viable wheels, should resolution stop ([]) or fall back to index candidates?"
+
+  - severity: warn
+    category: ambiguity
+    message: "Tag preference selection can be arbitrary when env.supported_tags_ordered is absent, because fallback env.supported_tags may be unordered; best_tag then depends on iteration order."
+    appliesTo: "C000::ProjectResolutionProvider._best_tag@L338"
+    evidence:
+      address: "C000::ProjectResolutionProvider._best_tag@L345"
+      lineStart: 338
+      lineEnd: 349
+      snippet: "ordered = getattr(self._env, 'supported_tags_ordered', None)\nif ordered is None:\n    ordered = self._env.supported_tags  # fallback, possibly unordered"
+    recommendedAction: "If deterministic selection matters, require supported_tags_ordered or sort supported_tags explicitly."
+
+  - severity: warn
+    category: anomaly
+    message: "requires_python parsing errors are silently ignored, which can admit wheels that should have been filtered by requires_python."
+    appliesTo: "C000::ProjectResolutionProvider._candidate_from_index_file@L278"
+    evidence:
+      address: "C000::ProjectResolutionProvider._candidate_from_index_file@L305"
+      lineStart: 305
+      lineEnd: 310
+      snippet: "if f.requires_python:\n    try:\n        if not SpecifierSet(f.requires_python).contains(py_version):\n            return None\n    except Exception:\n        pass"
+    recommendedAction: "Decide policy: treat invalid requires_python as skip, or surface as a warning/exception."
+
+  - severity: info
+    category: assumption
+    message: "get_dependencies mutates env.marker_environment by setdefault('extra',''), which may be an intentional convenience but is a side effect on shared env state."
+    appliesTo: "C000::ProjectResolutionProvider.get_dependencies@L378"
+    evidence:
+      address: "C000::ProjectResolutionProvider.get_dependencies@L398"
+      lineStart: 398
+      lineEnd: 400
+      snippet: "marker_env_base = cast(dict[str, str], cast(object, self._env.marker_environment))\nmarker_env_base.setdefault('extra', '')"
+    recommendedAction: "Confirm whether env.marker_environment is safe to mutate; if not, copy before setdefault."
+
+  - severity: info
+    category: assumption
+    message: "Direct-URI wheel parsing errors are collapsed into ValueError without exception chaining; tests can only assert the ValueError message substring, not the underlying parse error."
+    appliesTo: "C000::ProjectResolutionProvider._candidate_from_uri_req@L195"
+    evidence:
+      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@L203"
+      lineStart: 203
+      lineEnd: 208
+      snippet: "try:\n    filename = _safe_url_basename(req.uri)\n    dist, ver, _build, tags = parse_wheel_filename(filename)\nexcept Exception:\n    raise ValueError('Direct URI requirement does not look like a wheel file ...')"
+    recommendedAction: "If diagnostics matter, consider `raise ... from e` (or keep current behavior if deliberate)."

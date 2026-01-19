@@ -7,13 +7,18 @@ from resolvelib.resolvers import Result
 
 from project_resolution_engine.internal.resolvelib_types import ResolverCandidate
 from project_resolution_engine.model.keys import WheelKey
-from project_resolution_engine.model.resolution import ResolutionMode, ResolutionParams, ResolutionResult
+from project_resolution_engine.model.resolution import (
+    ResolutionMode,
+    ResolutionParams,
+    ResolutionResult,
+)
 from project_resolution_engine.services import load_services
 from project_resolution_engine.strategies import ResolutionStrategyConfig
 
 
 def _normalize_strategy_configs(
-        strategy_configs: Iterable[ResolutionStrategyConfig] | None) -> dict[str, ResolutionStrategyConfig]:
+    strategy_configs: Iterable[ResolutionStrategyConfig] | None,
+) -> dict[str, ResolutionStrategyConfig]:
     """
     Normalizes a collection of resolution strategy configurations into a dictionary
     indexed by instance ID or strategy name.
@@ -88,7 +93,8 @@ def _roots_for_env(params: ResolutionParams, env: Any) -> list[Any]:
 
 
 def _wk_by_name_from_result(
-        result: Result[Any, ResolverCandidate, str]) -> dict[str, WheelKey]:
+    result: Result[Any, ResolverCandidate, str],
+) -> dict[str, WheelKey]:
     """
     Converts the result mapping into a dictionary mapping names to WheelKeys.
 
@@ -109,8 +115,8 @@ def _wk_by_name_from_result(
 
 
 def _deps_by_parent_from_result(
-        result: Result[Any, ResolverCandidate, str],
-        wk_by_name: Mapping[str, WheelKey]) -> dict[str, set[str]]:
+    result: Result[Any, ResolverCandidate, str], wk_by_name: Mapping[str, WheelKey]
+) -> dict[str, set[str]]:
     """
     Generate a mapping of parent items to their dependent child items based on the given resolution result
     and wheel keys.
@@ -145,8 +151,8 @@ def _deps_by_parent_from_result(
 
 
 def _apply_dependency_ids(
-        deps_by_parent: Mapping[str, set[str]],
-        wk_by_name: Mapping[str, WheelKey]) -> None:
+    deps_by_parent: Mapping[str, set[str]], wk_by_name: Mapping[str, WheelKey]
+) -> None:
     """
     Applies dependency IDs to parent WheelKey objects based on their dependencies.
 
@@ -208,7 +214,9 @@ class ProjectResolutionEngine:
     @staticmethod
     def resolve(params: ResolutionParams) -> ResolutionResult:
         from project_resolution_engine.internal.resolvelib import resolve as rl_resolve
-        from project_resolution_engine.internal.repositories.factory import open_repository
+        from project_resolution_engine.internal.repositories.factory import (
+            open_repository,
+        )
 
         reqs_by_env: dict[str, str] = {}
         wheels_by_env: dict[str, list[str]] = {}
@@ -217,16 +225,15 @@ class ProjectResolutionEngine:
 
         with open_repository(repo_id=params.repo_id, config=params.repo_config) as repo:
             services = load_services(
-                repo=repo,
-                strategy_configs_by_instance_id=configs_by_instance_id)
+                repo=repo, strategy_configs_by_instance_id=configs_by_instance_id
+            )
 
             for env in params.target_environments:
                 roots = _roots_for_env(params, env)
 
                 result: Result[Any, ResolverCandidate, str] = rl_resolve(
-                    services=services,
-                    env=env,
-                    roots=roots)
+                    services=services, env=env, roots=roots
+                )
 
                 wk_by_name = _wk_by_name_from_result(result)
                 deps_by_parent = _deps_by_parent_from_result(result, wk_by_name)
@@ -239,4 +246,6 @@ class ProjectResolutionEngine:
                     # You currently never populate URIs here. Leaving behavior unchanged.
                     wheels_by_env[env.identifier] = []
 
-        return ResolutionResult(requirements_by_env=reqs_by_env, resolved_wheels_by_env=wheels_by_env)
+        return ResolutionResult(
+            requirements_by_env=reqs_by_env, resolved_wheels_by_env=wheels_by_env
+        )

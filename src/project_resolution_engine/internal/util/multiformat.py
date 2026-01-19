@@ -8,7 +8,10 @@ from typing import Any
 
 from typing_extensions import Self
 
-from project_resolution_engine.internal.util.toml import dump_toml_to_str, load_toml_text
+from project_resolution_engine.internal.util.toml import (
+    dump_toml_to_str,
+    load_toml_text,
+)
 
 
 def _normalize(value: Any) -> Any:
@@ -89,12 +92,9 @@ class MultiformatSerializableMixin:
         import json
 
         normalized = _normalize(self.to_mapping())  # as before
-        payload = (
-            json.dumps(
-                normalized,
-                sort_keys=True,
-                separators=(",", ":"))
-            .encode("utf-8"))
+        payload = json.dumps(normalized, sort_keys=True, separators=(",", ":")).encode(
+            "utf-8"
+        )
 
         return hashlib.new("sha512", payload).hexdigest()
 
@@ -127,7 +127,8 @@ class MultiformatSerializableMixin:
         """
         raise NotImplementedError(
             f"{self.__class__.__name__} must implement to_mapping() "
-            "to use MultiformatSerializableMixin serialization.")
+            "to use MultiformatSerializableMixin serialization."
+        )
 
     def to_json(self, *, indent=2) -> str:
         """
@@ -145,7 +146,10 @@ class MultiformatSerializableMixin:
             str: A string containing the JSON representation of the object's data.
         """
         import json
-        return json.dumps(self.to_mapping(), ensure_ascii=False, indent=indent, sort_keys=True)
+
+        return json.dumps(
+            self.to_mapping(), ensure_ascii=False, indent=indent, sort_keys=True
+        )
 
     def to_yaml(self, *, indent=2) -> str:
         """
@@ -170,7 +174,9 @@ class MultiformatSerializableMixin:
             import yaml
         except ImportError:
             raise RuntimeError("PyYAML not installed")
-        return yaml.safe_dump(self.to_mapping(), sort_keys=True, allow_unicode=True, indent=indent)
+        return yaml.safe_dump(
+            self.to_mapping(), sort_keys=True, allow_unicode=True, indent=indent
+        )
 
     def to_toml(self, *, indent=2) -> str:
         """
@@ -201,7 +207,7 @@ class MultiformatSerializableMixin:
         sorted_mapping = sort_dict(self.to_mapping())
         return dump_toml_to_str(sorted_mapping, indent)
 
-    def serialize(self, *, fmt='json', indent=2) -> str:
+    def serialize(self, *, fmt="json", indent=2) -> str:
         """
         Serializes the object to a string in the specified format.
 
@@ -223,22 +229,23 @@ class MultiformatSerializableMixin:
             ValueError: If the specified format is not recognized or supported.
         """
         match fmt:
-            case 'json':
+            case "json":
                 return self.to_json(indent=indent)
-            case 'yaml':
+            case "yaml":
                 return self.to_yaml(indent=indent)
-            case 'toml':
+            case "toml":
                 return self.to_toml()
             case _:
                 raise ValueError(f"unrecognized format: {fmt}")
 
     def flat_summary(
-            self,
-            first_fields=("timestamp",),
-            last_fields=(),
-            sep=" | ",
-            exclude=(),
-            include_empty=False):
+        self,
+        first_fields=("timestamp",),
+        last_fields=(),
+        sep=" | ",
+        exclude=(),
+        include_empty=False,
+    ):
         """
         Generate a flat summary representation of the object's data.
 
@@ -272,17 +279,23 @@ class MultiformatSerializableMixin:
             v = mapping[k]
             # Filter if not including empty/None
             if not include_empty and (
-                    v is None or v == "" or
-                    (isinstance(v, (list, tuple, set, dict))
-                     and not v)):
+                v is None
+                or v == ""
+                or (isinstance(v, (list, tuple, set, dict)) and not v)
+            ):
                 continue
 
             if isinstance(v, (datetime, date)):
-                v_str = v.isoformat(timespec='seconds') if isinstance(v, datetime) else v.isoformat()
+                v_str = (
+                    v.isoformat(timespec="seconds")
+                    if isinstance(v, datetime)
+                    else v.isoformat()
+                )
             elif k.lower() == "payload" and isinstance(v, dict):
                 try:
                     import json
-                    v_str = json.dumps(v, separators=(',', ':'))
+
+                    v_str = json.dumps(v, separators=(",", ":"))
                 except Exception:
                     v_str = repr(v)
             elif isinstance(v, dict):
@@ -327,12 +340,15 @@ class MultiformatDeserializableMixin:
         """
         raise NotImplementedError(
             f"{cls.__name__} must implement from_mapping(mapping, **kwargs) "
-            "to use MultiformatDeserializableMixin.")
+            "to use MultiformatDeserializableMixin."
+        )
 
     # ---- public entrypoints ----
 
     @classmethod
-    def deserialize(cls: type[Self], text: str, *, fmt: str = "json", **context: Any) -> Self:
+    def deserialize(
+        cls: type[Self], text: str, *, fmt: str = "json", **context: Any
+    ) -> Self:
         """
         Deserializes a given text representation into an instance of the class.
 
@@ -416,7 +432,9 @@ class MultiformatDeserializableMixin:
         return cls.deserialize(text, fmt="toml", **context)
 
     @classmethod
-    def from_file(cls: type[Self], path: str | Path, fmt: str | None = None, **context: Any) -> Self:
+    def from_file(
+        cls: type[Self], path: str | Path, fmt: str | None = None, **context: Any
+    ) -> Self:
         """
         Creates an instance of the class from a file specified by the provided path.
 
@@ -520,6 +538,7 @@ class MultiformatDeserializableMixin:
         match fmt:
             case "json":
                 import json
+
                 return json.loads(text or "{}")
             case "yaml":
                 try:
@@ -528,7 +547,9 @@ class MultiformatDeserializableMixin:
                     raise RuntimeError("PyYAML not installed")
                 docs = list(yaml.safe_load_all(text or "{}"))
                 if len(docs) > 1:
-                    raise ValueError(f"Expected single YAML document, found {len(docs)}")
+                    raise ValueError(
+                        f"Expected single YAML document, found {len(docs)}"
+                    )
                 return docs[0] if docs else {}
             case "toml":
                 return load_toml_text(text or "")
@@ -537,12 +558,8 @@ class MultiformatDeserializableMixin:
 
     @classmethod
     def _coerce_root_mapping(
-            cls,
-            raw: Any,
-            *,
-            fmt: str,
-            path: Path | None,
-            **_: Any) -> Mapping[str, Any]:
+        cls, raw: Any, *, fmt: str, path: Path | None, **_: Any
+    ) -> Mapping[str, Any]:
         """
         Coerces a given raw input into a mapping type if valid.
 
@@ -568,16 +585,13 @@ class MultiformatDeserializableMixin:
             return raw
         raise TypeError(
             f"{cls.__name__} expected top-level mapping, got {type(raw)!r} "
-            f"from {fmt} {str(path) if path else '<inline>'}")
+            f"from {fmt} {str(path) if path else '<inline>'}"
+        )
 
     @classmethod
     def _preprocess_mapping(
-            cls,
-            mapping: Mapping[str, Any],
-            *,
-            fmt: str,
-            path: Path | None,
-            **_: Any) -> Mapping[str, Any]:
+        cls, mapping: Mapping[str, Any], *, fmt: str, path: Path | None, **_: Any
+    ) -> Mapping[str, Any]:
         """
         Preprocesses a given mapping according to specific requirements. This method can be overridden
         in subclasses to handle unique preprocessing cases. By default, it passes the mapping through
@@ -597,12 +611,8 @@ class MultiformatDeserializableMixin:
 
     @classmethod
     def _postprocess_instance(
-            cls,
-            inst: Self,
-            *,
-            fmt: str,
-            path: Path | None,
-            **_: Any) -> Self:
+        cls, inst: Self, *, fmt: str, path: Path | None, **_: Any
+    ) -> Self:
         """
         Post-process an instance after its creation. This method performs any
         necessary modifications, validations, or derivations on the instance
@@ -647,5 +657,7 @@ class MultiformatDeserializableMixin:
         return inst
 
 
-class MultiformatModelMixin(MultiformatSerializableMixin, MultiformatDeserializableMixin):
+class MultiformatModelMixin(
+    MultiformatSerializableMixin, MultiformatDeserializableMixin
+):
     pass

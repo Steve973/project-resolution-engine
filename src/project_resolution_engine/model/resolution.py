@@ -21,25 +21,25 @@ class ResolutionMode(Enum):
 
 
 class RequiresDistUrlPolicy(Enum):
-    HONOR = "honor"   # use req.url as WheelSpec.uri
-    IGNORE = "ignore" # drop req.url, resolve by name and specifier
-    RAISE = "raise"   # fail fast
+    HONOR = "honor"  # use req.url as WheelSpec.uri
+    IGNORE = "ignore"  # drop req.url, resolve by name and specifier
+    RAISE = "raise"  # fail fast
 
 
 class YankedWheelPolicy(Enum):
-    SKIP = "skip"     # current behavior
-    ALLOW = "allow"   # allow yanked wheels to participate
+    SKIP = "skip"  # current behavior
+    ALLOW = "allow"  # allow yanked wheels to participate
 
 
 class PreReleasePolicy(Enum):
-    DEFAULT = "default"   # let packaging decide (SpecifierSet prerelease rules)
-    ALLOW = "allow"       # treat prereleases as allowed for contains checks
-    DISALLOW = "disallow" # treat prereleases as not allowed for contains checks
+    DEFAULT = "default"  # let packaging decide (SpecifierSet prerelease rules)
+    ALLOW = "allow"  # treat prereleases as allowed for contains checks
+    DISALLOW = "disallow"  # treat prereleases as not allowed for contains checks
 
 
 class InvalidRequiresDistPolicy(Enum):
-    SKIP = "skip"   # current behavior (continue)
-    RAISE = "raise" # fail fast
+    SKIP = "skip"  # current behavior (continue)
+    RAISE = "raise"  # fail fast
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -65,11 +65,14 @@ class ResolutionPolicy(MultiformatModelMixin):
         invalid_requires_dist_policy (InvalidRequiresDistPolicy): Specifies the
             behavior when encountering invalid values in `requires_dist`.
     """
+
     requires_dist_url_policy: RequiresDistUrlPolicy = RequiresDistUrlPolicy.IGNORE
     allowed_requires_dist_url_schemes: frozenset[str] | None = None
     yanked_wheel_policy: YankedWheelPolicy = YankedWheelPolicy.SKIP
     prerelease_policy: PreReleasePolicy = PreReleasePolicy.DEFAULT
-    invalid_requires_dist_policy: InvalidRequiresDistPolicy = InvalidRequiresDistPolicy.SKIP
+    invalid_requires_dist_policy: InvalidRequiresDistPolicy = (
+        InvalidRequiresDistPolicy.SKIP
+    )
 
     def to_mapping(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         return {
@@ -77,26 +80,42 @@ class ResolutionPolicy(MultiformatModelMixin):
             "allowed_requires_dist_url_schemes": (
                 sorted(self.allowed_requires_dist_url_schemes)
                 if self.allowed_requires_dist_url_schemes is not None
-                else None),
+                else None
+            ),
             "yanked_wheel_policy": self.yanked_wheel_policy.value,
             "prerelease_policy": self.prerelease_policy.value,
             "invalid_requires_dist_policy": self.invalid_requires_dist_policy.value,
         }
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any) -> Self:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any
+    ) -> Self:
         schemes = mapping.get("allowed_requires_dist_url_schemes")
-        allowed_schemes = None if schemes is None else frozenset(cast(str, s) for s in schemes)
-        req_dist_url_policy = mapping.get("requires_dist_url_policy", RequiresDistUrlPolicy.IGNORE.value)
-        yanked_wheel_policy = mapping.get("yanked_wheel_policy", YankedWheelPolicy.SKIP.value)
-        prerelease_policy = mapping.get("prerelease_policy", PreReleasePolicy.DEFAULT.value)
-        invalid_requires_dist_policy = mapping.get("invalid_requires_dist_policy", InvalidRequiresDistPolicy.SKIP.value)
+        allowed_schemes = (
+            None if schemes is None else frozenset(cast(str, s) for s in schemes)
+        )
+        req_dist_url_policy = mapping.get(
+            "requires_dist_url_policy", RequiresDistUrlPolicy.IGNORE.value
+        )
+        yanked_wheel_policy = mapping.get(
+            "yanked_wheel_policy", YankedWheelPolicy.SKIP.value
+        )
+        prerelease_policy = mapping.get(
+            "prerelease_policy", PreReleasePolicy.DEFAULT.value
+        )
+        invalid_requires_dist_policy = mapping.get(
+            "invalid_requires_dist_policy", InvalidRequiresDistPolicy.SKIP.value
+        )
         return cls(
             requires_dist_url_policy=RequiresDistUrlPolicy(req_dist_url_policy),
             allowed_requires_dist_url_schemes=allowed_schemes,
             yanked_wheel_policy=YankedWheelPolicy(yanked_wheel_policy),
             prerelease_policy=PreReleasePolicy(prerelease_policy),
-            invalid_requires_dist_policy=InvalidRequiresDistPolicy(invalid_requires_dist_policy))
+            invalid_requires_dist_policy=InvalidRequiresDistPolicy(
+                invalid_requires_dist_policy
+            ),
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -119,12 +138,15 @@ class ResolutionEnv(MultiformatModelMixin):
         env_map: dict[str, str] = mapping.get("marker_environment", {})
         validate_typed_dict("marker_environment", env_map, Environment, str)
         mrk_env = cast(Environment, cast(object, env_map))
-        policy_map: dict[str, Any] = mapping.get("policy", ResolutionPolicy().to_mapping())
+        policy_map: dict[str, Any] = mapping.get(
+            "policy", ResolutionPolicy().to_mapping()
+        )
         return cls(
             identifier=mapping["identifier"],
             supported_tags=frozenset(mapping["supported_tags"]),
             marker_environment=mrk_env,
-            policy=ResolutionPolicy.from_mapping(policy_map))
+            policy=ResolutionPolicy.from_mapping(policy_map),
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -151,6 +173,7 @@ class WheelSpec(MultiformatModelMixin):
         uri (str | None): An optional URI that, if present, specifies the
             requirement source and overrides the `version` attribute.
     """
+
     name: str
     version: SpecifierSet | None = field(default=None)
     extras: frozenset[str] = field(default_factory=frozenset)
@@ -183,10 +206,15 @@ class WheelSpec(MultiformatModelMixin):
     def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> Self:
         return cls(
             name=mapping["name"],
-            version=SpecifierSet(mapping["version"]) if mapping["version"] is not None else None,
+            version=(
+                SpecifierSet(mapping["version"])
+                if mapping["version"] is not None
+                else None
+            ),
             extras=frozenset(mapping["extras"]),
             marker=Marker(mapping["marker"]) if mapping["marker"] is not None else None,
-            uri=mapping["uri"])
+            uri=mapping["uri"],
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -209,6 +237,7 @@ class ResolutionParams:
         strategy_configs (Iterable[ResolutionStrategyConfig] | None): Optional set of per-instance
             configurations for resolution strategies.
     """
+
     root_wheels: list[WheelSpec]
     target_environments: list[ResolutionEnv]
     resolution_mode: ResolutionMode = field(default=ResolutionMode.REQUIREMENTS_TXT)
@@ -234,7 +263,13 @@ class ArtifactResolutionError(ResolutionError):
     Raised when an ArtifactResolver cannot resolve an artifact after trying all strategies.
     """
 
-    def __init__(self, message: str, *, key: BaseArtifactKey, causes: Sequence[BaseException] = ()):
+    def __init__(
+        self,
+        message: str,
+        *,
+        key: BaseArtifactKey,
+        causes: Sequence[BaseException] = (),
+    ):
         super().__init__(message)
         self.key = key
         self.causes = tuple(causes)

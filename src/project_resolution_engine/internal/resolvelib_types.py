@@ -101,14 +101,18 @@ class ResolverCandidate(MultiformatModelMixin):
         return cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))
 
 
-class ProjectResolutionReporter(BaseReporter[ResolverRequirement, ResolverCandidate, str]):
+class ProjectResolutionReporter(
+    BaseReporter[ResolverRequirement, ResolverCandidate, str]
+):
     def starting(self) -> None:
         logging.log(logging.INFO, "Starting resolution...")
 
     def starting_round(self, index: int) -> None:
         logging.log(logging.DEBUG, f"Starting round {index}")
 
-    def ending_round(self, index: int, state: State[ResolverRequirement, ResolverCandidate, str]) -> None:
+    def ending_round(
+        self, index: int, state: State[ResolverRequirement, ResolverCandidate, str]
+    ) -> None:
         logging.log(logging.DEBUG, f"Ending round {index}")
 
     def ending(self, state) -> None:
@@ -121,12 +125,18 @@ class ProjectResolutionReporter(BaseReporter[ResolverRequirement, ResolverCandid
         logging.log(logging.DEBUG, f"Pinning candidate: {candidate}")
 
     def rejecting_candidate(
-            self,
-            criterion: Criterion[ResolverRequirement, ResolverCandidate],
-            candidate: ResolverCandidate) -> None:
-        logging.log(logging.DEBUG, f"Rejecting candidate: {candidate} (criterion={criterion})")
+        self,
+        criterion: Criterion[ResolverRequirement, ResolverCandidate],
+        candidate: ResolverCandidate,
+    ) -> None:
+        logging.log(
+            logging.DEBUG, f"Rejecting candidate: {candidate} (criterion={criterion})"
+        )
 
     def resolving_conflicts(
-            self,
-            causes: Collection[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> None:
+        self,
+        causes: Collection[
+            RequirementInformation[ResolverRequirement, ResolverCandidate]
+        ],
+    ) -> None:
         logging.log(logging.DEBUG, f"Resolving conflicts: {causes}")
