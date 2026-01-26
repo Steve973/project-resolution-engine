@@ -38,13 +38,15 @@ _CREATE_EPHEMERAL_IMPORT_FAIL_CASES: list[dict[str, Any]] = [
 # 8) TESTS
 # ==============================================================================
 
+
 @pytest.mark.parametrize(
     "case",
     _CREATE_EPHEMERAL_SUCCESS_CASES,
     ids=lambda c: c["case_id"],
 )
-def test__create_ephemeral_import_succeeds_returns_instance(case: dict[str, Any],
-                                                            monkeypatch: pytest.MonkeyPatch) -> None:
+def test__create_ephemeral_import_succeeds_returns_instance(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: C000F001B0001
     #
     # External influence mocked:
@@ -58,7 +60,9 @@ def test__create_ephemeral_import_succeeds_returns_instance(case: dict[str, Any]
     fake_mod.EphemeralArtifactRepository = FakeEphemeralArtifactRepository  # type: ignore[attr-defined]
 
     # Ensure import resolution uses our fake module.
-    monkeypatch.setitem(sys.modules, "project_resolution_engine.internal.builtin_repository", fake_mod)
+    monkeypatch.setitem(
+        sys.modules, "project_resolution_engine.internal.builtin_repository", fake_mod
+    )
 
     repo = uut._create_ephemeral(config=case["config"])
 
@@ -71,8 +75,9 @@ def test__create_ephemeral_import_succeeds_returns_instance(case: dict[str, Any]
     _CREATE_EPHEMERAL_IMPORT_FAIL_CASES,
     ids=lambda c: c["case_id"],
 )
-def test__create_ephemeral_import_fails_raises_import_error(case: dict[str, Any],
-                                                            monkeypatch: pytest.MonkeyPatch) -> None:
+def test__create_ephemeral_import_fails_raises_import_error(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: C000F001B0002
     #
     # External influence mocked:
@@ -80,7 +85,13 @@ def test__create_ephemeral_import_fails_raises_import_error(case: dict[str, Any]
 
     original_import = builtins.__import__
 
-    def _import_hook(name: str, globals: Any = None, locals: Any = None, fromlist: Any = (), level: int = 0) -> Any:
+    def _import_hook(
+        name: str,
+        globals: Any = None,
+        locals: Any = None,
+        fromlist: Any = (),
+        level: int = 0,
+    ) -> Any:
         if name == "project_resolution_engine.internal.builtin_repository":
             raise ImportError("forced import failure for test coverage")
         return original_import(name, globals, locals, fromlist, level)

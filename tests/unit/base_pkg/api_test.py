@@ -10,10 +10,10 @@ from project_resolution_engine import api as uut
 from project_resolution_engine.model.resolution import ResolutionMode
 from unit.helpers import models_helper as mh
 
-
 # =============================================================================
 # Local minimal fakes (Result / criteria / information / parents)
 # =============================================================================
+
 
 @dataclass(slots=True)
 class _FakeInfo:
@@ -63,7 +63,9 @@ class _MappingProbe(Mapping[str, Any]):
       - optionally assert if __contains__ is called (for short-circuit coverage)
     """
 
-    def __init__(self, data: Mapping[str, Any], *, fail_on_contains: bool = False) -> None:
+    def __init__(
+        self, data: Mapping[str, Any], *, fail_on_contains: bool = False
+    ) -> None:
         self._data = dict(data)
         self._fail_on_contains = fail_on_contains
 
@@ -78,13 +80,16 @@ class _MappingProbe(Mapping[str, Any]):
 
     def __contains__(self, key: object) -> bool:
         if self._fail_on_contains:
-            raise AssertionError("__contains__ was evaluated, but should have short-circuited")
+            raise AssertionError(
+                "__contains__ was evaluated, but should have short-circuited"
+            )
         return key in self._data
 
 
 # =============================================================================
 # Shared patch: FakeWheelKey needs set_dependency_ids for api.py
 # =============================================================================
+
 
 @pytest.fixture(autouse=True)
 def _patch_fake_wheelkey_set_dependency_ids() -> None:
@@ -97,8 +102,12 @@ def _patch_fake_wheelkey_set_dependency_ids() -> None:
     if hasattr(mh.FakeWheelKey, "set_dependency_ids"):
         return
 
-    def _set_dependency_ids(self: mh.FakeWheelKey, dep_wks: Sequence[mh.FakeWheelKey]) -> None:
-        object.__setattr__(self, "dependency_ids", frozenset(w.identifier for w in dep_wks))
+    def _set_dependency_ids(
+        self: mh.FakeWheelKey, dep_wks: Sequence[mh.FakeWheelKey]
+    ) -> None:
+        object.__setattr__(
+            self, "dependency_ids", frozenset(w.identifier for w in dep_wks)
+        )
 
     setattr(mh.FakeWheelKey, "set_dependency_ids", _set_dependency_ids)
 
@@ -131,9 +140,14 @@ _NORMALIZE_CASES: list[dict[str, Any]] = [
     },
     {
         "id": "inject_instance_id",
-        "strategy_configs": [{"strategy_name": "s1"}, {"instance_id": "iid2", "strategy_name": "ignored"}],
-        "expect": {"s1": {"instance_id": "s1", "strategy_name": "s1"},
-                   "iid2": {"instance_id": "iid2", "strategy_name": "ignored"}},
+        "strategy_configs": [
+            {"strategy_name": "s1"},
+            {"instance_id": "iid2", "strategy_name": "ignored"},
+        ],
+        "expect": {
+            "s1": {"instance_id": "s1", "strategy_name": "s1"},
+            "iid2": {"instance_id": "iid2", "strategy_name": "ignored"},
+        },
         "raises": None,
         "covers": ["C000F001B0004"],
     },
@@ -156,14 +170,18 @@ _ROOTS_CASES: list[dict[str, Any]] = [
     },
     {
         "id": "marker_false_excluded",
-        "root_wheels": [mh.ws(name="a", version="==1.0.0", marker=Marker('python_version < "3.0"'))],
+        "root_wheels": [
+            mh.ws(name="a", version="==1.0.0", marker=Marker('python_version < "3.0"'))
+        ],
         "env_marker_env": {"python_version": "3.11"},
         "expect_names": [],
         "covers": ["C000F002B0003"],
     },
     {
         "id": "marker_true_included",
-        "root_wheels": [mh.ws(name="a", version="==1.0.0", marker=Marker('python_version >= "3.0"'))],
+        "root_wheels": [
+            mh.ws(name="a", version="==1.0.0", marker=Marker('python_version >= "3.0"'))
+        ],
         "env_marker_env": {"python_version": "3.11"},
         "expect_names": ["a"],
         "covers": ["C000F002B0004"],
@@ -220,22 +238,35 @@ _DEPS_BY_PARENT_CASES: list[dict[str, Any]] = [
     {
         "id": "parent_not_in_deps_short_circuit_contains_not_called",
         "wk_by_name": _MappingProbe({"a": mh.wk(name="a")}, fail_on_contains=True),
-        "criteria": {"child": _FakeCriterion(
-            information=[_FakeInfo(parent=_ComparableParent("nope", comparable_to_str=False))])},
+        "criteria": {
+            "child": _FakeCriterion(
+                information=[
+                    _FakeInfo(parent=_ComparableParent("nope", comparable_to_str=False))
+                ]
+            )
+        },
         "expect": {"a": set()},
         "covers": ["C000F004B0006"],
     },
     {
         "id": "parent_in_deps_child_not_in_wk",
         "wk_by_name": {"parent": mh.wk(name="parent")},
-        "criteria": {"child": _FakeCriterion(information=[_FakeInfo(parent=_ComparableParent("parent"))])},
+        "criteria": {
+            "child": _FakeCriterion(
+                information=[_FakeInfo(parent=_ComparableParent("parent"))]
+            )
+        },
         "expect": {"parent": set()},
         "covers": ["C000F004B0007"],
     },
     {
         "id": "parent_in_deps_child_in_wk_adds",
         "wk_by_name": {"parent": mh.wk(name="parent"), "child": mh.wk(name="child")},
-        "criteria": {"child": _FakeCriterion(information=[_FakeInfo(parent=_ComparableParent("parent"))])},
+        "criteria": {
+            "child": _FakeCriterion(
+                information=[_FakeInfo(parent=_ComparableParent("parent"))]
+            )
+        },
         "expect": {"parent": {"child"}, "child": set()},
         "covers": ["C000F004B0008"],
     },
@@ -259,7 +290,11 @@ _APPLY_DEPS_CASES: list[dict[str, Any]] = [
     {
         "id": "parent_with_children_sorted",
         "deps_by_parent": {"p": {"b", "a"}},
-        "wk_by_name": {"p": mh.wk(name="p"), "a": mh.wk(name="a"), "b": mh.wk(name="b")},
+        "wk_by_name": {
+            "p": mh.wk(name="p"),
+            "a": mh.wk(name="a"),
+            "b": mh.wk(name="b"),
+        },
         "expect_calls": {"p": ["a", "b"]},
         "covers": ["C000F005B0003"],
     },
@@ -292,15 +327,25 @@ _RESOLVE_CASES: list[dict[str, Any]] = [
     },
     {
         "id": "one_env_requirements_only",
-        "target_envs": [mh.FakeResolutionEnv(identifier="env1", supported_tags=frozenset({"py3-none-any"}),
-                                             marker_environment={"python_version": "3.11"})],
+        "target_envs": [
+            mh.FakeResolutionEnv(
+                identifier="env1",
+                supported_tags=frozenset({"py3-none-any"}),
+                marker_environment={"python_version": "3.11"},
+            )
+        ],
         "resolution_mode": ResolutionMode.REQUIREMENTS_TXT,
         "covers": ["C001M001B0002", "C001M001B0004"],
     },
     {
         "id": "one_env_resolved_wheels_mode",
-        "target_envs": [mh.FakeResolutionEnv(identifier="env1", supported_tags=frozenset({"py3-none-any"}),
-                                             marker_environment={"python_version": "3.11"})],
+        "target_envs": [
+            mh.FakeResolutionEnv(
+                identifier="env1",
+                supported_tags=frozenset({"py3-none-any"}),
+                marker_environment={"python_version": "3.11"},
+            )
+        ],
         "resolution_mode": ResolutionMode.RESOLVED_WHEELS,
         "covers": ["C001M001B0002", "C001M001B0003"],
     },
@@ -311,7 +356,10 @@ _RESOLVE_CASES: list[dict[str, Any]] = [
 # 8) Tests
 # =============================================================================
 
-@pytest.mark.parametrize("case", _NORMALIZE_CASES, ids=[c["id"] for c in _NORMALIZE_CASES])
+
+@pytest.mark.parametrize(
+    "case", _NORMALIZE_CASES, ids=[c["id"] for c in _NORMALIZE_CASES]
+)
 def test_normalize_strategy_configs(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
     if case["raises"] is not None:
@@ -330,7 +378,10 @@ def test_roots_for_env(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) ->
 
     # Patch the ResolverRequirement that _roots_for_env imports at call time.
     from project_resolution_engine.internal import resolvelib_types as rlt
-    monkeypatch.setattr(rlt, "ResolverRequirement", mh.FakeResolverRequirement, raising=True)
+
+    monkeypatch.setattr(
+        rlt, "ResolverRequirement", mh.FakeResolverRequirement, raising=True
+    )
 
     class _Env:
         def __init__(self, marker_environment: Mapping[str, str]) -> None:
@@ -346,7 +397,9 @@ def test_roots_for_env(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) ->
     assert [r.wheel_spec.name for r in roots] == case["expect_names"]
 
 
-@pytest.mark.parametrize("case", _WK_BY_NAME_CASES, ids=[c["id"] for c in _WK_BY_NAME_CASES])
+@pytest.mark.parametrize(
+    "case", _WK_BY_NAME_CASES, ids=[c["id"] for c in _WK_BY_NAME_CASES]
+)
 def test_wk_by_name_from_result(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
     result = _FakeResult(mapping=case["mapping"], criteria={})
@@ -354,7 +407,9 @@ def test_wk_by_name_from_result(case: dict[str, Any]) -> None:
     assert sorted(got.keys()) == case["expect_keys"]
 
 
-@pytest.mark.parametrize("case", _DEPS_BY_PARENT_CASES, ids=[c["id"] for c in _DEPS_BY_PARENT_CASES])
+@pytest.mark.parametrize(
+    "case", _DEPS_BY_PARENT_CASES, ids=[c["id"] for c in _DEPS_BY_PARENT_CASES]
+)
 def test_deps_by_parent_from_result(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
     wk_by_name = case["wk_by_name"]
@@ -363,19 +418,29 @@ def test_deps_by_parent_from_result(case: dict[str, Any]) -> None:
     assert got == case["expect"]
 
 
-@pytest.mark.parametrize("case", _APPLY_DEPS_CASES, ids=[c["id"] for c in _APPLY_DEPS_CASES])
-def test_apply_dependency_ids(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) -> None:
+@pytest.mark.parametrize(
+    "case", _APPLY_DEPS_CASES, ids=[c["id"] for c in _APPLY_DEPS_CASES]
+)
+def test_apply_dependency_ids(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: see case["covers"]
 
     # Spy on set_dependency_ids calls on the specific parent keys.
     calls: dict[str, list[mh.FakeWheelKey]] = {}
 
-    def _spy_set_dependency_ids(self: mh.FakeWheelKey, dep_wks: Sequence[mh.FakeWheelKey]) -> None:
+    def _spy_set_dependency_ids(
+        self: mh.FakeWheelKey, dep_wks: Sequence[mh.FakeWheelKey]
+    ) -> None:
         calls[self.name] = list(dep_wks)
-        object.__setattr__(self, "dependency_ids", frozenset(w.identifier for w in dep_wks))
+        object.__setattr__(
+            self, "dependency_ids", frozenset(w.identifier for w in dep_wks)
+        )
 
     # Patch the method on the class for this test.
-    monkeypatch.setattr(mh.FakeWheelKey, "set_dependency_ids", _spy_set_dependency_ids, raising=True)
+    monkeypatch.setattr(
+        mh.FakeWheelKey, "set_dependency_ids", _spy_set_dependency_ids, raising=True
+    )
 
     deps_by_parent = case["deps_by_parent"]
     wk_by_name: MutableMapping[str, mh.FakeWheelKey] = dict(case["wk_by_name"])
@@ -383,11 +448,15 @@ def test_apply_dependency_ids(case: dict[str, Any], monkeypatch: pytest.MonkeyPa
     uut._apply_dependency_ids(deps_by_parent, wk_by_name)
 
     # Normalize to child-name lists for easier assertions.
-    got_calls = {parent_name: [w.name for w in dep_wks] for parent_name, dep_wks in calls.items()}
+    got_calls = {
+        parent_name: [w.name for w in dep_wks] for parent_name, dep_wks in calls.items()
+    }
     assert got_calls == case["expect_calls"]
 
 
-@pytest.mark.parametrize("case", _FMT_REQS_CASES, ids=[c["id"] for c in _FMT_REQS_CASES])
+@pytest.mark.parametrize(
+    "case", _FMT_REQS_CASES, ids=[c["id"] for c in _FMT_REQS_CASES]
+)
 def test_format_requirements_text(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
     if case["id"] == "empty":
@@ -406,7 +475,9 @@ def test_format_requirements_text(case: dict[str, Any]) -> None:
 
 
 @pytest.mark.parametrize("case", _RESOLVE_CASES, ids=[c["id"] for c in _RESOLVE_CASES])
-def test_project_resolution_engine_resolve(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) -> None:
+def test_project_resolution_engine_resolve(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: see case["covers"]
 
     # ---- patch open_repository context manager ----
@@ -435,7 +506,9 @@ def test_project_resolution_engine_resolve(case: dict[str, Any], monkeypatch: py
     load_services_calls: list[dict[str, Any]] = []
 
     def _load_services(*, repo: Any, strategy_configs_by_instance_id: Any) -> object:
-        load_services_calls.append({"repo": repo, "configs": strategy_configs_by_instance_id})
+        load_services_calls.append(
+            {"repo": repo, "configs": strategy_configs_by_instance_id}
+        )
         return object()
 
     monkeypatch.setattr(uut, "load_services", _load_services, raising=True)
@@ -449,8 +522,16 @@ def test_project_resolution_engine_resolve(case: dict[str, Any], monkeypatch: py
         rl_calls.append({"services": services, "env": env, "roots": roots})
         return _FakeResult(
             mapping={
-                "a": mh.FakeResolverCandidate(wheel_key=mh.wk_reqtxt(name="a", version="1.0.0", tag="py3-none-any")),
-                "b": mh.FakeResolverCandidate(wheel_key=mh.wk_reqtxt(name="b", version="1.0.0", tag="py3-none-any")),
+                "a": mh.FakeResolverCandidate(
+                    wheel_key=mh.wk_reqtxt(
+                        name="a", version="1.0.0", tag="py3-none-any"
+                    )
+                ),
+                "b": mh.FakeResolverCandidate(
+                    wheel_key=mh.wk_reqtxt(
+                        name="b", version="1.0.0", tag="py3-none-any"
+                    )
+                ),
             },
             criteria={},  # keep dependency graph empty for unit isolation
         )
@@ -492,7 +573,9 @@ def test_project_resolution_engine_resolve(case: dict[str, Any], monkeypatch: py
 
     if case["resolution_mode"] is ResolutionMode.RESOLVED_WHEELS:
         # C001M001B0003
-        assert set(res.resolved_wheels_by_env.keys()) == {e.identifier for e in case["target_envs"]}
+        assert set(res.resolved_wheels_by_env.keys()) == {
+            e.identifier for e in case["target_envs"]
+        }
         assert all(v == [] for v in res.resolved_wheels_by_env.values())
     else:
         # C001M001B0004

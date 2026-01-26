@@ -8,7 +8,6 @@ import pytest
 
 import project_resolution_engine.internal.repositories.factory as factory
 
-
 # ==============================================================================
 # CASE MATRIX
 # ==============================================================================
@@ -212,7 +211,9 @@ OPEN_REPOSITORY_CASES = [
 
 
 @pytest.mark.parametrize("case", SELECT_REPOSITORY_CASES_SUCCESS, ids=lambda c: c["id"])
-def test_select_repository_success(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) -> None:
+def test_select_repository_success(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: see case["covers"]
     merged_called = Mock(name="merged_called")
 
@@ -223,7 +224,9 @@ def test_select_repository_success(case: dict[str, Any], monkeypatch: pytest.Mon
     registry = _RegistryStub(merged_impl=_merged_impl, builtins=set(case["builtins"]))
     monkeypatch.setattr(factory, "DEFAULT_REPOSITORY_ID", case["default_repo_id"])
 
-    selection = factory._select_repository(repo_id=case["repo_id"], registry=registry)  # noqa: SLF001
+    selection = factory._select_repository(
+        repo_id=case["repo_id"], registry=registry
+    )  # noqa: SLF001
 
     merged_called.assert_called_once_with()  # C000F001B0003
     assert selection.repo_id == case["expect_repo_id"]
@@ -232,7 +235,9 @@ def test_select_repository_success(case: dict[str, Any], monkeypatch: pytest.Mon
 
 
 @pytest.mark.parametrize("case", SELECT_REPOSITORY_CASES_ERROR, ids=lambda c: c["id"])
-def test_select_repository_unknown_repo_raises(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) -> None:
+def test_select_repository_unknown_repo_raises(
+    case: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Covers: see case["covers"]
     merged_called = Mock(name="merged_called")
 
@@ -244,7 +249,9 @@ def test_select_repository_unknown_repo_raises(case: dict[str, Any], monkeypatch
     monkeypatch.setattr(factory, "DEFAULT_REPOSITORY_ID", case["default_repo_id"])
 
     with pytest.raises(factory.RepositorySelectionError) as excinfo:
-        factory._select_repository(repo_id=case["repo_id"], registry=registry)  # noqa: SLF001
+        factory._select_repository(
+            repo_id=case["repo_id"], registry=registry
+        )  # noqa: SLF001
 
     merged_called.assert_called_once_with()  # C000F001B0003
     msg = str(excinfo.value)
@@ -280,8 +287,13 @@ def test_open_repository(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) 
     else:
         merged_map = dict(case["merged"])  # type: ignore[arg-type]
         # Replace the repo factory marker with the callable that returns our repo.
-        merged_map = {k: (factory_callable if v == "factory_r1" else v) for k, v in merged_map.items()}
-        registry = _RegistryStub(merged_impl=Mock(return_value=merged_map), builtins=set(case["builtins"]))
+        merged_map = {
+            k: (factory_callable if v == "factory_r1" else v)
+            for k, v in merged_map.items()
+        }
+        registry = _RegistryStub(
+            merged_impl=Mock(return_value=merged_map), builtins=set(case["builtins"])
+        )
 
     build_registry_mock.return_value = registry
     monkeypatch.setattr(factory, "build_repository_registry", build_registry_mock)
@@ -290,9 +302,9 @@ def test_open_repository(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) 
 
     def _use_repo() -> None:
         with factory.open_repository(
-                repo_id=case["repo_id"],
-                config=case["config"],
-                registry=provided_registry,
+            repo_id=case["repo_id"],
+            config=case["config"],
+            registry=provided_registry,
         ) as opened:
             # C000F002B0006: yielded object is the repo instance produced by the factory.
             assert opened is repo
@@ -319,8 +331,10 @@ def test_open_repository(case: dict[str, Any], monkeypatch: pytest.MonkeyPatch) 
         close_mock.assert_not_called()
 
     # If we reached repo construction, ensure config was forwarded as keyword arg.
-    if case.get("merged") not in ("RAISE_REGISTRY_ERROR",) and case.get(
-            "expect_exception") is not factory.RepositorySelectionError:
+    if (
+        case.get("merged") not in ("RAISE_REGISTRY_ERROR",)
+        and case.get("expect_exception") is not factory.RepositorySelectionError
+    ):
         if case["repo_id"] == "r1":
             # C000F002B0006 / C000F002B0007 (factory invocation path)
             factory_callable.assert_called_once_with(config=case["config"])

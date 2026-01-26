@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import pytest
+
+from project_resolution_engine.internal import builtin_strategy_configs as uut
+
 # ==============================================================================
 # BRANCH LEDGER: builtin_strategy_configs (C000)
 # ==============================================================================
@@ -180,10 +184,6 @@ from __future__ import annotations
 #   [x] all loop 0 vs >= 1 iterations captured (no loops in this module)
 #   [x] all `break` / `continue` paths captured (no loops in this module)
 # ==============================================================================
-
-import pytest
-
-from project_resolution_engine.internal import builtin_strategy_configs as uut
 
 
 class _DummyStrategy:
@@ -375,7 +375,11 @@ DEFAULTS_CASES = [
     {
         "name": "pep691_defaults",
         "cls": uut.Pep691IndexMetadataHttpStrategyConfig,
-        "expect": {"timeout_s": 30.0, "user_agent": "project-resolution-engine/0", "precedence": 50},
+        "expect": {
+            "timeout_s": 30.0,
+            "user_agent": "project-resolution-engine/0",
+            "precedence": 50,
+        },
         "covers": ["C002M001B0001"],
     },
     {
@@ -392,13 +396,21 @@ DEFAULTS_CASES = [
     {
         "name": "pep658_defaults",
         "cls": uut.Pep658CoreMetadataHttpStrategyConfig,
-        "expect": {"timeout_s": 30.0, "user_agent": "project-resolution-engine/0", "precedence": 50},
+        "expect": {
+            "timeout_s": 30.0,
+            "user_agent": "project-resolution-engine/0",
+            "precedence": 50,
+        },
         "covers": ["C004M001B0001"],
     },
     {
         "name": "wheel_extracted_defaults",
         "cls": uut.WheelExtractedCoreMetadataStrategyConfig,
-        "expect": {"wheel_strategy_id": "wheel_http", "wheel_timeout_s": 120.0, "precedence": 90},
+        "expect": {
+            "wheel_strategy_id": "wheel_http",
+            "wheel_timeout_s": 120.0,
+            "precedence": 90,
+        },
         "covers": ["C005M001B0001"],
     },
     {
@@ -419,6 +431,7 @@ DEFAULTS_CASES = [
 # ---------------------------------------------------------------------------
 # Helper tests
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize("case", UNKNOWN_KEYS_CASES, ids=lambda c: c["name"])
 def test__unknown_keys(case: dict[str, object]) -> None:
@@ -504,6 +517,7 @@ def test__plan_single_precedence_cast_errors_propagate() -> None:
 # ---------------------------------------------------------------------------
 # defaults()
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize("case", DEFAULTS_CASES, ids=lambda c: c["name"])
 def test_config_spec_defaults(case: dict[str, object]) -> None:
@@ -632,7 +646,13 @@ HTTP_WHEEL_PLAN_CASES = [
         "config": {},
         "expect_ctor_keys": {"instance_id", "precedence"},
         # missing arcs: 145->147, 147->149, 149->152
-        "covers": ["C003M002B0002", "C003M002B0004", "C003M002B0007", "C003M002B0010", "C003M002B0012"],
+        "covers": [
+            "C003M002B0002",
+            "C003M002B0004",
+            "C003M002B0007",
+            "C003M002B0010",
+            "C003M002B0012",
+        ],
     },
     {
         "name": "timeout_user_agent_chunk_bytes_set",
@@ -750,7 +770,11 @@ def test_pep658_plan(case: dict[str, object]) -> None:
 WHEEL_EXTRACTED_PLAN_CASES = [
     {
         "name": "wheel_strategy_id_truthy_timeout_set",
-        "config": {"wheel_strategy_id": "direct", "wheel_timeout_s": 3.0, "precedence": 9},
+        "config": {
+            "wheel_strategy_id": "direct",
+            "wheel_timeout_s": 3.0,
+            "precedence": 9,
+        },
         "expect_wheel_sid": "direct",
         "expect_timeout": 3.0,
         "expect_precedence": 9,
@@ -865,11 +889,16 @@ def test_direct_uri_wheel_plan(case: dict[str, object]) -> None:
 
 def test_direct_uri_core_plan_success() -> None:
     # covers: C007M002B0002, C007M002B0003
-    plans = uut.DirectUriCoreMetadataStrategyConfig.plan(strategy_cls=_DummyStrategy, config={})
+    plans = uut.DirectUriCoreMetadataStrategyConfig.plan(
+        strategy_cls=_DummyStrategy, config={}
+    )
     assert len(plans) == 1
     p = plans[0]
     assert p.strategy_name == uut.DirectUriCoreMetadataStrategyConfig.strategy_name
-    assert dict(p.ctor_kwargs) == {"instance_id": p.instance_id, "precedence": p.precedence}
+    assert dict(p.ctor_kwargs) == {
+        "instance_id": p.instance_id,
+        "precedence": p.precedence,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -911,7 +940,9 @@ PRECEDENCE_CAST_ERROR_CASES = [
 
 
 @pytest.mark.parametrize("case", PRECEDENCE_CAST_ERROR_CASES, ids=lambda c: c["name"])
-def test_config_spec_plan_precedence_cast_error_propagates(case: dict[str, object]) -> None:
+def test_config_spec_plan_precedence_cast_error_propagates(
+    case: dict[str, object],
+) -> None:
     # covers: see per-row
     spec = case["spec"]
     with pytest.raises(ValueError):

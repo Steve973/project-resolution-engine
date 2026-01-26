@@ -239,7 +239,9 @@ def _patch_services_wiring(monkeypatch: pytest.MonkeyPatch) -> _WiringSpies:
         SpyStrategyChainArtifactResolver,
         raising=True,
     )
-    monkeypatch.setattr(services_mod, "ArtifactCoordinator", SpyArtifactCoordinator, raising=True)
+    monkeypatch.setattr(
+        services_mod, "ArtifactCoordinator", SpyArtifactCoordinator, raising=True
+    )
 
     return spies
 
@@ -250,7 +252,9 @@ def _patch_services_wiring(monkeypatch: pytest.MonkeyPatch) -> _WiringSpies:
 
 
 @pytest.mark.parametrize("case", BUILD_SERVICES_CASES, ids=lambda c: c["id"])
-def test_build_services_wires_repo_and_resolvers(monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_build_services_wires_repo_and_resolvers(
+    monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # Covers: C000F001B0001..C000F001B0004
     from project_resolution_engine import services as services_mod
 
@@ -294,7 +298,9 @@ def test_build_services_wires_repo_and_resolvers(monkeypatch: pytest.MonkeyPatch
 
 
 @pytest.mark.parametrize("case", LOAD_SERVICES_RAISE_CASES, ids=lambda c: c["id"])
-def test_load_services_raises_when_no_strategies(monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_load_services_raises_when_no_strategies(
+    monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # Covers: C000F002B0001, C000F002B0002
     from project_resolution_engine import services as services_mod
 
@@ -305,7 +311,9 @@ def test_load_services_raises_when_no_strategies(monkeypatch: pytest.MonkeyPatch
     stub = patch_services_load_strategies(monkeypatch, return_value=case["discovered"])
 
     with pytest.raises(RuntimeError) as ei:
-        services_mod.load_services(repo=repo, strategy_configs_by_instance_id=case["configs"])
+        services_mod.load_services(
+            repo=repo, strategy_configs_by_instance_id=case["configs"]
+        )
 
     assert case["error_substring"] in str(ei.value)
 
@@ -314,13 +322,19 @@ def test_load_services_raises_when_no_strategies(monkeypatch: pytest.MonkeyPatch
     call = stub.calls[0]
     assert call["strategy_package"] == services_mod.BUILTIN_STRATEGY_PACKAGE
     assert call["strategy_entrypoint_group"] == services_mod.STRATEGY_ENTRYPOINT_GROUP
-    assert call["builtin_config_package"] == services_mod.BUILTIN_STRATEGY_CONFIG_PACKAGE
-    assert call["config_entrypoint_group"] == services_mod.STRATEGY_CONFIG_ENTRYPOINT_GROUP
+    assert (
+        call["builtin_config_package"] == services_mod.BUILTIN_STRATEGY_CONFIG_PACKAGE
+    )
+    assert (
+        call["config_entrypoint_group"] == services_mod.STRATEGY_CONFIG_ENTRYPOINT_GROUP
+    )
     assert call["raw_configs_by_instance_id"] is case["configs"]
 
 
 @pytest.mark.parametrize("case", LOAD_SERVICES_OK_CASES, ids=lambda c: c["id"])
-def test_load_services_gates_filters_sorts_and_builds(monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_load_services_gates_filters_sorts_and_builds(
+    monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # Covers: C000F002B0001, C000F002B0003..C000F002B0018 (varies per case['covers'])
     from project_resolution_engine import services as services_mod
 
@@ -330,7 +344,9 @@ def test_load_services_gates_filters_sorts_and_builds(monkeypatch: pytest.Monkey
     discovered = case["discovered"]
     stub = patch_services_load_strategies(monkeypatch, return_value=discovered)
 
-    svcs = services_mod.load_services(repo=repo, strategy_configs_by_instance_id=case["configs"])
+    svcs = services_mod.load_services(
+        repo=repo, strategy_configs_by_instance_id=case["configs"]
+    )
 
     # ---- load_strategies call passthrough ----
     assert len(stub.calls) == 1

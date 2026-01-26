@@ -5,7 +5,6 @@ from typing import Any, TypedDict
 
 import pytest
 
-
 # NOTE: In-repo this should import from the real package path. The fallback keeps
 # this test module runnable in isolated contexts.
 try:  # pragma: no cover
@@ -18,22 +17,30 @@ except Exception:  # pragma: no cover
     import types
 
     # Ensure parent packages exist for dotted-path imports.
-    sys.modules.setdefault("project_resolution_engine", types.ModuleType("project_resolution_engine"))
     sys.modules.setdefault(
-        "project_resolution_engine.internal", types.ModuleType("project_resolution_engine.internal")
+        "project_resolution_engine", types.ModuleType("project_resolution_engine")
     )
     sys.modules.setdefault(
-        "project_resolution_engine.internal.util", types.ModuleType("project_resolution_engine.internal.util")
+        "project_resolution_engine.internal",
+        types.ModuleType("project_resolution_engine.internal"),
+    )
+    sys.modules.setdefault(
+        "project_resolution_engine.internal.util",
+        types.ModuleType("project_resolution_engine.internal.util"),
     )
 
     if "project_resolution_engine.internal.util.multiformat" not in sys.modules:
-        multiformat_mod = types.ModuleType("project_resolution_engine.internal.util.multiformat")
+        multiformat_mod = types.ModuleType(
+            "project_resolution_engine.internal.util.multiformat"
+        )
 
         class MultiformatModelMixin:  # noqa: D401
             """Minimal stub for isolated test execution."""
 
         multiformat_mod.MultiformatModelMixin = MultiformatModelMixin
-        sys.modules["project_resolution_engine.internal.util.multiformat"] = multiformat_mod
+        sys.modules["project_resolution_engine.internal.util.multiformat"] = (
+            multiformat_mod
+        )
 
     import compatibility as compat  # type: ignore[no-redef]
 
@@ -348,7 +355,9 @@ _MARKER_ENV_FROM_MAPPING_CASES: list[dict[str, Any]] = [
 # ==============================
 
 
-@pytest.mark.parametrize("case", _VALIDATE_CASES, ids=[c["id"] for c in _VALIDATE_CASES])
+@pytest.mark.parametrize(
+    "case", _VALIDATE_CASES, ids=[c["id"] for c in _VALIDATE_CASES]
+)
 def test_validate_typed_dict(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
     if case["exc_type"] is None:
@@ -375,7 +384,9 @@ def test_validate_typed_dict(case: dict[str, Any]) -> None:
 
 
 @pytest.mark.parametrize(
-    "case", _MARKER_ENV_FROM_MAPPING_CASES, ids=[c["id"] for c in _MARKER_ENV_FROM_MAPPING_CASES]
+    "case",
+    _MARKER_ENV_FROM_MAPPING_CASES,
+    ids=[c["id"] for c in _MARKER_ENV_FROM_MAPPING_CASES],
 )
 def test_marker_env_config_from_mapping(case: dict[str, Any]) -> None:
     # Covers: see case["covers"]
@@ -394,7 +405,9 @@ def test_marker_env_config_from_mapping(case: dict[str, Any]) -> None:
 
 def test_marker_env_config_to_mapping() -> None:
     # Covers: C003M001B0001
-    cfg = compat.MarkerEnvConfig(overrides={"python_version": "3.11"}, mode=compat.MarkerModeType.EXACT)
+    cfg = compat.MarkerEnvConfig(
+        overrides={"python_version": "3.11"}, mode=compat.MarkerModeType.EXACT
+    )
     out = cfg.to_mapping()
     assert out["overrides"] == {"python_version": "3.11"}
     assert out["mode"] == "exact"
@@ -406,7 +419,9 @@ def test_filter_to_from_mapping_roundtrip() -> None:
     mapped = f.to_mapping()
     assert mapped == {"include": ["a"], "exclude": ["b"], "specific_only": True}
 
-    reread = compat.Filter.from_mapping({"include": ["x"], "exclude": ["y"], "specific_only": False})
+    reread = compat.Filter.from_mapping(
+        {"include": ["x"], "exclude": ["y"], "specific_only": False}
+    )
     assert reread.include == ["x"]
     assert reread.exclude == ["y"]
     assert reread.specific_only is False
@@ -421,7 +436,11 @@ def test_filter_to_from_mapping_roundtrip() -> None:
     "spec, expected, covers",
     [
         # range=None, filters=None
-        (compat.VersionSpec(range=None, filters=None), {}, ["C005M001B0002", "C005M001B0004", "C005M001B0005"]),
+        (
+            compat.VersionSpec(range=None, filters=None),
+            {},
+            ["C005M001B0002", "C005M001B0004", "C005M001B0005"],
+        ),
         # range!=None, filters=None
         (
             compat.VersionSpec(range=">=3.10,<4", filters=None),
@@ -446,7 +465,9 @@ def test_filter_to_from_mapping_roundtrip() -> None:
     ],
     ids=["range_none_filters_none", "range_only", "filters_only", "range_and_filters"],
 )
-def test_version_spec_to_mapping(spec: compat.VersionSpec, expected: dict[str, Any], covers: list[str]) -> None:
+def test_version_spec_to_mapping(
+    spec: compat.VersionSpec, expected: dict[str, Any], covers: list[str]
+) -> None:
     # Covers: see `covers`
     assert spec.to_mapping() == expected
 
@@ -463,7 +484,9 @@ def test_version_spec_to_mapping(spec: compat.VersionSpec, expected: dict[str, A
     ],
     ids=["no_filters", "with_filters"],
 )
-def test_version_spec_from_mapping(mapping: Mapping[str, Any], expected_filters_is_none: bool, covers: list[str]) -> None:
+def test_version_spec_from_mapping(
+    mapping: Mapping[str, Any], expected_filters_is_none: bool, covers: list[str]
+) -> None:
     # Covers: see `covers`
     spec = compat.VersionSpec.from_mapping(mapping)
     assert spec.range == mapping.get("range")
@@ -472,7 +495,9 @@ def test_version_spec_from_mapping(mapping: Mapping[str, Any], expected_filters_
 
 def test_interpreter_config_to_mapping_filters_absent_and_present() -> None:
     # Covers: C006M001B0001, C006M001B0002, C006M001B0003
-    base = compat.InterpreterConfig(python_version=compat.VersionSpec(range=">=3.10"), types=["cp"])
+    base = compat.InterpreterConfig(
+        python_version=compat.VersionSpec(range=">=3.10"), types=["cp"]
+    )
     out_base = base.to_mapping()
     assert "filters" not in out_base
 
@@ -560,7 +585,9 @@ def test_abi_config_to_mapping_filters_absent_and_present() -> None:
     ],
     ids=["no_filters", "with_filters"],
 )
-def test_abi_config_from_mapping(mapping: Mapping[str, Any], expected_filters_is_none: bool, covers: list[str]) -> None:
+def test_abi_config_from_mapping(
+    mapping: Mapping[str, Any], expected_filters_is_none: bool, covers: list[str]
+) -> None:
     # Covers: see `covers`
     cfg = compat.AbiConfig.from_mapping(mapping)
     assert (cfg.filters is None) is expected_filters_is_none
@@ -572,7 +599,9 @@ def test_platform_variant_to_mapping_version_absent_and_present() -> None:
     out_no_ver = no_ver.to_mapping()
     assert "version" not in out_no_ver
 
-    with_ver = compat.PlatformVariant(enabled=True, version=compat.VersionSpec(range=">=1"))
+    with_ver = compat.PlatformVariant(
+        enabled=True, version=compat.VersionSpec(range=">=1")
+    )
     out_with_ver = with_ver.to_mapping()
     assert out_with_ver["version"] == {"range": ">=1"}
 
@@ -585,7 +614,9 @@ def test_platform_variant_to_mapping_version_absent_and_present() -> None:
     ],
     ids=["no_version", "with_version"],
 )
-def test_platform_variant_from_mapping(mapping: Mapping[str, Any], expected_version_is_none: bool, covers: list[str]) -> None:
+def test_platform_variant_from_mapping(
+    mapping: Mapping[str, Any], expected_version_is_none: bool, covers: list[str]
+) -> None:
     # Covers: see `covers`
     pv = compat.PlatformVariant.from_mapping(mapping)
     assert (pv.version is None) is expected_version_is_none
@@ -593,7 +624,9 @@ def test_platform_variant_from_mapping(mapping: Mapping[str, Any], expected_vers
 
 def test_platform_config_to_mapping_variants_0_and_1_and_filters() -> None:
     # Covers: C009M001B0001, C009M001B0002, C009M001B0003, C009M001B0004, C009M001B0005
-    empty = compat.PlatformConfig(enabled=True, arches=["x86_64"], variants={}, filters=None)
+    empty = compat.PlatformConfig(
+        enabled=True, arches=["x86_64"], variants={}, filters=None
+    )
     out_empty = empty.to_mapping()
     assert out_empty["variants"] == {}
     assert "filters" not in out_empty
@@ -674,14 +707,24 @@ def test_platform_context_to_mapping_empty_and_all_fields() -> None:
     assert out_empty == {}
 
     full = compat.PlatformContext(
-        interpreter=compat.InterpreterConfig(python_version=compat.VersionSpec(range=">=3.11"), types=["cp"]),
+        interpreter=compat.InterpreterConfig(
+            python_version=compat.VersionSpec(range=">=3.11"), types=["cp"]
+        ),
         abi=compat.AbiConfig(include_debug=True, include_stable=False),
-        platform=compat.PlatformConfig(arches=["x86_64"], variants={"manylinux": compat.PlatformVariant()}),
+        platform=compat.PlatformConfig(
+            arches=["x86_64"], variants={"manylinux": compat.PlatformVariant()}
+        ),
         compatibility_tags=compat.Filter(include=["cp311"]),
         marker_env=compat.MarkerEnvConfig(overrides={"python_version": "3.11"}),
     )
     out_full = full.to_mapping()
-    assert set(out_full.keys()) == {"interpreter", "abi", "platform", "compatibility_tags", "marker_env"}
+    assert set(out_full.keys()) == {
+        "interpreter",
+        "abi",
+        "platform",
+        "compatibility_tags",
+        "marker_env",
+    }
 
 
 def test_platform_context_from_mapping_empty_and_all_fields() -> None:
@@ -697,7 +740,10 @@ def test_platform_context_from_mapping_empty_and_all_fields() -> None:
         {
             "interpreter": {"python_version": {"range": ">=3.11"}},
             "abi": {"include_debug": True, "include_stable": False},
-            "platform": {"arches": ["x86_64"], "variants": {"manylinux": {"enabled": True}}},
+            "platform": {
+                "arches": ["x86_64"],
+                "variants": {"manylinux": {"enabled": True}},
+            },
             "compatibility_tags": {"include": ["cp311"]},
             "marker_env": {"overrides": {"python_version": "3.11"}},
         }
@@ -711,14 +757,20 @@ def test_platform_context_from_mapping_empty_and_all_fields() -> None:
 
 def test_resolution_context_to_mapping_overrides_absent_and_present() -> None:
     # Covers: C012M001B0001, C012M001B0002, C012M001B0003, C012M001B0004
-    rc_empty = compat.ResolutionContext(name="n", universal=compat.PlatformContext(), platform_overrides={})
+    rc_empty = compat.ResolutionContext(
+        name="n", universal=compat.PlatformContext(), platform_overrides={}
+    )
     out_empty = rc_empty.to_mapping()
     assert "platform_overrides" not in out_empty
 
     rc_one = compat.ResolutionContext(
         name="n",
         universal=compat.PlatformContext(),
-        platform_overrides={"linux": compat.PlatformContext(platform=compat.PlatformConfig(arches=["x86_64"]))},
+        platform_overrides={
+            "linux": compat.PlatformContext(
+                platform=compat.PlatformConfig(arches=["x86_64"])
+            )
+        },
     )
     out_one = rc_one.to_mapping()
     assert out_one["platform_overrides"]["linux"]["platform"]["arches"] == ["x86_64"]
@@ -813,5 +865,7 @@ def test_resolution_context_from_mapping(
     assert rc.name == "n"
     assert isinstance(rc.universal, compat.PlatformContext)
 
-    keys = list(getattr(rc.platform_overrides, "keys")())  # TypedDict in runtime is just a dict
+    keys = list(
+        getattr(rc.platform_overrides, "keys")()
+    )  # TypedDict in runtime is just a dict
     assert sorted(keys) == sorted(expected_overrides_keys)

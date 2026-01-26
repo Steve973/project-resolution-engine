@@ -1,0 +1,371 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: services
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C000F001
+    kind: callable
+    name: build_services
+    address: services::build_services@L54
+  - id: C000F002
+    kind: callable
+    name: load_services
+    address: services::load_services@L78
+  branches:
+  - id: C000F001E0001
+    address: services::build_services@L61
+    summary: EI 1 of build_services
+  - id: C000F001E0002
+    address: services::build_services@L61
+    summary: EI 2 of build_services
+  - id: C000F001E0003
+    address: services::build_services@L64
+    summary: EI 3 of build_services
+  - id: C000F001E0004
+    address: services::build_services@L64
+    summary: EI 4 of build_services
+  - id: C000F001E0005
+    address: services::build_services@L67
+    summary: EI 5 of build_services
+  - id: C000F001E0006
+    address: services::build_services@L67
+    summary: EI 6 of build_services
+  - id: C000F001E0007
+    address: services::build_services@L71
+    summary: EI 7 of build_services
+  - id: C000F001E0008
+    address: services::build_services@L71
+    summary: EI 8 of build_services
+  - id: C000F001E0009
+    address: services::build_services@L71
+    summary: EI 9 of build_services
+  - id: C000F001E0010
+    address: services::build_services@L71
+    summary: EI 10 of build_services
+  - id: C000F001E0011
+    address: services::build_services@L71
+    summary: EI 11 of build_services
+  - id: C000F001E0012
+    address: services::build_services@L71
+    summary: EI 12 of build_services
+  - id: C000F001E0013
+    address: services::build_services@L71
+    summary: EI 13 of build_services
+  - id: C000F002E0001
+    address: services::load_services@L93
+    summary: EI 1 of load_services
+  - id: C000F002E0002
+    address: services::load_services@L101
+    summary: EI 2 of load_services
+  - id: C000F002E0003
+    address: services::load_services@L101
+    summary: EI 3 of load_services
+  - id: C000F002E0004
+    address: services::load_services@L102
+    summary: EI 4 of load_services
+  - id: C000F002E0005
+    address: services::load_services@L106
+    summary: EI 5 of load_services
+  - id: C000F002E0006
+    address: services::load_services@L106
+    summary: EI 6 of load_services
+  - id: C000F002E0007
+    address: services::load_services@L109
+    summary: EI 7 of load_services
+  - id: C000F002E0008
+    address: services::load_services@L109
+    summary: EI 8 of load_services
+  - id: C000F002E0009
+    address: services::load_services@L115
+    summary: EI 9 of load_services
+  - id: C000F002E0010
+    address: services::load_services@L121
+    summary: EI 10 of load_services
+  - id: C000F002E0011
+    address: services::load_services@L121
+    summary: EI 11 of load_services
+  - id: C000F002E0012
+    address: services::load_services@L121
+    summary: EI 12 of load_services
+  - id: C000F002E0013
+    address: services::load_services@L126
+    summary: EI 13 of load_services
+  - id: C000F002E0014
+    address: services::load_services@L126
+    summary: EI 14 of load_services
+  - id: C000F002E0015
+    address: services::load_services@L126
+    summary: EI 15 of load_services
+  - id: C000F002E0016
+    address: services::load_services@L127
+    summary: EI 16 of load_services
+  - id: C000F002E0017
+    address: services::load_services@L127
+    summary: EI 17 of load_services
+  - id: C000F002E0018
+    address: services::load_services@L127
+    summary: EI 18 of load_services
+  - id: C000F002E0019
+    address: services::load_services@L128
+    summary: EI 19 of load_services
+  - id: C000F002E0020
+    address: services::load_services@L128
+    summary: EI 20 of load_services
+  - id: C000F002E0021
+    address: services::load_services@L128
+    summary: EI 21 of load_services
+  - id: C000F002E0022
+    address: services::load_services@L130
+    summary: EI 22 of load_services
+  - id: C000F002E0023
+    address: services::load_services@L130
+    summary: EI 23 of load_services
+  - id: C000F002E0024
+    address: services::load_services@L130
+    summary: EI 24 of load_services
+  - id: C000F002E0025
+    address: services::load_services@L130
+    summary: EI 25 of load_services
+---
+docKind: ledger
+schemaVersion: "1.0.0"
+unit:
+  id: C000
+  kind: unit
+  name: services
+  children:
+    - id: C000F001
+      kind: callable
+      name: build_services
+      signature: 'build_services(*, repo: ArtifactRepository, index_metadata_strategies: Sequence[IndexMetadataStrategy], core_metadata_strategies: Sequence[CoreMetadataStrategy], wheel_strategies: Sequence[WheelFileStrategy]) -> ResolutionServices'
+      callable:
+        params:
+          - name: repo
+            type:
+              name: ArtifactRepository
+          - name: index_metadata_strategies
+            type:
+              name: 'Sequence[IndexMetadataStrategy]'
+          - name: core_metadata_strategies
+            type:
+              name: 'Sequence[CoreMetadataStrategy]'
+          - name: wheel_strategies
+            type:
+              name: 'Sequence[WheelFileStrategy]'
+        returnType:
+          name: ResolutionServices
+        branches:
+          - id: C000F001E0001
+            condition: 'StrategyChainArtifactResolver(index_metadata_strategies) succeeds'
+            outcome: 'index_resolver assigned with StrategyChainArtifactResolver instance'
+          - id: C000F001E0002
+            condition: 'StrategyChainArtifactResolver(index_metadata_strategies) raises exception'
+            outcome: 'exception propagates from constructor'
+          - id: C000F001E0003
+            condition: 'StrategyChainArtifactResolver(core_metadata_strategies) succeeds'
+            outcome: 'core_resolver assigned with StrategyChainArtifactResolver instance'
+          - id: C000F001E0004
+            condition: 'StrategyChainArtifactResolver(core_metadata_strategies) raises exception'
+            outcome: 'exception propagates from constructor'
+          - id: C000F001E0005
+            condition: 'StrategyChainArtifactResolver(wheel_strategies) succeeds'
+            outcome: 'wheel_resolver assigned with StrategyChainArtifactResolver instance'
+          - id: C000F001E0006
+            condition: 'StrategyChainArtifactResolver(wheel_strategies) raises exception'
+            outcome: 'exception propagates from constructor'
+          - id: C000F001E0007
+            condition: 'first ArtifactCoordinator(repo=repo, resolver=index_resolver) succeeds'
+            outcome: 'ArtifactCoordinator instance created for index_metadata field'
+          - id: C000F001E0008
+            condition: 'first ArtifactCoordinator(repo=repo, resolver=index_resolver) raises exception'
+            outcome: 'exception propagates from first ArtifactCoordinator constructor'
+          - id: C000F001E0009
+            condition: 'second ArtifactCoordinator(repo=repo, resolver=core_resolver) succeeds'
+            outcome: 'ArtifactCoordinator instance created for core_metadata field'
+          - id: C000F001E0010
+            condition: 'second ArtifactCoordinator(repo=repo, resolver=core_resolver) raises exception'
+            outcome: 'exception propagates from second ArtifactCoordinator constructor'
+          - id: C000F001E0011
+            condition: 'third ArtifactCoordinator(repo=repo, resolver=wheel_resolver) succeeds'
+            outcome: 'ArtifactCoordinator instance created for wheel field'
+          - id: C000F001E0012
+            condition: 'third ArtifactCoordinator(repo=repo, resolver=wheel_resolver) raises exception'
+            outcome: 'exception propagates from third ArtifactCoordinator constructor'
+          - id: C000F001E0013
+            condition: 'ResolutionServices constructor and return execute'
+            outcome: 'returns ResolutionServices(index_metadata=..., core_metadata=..., wheel=...)'
+        integration:
+          interunit:
+            - id: IC000F001E0001
+              target: StrategyChainArtifactResolver
+              kind: construct
+              signature: 'StrategyChainArtifactResolver(index_metadata_strategies)'
+              executionPaths:
+                - [C000F001E0001]
+            - id: IC000F001E0003
+              target: StrategyChainArtifactResolver
+              kind: construct
+              signature: 'StrategyChainArtifactResolver(core_metadata_strategies)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003]
+            - id: IC000F001E0005
+              target: StrategyChainArtifactResolver
+              kind: construct
+              signature: 'StrategyChainArtifactResolver(wheel_strategies)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005]
+            - id: IC000F001E0007
+              target: ArtifactCoordinator
+              kind: construct
+              signature: 'ArtifactCoordinator(repo=repo, resolver=index_resolver)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0007]
+            - id: IC000F001E0009
+              target: ArtifactCoordinator
+              kind: construct
+              signature: 'ArtifactCoordinator(repo=repo, resolver=core_resolver)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0007, C000F001E0009]
+            - id: IC000F001E0011
+              target: ArtifactCoordinator
+              kind: construct
+              signature: 'ArtifactCoordinator(repo=repo, resolver=wheel_resolver)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0007, C000F001E0009, C000F001E0011]
+
+    - id: C000F002
+      kind: callable
+      name: load_services
+      signature: 'load_services(*, repo: ArtifactRepository, strategy_configs_by_instance_id: Mapping[str, ResolutionStrategyConfig] | None = None) -> ResolutionServices'
+      callable:
+        params:
+          - name: repo
+            type:
+              name: ArtifactRepository
+          - name: strategy_configs_by_instance_id
+            type:
+              name: 'Mapping[str, ResolutionStrategyConfig] | None'
+            default: None
+        returnType:
+          name: ResolutionServices
+        branches:
+          - id: C000F002E0001
+            condition: 'executes'
+            outcome: 'discovered: list[BaseArtifactResolutionStrategy] = load_strategies(...)'
+          - id: C000F002E0002
+            condition: 'if not discovered (True)'
+            outcome: 'enters if block, proceeds to raise'
+          - id: C000F002E0003
+            condition: 'if not discovered (False)'
+            outcome: 'skips if block, continues to line 106'
+          - id: C000F002E0004
+            condition: 'raise statement executes'
+            outcome: 'raises RuntimeError("no strategies were loaded")'
+          - id: C000F002E0005
+            condition: 'any(s.criticality is StrategyCriticality.IMPERATIVE for s in discovered) evaluates to True'
+            outcome: 'has_imperative = True'
+          - id: C000F002E0006
+            condition: 'any(s.criticality is StrategyCriticality.IMPERATIVE for s in discovered) evaluates to False'
+            outcome: 'has_imperative = False'
+          - id: C000F002E0007
+            condition: 'if has_imperative (ternary True branch)'
+            outcome: 'acceptable = (StrategyCriticality.IMPERATIVE,)'
+          - id: C000F002E0008
+            condition: 'else (ternary False branch)'
+            outcome: 'acceptable = (StrategyCriticality.REQUIRED, StrategyCriticality.OPTIONAL)'
+          - id: C000F002E0009
+            condition: 'executes'
+            outcome: 'crit_rank = {StrategyCriticality.IMPERATIVE: 0, StrategyCriticality.REQUIRED: 1, StrategyCriticality.OPTIONAL: 2}'
+          - id: C000F002E0010
+            condition: 'discovered empty (filtered list comp)'
+            outcome: 'sorted([s for s in discovered if s.criticality in acceptable], ...) returns [], discovered = []'
+          - id: C000F002E0011
+            condition: 'discovered has items, all filtered out by s.criticality in acceptable check'
+            outcome: 'sorted([...], ...) returns [], discovered = []'
+          - id: C000F002E0012
+            condition: 'discovered has items, some pass s.criticality in acceptable check'
+            outcome: 'sorted([...], ...) returns populated list, discovered reassigned with filtered & sorted strategies'
+          - id: C000F002E0013
+            condition: 'discovered empty (filtered list comp)'
+            outcome: 'index_strats = []'
+          - id: C000F002E0014
+            condition: 'discovered has items, all filtered out by isinstance(s, IndexMetadataStrategy) check'
+            outcome: 'index_strats = []'
+          - id: C000F002E0015
+            condition: 'discovered has items, some pass isinstance(s, IndexMetadataStrategy) check'
+            outcome: 'index_strats populated with IndexMetadataStrategy instances'
+          - id: C000F002E0016
+            condition: 'discovered empty (filtered list comp)'
+            outcome: 'core_strats = []'
+          - id: C000F002E0017
+            condition: 'discovered has items, all filtered out by isinstance(s, CoreMetadataStrategy) check'
+            outcome: 'core_strats = []'
+          - id: C000F002E0018
+            condition: 'discovered has items, some pass isinstance(s, CoreMetadataStrategy) check'
+            outcome: 'core_strats populated with CoreMetadataStrategy instances'
+          - id: C000F002E0019
+            condition: 'discovered empty (filtered list comp)'
+            outcome: 'wheel_strats = []'
+          - id: C000F002E0020
+            condition: 'discovered has items, all filtered out by isinstance(s, WheelFileStrategy) check'
+            outcome: 'wheel_strats = []'
+          - id: C000F002E0021
+            condition: 'discovered has items, some pass isinstance(s, WheelFileStrategy) check'
+            outcome: 'wheel_strats populated with WheelFileStrategy instances'
+          - id: C000F002E0022
+            condition: 'list(index_strats) executes'
+            outcome: 'creates defensive copy of index_strats'
+          - id: C000F002E0023
+            condition: 'list(core_strats) executes'
+            outcome: 'creates defensive copy of core_strats'
+          - id: C000F002E0024
+            condition: 'list(wheel_strats) executes'
+            outcome: 'creates defensive copy of wheel_strats'
+          - id: C000F002E0025
+            condition: 'return statement with build_services call executes'
+            outcome: 'returns build_services(repo=repo, index_metadata_strategies=list(index_strats), core_metadata_strategies=list(core_strats), wheel_strategies=list(wheel_strats))'
+            notes: 'build_services is in this unit, so not an integration point'
+        integration:
+          interunit:
+            - id: IC000F002E0001
+              target: load_strategies
+              kind: call
+              signature: 'load_strategies(strategy_package=BUILTIN_STRATEGY_PACKAGE, strategy_entrypoint_group=STRATEGY_ENTRYPOINT_GROUP, builtin_config_package=BUILTIN_STRATEGY_CONFIG_PACKAGE, config_entrypoint_group=STRATEGY_CONFIG_ENTRYPOINT_GROUP, raw_configs_by_instance_id=strategy_configs_by_instance_id)'
+              executionPaths:
+                - [C000F002E0001]
+---
+docKind: ledger-generation-review
+schemaVersion: "1.0.0"
+unit:
+  name: services
+  language: python
+  callablesAnalyzed: 2
+  totalExeItems: 38
+  interunitIntegrations: 7
+  boundaryIntegrations: 0
+findings:
+  - severity: error
+    category: deviation
+    message: 'Original ledger failed to enumerate exception paths for constructor calls per Section 2.1.6 of Python companion guide'
+    appliesTo:
+      - C000F001E0001
+      - C000F001E0002
+      - C000F001E0003
+      - C000F001E0004
+      - C000F001E0005
+      - C000F001E0006
+      - C000F001E0007
+      - C000F001E0008
+      - C000F001E0009
+      - C000F001E0010
+      - C000F001E0011
+      - C000F001E0012
+    recommendedAction: 'Operations that can raise exceptions create additional execution outcomes, even without explicit try/except blocks. Each constructor call must enumerate both success and exception paths.'
+  - severity: info
+    category: assumption
+    message: 'ResolutionServices dataclass constructor assumed to not raise exceptions (deterministic dataclass instantiation)'
+    appliesTo: C000F001E0013
+    notes: 'Dataclass constructors with simple field assignments typically cannot fail, but this is an assumption that could be validated'

@@ -1,0 +1,294 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: factory
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: RepositorySelectionError
+      address: 'factory::RepositorySelectionError@L19'
+    - id: C002
+      kind: class
+      name: RepositorySelection
+      address: 'factory::RepositorySelection@L23'
+    - id: C000F001
+      kind: callable
+      name: _select_repository
+      address: 'factory::_select_repository@L30'
+    - id: C000F002
+      kind: callable
+      name: open_repository
+      address: 'factory::open_repository@L47'
+  branches:
+    - id: C000F001E0001
+      address: 'factory::_select_repository@L33'
+      summary: 'repo_id truthy → rid = repo_id'
+    - id: C000F001E0002
+      address: 'factory::_select_repository@L33'
+      summary: 'repo_id falsy → rid = DEFAULT_REPOSITORY_ID'
+    - id: C000F001E0003
+      address: 'factory::_select_repository@L35'
+      summary: 'executes: merged = registry.merged()'
+    - id: C000F001E0004
+      address: 'factory::_select_repository@L36'
+      summary: 'rid not in merged true → raises RepositorySelectionError'
+    - id: C000F001E0005
+      address: 'factory::_select_repository@L36'
+      summary: 'rid not in merged false → continues to line 41'
+    - id: C000F001E0006
+      address: 'factory::_select_repository@L37-39'
+      summary: 'executes: raises RepositorySelectionError'
+    - id: C000F001E0007
+      address: 'factory::_select_repository@L41-43'
+      summary: 'rid in registry.builtins true → origin = "builtin"'
+    - id: C000F001E0008
+      address: 'factory::_select_repository@L41-43'
+      summary: 'rid in registry.builtins false → origin = "entrypoint"'
+    - id: C000F001E0009
+      address: 'factory::_select_repository@L44'
+      summary: 'returns RepositorySelection instance'
+    - id: C000F002E0001
+      address: 'factory::open_repository@L62'
+      summary: 'registry is None true → enters if block'
+    - id: C000F002E0002
+      address: 'factory::open_repository@L62'
+      summary: 'registry is None false → continues to line 65'
+    - id: C000F002E0003
+      address: 'factory::open_repository@L63'
+      summary: 'executes: registry = build_repository_registry()'
+    - id: C000F002E0004
+      address: 'factory::open_repository@L65'
+      summary: 'enters try block'
+    - id: C000F002E0005
+      address: 'factory::open_repository@L66'
+      summary: 'executes: selection = _select_repository(repo_id=repo_id, registry=registry)'
+    - id: C000F002E0006
+      address: 'factory::open_repository@L67'
+      summary: 'RepositoryRegistryError caught → enters except handler'
+    - id: C000F002E0007
+      address: 'factory::open_repository@L68'
+      summary: 'executes: raises RepositorySelectionError from e'
+    - id: C000F002E0008
+      address: 'factory::open_repository@L70'
+      summary: 'executes: repo = selection.factory(config=config)'
+    - id: C000F002E0009
+      address: 'factory::open_repository@L72'
+      summary: 'enters try block'
+    - id: C000F002E0010
+      address: 'factory::open_repository@L73'
+      summary: 'executes: yield repo'
+    - id: C000F002E0011
+      address: 'factory::open_repository@L74'
+      summary: 'enters finally block'
+    - id: C000F002E0012
+      address: 'factory::open_repository@L75'
+      summary: 'executes: repo.close()'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: factory
+  children:
+    - id: C001
+      kind: class
+      name: RepositorySelectionError
+      notes: 'Exception class for repository selection errors, extends RuntimeError'
+    - id: C002
+      kind: class
+      name: RepositorySelection
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+            slots: true
+      notes: 'Immutable dataclass representing a selected repository configuration'
+    - id: C000F001
+      kind: callable
+      name: _select_repository
+      signature: '_select_repository(*, repo_id: str | None, registry: RepositoryRegistry) -> RepositorySelection'
+      callable:
+        params:
+          - name: repo_id
+            type:
+              name: 'str | None'
+          - name: registry
+            type:
+              name: RepositoryRegistry
+              unit: project_resolution_engine.internal.repositories.registry
+        returnType:
+          name: RepositorySelection
+          unit: factory
+        branches:
+          - id: C000F001E0001
+            condition: 'repo_id or DEFAULT_REPOSITORY_ID (repo_id truthy)'
+            outcome: 'rid = repo_id'
+          - id: C000F001E0002
+            condition: 'repo_id or DEFAULT_REPOSITORY_ID (repo_id falsy)'
+            outcome: 'rid = DEFAULT_REPOSITORY_ID'
+          - id: C000F001E0003
+            condition: 'executes'
+            outcome: 'merged = registry.merged()'
+          - id: C000F001E0004
+            condition: 'if rid not in merged'
+            outcome: 'raises RepositorySelectionError with available repository list'
+          - id: C000F001E0005
+            condition: 'else (rid in merged)'
+            outcome: 'continues to origin assignment'
+          - id: C000F001E0006
+            condition: 'raise statement'
+            outcome: 'raises RepositorySelectionError(f''unknown repository id {rid!r}. available={sorted(merged)}'')'
+          - id: C000F001E0007
+            condition: '"builtin" if rid in registry.builtins else "entrypoint" (true branch)'
+            outcome: 'origin = "builtin"'
+          - id: C000F001E0008
+            condition: '"builtin" if rid in registry.builtins else "entrypoint" (false branch)'
+            outcome: 'origin = "entrypoint"'
+          - id: C000F001E0009
+            condition: 'return statement'
+            outcome: 'returns RepositorySelection(repo_id=rid, origin=origin, factory=merged[rid])'
+        integration:
+          interunit:
+            - id: IC000F001E0003
+              target: RepositoryRegistry.merged
+              kind: call
+              signature: 'registry.merged()'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003]
+                - [C000F001E0002, C000F001E0003]
+              notes: 'Retrieves merged repository dictionary'
+            - id: IC000F001E0007
+              target: RepositoryRegistry.builtins
+              kind: other
+              signature: 'registry.builtins'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0007]
+                - [C000F001E0002, C000F001E0003, C000F001E0005, C000F001E0007]
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0008]
+                - [C000F001E0002, C000F001E0003, C000F001E0005, C000F001E0008]
+              notes: 'Accesses builtins attribute to determine origin'
+            - id: IC000F001E0009
+              target: RepositorySelection
+              kind: construct
+              signature: 'RepositorySelection(repo_id=rid, origin=origin, factory=merged[rid])'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0007, C000F001E0009]
+                - [C000F001E0001, C000F001E0003, C000F001E0005, C000F001E0008, C000F001E0009]
+                - [C000F001E0002, C000F001E0003, C000F001E0005, C000F001E0007, C000F001E0009]
+                - [C000F001E0002, C000F001E0003, C000F001E0005, C000F001E0008, C000F001E0009]
+              notes: 'Constructs result object with selected repository details'
+    - id: C000F002
+      kind: callable
+      name: open_repository
+      signature: 'open_repository(*, repo_id: str | None, config: Mapping[str, Any] | None = None, registry: RepositoryRegistry | None = None) -> Iterator[ArtifactRepository]'
+      decorators:
+        - name: contextmanager
+      callable:
+        params:
+          - name: repo_id
+            type:
+              name: 'str | None'
+          - name: config
+            type:
+              name: 'Mapping[str, Any] | None'
+            default: None
+          - name: registry
+            type:
+              name: 'RepositoryRegistry | None'
+              unit: project_resolution_engine.internal.repositories.registry
+            default: None
+        returnType:
+          name: 'Iterator[ArtifactRepository]'
+          args:
+            - name: ArtifactRepository
+              unit: project_resolution_engine.repository
+        branches:
+          - id: C000F002E0001
+            condition: 'if registry is None'
+            outcome: 'enters if block to build registry'
+          - id: C000F002E0002
+            condition: 'else (registry is not None)'
+            outcome: 'skips registry initialization'
+          - id: C000F002E0003
+            condition: 'executes'
+            outcome: 'registry = build_repository_registry()'
+          - id: C000F002E0004
+            condition: 'try'
+            outcome: 'enters try block for repository selection'
+          - id: C000F002E0005
+            condition: 'executes'
+            outcome: 'selection = _select_repository(repo_id=repo_id, registry=registry)'
+          - id: C000F002E0006
+            condition: 'except RepositoryRegistryError as e'
+            outcome: 'catches RepositoryRegistryError'
+          - id: C000F002E0007
+            condition: 'raise statement'
+            outcome: 'raises RepositorySelectionError(str(e)) from e'
+          - id: C000F002E0008
+            condition: 'executes'
+            outcome: 'repo = selection.factory(config=config)'
+          - id: C000F002E0009
+            condition: 'try'
+            outcome: 'enters try block for yield'
+          - id: C000F002E0010
+            condition: 'yield'
+            outcome: 'yields repo to caller'
+          - id: C000F002E0011
+            condition: 'finally'
+            outcome: 'enters finally block'
+          - id: C000F002E0012
+            condition: 'executes'
+            outcome: 'repo.close()'
+        integration:
+          interunit:
+            - id: IC000F002E0003
+              target: build_repository_registry
+              kind: call
+              signature: 'build_repository_registry()'
+              executionPaths:
+                - [C000F002E0001, C000F002E0003]
+              condition: 'registry is None'
+              notes: 'Builds default registry if not provided'
+            - id: IC000F002E0005
+              target: _select_repository
+              kind: call
+              signature: '_select_repository(repo_id=repo_id, registry=registry)'
+              executionPaths:
+                - [C000F002E0001, C000F002E0003, C000F002E0004, C000F002E0005]
+                - [C000F002E0002, C000F002E0004, C000F002E0005]
+              notes: 'Selects repository based on repo_id'
+            - id: IC000F002E0008
+              target: RepoFactory
+              kind: call
+              signature: 'selection.factory(config=config)'
+              executionPaths:
+                - [C000F002E0001, C000F002E0003, C000F002E0004, C000F002E0005, C000F002E0008]
+                - [C000F002E0002, C000F002E0004, C000F002E0005, C000F002E0008]
+              notes: 'Invokes factory to create repository instance'
+            - id: IC000F002E0012
+              target: ArtifactRepository.close
+              kind: call
+              signature: 'repo.close()'
+              executionPaths:
+                - [C000F002E0001, C000F002E0003, C000F002E0004, C000F002E0005, C000F002E0008, C000F002E0009, C000F002E0010, C000F002E0011, C000F002E0012]
+                - [C000F002E0002, C000F002E0004, C000F002E0005, C000F002E0008, C000F002E0009, C000F002E0010, C000F002E0011, C000F002E0012]
+              notes: 'Cleanup: closes repository in finally block'
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: factory
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Decorator @contextmanager captured in decorators field; does not create additional EIs'
+    appliesTo: C000F002
+  - severity: info
+    category: assumption
+    message: 'Decorator @dataclass with arguments (frozen=True, slots=True) captured in decorators field'
+    appliesTo: C002

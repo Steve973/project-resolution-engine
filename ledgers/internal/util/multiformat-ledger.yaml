@@ -1,0 +1,1669 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: multiformat
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C000F001
+      kind: callable
+      name: _normalize
+      address: 'multiformat::_normalize@L17'
+    - id: C001
+      kind: class
+      name: MultiformatSerializableMixin
+      address: 'multiformat::MultiformatSerializableMixin@L68'
+    - id: C001M001
+      kind: callable
+      name: mapping_hash
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@L78'
+    - id: C001M002
+      kind: callable
+      name: to_mapping
+      address: 'multiformat::MultiformatSerializableMixin::to_mapping@L101'
+    - id: C001M003
+      kind: callable
+      name: to_json
+      address: 'multiformat::MultiformatSerializableMixin::to_json@L133'
+    - id: C001M004
+      kind: callable
+      name: to_yaml
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@L154'
+    - id: C001M005
+      kind: callable
+      name: to_toml
+      address: 'multiformat::MultiformatSerializableMixin::to_toml@L181'
+    - id: C001M005N001
+      kind: callable
+      name: sort_dict
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@L198'
+    - id: C001M006
+      kind: callable
+      name: serialize
+      address: 'multiformat::MultiformatSerializableMixin::serialize@L210'
+    - id: C001M007
+      kind: callable
+      name: flat_summary
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@L241'
+    - id: C001M008
+      kind: callable
+      name: __str__
+      address: 'multiformat::MultiformatSerializableMixin::__str__@L310'
+    - id: C002
+      kind: class
+      name: MultiformatDeserializableMixin
+      address: 'multiformat::MultiformatDeserializableMixin@L314'
+    - id: C002M001
+      kind: callable
+      name: from_mapping
+      address: 'multiformat::MultiformatDeserializableMixin::from_mapping@L328'
+    - id: C002M002
+      kind: callable
+      name: deserialize
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@L349'
+    - id: C002M003
+      kind: callable
+      name: from_json
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@L376'
+    - id: C002M004
+      kind: callable
+      name: from_yaml
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@L395'
+    - id: C002M005
+      kind: callable
+      name: from_toml
+      address: 'multiformat::MultiformatDeserializableMixin::from_toml@L414'
+    - id: C002M006
+      kind: callable
+      name: from_file
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@L435'
+    - id: C002M007
+      kind: callable
+      name: _load_text
+      address: 'multiformat::MultiformatDeserializableMixin::_load_text@L468'
+    - id: C002M008
+      kind: callable
+      name: _infer_format_from_suffix
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@L485'
+    - id: C002M009
+      kind: callable
+      name: _parse_text
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@L514'
+    - id: C002M010
+      kind: callable
+      name: _coerce_root_mapping
+      address: 'multiformat::MultiformatDeserializableMixin::_coerce_root_mapping@L560'
+    - id: C002M011
+      kind: callable
+      name: _preprocess_mapping
+      address: 'multiformat::MultiformatDeserializableMixin::_preprocess_mapping@L592'
+    - id: C002M012
+      kind: callable
+      name: _postprocess_instance
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@L613'
+    - id: C003
+      kind: class
+      name: MultiformatModelMixin
+      address: 'multiformat::MultiformatModelMixin@L660'
+  branches:
+    - id: C000F001E0001
+      address: 'multiformat::_normalize@match value@L42'
+      summary: 'value matches Path() → enters case block'
+    - id: C000F001E0002
+      address: 'multiformat::_normalize@match value@L42'
+      summary: 'value does not match Path() → continues to next case'
+    - id: C000F001E0003
+      address: 'multiformat::_normalize@return@L44'
+      summary: 'returns value.as_posix()'
+    - id: C000F001E0004
+      address: 'multiformat::_normalize@match value@L46'
+      summary: 'value matches Enum() → enters case block'
+    - id: C000F001E0005
+      address: 'multiformat::_normalize@match value@L46'
+      summary: 'value does not match Enum() → continues to next case'
+    - id: C000F001E0006
+      address: 'multiformat::_normalize@return@L47'
+      summary: 'returns value.value'
+    - id: C000F001E0007
+      address: 'multiformat::_normalize@match value@L49'
+      summary: 'value matches Mapping() → enters case block'
+    - id: C000F001E0008
+      address: 'multiformat::_normalize@match value@L49'
+      summary: 'value does not match Mapping() → continues to next case'
+    - id: C000F001E0009
+      address: 'multiformat::_normalize@dict comprehension@L50'
+      summary: 'value.items() empty → returns {}'
+    - id: C000F001E0010
+      address: 'multiformat::_normalize@dict comprehension@L50'
+      summary: 'value.items() has items → comprehension executes'
+    - id: C000F001E0011
+      address: 'multiformat::_normalize@match value@L55'
+      summary: 'value matches set() | frozenset() → enters case block'
+    - id: C000F001E0012
+      address: 'multiformat::_normalize@match value@L55'
+      summary: 'value does not match set() | frozenset() → continues to next case'
+    - id: C000F001E0013
+      address: 'multiformat::_normalize@return@L56'
+      summary: 'value empty → returns []'
+    - id: C000F001E0014
+      address: 'multiformat::_normalize@return@L56'
+      summary: 'value has items → comprehension executes, returns sorted list'
+    - id: C000F001E0015
+      address: 'multiformat::_normalize@match value@L58'
+      summary: 'value matches list() | tuple() → enters case block'
+    - id: C000F001E0016
+      address: 'multiformat::_normalize@match value@L58'
+      summary: 'value does not match list() | tuple() → continues to next case'
+    - id: C000F001E0017
+      address: 'multiformat::_normalize@return@L59'
+      summary: 'value empty → returns []'
+    - id: C000F001E0018
+      address: 'multiformat::_normalize@return@L59'
+      summary: 'value has items → comprehension executes'
+    - id: C000F001E0019
+      address: 'multiformat::_normalize@match value@L61'
+      summary: 'value matches datetime() | date() → enters case block'
+    - id: C000F001E0020
+      address: 'multiformat::_normalize@match value@L61'
+      summary: 'value does not match datetime() | date() → continues to default case'
+    - id: C000F001E0021
+      address: 'multiformat::_normalize@return@L62'
+      summary: 'returns value.isoformat()'
+    - id: C000F001E0022
+      address: 'multiformat::_normalize@case _@L64'
+      summary: 'default case → enters case block'
+    - id: C000F001E0023
+      address: 'multiformat::_normalize@return@L65'
+      summary: 'returns value'
+    - id: C001M001E0001
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@import@L91'
+      summary: 'imports hashlib'
+    - id: C001M001E0002
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@import@L92'
+      summary: 'imports json'
+    - id: C001M001E0003
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@assignment@L94'
+      summary: 'self.to_mapping() executes successfully'
+    - id: C001M001E0004
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@assignment@L94'
+      summary: '_normalize(...) executes with result'
+    - id: C001M001E0005
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@assignment@L95'
+      summary: 'json.dumps executes successfully'
+    - id: C001M001E0006
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@assignment@L95'
+      summary: '.encode(''utf-8'') executes'
+    - id: C001M001E0007
+      address: 'multiformat::MultiformatSerializableMixin::mapping_hash@return@L99'
+      summary: 'returns hashlib.new(''sha512'', payload).hexdigest()'
+    - id: C001M002E0001
+      address: 'multiformat::MultiformatSerializableMixin::to_mapping@raise@L128'
+      summary: 'raises NotImplementedError'
+    - id: C001M003E0001
+      address: 'multiformat::MultiformatSerializableMixin::to_json@import@L148'
+      summary: 'imports json'
+    - id: C001M003E0002
+      address: 'multiformat::MultiformatSerializableMixin::to_json@return@L150'
+      summary: 'self.to_mapping() executes successfully'
+    - id: C001M003E0003
+      address: 'multiformat::MultiformatSerializableMixin::to_json@return@L150'
+      summary: 'json.dumps executes with result'
+    - id: C001M004E0001
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@try@L173'
+      summary: 'import yaml succeeds → continues to line 177'
+    - id: C001M004E0002
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@try@L173'
+      summary: 'import yaml raises ImportError → enters except handler'
+    - id: C001M004E0003
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@raise@L176'
+      summary: 'raises RuntimeError(''PyYAML not installed'')'
+    - id: C001M004E0004
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@return@L177'
+      summary: 'self.to_mapping() executes successfully'
+    - id: C001M004E0005
+      address: 'multiformat::MultiformatSerializableMixin::to_yaml@return@L177'
+      summary: 'yaml.safe_dump executes with result'
+    - id: C001M005E0001
+      address: 'multiformat::MultiformatSerializableMixin::to_toml@assignment@L207'
+      summary: 'self.to_mapping() executes successfully'
+    - id: C001M005E0002
+      address: 'multiformat::MultiformatSerializableMixin::to_toml@assignment@L207'
+      summary: 'sort_dict(...) executes with result'
+    - id: C001M005E0003
+      address: 'multiformat::MultiformatSerializableMixin::to_toml@return@L208'
+      summary: 'dump_toml_to_str executes successfully'
+    - id: C001M005E0004
+      address: 'multiformat::MultiformatSerializableMixin::to_toml@return@L208'
+      summary: 'returns result'
+    - id: C001M005N001E0001
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@match@L199'
+      summary: 'obj matches dict() → enters case block'
+    - id: C001M005N001E0002
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@match@L199'
+      summary: 'obj does not match dict() → continues to next case'
+    - id: C001M005N001E0003
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@return@L201'
+      summary: 'obj.keys() empty → comprehension returns {}'
+    - id: C001M005N001E0004
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@return@L201'
+      summary: 'obj.keys() has items → comprehension executes'
+    - id: C001M005N001E0005
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@match@L202'
+      summary: 'obj matches list() → enters case block'
+    - id: C001M005N001E0006
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@match@L202'
+      summary: 'obj does not match list() → continues to default case'
+    - id: C001M005N001E0007
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@return@L203'
+      summary: 'obj empty → comprehension returns []'
+    - id: C001M005N001E0008
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@return@L203'
+      summary: 'obj has items → comprehension executes'
+    - id: C001M005N001E0009
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@case _@L204'
+      summary: 'default case → enters case block'
+    - id: C001M005N001E0010
+      address: 'multiformat::MultiformatSerializableMixin::to_toml::sort_dict@return@L205'
+      summary: 'returns obj'
+    - id: C001M006E0001
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L231'
+      summary: 'fmt matches ''json'' → enters case block'
+    - id: C001M006E0002
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L231'
+      summary: 'fmt does not match ''json'' → continues to next case'
+    - id: C001M006E0003
+      address: 'multiformat::MultiformatSerializableMixin::serialize@return@L233'
+      summary: 'returns self.to_json(indent=indent)'
+    - id: C001M006E0004
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L234'
+      summary: 'fmt matches ''yaml'' → enters case block'
+    - id: C001M006E0005
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L234'
+      summary: 'fmt does not match ''yaml'' → continues to next case'
+    - id: C001M006E0006
+      address: 'multiformat::MultiformatSerializableMixin::serialize@return@L235'
+      summary: 'returns self.to_yaml(indent=indent)'
+    - id: C001M006E0007
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L236'
+      summary: 'fmt matches ''toml'' → enters case block'
+    - id: C001M006E0008
+      address: 'multiformat::MultiformatSerializableMixin::serialize@match@L236'
+      summary: 'fmt does not match ''toml'' → continues to default case'
+    - id: C001M006E0009
+      address: 'multiformat::MultiformatSerializableMixin::serialize@return@L237'
+      summary: 'returns self.to_toml()'
+    - id: C001M006E0010
+      address: 'multiformat::MultiformatSerializableMixin::serialize@case _@L238'
+      summary: 'default case → enters case block'
+    - id: C001M006E0011
+      address: 'multiformat::MultiformatSerializableMixin::serialize@raise@L239'
+      summary: 'raises ValueError(f''unrecognized format: {fmt}'')'
+    - id: C001M007E0001
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@assignment@L253'
+      summary: 'field_names set computed'
+    - id: C001M007E0002
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@assignment@L254'
+      summary: 'm = self.to_mapping() executes'
+    - id: C001M007E0003
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@assignment@L256'
+      summary: 'parts = [] created'
+    - id: C001M007E0004
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L257'
+      summary: 'first_fields empty → loop body never executes (0 iterations)'
+    - id: C001M007E0005
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L257'
+      summary: 'first_fields has items → loop body executes (≥1 iterations)'
+    - id: C001M007E0006
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@if@L258'
+      summary: 'fn not in m → continues to line 262'
+    - id: C001M007E0007
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@if@L258'
+      summary: 'fn in m → enters if block'
+    - id: C001M007E0008
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L262'
+      summary: 'sorted(set(m) - field_names) empty → loop body never executes (0 iterations)'
+    - id: C001M007E0009
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L262'
+      summary: 'sorted(set(m) - field_names) has items → loop body executes (≥1 iterations)'
+    - id: C001M007E0010
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L266'
+      summary: 'last_fields empty → loop body never executes (0 iterations)'
+    - id: C001M007E0011
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@for@L266'
+      summary: 'last_fields has items → loop body executes (≥1 iterations)'
+    - id: C001M007E0012
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@if@L267'
+      summary: 'fn not in m → continues to line 271'
+    - id: C001M007E0013
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@if@L267'
+      summary: 'fn in m → enters if block'
+    - id: C001M007E0014
+      address: 'multiformat::MultiformatSerializableMixin::flat_summary@return@L271'
+      summary: 'returns sep.join(parts)'
+    - id: C001M008E0001
+      address: 'multiformat::MultiformatSerializableMixin::__str__@return@L311'
+      summary: 'returns self.flat_summary()'
+    - id: C002M001E0001
+      address: 'multiformat::MultiformatDeserializableMixin::from_mapping@raise@L344'
+      summary: 'raises NotImplementedError'
+    - id: C002M002E0001
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@assignment@L362'
+      summary: 'fmt_lower = (fmt or ''json'').lower() executes'
+    - id: C002M002E0002
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L363'
+      summary: 'fmt_lower matches ''json'' → enters case block'
+    - id: C002M002E0003
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L363'
+      summary: 'fmt_lower does not match ''json'' → continues to next case'
+    - id: C002M002E0004
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@return@L364'
+      summary: 'returns cls.from_json(text, **context)'
+    - id: C002M002E0005
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L365'
+      summary: 'fmt_lower matches ''yaml'' → enters case block'
+    - id: C002M002E0006
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L365'
+      summary: 'fmt_lower does not match ''yaml'' → continues to next case'
+    - id: C002M002E0007
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@return@L366'
+      summary: 'returns cls.from_yaml(text, **context)'
+    - id: C002M002E0008
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L367'
+      summary: 'fmt_lower matches ''toml'' → enters case block'
+    - id: C002M002E0009
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@match@L367'
+      summary: 'fmt_lower does not match ''toml'' → continues to default case'
+    - id: C002M002E0010
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@return@L368'
+      summary: 'returns cls.from_toml(text, **context)'
+    - id: C002M002E0011
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@case _@L369'
+      summary: 'default case → enters case block'
+    - id: C002M002E0012
+      address: 'multiformat::MultiformatDeserializableMixin::deserialize@raise@L370'
+      summary: 'raises ValueError(f''unrecognized format: {fmt_lower!r}'')'
+    - id: C002M003E0001
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@import@L384'
+      summary: 'imports json'
+    - id: C002M003E0002
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L385'
+      summary: 'json.loads(text or ''{}') executes successfully'
+    - id: C002M003E0003
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L385'
+      summary: 'cls._coerce_root_mapping(...) executes with result'
+    - id: C002M003E0004
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L386'
+      summary: 'cls._preprocess_mapping(...) executes successfully'
+    - id: C002M003E0005
+      address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L386'
+      summary: 'cls.from_mapping(...) executes with result'
+    - id: C002M004E0001
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@try@L398'
+      summary: 'import yaml succeeds → continues to line 401'
+    - id: C002M004E0002
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@try@L398'
+      summary: 'import yaml raises ImportError → enters except handler'
+    - id: C002M004E0003
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@raise@L400'
+      summary: 'raises RuntimeError(''PyYAML not installed'')'
+    - id: C002M004E0004
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@assignment@L401'
+      summary: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+    - id: C002M004E0005
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@if@L402'
+      summary: 'len(docs) > 1 → enters if block'
+    - id: C002M004E0006
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@if@L402'
+      summary: 'len(docs) <= 1 → continues to line 404'
+    - id: C002M004E0007
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@raise@L403'
+      summary: 'raises ValueError(f''Expected single YAML document, found {len(docs)}'')'
+    - id: C002M004E0008
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@ternary@L404'
+      summary: 'docs truthy → raw = docs[0]'
+    - id: C002M004E0009
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@ternary@L404'
+      summary: 'docs falsy → raw = {}'
+    - id: C002M004E0010
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@assignment@L405'
+      summary: 'cls._coerce_root_mapping(...) executes successfully'
+    - id: C002M004E0011
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@assignment@L405'
+      summary: 'cls._preprocess_mapping(...) executes with result'
+    - id: C002M004E0012
+      address: 'multiformat::MultiformatDeserializableMixin::from_yaml@return@L406'
+      summary: 'returns cls.from_mapping(mapping, **context)'
+    - id: C002M005E0001
+      address: 'multiformat::MultiformatDeserializableMixin::from_toml@assignment@L423'
+      summary: 'load_toml_text(text or '''') executes successfully'
+    - id: C002M005E0002
+      address: 'multiformat::MultiformatDeserializableMixin::from_toml@assignment@L423'
+      summary: 'cls._coerce_root_mapping(...) executes with result'
+    - id: C002M005E0003
+      address: 'multiformat::MultiformatDeserializableMixin::from_toml@assignment@L424'
+      summary: 'cls._preprocess_mapping(...) executes successfully'
+    - id: C002M005E0004
+      address: 'multiformat::MultiformatDeserializableMixin::from_toml@assignment@L424'
+      summary: 'cls.from_mapping(...) executes with result'
+    - id: C002M006E0001
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L456'
+      summary: 'p = Path(path) executes'
+    - id: C002M006E0002
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L457'
+      summary: 'cls._load_text(p, **context) executes successfully'
+    - id: C002M006E0003
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@ternary@L458'
+      summary: 'fmt truthy → use fmt'
+    - id: C002M006E0004
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@ternary@L458'
+      summary: 'fmt falsy → cls._infer_format_from_suffix(p) executes, fmt assigned'
+    - id: C002M006E0005
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L459'
+      summary: 'cls._parse_text(text, fmt=fmt, path=p, **context) executes successfully'
+    - id: C002M006E0006
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L460'
+      summary: 'cls._coerce_root_mapping(raw, fmt=fmt, path=p, **context) executes successfully'
+    - id: C002M006E0007
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L461'
+      summary: 'cls._preprocess_mapping(mapping, fmt=fmt, path=p, **context) executes successfully'
+    - id: C002M006E0008
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@assignment@L462'
+      summary: 'cls.from_mapping(mapping, **context) executes successfully'
+    - id: C002M006E0009
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@return@L463'
+      summary: 'cls._postprocess_instance(inst, fmt=fmt, path=p, **context) executes successfully'
+    - id: C002M006E0010
+      address: 'multiformat::MultiformatDeserializableMixin::from_file@return@L463'
+      summary: 'returns result'
+    - id: C002M007E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_load_text@return@L482'
+      summary: 'returns path.read_text(encoding=''utf-8'')'
+    - id: C002M008E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@assignment@L502'
+      summary: 'suffix = path.suffix.lower() executes'
+    - id: C002M008E0002
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L503'
+      summary: 'suffix matches ''.json'' → enters case block'
+    - id: C002M008E0003
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L503'
+      summary: 'suffix does not match ''.json'' → continues to next case'
+    - id: C002M008E0004
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@return@L505'
+      summary: 'returns ''json'''
+    - id: C002M008E0005
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L506'
+      summary: 'suffix matches ''.yaml'' | ''.yml'' → enters case block'
+    - id: C002M008E0006
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L506'
+      summary: 'suffix does not match ''.yaml'' | ''.yml'' → continues to next case'
+    - id: C002M008E0007
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@return@L507'
+      summary: 'returns ''yaml'''
+    - id: C002M008E0008
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L508'
+      summary: 'suffix matches ''.toml'' → enters case block'
+    - id: C002M008E0009
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@match@L508'
+      summary: 'suffix does not match ''.toml'' → continues to default case'
+    - id: C002M008E0010
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@return@L509'
+      summary: 'returns ''toml'''
+    - id: C002M008E0011
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@case _@L510'
+      summary: 'default case → enters case block'
+    - id: C002M008E0012
+      address: 'multiformat::MultiformatDeserializableMixin::_infer_format_from_suffix@raise@L511'
+      summary: 'raises ValueError(f''Cannot infer format from extension {suffix!r}'')'
+    - id: C002M009E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@assignment@L537'
+      summary: 'fmt = fmt.lower() executes'
+    - id: C002M009E0002
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L538'
+      summary: 'fmt matches ''json'' → enters case block'
+    - id: C002M009E0003
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L538'
+      summary: 'fmt does not match ''json'' → continues to next case'
+    - id: C002M009E0004
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@import@L540'
+      summary: 'imports json'
+    - id: C002M009E0005
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@return@L542'
+      summary: 'returns json.loads(text or ''{}'')'
+    - id: C002M009E0006
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L543'
+      summary: 'fmt matches ''yaml'' → enters case block'
+    - id: C002M009E0007
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L543'
+      summary: 'fmt does not match ''yaml'' → continues to next case'
+    - id: C002M009E0008
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@try@L544'
+      summary: 'import yaml succeeds → continues to line 548'
+    - id: C002M009E0009
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@try@L544'
+      summary: 'import yaml raises ImportError → enters except handler'
+    - id: C002M009E0010
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@raise@L547'
+      summary: 'raises RuntimeError(''PyYAML not installed'')'
+    - id: C002M009E0011
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@assignment@L548'
+      summary: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+    - id: C002M009E0012
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@if@L549'
+      summary: 'len(docs) > 1 → enters if block'
+    - id: C002M009E0013
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@if@L549'
+      summary: 'len(docs) <= 1 → continues to line 553'
+    - id: C002M009E0014
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@raise@L550'
+      summary: 'raises ValueError(f''Expected single YAML document, found {len(docs)}'')'
+    - id: C002M009E0015
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@ternary@L553'
+      summary: 'docs truthy → returns docs[0]'
+    - id: C002M009E0016
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@ternary@L553'
+      summary: 'docs falsy → returns {}'
+    - id: C002M009E0017
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L554'
+      summary: 'fmt matches ''toml'' → enters case block'
+    - id: C002M009E0018
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@match@L554'
+      summary: 'fmt does not match ''toml'' → continues to default case'
+    - id: C002M009E0019
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@return@L555'
+      summary: 'returns load_toml_text(text or '''')'
+    - id: C002M009E0020
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@case _@L556'
+      summary: 'default case → enters case block'
+    - id: C002M009E0021
+      address: 'multiformat::MultiformatDeserializableMixin::_parse_text@raise@L557'
+      summary: 'raises ValueError(f''unrecognized format: {fmt!r}'')'
+    - id: C002M010E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_coerce_root_mapping@if@L584'
+      summary: 'isinstance(raw, Mapping) true → continues to line 585'
+    - id: C002M010E0002
+      address: 'multiformat::MultiformatDeserializableMixin::_coerce_root_mapping@if@L584'
+      summary: 'isinstance(raw, Mapping) false → continues to line 586'
+    - id: C002M010E0003
+      address: 'multiformat::MultiformatDeserializableMixin::_coerce_root_mapping@return@L585'
+      summary: 'returns raw'
+    - id: C002M010E0004
+      address: 'multiformat::MultiformatDeserializableMixin::_coerce_root_mapping@raise@L586'
+      summary: 'raises TypeError'
+    - id: C002M011E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_preprocess_mapping@return@L610'
+      summary: 'returns mapping'
+    - id: C002M012E0001
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L644'
+      summary: 'hasattr(inst, ''source_description'') true → continues to line 645'
+    - id: C002M012E0002
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L644'
+      summary: 'hasattr(inst, ''source_description'') false → continues to line 657'
+    - id: C002M012E0003
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@assignment@L645'
+      summary: 'current = getattr(inst, ''source_description'', None) executes'
+    - id: C002M012E0004
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L646'
+      summary: 'not current true → continues to line 647'
+    - id: C002M012E0005
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L646'
+      summary: 'not current false → continues to line 657'
+    - id: C002M012E0006
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L647'
+      summary: 'path is not None true → continues to line 648'
+    - id: C002M012E0007
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@if@L647'
+      summary: 'path is not None false → continues to line 650'
+    - id: C002M012E0008
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@assignment@L648'
+      summary: 'desc = f''{fmt}:{path}'' executes'
+    - id: C002M012E0009
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@assignment@L650'
+      summary: 'desc = f''{fmt}:<inline>'' executes'
+    - id: C002M012E0010
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@try@L651'
+      summary: 'setattr succeeds → continues to line 657'
+    - id: C002M012E0011
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@try@L651'
+      summary: 'setattr raises Exception → enters except handler'
+    - id: C002M012E0012
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@pass@L655'
+      summary: 'pass executes'
+    - id: C002M012E0013
+      address: 'multiformat::MultiformatDeserializableMixin::_postprocess_instance@return@L657'
+      summary: 'returns inst'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: multiformat
+  children:
+    - id: C000F001
+      kind: callable
+      name: _normalize
+      signature: '_normalize(value: Any) -> Any'
+      callable:
+        params:
+          - name: value
+            type:
+              name: Any
+        returnType:
+          name: Any
+        branches:
+          - id: C000F001E0001
+            condition: 'case Path()'
+            outcome: 'value matches Path() → enters case block'
+          - id: C000F001E0002
+            condition: 'case Path() (fall-through)'
+            outcome: 'value does not match Path() → continues to next case'
+          - id: C000F001E0003
+            condition: 'return value.as_posix()'
+            outcome: 'returns value.as_posix()'
+          - id: C000F001E0004
+            condition: 'case Enum()'
+            outcome: 'value matches Enum() → enters case block'
+          - id: C000F001E0005
+            condition: 'case Enum() (fall-through)'
+            outcome: 'value does not match Enum() → continues to next case'
+          - id: C000F001E0006
+            condition: 'return value.value'
+            outcome: 'returns value.value'
+          - id: C000F001E0007
+            condition: 'case Mapping()'
+            outcome: 'value matches Mapping() → enters case block'
+          - id: C000F001E0008
+            condition: 'case Mapping() (fall-through)'
+            outcome: 'value does not match Mapping() → continues to next case'
+          - id: C000F001E0009
+            condition: 'dict comprehension (empty)'
+            outcome: 'value.items() empty → returns {}'
+          - id: C000F001E0010
+            condition: 'dict comprehension (populated)'
+            outcome: 'value.items() has items → comprehension executes'
+          - id: C000F001E0011
+            condition: 'case set() | frozenset()'
+            outcome: 'value matches set() | frozenset() → enters case block'
+          - id: C000F001E0012
+            condition: 'case set() | frozenset() (fall-through)'
+            outcome: 'value does not match set() | frozenset() → continues to next case'
+          - id: C000F001E0013
+            condition: 'list comprehension (empty)'
+            outcome: 'value empty → returns []'
+          - id: C000F001E0014
+            condition: 'list comprehension (populated)'
+            outcome: 'value has items → comprehension executes, returns sorted list'
+          - id: C000F001E0015
+            condition: 'case list() | tuple()'
+            outcome: 'value matches list() | tuple() → enters case block'
+          - id: C000F001E0016
+            condition: 'case list() | tuple() (fall-through)'
+            outcome: 'value does not match list() | tuple() → continues to next case'
+          - id: C000F001E0017
+            condition: 'list comprehension (empty)'
+            outcome: 'value empty → returns []'
+          - id: C000F001E0018
+            condition: 'list comprehension (populated)'
+            outcome: 'value has items → comprehension executes'
+          - id: C000F001E0019
+            condition: 'case datetime() | date()'
+            outcome: 'value matches datetime() | date() → enters case block'
+          - id: C000F001E0020
+            condition: 'case datetime() | date() (fall-through)'
+            outcome: 'value does not match datetime() | date() → continues to default case'
+          - id: C000F001E0021
+            condition: 'return value.isoformat()'
+            outcome: 'returns value.isoformat()'
+          - id: C000F001E0022
+            condition: 'case _'
+            outcome: 'default case → enters case block'
+          - id: C000F001E0023
+            condition: 'return value'
+            outcome: 'returns value'
+        integration:
+          interunit:
+            - id: IC000F001E0010
+              target: _normalize
+              kind: call
+              signature: '_normalize(v)'
+              executionPaths:
+                - [C000F001E0007, C000F001E0010]
+              notes: 'Recursive call within dict comprehension'
+            - id: IC000F001E0014
+              target: _normalize
+              kind: call
+              signature: '_normalize(v)'
+              executionPaths:
+                - [C000F001E0011, C000F001E0014]
+              notes: 'Recursive call within generator expression'
+            - id: IC000F001E0018
+              target: _normalize
+              kind: call
+              signature: '_normalize(v)'
+              executionPaths:
+                - [C000F001E0015, C000F001E0018]
+              notes: 'Recursive call within list comprehension'
+    - id: C001
+      kind: class
+      name: MultiformatSerializableMixin
+      children:
+        - id: C001M001
+          kind: callable
+          name: mapping_hash
+          signature: 'mapping_hash(self) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+            returnType:
+              name: str
+            branches:
+              - id: C001M001E0001
+                condition: 'import hashlib'
+                outcome: 'imports hashlib'
+              - id: C001M001E0002
+                condition: 'import json'
+                outcome: 'imports json'
+              - id: C001M001E0003
+                condition: 'self.to_mapping() call'
+                outcome: 'self.to_mapping() executes successfully'
+              - id: C001M001E0004
+                condition: '_normalize(...) call'
+                outcome: '_normalize(...) executes with result'
+              - id: C001M001E0005
+                condition: 'json.dumps call'
+                outcome: 'json.dumps executes successfully'
+              - id: C001M001E0006
+                condition: '.encode(''utf-8'') call'
+                outcome: '.encode(''utf-8'') executes'
+              - id: C001M001E0007
+                condition: 'return hashlib.new(''sha512'', payload).hexdigest()'
+                outcome: 'returns hashlib.new(''sha512'', payload).hexdigest()'
+            integration:
+              interunit:
+                - id: IC001M001E0004
+                  target: _normalize
+                  kind: call
+                  signature: '_normalize(self.to_mapping())'
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0004]
+        - id: C001M002
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(self, *args, **kwargs) -> Mapping[str, Any]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: args
+              - name: kwargs
+            returnType:
+              name: Mapping[str, Any]
+            raises:
+              - name: NotImplementedError
+            branches:
+              - id: C001M002E0001
+                condition: 'raise NotImplementedError'
+                outcome: 'raises NotImplementedError'
+        - id: C001M003
+          kind: callable
+          name: to_json
+          signature: 'to_json(self, *, indent=2) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: indent
+                type:
+                  name: int
+                default: 2
+            returnType:
+              name: str
+            branches:
+              - id: C001M003E0001
+                condition: 'import json'
+                outcome: 'imports json'
+              - id: C001M003E0002
+                condition: 'self.to_mapping() call'
+                outcome: 'self.to_mapping() executes successfully'
+              - id: C001M003E0003
+                condition: 'json.dumps call'
+                outcome: 'json.dumps executes with result'
+        - id: C001M004
+          kind: callable
+          name: to_yaml
+          signature: 'to_yaml(self, *, indent=2) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: indent
+                type:
+                  name: int
+                default: 2
+            returnType:
+              name: str
+            raises:
+              - name: RuntimeError
+            branches:
+              - id: C001M004E0001
+                condition: 'import yaml (success)'
+                outcome: 'import yaml succeeds → continues to line 177'
+              - id: C001M004E0002
+                condition: 'import yaml (ImportError)'
+                outcome: 'import yaml raises ImportError → enters except handler'
+              - id: C001M004E0003
+                condition: 'raise RuntimeError'
+                outcome: 'raises RuntimeError(''PyYAML not installed'')'
+              - id: C001M004E0004
+                condition: 'self.to_mapping() call'
+                outcome: 'self.to_mapping() executes successfully'
+              - id: C001M004E0005
+                condition: 'yaml.safe_dump call'
+                outcome: 'yaml.safe_dump executes with result'
+        - id: C001M005
+          kind: callable
+          name: to_toml
+          signature: 'to_toml(self, *, indent=2) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: indent
+                type:
+                  name: int
+                default: 2
+            returnType:
+              name: str
+            branches:
+              - id: C001M005E0001
+                condition: 'self.to_mapping() call'
+                outcome: 'self.to_mapping() executes successfully'
+              - id: C001M005E0002
+                condition: 'sort_dict(...) call'
+                outcome: 'sort_dict(...) executes with result'
+              - id: C001M005E0003
+                condition: 'dump_toml_to_str call'
+                outcome: 'dump_toml_to_str executes successfully'
+              - id: C001M005E0004
+                condition: 'return'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC001M005E0003
+                  target: dump_toml_to_str
+                  kind: call
+                  signature: 'dump_toml_to_str(sorted_mapping, indent)'
+                  executionPaths:
+                    - [C001M005E0001, C001M005E0002, C001M005E0003]
+          children:
+            - id: C001M005N001
+              kind: callable
+              name: sort_dict
+              signature: 'sort_dict(obj)'
+              callable:
+                params:
+                  - name: obj
+                returnType:
+                  name: Any
+                branches:
+                  - id: C001M005N001E0001
+                    condition: 'case dict()'
+                    outcome: 'obj matches dict() → enters case block'
+                  - id: C001M005N001E0002
+                    condition: 'case dict() (fall-through)'
+                    outcome: 'obj does not match dict() → continues to next case'
+                  - id: C001M005N001E0003
+                    condition: 'dict comprehension (empty)'
+                    outcome: 'obj.keys() empty → comprehension returns {}'
+                  - id: C001M005N001E0004
+                    condition: 'dict comprehension (populated)'
+                    outcome: 'obj.keys() has items → comprehension executes'
+                  - id: C001M005N001E0005
+                    condition: 'case list()'
+                    outcome: 'obj matches list() → enters case block'
+                  - id: C001M005N001E0006
+                    condition: 'case list() (fall-through)'
+                    outcome: 'obj does not match list() → continues to default case'
+                  - id: C001M005N001E0007
+                    condition: 'list comprehension (empty)'
+                    outcome: 'obj empty → comprehension returns []'
+                  - id: C001M005N001E0008
+                    condition: 'list comprehension (populated)'
+                    outcome: 'obj has items → comprehension executes'
+                  - id: C001M005N001E0009
+                    condition: 'case _'
+                    outcome: 'default case → enters case block'
+                  - id: C001M005N001E0010
+                    condition: 'return obj'
+                    outcome: 'returns obj'
+                integration:
+                  interunit:
+                    - id: IC001M005N001E0004
+                      target: sort_dict
+                      kind: call
+                      signature: 'sort_dict(obj[k])'
+                      executionPaths:
+                        - [C001M005N001E0001, C001M005N001E0004]
+                      notes: 'Recursive call within dict comprehension'
+                    - id: IC001M005N001E0008
+                      target: sort_dict
+                      kind: call
+                      signature: 'sort_dict(item)'
+                      executionPaths:
+                        - [C001M005N001E0005, C001M005N001E0008]
+                      notes: 'Recursive call within list comprehension'
+        - id: C001M006
+          kind: callable
+          name: serialize
+          signature: 'serialize(self, *, fmt="json", indent=2) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: fmt
+                type:
+                  name: str
+                default: '"json"'
+              - name: indent
+                type:
+                  name: int
+                default: 2
+            returnType:
+              name: str
+            raises:
+              - name: ValueError
+            branches:
+              - id: C001M006E0001
+                condition: 'case "json"'
+                outcome: 'fmt matches ''json'' → enters case block'
+              - id: C001M006E0002
+                condition: 'case "json" (fall-through)'
+                outcome: 'fmt does not match ''json'' → continues to next case'
+              - id: C001M006E0003
+                condition: 'return self.to_json(indent=indent)'
+                outcome: 'returns self.to_json(indent=indent)'
+              - id: C001M006E0004
+                condition: 'case "yaml"'
+                outcome: 'fmt matches ''yaml'' → enters case block'
+              - id: C001M006E0005
+                condition: 'case "yaml" (fall-through)'
+                outcome: 'fmt does not match ''yaml'' → continues to next case'
+              - id: C001M006E0006
+                condition: 'return self.to_yaml(indent=indent)'
+                outcome: 'returns self.to_yaml(indent=indent)'
+              - id: C001M006E0007
+                condition: 'case "toml"'
+                outcome: 'fmt matches ''toml'' → enters case block'
+              - id: C001M006E0008
+                condition: 'case "toml" (fall-through)'
+                outcome: 'fmt does not match ''toml'' → continues to default case'
+              - id: C001M006E0009
+                condition: 'return self.to_toml()'
+                outcome: 'returns self.to_toml()'
+              - id: C001M006E0010
+                condition: 'case _'
+                outcome: 'default case → enters case block'
+              - id: C001M006E0011
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''unrecognized format: {fmt}'')'
+        - id: C001M007
+          kind: callable
+          name: flat_summary
+          signature: 'flat_summary(self, first_fields=("timestamp",), last_fields=(), sep=" | ") -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+              - name: first_fields
+                default: '("timestamp",)'
+              - name: last_fields
+                default: ()
+              - name: sep
+                type:
+                  name: str
+                default: '" | "'
+            returnType:
+              name: str
+            branches:
+              - id: C001M007E0001
+                condition: 'field_names = set(first_fields) | set(last_fields)'
+                outcome: 'field_names set computed'
+              - id: C001M007E0002
+                condition: 'm = self.to_mapping()'
+                outcome: 'm = self.to_mapping() executes'
+              - id: C001M007E0003
+                condition: 'parts = []'
+                outcome: 'parts = [] created'
+              - id: C001M007E0004
+                condition: 'for fn in first_fields (0 iterations)'
+                outcome: 'first_fields empty → loop body never executes (0 iterations)'
+              - id: C001M007E0005
+                condition: 'for fn in first_fields (≥1 iterations)'
+                outcome: 'first_fields has items → loop body executes (≥1 iterations)'
+              - id: C001M007E0006
+                condition: 'if fn not in m'
+                outcome: 'fn not in m → continues to line 262'
+              - id: C001M007E0007
+                condition: 'if fn in m'
+                outcome: 'fn in m → enters if block'
+              - id: C001M007E0008
+                condition: 'for fn in sorted(set(m) - field_names) (0 iterations)'
+                outcome: 'sorted(set(m) - field_names) empty → loop body never executes (0 iterations)'
+              - id: C001M007E0009
+                condition: 'for fn in sorted(set(m) - field_names) (≥1 iterations)'
+                outcome: 'sorted(set(m) - field_names) has items → loop body executes (≥1 iterations)'
+              - id: C001M007E0010
+                condition: 'for fn in last_fields (0 iterations)'
+                outcome: 'last_fields empty → loop body never executes (0 iterations)'
+              - id: C001M007E0011
+                condition: 'for fn in last_fields (≥1 iterations)'
+                outcome: 'last_fields has items → loop body executes (≥1 iterations)'
+              - id: C001M007E0012
+                condition: 'if fn not in m'
+                outcome: 'fn not in m → continues to line 271'
+              - id: C001M007E0013
+                condition: 'if fn in m'
+                outcome: 'fn in m → enters if block'
+              - id: C001M007E0014
+                condition: 'return sep.join(parts)'
+                outcome: 'returns sep.join(parts)'
+        - id: C001M008
+          kind: callable
+          name: __str__
+          signature: '__str__(self) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: MultiformatSerializableMixin
+            returnType:
+              name: str
+            branches:
+              - id: C001M008E0001
+                condition: 'return self.flat_summary()'
+                outcome: 'returns self.flat_summary()'
+    - id: C002
+      kind: class
+      name: MultiformatDeserializableMixin
+      children:
+        - id: C002M001
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(cls, mapping: Mapping[str, Any], **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: Mapping[str, Any]
+              - name: context
+            returnType:
+              name: Self
+            raises:
+              - name: NotImplementedError
+            branches:
+              - id: C002M001E0001
+                condition: 'raise NotImplementedError'
+                outcome: 'raises NotImplementedError'
+        - id: C002M002
+          kind: callable
+          name: deserialize
+          signature: 'deserialize(cls, text: str, *, fmt: str | None = None, **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: text
+                type:
+                  name: str
+              - name: fmt
+                type:
+                  name: str | None
+                default: None
+              - name: context
+            returnType:
+              name: Self
+            raises:
+              - name: ValueError
+            branches:
+              - id: C002M002E0001
+                condition: 'fmt_lower = (fmt or "json").lower()'
+                outcome: 'fmt_lower = (fmt or ''json'').lower() executes'
+              - id: C002M002E0002
+                condition: 'case "json"'
+                outcome: 'fmt_lower matches ''json'' → enters case block'
+              - id: C002M002E0003
+                condition: 'case "json" (fall-through)'
+                outcome: 'fmt_lower does not match ''json'' → continues to next case'
+              - id: C002M002E0004
+                condition: 'return cls.from_json(text, **context)'
+                outcome: 'returns cls.from_json(text, **context)'
+              - id: C002M002E0005
+                condition: 'case "yaml"'
+                outcome: 'fmt_lower matches ''yaml'' → enters case block'
+              - id: C002M002E0006
+                condition: 'case "yaml" (fall-through)'
+                outcome: 'fmt_lower does not match ''yaml'' → continues to next case'
+              - id: C002M002E0007
+                condition: 'return cls.from_yaml(text, **context)'
+                outcome: 'returns cls.from_yaml(text, **context)'
+              - id: C002M002E0008
+                condition: 'case "toml"'
+                outcome: 'fmt_lower matches ''toml'' → enters case block'
+              - id: C002M002E0009
+                condition: 'case "toml" (fall-through)'
+                outcome: 'fmt_lower does not match ''toml'' → continues to default case'
+              - id: C002M002E0010
+                condition: 'return cls.from_toml(text, **context)'
+                outcome: 'returns cls.from_toml(text, **context)'
+              - id: C002M002E0011
+                condition: 'case _'
+                outcome: 'default case → enters case block'
+              - id: C002M002E0012
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''unrecognized format: {fmt_lower!r}'')'
+        - id: C002M003
+          kind: callable
+          name: from_json
+          signature: 'from_json(cls, text: str, **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: text
+                type:
+                  name: str
+              - name: context
+            returnType:
+              name: Self
+            branches:
+              - id: C002M003E0001
+                condition: 'import json'
+                outcome: 'imports json'
+              - id: C002M003E0002
+                condition: 'json.loads(text or "{}") call'
+                outcome: 'json.loads(text or ''{}') executes successfully'
+              - id: C002M003E0003
+                condition: 'cls._coerce_root_mapping(...) call'
+                outcome: 'cls._coerce_root_mapping(...) executes with result'
+              - id: C002M003E0004
+                condition: 'cls._preprocess_mapping(...) call'
+                outcome: 'cls._preprocess_mapping(...) executes successfully'
+              - id: C002M003E0005
+                condition: 'cls.from_mapping(...) call'
+                outcome: 'cls.from_mapping(...) executes with result'
+        - id: C002M004
+          kind: callable
+          name: from_yaml
+          signature: 'from_yaml(cls, text: str, **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: text
+                type:
+                  name: str
+              - name: context
+            returnType:
+              name: Self
+            raises:
+              - name: RuntimeError
+              - name: ValueError
+            branches:
+              - id: C002M004E0001
+                condition: 'import yaml (success)'
+                outcome: 'import yaml succeeds → continues to line 401'
+              - id: C002M004E0002
+                condition: 'import yaml (ImportError)'
+                outcome: 'import yaml raises ImportError → enters except handler'
+              - id: C002M004E0003
+                condition: 'raise RuntimeError'
+                outcome: 'raises RuntimeError(''PyYAML not installed'')'
+              - id: C002M004E0004
+                condition: 'docs = list(yaml.safe_load_all(text or "{}"))'
+                outcome: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+              - id: C002M004E0005
+                condition: 'if len(docs) > 1'
+                outcome: 'len(docs) > 1 → enters if block'
+              - id: C002M004E0006
+                condition: 'if len(docs) <= 1'
+                outcome: 'len(docs) <= 1 → continues to line 404'
+              - id: C002M004E0007
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''Expected single YAML document, found {len(docs)}'')'
+              - id: C002M004E0008
+                condition: 'raw = docs[0] if docs else {} (truthy)'
+                outcome: 'docs truthy → raw = docs[0]'
+              - id: C002M004E0009
+                condition: 'raw = docs[0] if docs else {} (falsy)'
+                outcome: 'docs falsy → raw = {}'
+              - id: C002M004E0010
+                condition: 'cls._coerce_root_mapping(...) call'
+                outcome: 'cls._coerce_root_mapping(...) executes successfully'
+              - id: C002M004E0011
+                condition: 'cls._preprocess_mapping(...) call'
+                outcome: 'cls._preprocess_mapping(...) executes with result'
+              - id: C002M004E0012
+                condition: 'return cls.from_mapping(mapping, **context)'
+                outcome: 'returns cls.from_mapping(mapping, **context)'
+        - id: C002M005
+          kind: callable
+          name: from_toml
+          signature: 'from_toml(cls, text: str, **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: text
+                type:
+                  name: str
+              - name: context
+            returnType:
+              name: Self
+            branches:
+              - id: C002M005E0001
+                condition: 'load_toml_text(text or "") call'
+                outcome: 'load_toml_text(text or '''') executes successfully'
+              - id: C002M005E0002
+                condition: 'cls._coerce_root_mapping(...) call'
+                outcome: 'cls._coerce_root_mapping(...) executes with result'
+              - id: C002M005E0003
+                condition: 'cls._preprocess_mapping(...) call'
+                outcome: 'cls._preprocess_mapping(...) executes successfully'
+              - id: C002M005E0004
+                condition: 'cls.from_mapping(...) call'
+                outcome: 'cls.from_mapping(...) executes with result'
+            integration:
+              interunit:
+                - id: IC002M005E0001
+                  target: load_toml_text
+                  kind: call
+                  signature: 'load_toml_text(text or "")'
+                  executionPaths:
+                    - [C002M005E0001]
+        - id: C002M006
+          kind: callable
+          name: from_file
+          signature: 'from_file(cls, path: str | Path, *, fmt: str | None = None, **context: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: path
+                type:
+                  name: str | Path
+              - name: fmt
+                type:
+                  name: str | None
+                default: None
+              - name: context
+            returnType:
+              name: Self
+            branches:
+              - id: C002M006E0001
+                condition: 'p = Path(path)'
+                outcome: 'p = Path(path) executes'
+              - id: C002M006E0002
+                condition: 'text = cls._load_text(p, **context)'
+                outcome: 'cls._load_text(p, **context) executes successfully'
+              - id: C002M006E0003
+                condition: 'fmt = fmt or cls._infer_format_from_suffix(p) (truthy)'
+                outcome: 'fmt truthy → use fmt'
+              - id: C002M006E0004
+                condition: 'fmt = fmt or cls._infer_format_from_suffix(p) (falsy)'
+                outcome: 'fmt falsy → cls._infer_format_from_suffix(p) executes, fmt assigned'
+              - id: C002M006E0005
+                condition: 'raw = cls._parse_text(text, fmt=fmt, path=p, **context)'
+                outcome: 'cls._parse_text(text, fmt=fmt, path=p, **context) executes successfully'
+              - id: C002M006E0006
+                condition: 'mapping = cls._coerce_root_mapping(raw, fmt=fmt, path=p, **context)'
+                outcome: 'cls._coerce_root_mapping(raw, fmt=fmt, path=p, **context) executes successfully'
+              - id: C002M006E0007
+                condition: 'mapping = cls._preprocess_mapping(mapping, fmt=fmt, path=p, **context)'
+                outcome: 'cls._preprocess_mapping(mapping, fmt=fmt, path=p, **context) executes successfully'
+              - id: C002M006E0008
+                condition: 'inst = cls.from_mapping(mapping, **context)'
+                outcome: 'cls.from_mapping(mapping, **context) executes successfully'
+              - id: C002M006E0009
+                condition: 'return cls._postprocess_instance(inst, fmt=fmt, path=p, **context) call'
+                outcome: 'cls._postprocess_instance(inst, fmt=fmt, path=p, **context) executes successfully'
+              - id: C002M006E0010
+                condition: 'return'
+                outcome: 'returns result'
+        - id: C002M007
+          kind: callable
+          name: _load_text
+          signature: '_load_text(cls, path: Path, **_: Any) -> str'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: path
+                type:
+                  name: Path
+            returnType:
+              name: str
+            branches:
+              - id: C002M007E0001
+                condition: 'return path.read_text(encoding="utf-8")'
+                outcome: 'returns path.read_text(encoding=''utf-8'')'
+            integration:
+              boundaries:
+                - id: IC002M007E0001
+                  target: Path.read_text
+                  kind: io
+                  signature: 'path.read_text(encoding="utf-8")'
+                  boundary:
+                    kind: filesystem
+                    operation: read
+                  executionPaths:
+                    - [C002M007E0001]
+        - id: C002M008
+          kind: callable
+          name: _infer_format_from_suffix
+          signature: '_infer_format_from_suffix(cls, path: Path) -> str'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: path
+                type:
+                  name: Path
+            returnType:
+              name: str
+            raises:
+              - name: ValueError
+            branches:
+              - id: C002M008E0001
+                condition: 'suffix = path.suffix.lower()'
+                outcome: 'suffix = path.suffix.lower() executes'
+              - id: C002M008E0002
+                condition: 'case ".json"'
+                outcome: 'suffix matches ''.json'' → enters case block'
+              - id: C002M008E0003
+                condition: 'case ".json" (fall-through)'
+                outcome: 'suffix does not match ''.json'' → continues to next case'
+              - id: C002M008E0004
+                condition: 'return "json"'
+                outcome: 'returns ''json'''
+              - id: C002M008E0005
+                condition: 'case ".yaml" | ".yml"'
+                outcome: 'suffix matches ''.yaml'' | ''.yml'' → enters case block'
+              - id: C002M008E0006
+                condition: 'case ".yaml" | ".yml" (fall-through)'
+                outcome: 'suffix does not match ''.yaml'' | ''.yml'' → continues to next case'
+              - id: C002M008E0007
+                condition: 'return "yaml"'
+                outcome: 'returns ''yaml'''
+              - id: C002M008E0008
+                condition: 'case ".toml"'
+                outcome: 'suffix matches ''.toml'' → enters case block'
+              - id: C002M008E0009
+                condition: 'case ".toml" (fall-through)'
+                outcome: 'suffix does not match ''.toml'' → continues to default case'
+              - id: C002M008E0010
+                condition: 'return "toml"'
+                outcome: 'returns ''toml'''
+              - id: C002M008E0011
+                condition: 'case _'
+                outcome: 'default case → enters case block'
+              - id: C002M008E0012
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''Cannot infer format from extension {suffix!r}'')'
+        - id: C002M009
+          kind: callable
+          name: _parse_text
+          signature: '_parse_text(cls, text: str, *, fmt: str, path: Path | None, **_: Any) -> Any'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: text
+                type:
+                  name: str
+              - name: fmt
+                type:
+                  name: str
+              - name: path
+                type:
+                  name: Path | None
+            returnType:
+              name: Any
+            raises:
+              - name: RuntimeError
+              - name: ValueError
+            branches:
+              - id: C002M009E0001
+                condition: 'fmt = fmt.lower()'
+                outcome: 'fmt = fmt.lower() executes'
+              - id: C002M009E0002
+                condition: 'case "json"'
+                outcome: 'fmt matches ''json'' → enters case block'
+              - id: C002M009E0003
+                condition: 'case "json" (fall-through)'
+                outcome: 'fmt does not match ''json'' → continues to next case'
+              - id: C002M009E0004
+                condition: 'import json'
+                outcome: 'imports json'
+              - id: C002M009E0005
+                condition: 'return json.loads(text or "{}")'
+                outcome: 'returns json.loads(text or ''{}'')'
+              - id: C002M009E0006
+                condition: 'case "yaml"'
+                outcome: 'fmt matches ''yaml'' → enters case block'
+              - id: C002M009E0007
+                condition: 'case "yaml" (fall-through)'
+                outcome: 'fmt does not match ''yaml'' → continues to next case'
+              - id: C002M009E0008
+                condition: 'import yaml (success)'
+                outcome: 'import yaml succeeds → continues to line 548'
+              - id: C002M009E0009
+                condition: 'import yaml (ImportError)'
+                outcome: 'import yaml raises ImportError → enters except handler'
+              - id: C002M009E0010
+                condition: 'raise RuntimeError'
+                outcome: 'raises RuntimeError(''PyYAML not installed'')'
+              - id: C002M009E0011
+                condition: 'docs = list(yaml.safe_load_all(text or "{}"))'
+                outcome: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+              - id: C002M009E0012
+                condition: 'if len(docs) > 1'
+                outcome: 'len(docs) > 1 → enters if block'
+              - id: C002M009E0013
+                condition: 'if len(docs) <= 1'
+                outcome: 'len(docs) <= 1 → continues to line 553'
+              - id: C002M009E0014
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''Expected single YAML document, found {len(docs)}'')'
+              - id: C002M009E0015
+                condition: 'return docs[0] if docs else {} (truthy)'
+                outcome: 'docs truthy → returns docs[0]'
+              - id: C002M009E0016
+                condition: 'return docs[0] if docs else {} (falsy)'
+                outcome: 'docs falsy → returns {}'
+              - id: C002M009E0017
+                condition: 'case "toml"'
+                outcome: 'fmt matches ''toml'' → enters case block'
+              - id: C002M009E0018
+                condition: 'case "toml" (fall-through)'
+                outcome: 'fmt does not match ''toml'' → continues to default case'
+              - id: C002M009E0019
+                condition: 'return load_toml_text(text or "")'
+                outcome: 'returns load_toml_text(text or '''')'
+              - id: C002M009E0020
+                condition: 'case _'
+                outcome: 'default case → enters case block'
+              - id: C002M009E0021
+                condition: 'raise ValueError'
+                outcome: 'raises ValueError(f''unrecognized format: {fmt!r}'')'
+            integration:
+              interunit:
+                - id: IC002M009E0019
+                  target: load_toml_text
+                  kind: call
+                  signature: 'load_toml_text(text or "")'
+                  executionPaths:
+                    - [C002M009E0001, C002M009E0017, C002M009E0019]
+        - id: C002M010
+          kind: callable
+          name: _coerce_root_mapping
+          signature: '_coerce_root_mapping(cls, raw: Any, *, fmt: str, path: Path | None, **_: Any) -> Mapping[str, Any]'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: raw
+                type:
+                  name: Any
+              - name: fmt
+                type:
+                  name: str
+              - name: path
+                type:
+                  name: Path | None
+            returnType:
+              name: Mapping[str, Any]
+            raises:
+              - name: TypeError
+            branches:
+              - id: C002M010E0001
+                condition: 'if isinstance(raw, Mapping) (true)'
+                outcome: 'isinstance(raw, Mapping) true → continues to line 585'
+              - id: C002M010E0002
+                condition: 'if isinstance(raw, Mapping) (false)'
+                outcome: 'isinstance(raw, Mapping) false → continues to line 586'
+              - id: C002M010E0003
+                condition: 'return raw'
+                outcome: 'returns raw'
+              - id: C002M010E0004
+                condition: 'raise TypeError'
+                outcome: 'raises TypeError'
+        - id: C002M011
+          kind: callable
+          name: _preprocess_mapping
+          signature: '_preprocess_mapping(cls, mapping: Mapping[str, Any], *, fmt: str, path: Path | None, **_: Any) -> Mapping[str, Any]'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: Mapping[str, Any]
+              - name: fmt
+                type:
+                  name: str
+              - name: path
+                type:
+                  name: Path | None
+            returnType:
+              name: Mapping[str, Any]
+            branches:
+              - id: C002M011E0001
+                condition: 'return mapping'
+                outcome: 'returns mapping'
+        - id: C002M012
+          kind: callable
+          name: _postprocess_instance
+          signature: '_postprocess_instance(cls, inst: Self, *, fmt: str, path: Path | None, **_: Any) -> Self'
+          modifiers:
+            - classmethod
+          callable:
+            params:
+              - name: cls
+              - name: inst
+                type:
+                  name: Self
+              - name: fmt
+                type:
+                  name: str
+              - name: path
+                type:
+                  name: Path | None
+            returnType:
+              name: Self
+            branches:
+              - id: C002M012E0001
+                condition: 'if hasattr(inst, "source_description") (true)'
+                outcome: 'hasattr(inst, ''source_description'') true → continues to line 645'
+              - id: C002M012E0002
+                condition: 'if hasattr(inst, "source_description") (false)'
+                outcome: 'hasattr(inst, ''source_description'') false → continues to line 657'
+              - id: C002M012E0003
+                condition: 'current = getattr(inst, "source_description", None)'
+                outcome: 'current = getattr(inst, ''source_description'', None) executes'
+              - id: C002M012E0004
+                condition: 'if not current (true)'
+                outcome: 'not current true → continues to line 647'
+              - id: C002M012E0005
+                condition: 'if not current (false)'
+                outcome: 'not current false → continues to line 657'
+              - id: C002M012E0006
+                condition: 'if path is not None (true)'
+                outcome: 'path is not None true → continues to line 648'
+              - id: C002M012E0007
+                condition: 'if path is not None (false)'
+                outcome: 'path is not None false → continues to line 650'
+              - id: C002M012E0008
+                condition: 'desc = f"{fmt}:{path}"'
+                outcome: 'desc = f''{fmt}:{path}'' executes'
+              - id: C002M012E0009
+                condition: 'desc = f"{fmt}:<inline>"'
+                outcome: 'desc = f''{fmt}:<inline>'' executes'
+              - id: C002M012E0010
+                condition: 'try setattr(inst, "source_description", desc) (success)'
+                outcome: 'setattr succeeds → continues to line 657'
+              - id: C002M012E0011
+                condition: 'try setattr(inst, "source_description", desc) (Exception)'
+                outcome: 'setattr raises Exception → enters except handler'
+              - id: C002M012E0012
+                condition: 'pass'
+                outcome: 'pass executes'
+              - id: C002M012E0013
+                condition: 'return inst'
+                outcome: 'returns inst'
+    - id: C003
+      kind: class
+      name: MultiformatModelMixin
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: multiformat
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Nested function sort_dict (C001M005N001) within to_toml method correctly identified and enumerated with nested function ID pattern.'
+  - severity: info
+    category: assumption
+    message: 'Multiple method calls use self.to_mapping() as a parameter to other operations (_normalize, json.dumps, yaml.safe_dump, etc.). Each operation counted as separate EI per spec section 2.1.4 on nested operations as parameters.'
+  - severity: info
+    category: assumption
+    message: 'Match/case statements (Python 3.10+) create one EI per case arm as per spec. Total of 6 match/case constructs across _normalize, sort_dict, serialize, deserialize, _infer_format_from_suffix, and _parse_text.'
+  - severity: info
+    category: assumption
+    message: 'For/while loops create 2 EIs based on iteration count (0 iterations vs ≥1 iterations) per spec guidance. Applied to flat_summary method with 3 for loops.'
+  - severity: info
+    category: assumption
+    message: 'Try/except blocks analyzed per spec: each import statement in try block creates 2 outcomes (success/ImportError). Applied to to_yaml, from_yaml, and _parse_text methods.'

@@ -1,0 +1,636 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: graph
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: ResolvedNode
+      address: 'graph::ResolvedNode@L12'
+    - id: C001M001
+      kind: callable
+      name: name
+      address: 'graph::ResolvedNode::name@L33'
+    - id: C001M002
+      kind: callable
+      name: version
+      address: 'graph::ResolvedNode::version@L36'
+    - id: C001M003
+      kind: callable
+      name: tag
+      address: 'graph::ResolvedNode::tag@L39'
+    - id: C001M004
+      kind: callable
+      name: requires_python
+      address: 'graph::ResolvedNode::requires_python@L42'
+    - id: C001M005
+      kind: callable
+      name: satisfied_tags
+      address: 'graph::ResolvedNode::satisfied_tags@L45'
+    - id: C001M006
+      kind: callable
+      name: dependency_ids
+      address: 'graph::ResolvedNode::dependency_ids@L48'
+    - id: C001M007
+      kind: callable
+      name: origin_uri
+      address: 'graph::ResolvedNode::origin_uri@L51'
+    - id: C001M008
+      kind: callable
+      name: marker
+      address: 'graph::ResolvedNode::marker@L54'
+    - id: C001M009
+      kind: callable
+      name: extras
+      address: 'graph::ResolvedNode::extras@L57'
+    - id: C001M010
+      kind: callable
+      name: key
+      address: 'graph::ResolvedNode::key@L60'
+    - id: C001M011
+      kind: callable
+      name: to_mapping
+      address: 'graph::ResolvedNode::to_mapping@L70'
+    - id: C001M012
+      kind: callable
+      name: from_mapping
+      address: 'graph::ResolvedNode::from_mapping@L85'
+    - id: C002
+      kind: class
+      name: ResolvedGraph
+      address: 'graph::ResolvedGraph@L103'
+    - id: C002M001
+      kind: callable
+      name: __post_init__
+      address: 'graph::ResolvedGraph::__post_init__@L123'
+    - id: C002M002
+      kind: callable
+      name: roots
+      address: 'graph::ResolvedGraph::roots@L157'
+    - id: C002M003
+      kind: callable
+      name: to_mapping
+      address: 'graph::ResolvedGraph::to_mapping@L168'
+    - id: C002M004
+      kind: callable
+      name: from_mapping
+      address: 'graph::ResolvedGraph::from_mapping@L188'
+  branches:
+    - id: C001M001E0001
+      address: 'graph::ResolvedNode::name@L34'
+      summary: 'returns self.wheel_key.name'
+    - id: C001M002E0001
+      address: 'graph::ResolvedNode::version@L37'
+      summary: 'returns self.wheel_key.version'
+    - id: C001M003E0001
+      address: 'graph::ResolvedNode::tag@L40'
+      summary: 'returns self.wheel_key.tag'
+    - id: C001M004E0001
+      address: 'graph::ResolvedNode::requires_python@L43'
+      summary: 'returns self.wheel_key.requires_python'
+    - id: C001M005E0001
+      address: 'graph::ResolvedNode::satisfied_tags@L46'
+      summary: 'returns self.wheel_key.satisfied_tags'
+    - id: C001M006E0001
+      address: 'graph::ResolvedNode::dependency_ids@L49'
+      summary: 'returns self.wheel_key.dependency_ids'
+    - id: C001M007E0001
+      address: 'graph::ResolvedNode::origin_uri@L52'
+      summary: 'returns self.wheel_key.origin_uri'
+    - id: C001M008E0001
+      address: 'graph::ResolvedNode::marker@L55'
+      summary: 'returns self.wheel_key.marker'
+    - id: C001M009E0001
+      address: 'graph::ResolvedNode::extras@L58'
+      summary: 'returns self.wheel_key.extras'
+    - id: C001M010E0001
+      address: 'graph::ResolvedNode::key@L68'
+      summary: 'returns self.wheel_key'
+    - id: C001M011E0001
+      address: 'graph::ResolvedNode::to_mapping@L83'
+      summary: 'returns dict with wheel_key.to_mapping()'
+    - id: C001M012E0001
+      address: 'graph::ResolvedNode::from_mapping@L100'
+      summary: 'returns cls(wheel_key=WheelKey.from_mapping(...))'
+    - id: C002M001E0001
+      address: 'graph::ResolvedGraph::__post_init__@L139'
+      summary: 'node_keys = set(node_key.identifier for node_key in self.nodes.keys())'
+    - id: C002M001E0002
+      address: 'graph::ResolvedGraph::__post_init__@L140'
+      summary: 'root_keys = set(root_key.identifier for root_key in self._roots)'
+    - id: C002M001E0003
+      address: 'graph::ResolvedGraph::__post_init__@L143'
+      summary: 'missing_roots = root_keys - node_keys'
+    - id: C002M001E0004
+      address: 'graph::ResolvedGraph::__post_init__@if missing_roots@L144'
+      summary: 'missing_roots truthy → raises ValueError'
+    - id: C002M001E0005
+      address: 'graph::ResolvedGraph::__post_init__@if missing_roots@L144'
+      summary: 'missing_roots falsy → continues'
+    - id: C002M001E0006
+      address: 'graph::ResolvedGraph::__post_init__@L148'
+      summary: 'missing_deps = set()'
+    - id: C002M001E0007
+      address: 'graph::ResolvedGraph::__post_init__@for node@L149'
+      summary: 'self.nodes.values() empty → 0 iterations'
+    - id: C002M001E0008
+      address: 'graph::ResolvedGraph::__post_init__@for node@L149'
+      summary: 'self.nodes.values() has items → ≥1 iterations'
+    - id: C002M001E0009
+      address: 'graph::ResolvedGraph::__post_init__@for dep_id@L150'
+      summary: 'node.dependency_ids or () empty → 0 iterations'
+    - id: C002M001E0010
+      address: 'graph::ResolvedGraph::__post_init__@for dep_id@L150'
+      summary: 'node.dependency_ids or () has items → ≥1 iterations'
+    - id: C002M001E0011
+      address: 'graph::ResolvedGraph::__post_init__@if dep_id@L151'
+      summary: 'dep_id not in node_keys true → missing_deps.add(dep_id)'
+    - id: C002M001E0012
+      address: 'graph::ResolvedGraph::__post_init__@if dep_id@L151'
+      summary: 'dep_id not in node_keys false → continues'
+    - id: C002M001E0013
+      address: 'graph::ResolvedGraph::__post_init__@if missing_deps@L153'
+      summary: 'missing_deps truthy → raises ValueError'
+    - id: C002M001E0014
+      address: 'graph::ResolvedGraph::__post_init__@if missing_deps@L153'
+      summary: 'missing_deps falsy → method completes'
+    - id: C002M002E0001
+      address: 'graph::ResolvedGraph::roots@L166'
+      summary: 'returns sorted(list(self._roots))'
+    - id: C002M003E0001
+      address: 'graph::ResolvedGraph::to_mapping@L186'
+      summary: 'returns dict with supported_python_band, roots, nodes'
+    - id: C002M004E0001
+      address: 'graph::ResolvedGraph::from_mapping@L202'
+      summary: 'supported_python_band = SpecifierSet(mapping[''supported_python_band''])'
+    - id: C002M004E0002
+      address: 'graph::ResolvedGraph::from_mapping@L203'
+      summary: 'root_items = mapping.get(''roots'') or []'
+    - id: C002M004E0003
+      address: 'graph::ResolvedGraph::from_mapping@L204'
+      summary: 'roots = {WheelKey.from_mapping(r) for r in root_items}'
+    - id: C002M004E0004
+      address: 'graph::ResolvedGraph::from_mapping@L205'
+      summary: 'raw_nodes = mapping.get(''nodes'') or {}'
+    - id: C002M004E0005
+      address: 'graph::ResolvedGraph::from_mapping@L206'
+      summary: 'nodes = {}'
+    - id: C002M004E0006
+      address: 'graph::ResolvedGraph::from_mapping@for loop@L207'
+      summary: 'raw_nodes.items() empty → 0 iterations'
+    - id: C002M004E0007
+      address: 'graph::ResolvedGraph::from_mapping@for loop@L207'
+      summary: 'raw_nodes.items() has items → ≥1 iterations'
+    - id: C002M004E0008
+      address: 'graph::ResolvedGraph::from_mapping@L208'
+      summary: 'node = ResolvedNode.from_mapping(node_mapping)'
+    - id: C002M004E0009
+      address: 'graph::ResolvedGraph::from_mapping@L209'
+      summary: 'nodes[node.key] = node'
+    - id: C002M004E0010
+      address: 'graph::ResolvedGraph::from_mapping@L210'
+      summary: 'returns cls instance'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: graph
+  children:
+    - id: C001
+      kind: class
+      name: ResolvedNode
+      decorators:
+        - name: dataclass
+          kwargs:
+            slots: true
+            frozen: true
+      children:
+        - id: C001M001
+          kind: callable
+          name: name
+          signature: 'name(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: str
+            branches:
+              - id: C001M001E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.name'
+
+        - id: C001M002
+          kind: callable
+          name: version
+          signature: 'version(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: str
+            branches:
+              - id: C001M002E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.version'
+
+        - id: C001M003
+          kind: callable
+          name: tag
+          signature: 'tag(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: str
+            branches:
+              - id: C001M003E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.tag'
+
+        - id: C001M004
+          kind: callable
+          name: requires_python
+          signature: 'requires_python(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C001M004E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.requires_python'
+
+        - id: C001M005
+          kind: callable
+          name: satisfied_tags
+          signature: 'satisfied_tags(self) -> frozenset[str]'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'frozenset[str]'
+            branches:
+              - id: C001M005E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.satisfied_tags'
+
+        - id: C001M006
+          kind: callable
+          name: dependency_ids
+          signature: 'dependency_ids(self) -> frozenset[str] | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'frozenset[str] | None'
+            branches:
+              - id: C001M006E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.dependency_ids'
+
+        - id: C001M007
+          kind: callable
+          name: origin_uri
+          signature: 'origin_uri(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C001M007E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.origin_uri'
+
+        - id: C001M008
+          kind: callable
+          name: marker
+          signature: 'marker(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C001M008E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.marker'
+
+        - id: C001M009
+          kind: callable
+          name: extras
+          signature: 'extras(self) -> frozenset[str] | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: 'frozenset[str] | None'
+            branches:
+              - id: C001M009E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.extras'
+
+        - id: C001M010
+          kind: callable
+          name: key
+          signature: 'key(self) -> WheelKey'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+            returnType:
+              name: WheelKey
+            branches:
+              - id: C001M010E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key'
+
+        - id: C001M011
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedNode
+              - name: args
+              - name: kwargs
+            returnType:
+              name: 'dict[str, Any]'
+            branches:
+              - id: C001M011E0001
+                condition: 'executes'
+                outcome: 'returns {"wheel_key": self.wheel_key.to_mapping()}'
+            integration:
+              interunit:
+                - id: IC001M011E0001
+                  target: WheelKey.to_mapping
+                  kind: call
+                  signature: 'self.wheel_key.to_mapping()'
+                  executionPaths:
+                    - [C001M011E0001]
+
+        - id: C001M012
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: 'Mapping[str, Any]'
+              - name: _
+                type:
+                  name: Any
+            returnType:
+              name: Self
+            branches:
+              - id: C001M012E0001
+                condition: 'executes'
+                outcome: 'returns cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))'
+            integration:
+              interunit:
+                - id: IC001M012E0001
+                  target: WheelKey.from_mapping
+                  kind: call
+                  signature: 'WheelKey.from_mapping(mapping["wheel_key"])'
+                  executionPaths:
+                    - [C001M012E0001]
+
+    - id: C002
+      kind: class
+      name: ResolvedGraph
+      decorators:
+        - name: dataclass
+          kwargs:
+            slots: true
+      children:
+        - id: C002M001
+          kind: callable
+          name: __post_init__
+          signature: '__post_init__(self) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedGraph
+            returnType:
+              name: None
+            branches:
+              - id: C002M001E0001
+                condition: 'executes'
+                outcome: 'node_keys = set(node_key.identifier for node_key in self.nodes.keys())'
+              - id: C002M001E0002
+                condition: 'executes'
+                outcome: 'root_keys = set(root_key.identifier for root_key in self._roots)'
+              - id: C002M001E0003
+                condition: 'executes'
+                outcome: 'missing_roots = root_keys - node_keys'
+              - id: C002M001E0004
+                condition: 'if missing_roots'
+                outcome: 'raises ValueError(f"Root nodes without metadata: {missing_roots}")'
+              - id: C002M001E0005
+                condition: 'else (not missing_roots)'
+                outcome: 'continues to line 148'
+              - id: C002M001E0006
+                condition: 'executes'
+                outcome: 'missing_deps = set()'
+              - id: C002M001E0007
+                condition: 'for node in self.nodes.values() (0 iterations)'
+                outcome: 'loop body never executes'
+              - id: C002M001E0008
+                condition: 'for node in self.nodes.values() (≥1 iterations)'
+                outcome: 'loop body executes'
+              - id: C002M001E0009
+                condition: 'for dep_id in node.dependency_ids or () (0 iterations)'
+                outcome: 'inner loop body never executes'
+              - id: C002M001E0010
+                condition: 'for dep_id in node.dependency_ids or () (≥1 iterations)'
+                outcome: 'inner loop body executes'
+              - id: C002M001E0011
+                condition: 'if dep_id not in node_keys'
+                outcome: 'missing_deps.add(dep_id)'
+              - id: C002M001E0012
+                condition: 'else (dep_id in node_keys)'
+                outcome: 'continues to next iteration'
+              - id: C002M001E0013
+                condition: 'if missing_deps'
+                outcome: 'raises ValueError(f"Dependencies refer to missing nodes: {missing_deps}")'
+              - id: C002M001E0014
+                condition: 'else (not missing_deps)'
+                outcome: 'method completes successfully'
+
+        - id: C002M002
+          kind: callable
+          name: roots
+          signature: 'roots(self) -> list[WheelKey]'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedGraph
+            returnType:
+              name: 'list[WheelKey]'
+            branches:
+              - id: C002M002E0001
+                condition: 'executes'
+                outcome: 'returns sorted(list(self._roots))'
+
+        - id: C002M003
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolvedGraph
+              - name: args
+              - name: kwargs
+            returnType:
+              name: 'dict[str, Any]'
+            branches:
+              - id: C002M003E0001
+                condition: 'executes'
+                outcome: 'returns dict with supported_python_band, roots list comprehension, nodes dict comprehension'
+            integration:
+              interunit:
+                - id: IC002M003E0001
+                  target: WheelKey.to_mapping
+                  kind: call
+                  signature: 'r.to_mapping() for r in self.roots'
+                  executionPaths:
+                    - [C002M003E0001]
+                - id: IC002M003E0001
+                  target: ResolvedNode.to_mapping
+                  kind: call
+                  signature: 'node.to_mapping() for wk, node in self.nodes.items()'
+                  executionPaths:
+                    - [C002M003E0001]
+
+        - id: C002M004
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: 'Mapping[str, Any]'
+              - name: _
+                type:
+                  name: Any
+            returnType:
+              name: Self
+            branches:
+              - id: C002M004E0001
+                condition: 'executes'
+                outcome: 'supported_python_band = SpecifierSet(mapping["supported_python_band"])'
+              - id: C002M004E0002
+                condition: 'executes'
+                outcome: 'root_items = mapping.get("roots") or []'
+              - id: C002M004E0003
+                condition: 'executes'
+                outcome: 'roots = {WheelKey.from_mapping(r) for r in root_items}'
+              - id: C002M004E0004
+                condition: 'executes'
+                outcome: 'raw_nodes = mapping.get("nodes") or {}'
+              - id: C002M004E0005
+                condition: 'executes'
+                outcome: 'nodes = {}'
+              - id: C002M004E0006
+                condition: 'for _, node_mapping in raw_nodes.items() (0 iterations)'
+                outcome: 'loop body never executes'
+              - id: C002M004E0007
+                condition: 'for _, node_mapping in raw_nodes.items() (≥1 iterations)'
+                outcome: 'loop body executes'
+              - id: C002M004E0008
+                condition: 'executes'
+                outcome: 'node = ResolvedNode.from_mapping(node_mapping)'
+              - id: C002M004E0009
+                condition: 'executes'
+                outcome: 'nodes[node.key] = node'
+              - id: C002M004E0010
+                condition: 'executes'
+                outcome: 'returns cls(supported_python_band=supported_python_band, _roots=roots, nodes=nodes)'
+            integration:
+              interunit:
+                - id: IC002M004E0001
+                  target: SpecifierSet
+                  kind: construct
+                  signature: 'SpecifierSet(mapping["supported_python_band"])'
+                  executionPaths:
+                    - [C002M004E0001]
+                - id: IC002M004E0003
+                  target: WheelKey.from_mapping
+                  kind: call
+                  signature: 'WheelKey.from_mapping(r) for r in root_items'
+                  executionPaths:
+                    - [C002M004E0002, C002M004E0003]
+                - id: IC002M004E0008
+                  target: ResolvedNode.from_mapping
+                  kind: call
+                  signature: 'ResolvedNode.from_mapping(node_mapping)'
+                  executionPaths:
+                    - [C002M004E0005, C002M004E0007, C002M004E0008]
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: graph
+  language: python
+findings: []

@@ -1,0 +1,1769 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: builtin_strategies
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C000F001
+      kind: callable
+      name: _safe_segment
+      address: 'builtin_strategies::_safe_segment@L32'
+    - id: C000F002
+      kind: callable
+      name: _short_hash
+      address: 'builtin_strategies::_short_hash@L42'
+    - id: C000F003
+      kind: callable
+      name: _url_basename
+      address: 'builtin_strategies::_url_basename@L49'
+    - id: C000F004
+      kind: callable
+      name: _require_file_destination
+      address: 'builtin_strategies::_require_file_destination@L65'
+    - id: C000F005
+      kind: callable
+      name: _ensure_parent_dir
+      address: 'builtin_strategies::_ensure_parent_dir@L78'
+    - id: C000F006
+      kind: callable
+      name: _sha256_file
+      address: 'builtin_strategies::_sha256_file@L82'
+    - id: C000F007
+      kind: callable
+      name: _simple_project_json_url
+      address: 'builtin_strategies::_simple_project_json_url@L90'
+    - id: C000F008
+      kind: callable
+      name: _write_canonical_json
+      address: 'builtin_strategies::_write_canonical_json@L96'
+    - id: C000F009
+      kind: callable
+      name: _pep658_metadata_url
+      address: 'builtin_strategies::_pep658_metadata_url@L103'
+    - id: C000F010
+      kind: callable
+      name: _find_dist_info_metadata_path
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L108'
+    - id: C001
+      kind: class
+      name: Pep691IndexMetadataHttpStrategy
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy@L117'
+    - id: C001M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L126'
+    - id: C002
+      kind: class
+      name: HttpWheelFileStrategy
+      address: 'builtin_strategies::HttpWheelFileStrategy@L158'
+    - id: C002M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L166'
+    - id: C003
+      kind: class
+      name: Pep658CoreMetadataHttpStrategy
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy@L199'
+    - id: C003M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L210'
+    - id: C004
+      kind: class
+      name: WheelExtractedCoreMetadataStrategy
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy@L242'
+    - id: C004M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L253'
+    - id: C005
+      kind: class
+      name: DirectUriWheelFileStrategy
+      address: 'builtin_strategies::DirectUriWheelFileStrategy@L294'
+    - id: C005M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L301'
+    - id: C006
+      kind: class
+      name: DirectUriCoreMetadataStrategy
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy@L340'
+    - id: C006M001
+      kind: callable
+      name: resolve
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L349'
+  branches:
+    - id: C000F001E0001
+      parent: C000F001
+      address: 'builtin_strategies::_safe_segment@L36'
+      summary: 'value is falsy → returns "_"'
+    - id: C000F001E0002
+      parent: C000F001
+      address: 'builtin_strategies::_safe_segment@L36'
+      summary: 'value is truthy → continues to line 38'
+    - id: C000F001E0003
+      parent: C000F001
+      address: 'builtin_strategies::_safe_segment@L38'
+      summary: 'executes: value = _INVALID_SEGMENT_CHARS.sub("_", value)'
+    - id: C000F001E0004
+      parent: C000F001
+      address: 'builtin_strategies::_safe_segment@L39'
+      summary: 'returns value[:160]'
+    - id: C000F002E0001
+      parent: C000F002
+      address: 'builtin_strategies::_short_hash@L46'
+      summary: 'returns hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]'
+    - id: C000F003E0001
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L50'
+      summary: 'enters try block'
+    - id: C000F003E0002
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L51'
+      summary: 'executes: parsed = urlparse(url)'
+    - id: C000F003E0003
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L52'
+      summary: 'parsed.path is falsy → returns None'
+    - id: C000F003E0004
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L52'
+      summary: 'parsed.path is truthy → continues to line 54'
+    - id: C000F003E0005
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L54'
+      summary: 'executes: base = Path(unquote(parsed.path)).name'
+    - id: C000F003E0006
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L55'
+      summary: 'returns base or None'
+    - id: C000F003E0007
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L56'
+      summary: 'exception caught → enters except handler'
+    - id: C000F003E0008
+      parent: C000F003
+      address: 'builtin_strategies::_url_basename@L57'
+      summary: 'returns None'
+    - id: C000F004E0001
+      parent: C000F004
+      address: 'builtin_strategies::_require_file_destination@L70'
+      summary: 'executes: parsed = urlparse(destination_uri)'
+    - id: C000F004E0002
+      parent: C000F004
+      address: 'builtin_strategies::_require_file_destination@L71'
+      summary: 'parsed.scheme != "file" is true → raises ValueError'
+    - id: C000F004E0003
+      parent: C000F004
+      address: 'builtin_strategies::_require_file_destination@L71'
+      summary: 'parsed.scheme != "file" is false → continues to line 75'
+    - id: C000F004E0004
+      parent: C000F004
+      address: 'builtin_strategies::_require_file_destination@L75'
+      summary: 'returns Path(parsed.path)'
+    - id: C000F005E0001
+      parent: C000F005
+      address: 'builtin_strategies::_ensure_parent_dir@L79'
+      summary: 'executes: path.parent.mkdir(parents=True, exist_ok=True)'
+    - id: C000F006E0001
+      parent: C000F006
+      address: 'builtin_strategies::_sha256_file@L83'
+      summary: 'executes: h = hashlib.sha256()'
+    - id: C000F006E0002
+      parent: C000F006
+      address: 'builtin_strategies::_sha256_file@L84'
+      summary: 'enters with block'
+    - id: C000F006E0003
+      parent: C000F006
+      address: 'builtin_strategies::_sha256_file@L85'
+      summary: 'loop body never executes (0 iterations)'
+    - id: C000F006E0004
+      parent: C000F006
+      address: 'builtin_strategies::_sha256_file@L85'
+      summary: 'loop body executes (≥1 iterations)'
+    - id: C000F006E0005
+      parent: C000F006
+      address: 'builtin_strategies::_sha256_file@L87'
+      summary: 'returns h.hexdigest()'
+    - id: C000F007E0001
+      parent: C000F007
+      address: 'builtin_strategies::_simple_project_json_url@L91'
+      summary: 'executes: base = index_base.rstrip("/") + "/"'
+    - id: C000F007E0002
+      parent: C000F007
+      address: 'builtin_strategies::_simple_project_json_url@L92'
+      summary: 'executes: proj = project.strip("/")'
+    - id: C000F007E0003
+      parent: C000F007
+      address: 'builtin_strategies::_simple_project_json_url@L93'
+      summary: 'returns f"{base}{proj}/"'
+    - id: C000F008E0001
+      parent: C000F008
+      address: 'builtin_strategies::_write_canonical_json@L98'
+      summary: 'executes: path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")'
+    - id: C000F009E0001
+      parent: C000F009
+      address: 'builtin_strategies::_pep658_metadata_url@L105'
+      summary: 'returns f"{file_url}.metadata"'
+    - id: C000F010E0001
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L109'
+      summary: 'zf.namelist() is empty → candidates = []'
+    - id: C000F010E0002
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L109'
+      summary: 'zf.namelist() has items but all filtered out → candidates = []'
+    - id: C000F010E0003
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L109'
+      summary: 'zf.namelist() has items and some pass filter → candidates populated'
+    - id: C000F010E0004
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L110'
+      summary: 'candidates is empty → raises FileNotFoundError'
+    - id: C000F010E0005
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L110'
+      summary: 'candidates is not empty → continues to line 113'
+    - id: C000F010E0006
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L113'
+      summary: 'executes: candidates.sort()'
+    - id: C000F010E0007
+      parent: C000F010
+      address: 'builtin_strategies::_find_dist_info_metadata_path@L114'
+      summary: 'returns candidates[0]'
+    - id: C001M001E0001
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L128'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C001M001E0002
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L128'
+      summary: 'isinstance check true → continues to line 131'
+    - id: C001M001E0003
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L131'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C001M001E0004
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L132'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C001M001E0005
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L134'
+      summary: 'executes: url = _simple_project_json_url(key.index_base, key.project)'
+    - id: C001M001E0006
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L135'
+      summary: 'executes: headers dict assignment'
+    - id: C001M001E0007
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L140'
+      summary: 'executes: resp = requests.get(url, headers=headers, timeout=self.timeout_s)'
+    - id: C001M001E0008
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L141'
+      summary: 'executes: resp.raise_for_status()'
+    - id: C001M001E0009
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L143'
+      summary: 'executes: payload = resp.json()'
+    - id: C001M001E0010
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L144'
+      summary: 'executes: _write_canonical_json(dest_path, payload)'
+    - id: C001M001E0011
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L146'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C001M001E0012
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L147'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C001M001E0013
+      parent: C001M001
+      address: 'builtin_strategies::Pep691IndexMetadataHttpStrategy::resolve@L149'
+      summary: 'returns ArtifactRecord(...)'
+    - id: C002M001E0001
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L167'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C002M001E0002
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L167'
+      summary: 'isinstance check true → continues to line 170'
+    - id: C002M001E0003
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L170'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C002M001E0004
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L171'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C002M001E0005
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L173'
+      summary: 'executes: headers = {"User-Agent": self.user_agent}'
+    - id: C002M001E0006
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L175'
+      summary: 'key.origin_uri is None true → raises ValueError'
+    - id: C002M001E0007
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L175'
+      summary: 'key.origin_uri is None false → continues to line 178'
+    - id: C002M001E0008
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L178'
+      summary: 'enters with block for requests.get()'
+    - id: C002M001E0009
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L181'
+      summary: 'executes: resp.raise_for_status()'
+    - id: C002M001E0010
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L182'
+      summary: 'enters with block for dest_path.open("wb")'
+    - id: C002M001E0011
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L183'
+      summary: 'loop body never executes (0 iterations)'
+    - id: C002M001E0012
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L183'
+      summary: 'loop body executes (≥1 iterations)'
+    - id: C002M001E0013
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L184'
+      summary: 'chunk is falsy → continues to next iteration'
+    - id: C002M001E0014
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L184'
+      summary: 'chunk is truthy → executes f.write(chunk)'
+    - id: C002M001E0015
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L187'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C002M001E0016
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L188'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C002M001E0017
+      parent: C002M001
+      address: 'builtin_strategies::HttpWheelFileStrategy::resolve@L190'
+      summary: 'returns ArtifactRecord(...)'
+    - id: C003M001E0001
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L211'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C003M001E0002
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L211'
+      summary: 'isinstance check true → continues to line 214'
+    - id: C003M001E0003
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L214'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C003M001E0004
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L215'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C003M001E0005
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L217'
+      summary: 'executes: url = _pep658_metadata_url(key.file_url)'
+    - id: C003M001E0006
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L218'
+      summary: 'executes: headers = {"User-Agent": self.user_agent}'
+    - id: C003M001E0007
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L220'
+      summary: 'executes: resp = requests.get(url, headers=headers, timeout=self.timeout_s)'
+    - id: C003M001E0008
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L221'
+      summary: 'resp.status_code == 404 true → raises StrategyNotApplicable()'
+    - id: C003M001E0009
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L221'
+      summary: 'resp.status_code == 404 false → continues to line 225'
+    - id: C003M001E0010
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L225'
+      summary: 'executes: resp.raise_for_status()'
+    - id: C003M001E0011
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L226'
+      summary: 'executes: dest_path.write_bytes(resp.content)'
+    - id: C003M001E0012
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L228'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C003M001E0013
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L229'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C003M001E0014
+      parent: C003M001
+      address: 'builtin_strategies::Pep658CoreMetadataHttpStrategy::resolve@L231'
+      summary: 'returns ArtifactRecord(...)'
+    - id: C004M001E0001
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L254'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C004M001E0002
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L254'
+      summary: 'isinstance check true → continues to line 257'
+    - id: C004M001E0003
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L257'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C004M001E0004
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L258'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C004M001E0005
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L260'
+      summary: 'executes: wheel_key = WheelKey(...)'
+    - id: C004M001E0006
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L264'
+      summary: 'enters with block for tempfile.TemporaryDirectory()'
+    - id: C004M001E0007
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L265'
+      summary: 'executes: wheel_path = Path(td) / "artifact.whl"'
+    - id: C004M001E0008
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L266'
+      summary: 'executes: wheel_uri = wheel_path.as_uri()'
+    - id: C004M001E0009
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L269'
+      summary: 'executes: self.wheel_strategy.resolve(key=wheel_key, destination_uri=wheel_uri)'
+    - id: C004M001E0010
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L271'
+      summary: 'enters with block for zipfile.ZipFile()'
+    - id: C004M001E0011
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L272'
+      summary: 'executes: meta_member = _find_dist_info_metadata_path(zf)'
+    - id: C004M001E0012
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L273'
+      summary: 'executes: metadata_bytes = zf.read(meta_member)'
+    - id: C004M001E0013
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L275'
+      summary: 'executes: dest_path.write_bytes(metadata_bytes)'
+    - id: C004M001E0014
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L277'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C004M001E0015
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L278'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C004M001E0016
+      parent: C004M001
+      address: 'builtin_strategies::WheelExtractedCoreMetadataStrategy::resolve@L280'
+      summary: 'returns ArtifactRecord(...)'
+    - id: C005M001E0001
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L302'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C005M001E0002
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L302'
+      summary: 'isinstance check true → continues to line 304'
+    - id: C005M001E0003
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L304'
+      summary: 'key.origin_uri is None true → raises ValueError'
+    - id: C005M001E0004
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L304'
+      summary: 'key.origin_uri is None false → continues to line 307'
+    - id: C005M001E0005
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L307'
+      summary: 'executes: src_parsed = urlparse(key.origin_uri)'
+    - id: C005M001E0006
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L308'
+      summary: 'src_parsed.scheme not in ("file", "") true → raises StrategyNotApplicable()'
+    - id: C005M001E0007
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L308'
+      summary: 'src_parsed.scheme not in ("file", "") false → continues to line 311'
+    - id: C005M001E0008
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L311'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C005M001E0009
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L312'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C005M001E0010
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L315'
+      summary: 'src_parsed.scheme == "file" true → src_path = Path(src_parsed.path)'
+    - id: C005M001E0011
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L315'
+      summary: 'src_parsed.scheme == "file" false → src_path = Path(key.origin_uri)'
+    - id: C005M001E0012
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L319'
+      summary: 'src_path.exists() false → raises FileNotFoundError'
+    - id: C005M001E0013
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L319'
+      summary: 'src_path.exists() true → continues to line 322'
+    - id: C005M001E0014
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L322'
+      summary: 'enters with block for file operations'
+    - id: C005M001E0015
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L323'
+      summary: 'loop body never executes (0 iterations)'
+    - id: C005M001E0016
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L323'
+      summary: 'loop body executes (≥1 iterations)'
+    - id: C005M001E0017
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L326'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C005M001E0018
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L327'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C005M001E0019
+      parent: C005M001
+      address: 'builtin_strategies::DirectUriWheelFileStrategy::resolve@L329'
+      summary: 'returns ArtifactRecord(...)'
+    - id: C006M001E0001
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L350'
+      summary: 'isinstance check false → raises StrategyNotApplicable()'
+    - id: C006M001E0002
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L350'
+      summary: 'isinstance check true → continues to line 353'
+    - id: C006M001E0003
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L353'
+      summary: 'executes: parsed = urlparse(key.file_url)'
+    - id: C006M001E0004
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L354'
+      summary: 'parsed.scheme not in ("", "file") true → raises StrategyNotApplicable()'
+    - id: C006M001E0005
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L354'
+      summary: 'parsed.scheme not in ("", "file") false → continues to line 357'
+    - id: C006M001E0006
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L357'
+      summary: 'parsed.scheme == "file" true → wheel_path = Path(unquote(parsed.path))'
+    - id: C006M001E0007
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L357'
+      summary: 'parsed.scheme == "file" false → wheel_path = Path(key.file_url)'
+    - id: C006M001E0008
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L361'
+      summary: 'wheel_path.exists() false → raises FileNotFoundError'
+    - id: C006M001E0009
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L361'
+      summary: 'wheel_path.exists() true → continues to line 363'
+    - id: C006M001E0010
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L363'
+      summary: 'wheel_path.is_file() false → raises ValueError'
+    - id: C006M001E0011
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L363'
+      summary: 'wheel_path.is_file() true → continues to line 366'
+    - id: C006M001E0012
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L366'
+      summary: 'executes: dest_path = _require_file_destination(destination_uri)'
+    - id: C006M001E0013
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L367'
+      summary: 'executes: _ensure_parent_dir(dest_path)'
+    - id: C006M001E0014
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L369'
+      summary: 'enters with block for zipfile.ZipFile()'
+    - id: C006M001E0015
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L370'
+      summary: 'executes: member = _find_dist_info_metadata_path(zf)'
+    - id: C006M001E0016
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L371'
+      summary: 'executes: metadata_bytes = zf.read(member)'
+    - id: C006M001E0017
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L372'
+      summary: 'executes: dest_path.write_bytes(metadata_bytes)'
+    - id: C006M001E0018
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L374'
+      summary: 'executes: size = dest_path.stat().st_size'
+    - id: C006M001E0019
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L375'
+      summary: 'executes: sha256 = _sha256_file(dest_path)'
+    - id: C006M001E0020
+      parent: C006M001
+      address: 'builtin_strategies::DirectUriCoreMetadataStrategy::resolve@L377'
+      summary: 'returns ArtifactRecord(...)'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: builtin_strategies
+  children:
+    - id: C000F001
+      kind: callable
+      name: _safe_segment
+      signature: '_safe_segment(value: str) -> str'
+      callable:
+        params:
+          - name: value
+            type:
+              name: str
+        returnType:
+          name: str
+        branches:
+          - id: C000F001E0001
+            condition: 'if not value'
+            outcome: 'returns "_"'
+          - id: C000F001E0002
+            condition: 'else'
+            outcome: 'continues to line 38'
+          - id: C000F001E0003
+            condition: 'executes'
+            outcome: 'value = _INVALID_SEGMENT_CHARS.sub("_", value)'
+          - id: C000F001E0004
+            condition: 'return statement'
+            outcome: 'returns value[:160]'
+        integration:
+          interunit:
+            - id: IC000F001E0003
+              target: _INVALID_SEGMENT_CHARS.sub
+              kind: call
+              signature: '_INVALID_SEGMENT_CHARS.sub("_", value)'
+              executionPaths:
+                - [C000F001E0002, C000F001E0003]
+    - id: C000F002
+      kind: callable
+      name: _short_hash
+      signature: '_short_hash(value: str) -> str'
+      callable:
+        params:
+          - name: value
+            type:
+              name: str
+        returnType:
+          name: str
+        branches:
+          - id: C000F002E0001
+            condition: 'return statement'
+            outcome: 'returns hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]'
+        integration:
+          interunit:
+            - id: IC000F002E0001
+              target: hashlib.sha256
+              kind: call
+              signature: 'hashlib.sha256(value.encode("utf-8"))'
+              executionPaths:
+                - [C000F002E0001]
+    - id: C000F003
+      kind: callable
+      name: _url_basename
+      signature: '_url_basename(url: str) -> str | None'
+      callable:
+        params:
+          - name: url
+            type:
+              name: str
+        returnType:
+          name: 'str | None'
+        branches:
+          - id: C000F003E0001
+            condition: 'try'
+            outcome: 'enters try block'
+          - id: C000F003E0002
+            condition: 'executes'
+            outcome: 'parsed = urlparse(url)'
+          - id: C000F003E0003
+            condition: 'if not parsed.path'
+            outcome: 'returns None'
+          - id: C000F003E0004
+            condition: 'else'
+            outcome: 'continues to line 54'
+          - id: C000F003E0005
+            condition: 'executes'
+            outcome: 'base = Path(unquote(parsed.path)).name'
+          - id: C000F003E0006
+            condition: 'return statement'
+            outcome: 'returns base or None'
+          - id: C000F003E0007
+            condition: 'except Exception'
+            outcome: 'exception caught'
+          - id: C000F003E0008
+            condition: 'return statement'
+            outcome: 'returns None'
+        integration:
+          interunit:
+            - id: IC000F003E0002
+              target: urlparse
+              kind: call
+              signature: 'urlparse(url)'
+              executionPaths:
+                - [C000F003E0001, C000F003E0002]
+            - id: IC000F003E0005
+              target: Path
+              kind: construct
+              signature: 'Path(unquote(parsed.path))'
+              executionPaths:
+                - [C000F003E0001, C000F003E0002, C000F003E0004, C000F003E0005]
+            - id: IC000F003E0005B
+              target: unquote
+              kind: call
+              signature: 'unquote(parsed.path)'
+              executionPaths:
+                - [C000F003E0001, C000F003E0002, C000F003E0004, C000F003E0005]
+    - id: C000F004
+      kind: callable
+      name: _require_file_destination
+      signature: '_require_file_destination(destination_uri: str) -> Path'
+      callable:
+        params:
+          - name: destination_uri
+            type:
+              name: str
+        returnType:
+          name: Path
+        branches:
+          - id: C000F004E0001
+            condition: 'executes'
+            outcome: 'parsed = urlparse(destination_uri)'
+          - id: C000F004E0002
+            condition: 'if parsed.scheme != "file"'
+            outcome: 'raises ValueError'
+          - id: C000F004E0003
+            condition: 'else'
+            outcome: 'continues to line 75'
+          - id: C000F004E0004
+            condition: 'return statement'
+            outcome: 'returns Path(parsed.path)'
+        integration:
+          interunit:
+            - id: IC000F004E0001
+              target: urlparse
+              kind: call
+              signature: 'urlparse(destination_uri)'
+              executionPaths:
+                - [C000F004E0001]
+            - id: IC000F004E0004
+              target: Path
+              kind: construct
+              signature: 'Path(parsed.path)'
+              executionPaths:
+                - [C000F004E0001, C000F004E0003, C000F004E0004]
+    - id: C000F005
+      kind: callable
+      name: _ensure_parent_dir
+      signature: '_ensure_parent_dir(path: Path) -> None'
+      callable:
+        params:
+          - name: path
+            type:
+              name: Path
+        returnType:
+          name: None
+        branches:
+          - id: C000F005E0001
+            condition: 'executes'
+            outcome: 'path.parent.mkdir(parents=True, exist_ok=True)'
+        integration:
+          boundaries:
+            - id: IC000F005E0001
+              target: path.parent.mkdir
+              kind: call
+              signature: 'path.parent.mkdir(parents=True, exist_ok=True)'
+              boundary:
+                kind: filesystem
+                operation: write
+              executionPaths:
+                - [C000F005E0001]
+    - id: C000F006
+      kind: callable
+      name: _sha256_file
+      signature: '_sha256_file(path: Path) -> str'
+      callable:
+        params:
+          - name: path
+            type:
+              name: Path
+        returnType:
+          name: str
+        branches:
+          - id: C000F006E0001
+            condition: 'executes'
+            outcome: 'h = hashlib.sha256()'
+          - id: C000F006E0002
+            condition: 'with'
+            outcome: 'enters with block'
+          - id: C000F006E0003
+            condition: 'for chunk in iter(...) (0 iterations)'
+            outcome: 'loop body never executes'
+          - id: C000F006E0004
+            condition: 'for chunk in iter(...) (≥1 iterations)'
+            outcome: 'loop body executes'
+          - id: C000F006E0005
+            condition: 'return statement'
+            outcome: 'returns h.hexdigest()'
+        integration:
+          interunit:
+            - id: IC000F006E0001
+              target: hashlib.sha256
+              kind: call
+              signature: 'hashlib.sha256()'
+              executionPaths:
+                - [C000F006E0001]
+          boundaries:
+            - id: IC000F006E0002
+              target: path.open
+              kind: call
+              signature: 'path.open("rb")'
+              boundary:
+                kind: filesystem
+                operation: read
+              executionPaths:
+                - [C000F006E0001, C000F006E0002]
+    - id: C000F007
+      kind: callable
+      name: _simple_project_json_url
+      signature: '_simple_project_json_url(index_base: str, project: str) -> str'
+      callable:
+        params:
+          - name: index_base
+            type:
+              name: str
+          - name: project
+            type:
+              name: str
+        returnType:
+          name: str
+        branches:
+          - id: C000F007E0001
+            condition: 'executes'
+            outcome: 'base = index_base.rstrip("/") + "/"'
+          - id: C000F007E0002
+            condition: 'executes'
+            outcome: 'proj = project.strip("/")'
+          - id: C000F007E0003
+            condition: 'return statement'
+            outcome: 'returns f"{base}{proj}/"'
+    - id: C000F008
+      kind: callable
+      name: _write_canonical_json
+      signature: '_write_canonical_json(path: Path, payload: Any) -> None'
+      callable:
+        params:
+          - name: path
+            type:
+              name: Path
+          - name: payload
+            type:
+              name: Any
+        returnType:
+          name: None
+        branches:
+          - id: C000F008E0001
+            condition: 'executes'
+            outcome: 'path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")'
+        integration:
+          interunit:
+            - id: IC000F008E0001
+              target: json.dumps
+              kind: call
+              signature: 'json.dumps(payload, indent=2, sort_keys=True)'
+              executionPaths:
+                - [C000F008E0001]
+          boundaries:
+            - id: IC000F008E0001B
+              target: path.write_text
+              kind: call
+              signature: 'path.write_text(..., encoding="utf-8")'
+              boundary:
+                kind: filesystem
+                operation: write
+              executionPaths:
+                - [C000F008E0001]
+    - id: C000F009
+      kind: callable
+      name: _pep658_metadata_url
+      signature: '_pep658_metadata_url(file_url: str) -> str'
+      callable:
+        params:
+          - name: file_url
+            type:
+              name: str
+        returnType:
+          name: str
+        branches:
+          - id: C000F009E0001
+            condition: 'return statement'
+            outcome: 'returns f"{file_url}.metadata"'
+    - id: C000F010
+      kind: callable
+      name: _find_dist_info_metadata_path
+      signature: '_find_dist_info_metadata_path(zf: zipfile.ZipFile) -> str'
+      callable:
+        params:
+          - name: zf
+            type:
+              name: zipfile.ZipFile
+        returnType:
+          name: str
+        branches:
+          - id: C000F010E0001
+            condition: 'zf.namelist() empty'
+            outcome: 'candidates = []'
+          - id: C000F010E0002
+            condition: 'zf.namelist() not empty but all filtered'
+            outcome: 'candidates = []'
+          - id: C000F010E0003
+            condition: 'zf.namelist() not empty and some pass filter'
+            outcome: 'candidates populated'
+          - id: C000F010E0004
+            condition: 'if not candidates'
+            outcome: 'raises FileNotFoundError'
+          - id: C000F010E0005
+            condition: 'else'
+            outcome: 'continues to line 113'
+          - id: C000F010E0006
+            condition: 'executes'
+            outcome: 'candidates.sort()'
+          - id: C000F010E0007
+            condition: 'return statement'
+            outcome: 'returns candidates[0]'
+    - id: C001
+      kind: class
+      name: Pep691IndexMetadataHttpStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C001M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: IndexMetadataKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: Pep691IndexMetadataHttpStrategy
+              - name: key
+                type:
+                  name: IndexMetadataKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C001M001E0001
+                condition: 'if not isinstance(key, IndexMetadataKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C001M001E0002
+                condition: 'else'
+                outcome: 'continues to line 131'
+              - id: C001M001E0003
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C001M001E0004
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C001M001E0005
+                condition: 'executes'
+                outcome: 'url = _simple_project_json_url(key.index_base, key.project)'
+              - id: C001M001E0006
+                condition: 'executes'
+                outcome: 'headers dict assignment'
+              - id: C001M001E0007
+                condition: 'executes'
+                outcome: 'resp = requests.get(url, headers=headers, timeout=self.timeout_s)'
+              - id: C001M001E0008
+                condition: 'executes'
+                outcome: 'resp.raise_for_status()'
+              - id: C001M001E0009
+                condition: 'executes'
+                outcome: 'payload = resp.json()'
+              - id: C001M001E0010
+                condition: 'executes'
+                outcome: '_write_canonical_json(dest_path, payload)'
+              - id: C001M001E0011
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C001M001E0012
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C001M001E0013
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC001M001E0003
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003]
+                - id: IC001M001E0004
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003, C001M001E0004]
+                - id: IC001M001E0005
+                  target: _simple_project_json_url
+                  kind: call
+                  signature: '_simple_project_json_url(key.index_base, key.project)'
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003, C001M001E0004, C001M001E0005]
+                - id: IC001M001E0010
+                  target: _write_canonical_json
+                  kind: call
+                  signature: '_write_canonical_json(dest_path, payload)'
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003, C001M001E0004, C001M001E0005, C001M001E0006, C001M001E0007, C001M001E0008, C001M001E0009, C001M001E0010]
+                - id: IC001M001E0012
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003, C001M001E0004, C001M001E0005, C001M001E0006, C001M001E0007, C001M001E0008, C001M001E0009, C001M001E0010, C001M001E0011, C001M001E0012]
+              boundaries:
+                - id: IC001M001E0007
+                  target: requests.get
+                  kind: call
+                  signature: 'requests.get(url, headers=headers, timeout=self.timeout_s)'
+                  boundary:
+                    kind: network
+                    protocol: http
+                    operation: read
+                  executionPaths:
+                    - [C001M001E0002, C001M001E0003, C001M001E0004, C001M001E0005, C001M001E0006, C001M001E0007]
+    - id: C002
+      kind: class
+      name: HttpWheelFileStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C002M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: WheelKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: HttpWheelFileStrategy
+              - name: key
+                type:
+                  name: WheelKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C002M001E0001
+                condition: 'if not isinstance(key, WheelKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C002M001E0002
+                condition: 'else'
+                outcome: 'continues to line 170'
+              - id: C002M001E0003
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C002M001E0004
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C002M001E0005
+                condition: 'executes'
+                outcome: 'headers = {"User-Agent": self.user_agent}'
+              - id: C002M001E0006
+                condition: 'if key.origin_uri is None'
+                outcome: 'raises ValueError'
+              - id: C002M001E0007
+                condition: 'else'
+                outcome: 'continues to line 178'
+              - id: C002M001E0008
+                condition: 'with requests.get(...)'
+                outcome: 'enters with block'
+              - id: C002M001E0009
+                condition: 'executes'
+                outcome: 'resp.raise_for_status()'
+              - id: C002M001E0010
+                condition: 'with dest_path.open("wb")'
+                outcome: 'enters with block'
+              - id: C002M001E0011
+                condition: 'for chunk in resp.iter_content(...) (0 iterations)'
+                outcome: 'loop body never executes'
+              - id: C002M001E0012
+                condition: 'for chunk in resp.iter_content(...) (≥1 iterations)'
+                outcome: 'loop body executes'
+              - id: C002M001E0013
+                condition: 'if chunk (false)'
+                outcome: 'continues to next iteration'
+              - id: C002M001E0014
+                condition: 'if chunk (true)'
+                outcome: 'f.write(chunk)'
+              - id: C002M001E0015
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C002M001E0016
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C002M001E0017
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC002M001E0003
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C002M001E0002, C002M001E0003]
+                - id: IC002M001E0004
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C002M001E0002, C002M001E0003, C002M001E0004]
+                - id: IC002M001E0016
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C002M001E0002, C002M001E0003, C002M001E0004, C002M001E0005, C002M001E0007, C002M001E0008, C002M001E0009, C002M001E0010, C002M001E0011, C002M001E0015, C002M001E0016]
+                    - [C002M001E0002, C002M001E0003, C002M001E0004, C002M001E0005, C002M001E0007, C002M001E0008, C002M001E0009, C002M001E0010, C002M001E0012, C002M001E0013, C002M001E0015, C002M001E0016]
+                    - [C002M001E0002, C002M001E0003, C002M001E0004, C002M001E0005, C002M001E0007, C002M001E0008, C002M001E0009, C002M001E0010, C002M001E0012, C002M001E0014, C002M001E0015, C002M001E0016]
+              boundaries:
+                - id: IC002M001E0008
+                  target: requests.get
+                  kind: call
+                  signature: 'requests.get(key.origin_uri, headers=headers, timeout=self.timeout_s, stream=True)'
+                  boundary:
+                    kind: network
+                    protocol: http
+                    operation: read
+                  executionPaths:
+                    - [C002M001E0002, C002M001E0003, C002M001E0004, C002M001E0005, C002M001E0007, C002M001E0008]
+                - id: IC002M001E0010
+                  target: dest_path.open
+                  kind: call
+                  signature: 'dest_path.open("wb")'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C002M001E0002, C002M001E0003, C002M001E0004, C002M001E0005, C002M001E0007, C002M001E0008, C002M001E0009, C002M001E0010]
+    - id: C003
+      kind: class
+      name: Pep658CoreMetadataHttpStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C003M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: Pep658CoreMetadataHttpStrategy
+              - name: key
+                type:
+                  name: CoreMetadataKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C003M001E0001
+                condition: 'if not isinstance(key, CoreMetadataKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C003M001E0002
+                condition: 'else'
+                outcome: 'continues to line 214'
+              - id: C003M001E0003
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C003M001E0004
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C003M001E0005
+                condition: 'executes'
+                outcome: 'url = _pep658_metadata_url(key.file_url)'
+              - id: C003M001E0006
+                condition: 'executes'
+                outcome: 'headers = {"User-Agent": self.user_agent}'
+              - id: C003M001E0007
+                condition: 'executes'
+                outcome: 'resp = requests.get(url, headers=headers, timeout=self.timeout_s)'
+              - id: C003M001E0008
+                condition: 'if resp.status_code == 404'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C003M001E0009
+                condition: 'else'
+                outcome: 'continues to line 225'
+              - id: C003M001E0010
+                condition: 'executes'
+                outcome: 'resp.raise_for_status()'
+              - id: C003M001E0011
+                condition: 'executes'
+                outcome: 'dest_path.write_bytes(resp.content)'
+              - id: C003M001E0012
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C003M001E0013
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C003M001E0014
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC003M001E0003
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003]
+                - id: IC003M001E0004
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003, C003M001E0004]
+                - id: IC003M001E0005
+                  target: _pep658_metadata_url
+                  kind: call
+                  signature: '_pep658_metadata_url(key.file_url)'
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003, C003M001E0004, C003M001E0005]
+                - id: IC003M001E0013
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003, C003M001E0004, C003M001E0005, C003M001E0006, C003M001E0007, C003M001E0009, C003M001E0010, C003M001E0011, C003M001E0012, C003M001E0013]
+              boundaries:
+                - id: IC003M001E0007
+                  target: requests.get
+                  kind: call
+                  signature: 'requests.get(url, headers=headers, timeout=self.timeout_s)'
+                  boundary:
+                    kind: network
+                    protocol: http
+                    operation: read
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003, C003M001E0004, C003M001E0005, C003M001E0006, C003M001E0007]
+                - id: IC003M001E0011
+                  target: dest_path.write_bytes
+                  kind: call
+                  signature: 'dest_path.write_bytes(resp.content)'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C003M001E0002, C003M001E0003, C003M001E0004, C003M001E0005, C003M001E0006, C003M001E0007, C003M001E0009, C003M001E0010, C003M001E0011]
+    - id: C004
+      kind: class
+      name: WheelExtractedCoreMetadataStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C004M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: WheelExtractedCoreMetadataStrategy
+              - name: key
+                type:
+                  name: CoreMetadataKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C004M001E0001
+                condition: 'if not isinstance(key, CoreMetadataKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C004M001E0002
+                condition: 'else'
+                outcome: 'continues to line 257'
+              - id: C004M001E0003
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C004M001E0004
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C004M001E0005
+                condition: 'executes'
+                outcome: 'wheel_key = WheelKey(...)'
+              - id: C004M001E0006
+                condition: 'with tempfile.TemporaryDirectory(...)'
+                outcome: 'enters with block'
+              - id: C004M001E0007
+                condition: 'executes'
+                outcome: 'wheel_path = Path(td) / "artifact.whl"'
+              - id: C004M001E0008
+                condition: 'executes'
+                outcome: 'wheel_uri = wheel_path.as_uri()'
+              - id: C004M001E0009
+                condition: 'executes'
+                outcome: 'self.wheel_strategy.resolve(key=wheel_key, destination_uri=wheel_uri)'
+              - id: C004M001E0010
+                condition: 'with zipfile.ZipFile(...)'
+                outcome: 'enters with block'
+              - id: C004M001E0011
+                condition: 'executes'
+                outcome: 'meta_member = _find_dist_info_metadata_path(zf)'
+              - id: C004M001E0012
+                condition: 'executes'
+                outcome: 'metadata_bytes = zf.read(meta_member)'
+              - id: C004M001E0013
+                condition: 'executes'
+                outcome: 'dest_path.write_bytes(metadata_bytes)'
+              - id: C004M001E0014
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C004M001E0015
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C004M001E0016
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC004M001E0003
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003]
+                - id: IC004M001E0004
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004]
+                - id: IC004M001E0005
+                  target: WheelKey
+                  kind: construct
+                  signature: 'WheelKey(name=key.name, version=key.version, tag=key.tag, origin_uri=key.file_url)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005]
+                - id: IC004M001E0007
+                  target: Path
+                  kind: construct
+                  signature: 'Path(td)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006, C004M001E0007]
+                - id: IC004M001E0011
+                  target: _find_dist_info_metadata_path
+                  kind: call
+                  signature: '_find_dist_info_metadata_path(zf)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006, C004M001E0007, C004M001E0008, C004M001E0009, C004M001E0010, C004M001E0011]
+                - id: IC004M001E0015
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006, C004M001E0007, C004M001E0008, C004M001E0009, C004M001E0010, C004M001E0011, C004M001E0012, C004M001E0013, C004M001E0014, C004M001E0015]
+              boundaries:
+                - id: IC004M001E0006
+                  target: tempfile.TemporaryDirectory
+                  kind: construct
+                  signature: 'tempfile.TemporaryDirectory(prefix="pre-wheel-extract-")'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006]
+                - id: IC004M001E0010
+                  target: zipfile.ZipFile
+                  kind: construct
+                  signature: 'zipfile.ZipFile(wheel_path, "r")'
+                  boundary:
+                    kind: filesystem
+                    operation: read
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006, C004M001E0007, C004M001E0008, C004M001E0009, C004M001E0010]
+                - id: IC004M001E0013
+                  target: dest_path.write_bytes
+                  kind: call
+                  signature: 'dest_path.write_bytes(metadata_bytes)'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C004M001E0002, C004M001E0003, C004M001E0004, C004M001E0005, C004M001E0006, C004M001E0007, C004M001E0008, C004M001E0009, C004M001E0010, C004M001E0011, C004M001E0012, C004M001E0013]
+    - id: C005
+      kind: class
+      name: DirectUriWheelFileStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C005M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: WheelKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: DirectUriWheelFileStrategy
+              - name: key
+                type:
+                  name: WheelKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C005M001E0001
+                condition: 'if not isinstance(key, WheelKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C005M001E0002
+                condition: 'else'
+                outcome: 'continues to line 304'
+              - id: C005M001E0003
+                condition: 'if key.origin_uri is None'
+                outcome: 'raises ValueError'
+              - id: C005M001E0004
+                condition: 'else'
+                outcome: 'continues to line 307'
+              - id: C005M001E0005
+                condition: 'executes'
+                outcome: 'src_parsed = urlparse(key.origin_uri)'
+              - id: C005M001E0006
+                condition: 'if src_parsed.scheme not in ("file", "")'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C005M001E0007
+                condition: 'else'
+                outcome: 'continues to line 311'
+              - id: C005M001E0008
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C005M001E0009
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C005M001E0010
+                condition: 'if src_parsed.scheme == "file"'
+                outcome: 'src_path = Path(src_parsed.path)'
+              - id: C005M001E0011
+                condition: 'else'
+                outcome: 'src_path = Path(key.origin_uri)'
+              - id: C005M001E0012
+                condition: 'if not src_path.exists()'
+                outcome: 'raises FileNotFoundError'
+              - id: C005M001E0013
+                condition: 'else'
+                outcome: 'continues to line 322'
+              - id: C005M001E0014
+                condition: 'with src_path.open("rb") as r, dest_path.open("wb") as w'
+                outcome: 'enters with block'
+              - id: C005M001E0015
+                condition: 'for chunk in iter(...) (0 iterations)'
+                outcome: 'loop body never executes'
+              - id: C005M001E0016
+                condition: 'for chunk in iter(...) (≥1 iterations)'
+                outcome: 'loop body executes'
+              - id: C005M001E0017
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C005M001E0018
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C005M001E0019
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC005M001E0005
+                  target: urlparse
+                  kind: call
+                  signature: 'urlparse(key.origin_uri)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005]
+                - id: IC005M001E0008
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008]
+                - id: IC005M001E0009
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009]
+                - id: IC005M001E0010
+                  target: Path
+                  kind: construct
+                  signature: 'Path(src_parsed.path)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0010]
+                - id: IC005M001E0011
+                  target: Path
+                  kind: construct
+                  signature: 'Path(key.origin_uri)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0011]
+                - id: IC005M001E0018
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0010, C005M001E0013, C005M001E0014, C005M001E0015, C005M001E0017, C005M001E0018]
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0010, C005M001E0013, C005M001E0014, C005M001E0016, C005M001E0017, C005M001E0018]
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0011, C005M001E0013, C005M001E0014, C005M001E0015, C005M001E0017, C005M001E0018]
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0011, C005M001E0013, C005M001E0014, C005M001E0016, C005M001E0017, C005M001E0018]
+              boundaries:
+                - id: IC005M001E0014
+                  target: src_path.open
+                  kind: call
+                  signature: 'src_path.open("rb")'
+                  boundary:
+                    kind: filesystem
+                    operation: read
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0010, C005M001E0013, C005M001E0014]
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0011, C005M001E0013, C005M001E0014]
+                - id: IC005M001E0014B
+                  target: dest_path.open
+                  kind: call
+                  signature: 'dest_path.open("wb")'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0010, C005M001E0013, C005M001E0014]
+                    - [C005M001E0002, C005M001E0004, C005M001E0005, C005M001E0007, C005M001E0008, C005M001E0009, C005M001E0011, C005M001E0013, C005M001E0014]
+    - id: C006
+      kind: class
+      name: DirectUriCoreMetadataStrategy
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+      children:
+        - id: C006M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, *, key: CoreMetadataKey, destination_uri: str) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: DirectUriCoreMetadataStrategy
+              - name: key
+                type:
+                  name: CoreMetadataKey
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C006M001E0001
+                condition: 'if not isinstance(key, CoreMetadataKey)'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C006M001E0002
+                condition: 'else'
+                outcome: 'continues to line 353'
+              - id: C006M001E0003
+                condition: 'executes'
+                outcome: 'parsed = urlparse(key.file_url)'
+              - id: C006M001E0004
+                condition: 'if parsed.scheme not in ("", "file")'
+                outcome: 'raises StrategyNotApplicable()'
+              - id: C006M001E0005
+                condition: 'else'
+                outcome: 'continues to line 357'
+              - id: C006M001E0006
+                condition: 'if parsed.scheme == "file"'
+                outcome: 'wheel_path = Path(unquote(parsed.path))'
+              - id: C006M001E0007
+                condition: 'else'
+                outcome: 'wheel_path = Path(key.file_url)'
+              - id: C006M001E0008
+                condition: 'if not wheel_path.exists()'
+                outcome: 'raises FileNotFoundError'
+              - id: C006M001E0009
+                condition: 'else'
+                outcome: 'continues to line 363'
+              - id: C006M001E0010
+                condition: 'if not wheel_path.is_file()'
+                outcome: 'raises ValueError'
+              - id: C006M001E0011
+                condition: 'else'
+                outcome: 'continues to line 366'
+              - id: C006M001E0012
+                condition: 'executes'
+                outcome: 'dest_path = _require_file_destination(destination_uri)'
+              - id: C006M001E0013
+                condition: 'executes'
+                outcome: '_ensure_parent_dir(dest_path)'
+              - id: C006M001E0014
+                condition: 'with zipfile.ZipFile(...)'
+                outcome: 'enters with block'
+              - id: C006M001E0015
+                condition: 'executes'
+                outcome: 'member = _find_dist_info_metadata_path(zf)'
+              - id: C006M001E0016
+                condition: 'executes'
+                outcome: 'metadata_bytes = zf.read(member)'
+              - id: C006M001E0017
+                condition: 'executes'
+                outcome: 'dest_path.write_bytes(metadata_bytes)'
+              - id: C006M001E0018
+                condition: 'executes'
+                outcome: 'size = dest_path.stat().st_size'
+              - id: C006M001E0019
+                condition: 'executes'
+                outcome: 'sha256 = _sha256_file(dest_path)'
+              - id: C006M001E0020
+                condition: 'return statement'
+                outcome: 'returns ArtifactRecord(...)'
+            integration:
+              interunit:
+                - id: IC006M001E0003
+                  target: urlparse
+                  kind: call
+                  signature: 'urlparse(key.file_url)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003]
+                - id: IC006M001E0006
+                  target: Path
+                  kind: construct
+                  signature: 'Path(unquote(parsed.path))'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006]
+                - id: IC006M001E0006B
+                  target: unquote
+                  kind: call
+                  signature: 'unquote(parsed.path)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006]
+                - id: IC006M001E0007
+                  target: Path
+                  kind: construct
+                  signature: 'Path(key.file_url)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007]
+                - id: IC006M001E0012
+                  target: _require_file_destination
+                  kind: call
+                  signature: '_require_file_destination(destination_uri)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012]
+                - id: IC006M001E0013
+                  target: _ensure_parent_dir
+                  kind: call
+                  signature: '_ensure_parent_dir(dest_path)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013]
+                - id: IC006M001E0015
+                  target: _find_dist_info_metadata_path
+                  kind: call
+                  signature: '_find_dist_info_metadata_path(zf)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015]
+                - id: IC006M001E0019
+                  target: _sha256_file
+                  kind: call
+                  signature: '_sha256_file(dest_path)'
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015, C006M001E0016, C006M001E0017, C006M001E0018, C006M001E0019]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015, C006M001E0016, C006M001E0017, C006M001E0018, C006M001E0019]
+              boundaries:
+                - id: IC006M001E0014
+                  target: zipfile.ZipFile
+                  kind: construct
+                  signature: 'zipfile.ZipFile(wheel_path)'
+                  boundary:
+                    kind: filesystem
+                    operation: read
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014]
+                - id: IC006M001E0017
+                  target: dest_path.write_bytes
+                  kind: call
+                  signature: 'dest_path.write_bytes(metadata_bytes)'
+                  boundary:
+                    kind: filesystem
+                    operation: write
+                  executionPaths:
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0006, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015, C006M001E0016, C006M001E0017]
+                    - [C006M001E0002, C006M001E0003, C006M001E0005, C006M001E0007, C006M001E0009, C006M001E0011, C006M001E0012, C006M001E0013, C006M001E0014, C006M001E0015, C006M001E0016, C006M001E0017]
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: builtin_strategies
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'All callables analyzed successfully with 137 total execution items identified across 16 callables'
+  - severity: info
+    category: assumption
+    message: '44 integration facts enumerated: 31 interunit calls and 13 boundary crossings (filesystem and network)'

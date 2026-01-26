@@ -1,0 +1,172 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: strategies
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C001
+    kind: enum
+    name: InstantiationPolicy
+    address: strategies::InstantiationPolicy@L20
+  - id: C002
+    kind: enum
+    name: StrategyCriticality
+    address: strategies::StrategyCriticality@L32
+  - id: C003
+    kind: class
+    name: ResolutionStrategyConfig
+    address: strategies::ResolutionStrategyConfig@L48
+  - id: C004
+    kind: class
+    name: StrategyNotApplicable
+    address: strategies::StrategyNotApplicable@L70
+  - id: C005
+    kind: class
+    name: BaseArtifactResolutionStrategy
+    address: strategies::BaseArtifactResolutionStrategy@L78
+  - id: C005M001
+    kind: callable
+    name: __post_init__
+    address: strategies::BaseArtifactResolutionStrategy::__post_init__@L97
+  - id: C005M002
+    kind: callable
+    name: resolve
+    address: strategies::BaseArtifactResolutionStrategy::resolve@L101
+  - id: C006
+    kind: class
+    name: IndexMetadataStrategy
+    address: strategies::IndexMetadataStrategy@L124
+  - id: C007
+    kind: class
+    name: CoreMetadataStrategy
+    address: strategies::CoreMetadataStrategy@L129
+  - id: C008
+    kind: class
+    name: WheelFileStrategy
+    address: strategies::WheelFileStrategy@L134
+  branches:
+  - id: C005M001E0001
+    address: strategies::BaseArtifactResolutionStrategy::__post_init__@L98
+    summary: not self.instance_id true → continues to line 99
+  - id: C005M001E0002
+    address: strategies::BaseArtifactResolutionStrategy::__post_init__@L98
+    summary: not self.instance_id false → returns None implicitly
+  - id: C005M001E0003
+    address: strategies::BaseArtifactResolutionStrategy::__post_init__@L99
+    summary: 'executes: object.__setattr__(self, ''instance_id'', self.name)'
+  - id: C005M002E0001
+    address: strategies::BaseArtifactResolutionStrategy::resolve@L115
+    summary: 'executes: raise NotImplementedError'
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: strategies
+  children:
+  - id: C001
+    kind: enum
+    name: InstantiationPolicy
+  - id: C002
+    kind: enum
+    name: StrategyCriticality
+  - id: C003
+    kind: class
+    name: ResolutionStrategyConfig
+  - id: C004
+    kind: class
+    name: StrategyNotApplicable
+  - id: C005
+    kind: class
+    name: BaseArtifactResolutionStrategy
+    decorators:
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+    children:
+    - id: C005M001
+      kind: callable
+      name: __post_init__
+      signature: __post_init__(self) -> None
+      callable:
+        params:
+        - name: self
+          type:
+            name: BaseArtifactResolutionStrategy
+        returnType:
+          name: None
+        branches:
+        - id: C005M001E0001
+          condition: if not self.instance_id
+          outcome: continues to line 99
+        - id: C005M001E0002
+          condition: else
+          outcome: returns None implicitly
+        - id: C005M001E0003
+          condition: executes
+          outcome: object.__setattr__(self, 'instance_id', self.name)
+    - id: C005M002
+      kind: callable
+      name: resolve
+      signature: 'resolve(self, *, key: ArtifactKeyType, destination_uri: str) ->
+        ArtifactRecord | None'
+      decorators:
+      - name: abstractmethod
+      callable:
+        params:
+        - name: self
+          type:
+            name: BaseArtifactResolutionStrategy
+        - name: key
+          type:
+            name: ArtifactKeyType
+        - name: destination_uri
+          type:
+            name: str
+        returnType:
+          name: ArtifactRecord | None
+        raises:
+        - name: NotImplementedError
+        branches:
+        - id: C005M002E0001
+          condition: executes
+          outcome: raise NotImplementedError
+  - id: C006
+    kind: class
+    name: IndexMetadataStrategy
+    decorators:
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+  - id: C007
+    kind: class
+    name: CoreMetadataStrategy
+    decorators:
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+  - id: C008
+    kind: class
+    name: WheelFileStrategy
+    decorators:
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: strategies
+  language: python
+  callablesAnalyzed: 2
+  totalExeItems: 4
+  interunitIntegrations: 0
+  boundaryIntegrations: 0
+findings: []

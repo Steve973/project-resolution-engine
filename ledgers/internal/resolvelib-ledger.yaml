@@ -1,416 +1,613 @@
 docKind: derived-ids
-schemaVersion: "1"
+schemaVersion: '1.0.0'
 unit:
-  name: "project_resolution_engine.internal.resolvelib"
-  language: "python"
-  unitId: "C000"
+  name: resolvelib
+  language: python
+  unitId: C000
 assigned:
   entries:
     - id: C000F001
       kind: callable
       name: _expand_tags_for_context
-      address: "C000::_expand_tags_for_context@L27"
+      address: 'resolvelib::_expand_tags_for_context@L43'
     - id: C000F002
       kind: callable
       name: _safe_url_basename
-      address: "C000::_safe_url_basename@L55"
+      address: 'resolvelib::_safe_url_basename@L76'
     - id: C000F003
       kind: callable
       name: path_from_file_uri
-      address: "C000::path_from_file_uri@L63"
+      address: 'resolvelib::path_from_file_uri@L84'
     - id: C000F004
       kind: callable
       name: _env_python_version
-      address: "C000::_env_python_version@L70"
+      address: 'resolvelib::_env_python_version@L91'
     - id: C000F005
       kind: callable
       name: _version_sort_key
-      address: "C000::_version_sort_key@L81"
+      address: 'resolvelib::_version_sort_key@L102'
     - id: C001
       kind: class
       name: ProjectResolutionProvider
-      address: "C000::ProjectResolutionProvider@L89"
+      address: 'resolvelib::ProjectResolutionProvider@L110'
     - id: C001M001
       kind: callable
       name: __init__
-      address: "C000::ProjectResolutionProvider.__init__@L92"
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L115'
     - id: C001M002
       kind: callable
       name: identify
-      address: "C000::ProjectResolutionProvider.identify@L102"
+      address: 'resolvelib::ProjectResolutionProvider::identify@L130'
     - id: C001M003
       kind: callable
       name: _best_hash
-      address: "C000::ProjectResolutionProvider._best_hash@L106"
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L135'
     - id: C001M004
       kind: callable
       name: find_matches
-      address: "C000::ProjectResolutionProvider.find_matches@L116"
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L146'
     - id: C001M005
       kind: callable
       name: _materialize_requirements
-      address: "C000::ProjectResolutionProvider._materialize_requirements@L147"
+      address: 'resolvelib::ProjectResolutionProvider::_materialize_requirements@L178'
     - id: C001M006
       kind: callable
       name: _update_requested_extras
-      address: "C000::ProjectResolutionProvider._update_requested_extras@L152"
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L184'
     - id: C001M007
       kind: callable
       name: _compute_bad_set
-      address: "C000::ProjectResolutionProvider._compute_bad_set@L167"
+      address: 'resolvelib::ProjectResolutionProvider::_compute_bad_set@L200'
     - id: C001M008
       kind: callable
       name: _build_uri_candidates
-      address: "C000::ProjectResolutionProvider._build_uri_candidates@L175"
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L209'
     - id: C001M009
       kind: callable
       name: _candidate_from_uri_req
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@L195"
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L230'
     - id: C001M010
       kind: callable
       name: _combined_spec
-      address: "C000::ProjectResolutionProvider._combined_spec@L236"
+      address: 'resolvelib::ProjectResolutionProvider::_combined_spec@L258'
     - id: C001M011
       kind: callable
       name: _load_pep691
-      address: "C000::ProjectResolutionProvider._load_pep691@L244"
+      address: 'resolvelib::ProjectResolutionProvider::_load_pep691@L264'
     - id: C001M012
       kind: callable
       name: _build_index_candidates
-      address: "C000::ProjectResolutionProvider._build_index_candidates@L258"
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L276'
     - id: C001M013
       kind: callable
       name: _candidate_from_index_file
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@L278"
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L318'
     - id: C001M014
       kind: callable
       name: _best_tag
-      address: "C000::ProjectResolutionProvider._best_tag@L338"
+      address: 'resolvelib::ProjectResolutionProvider::_best_tag@L380'
     - id: C001M015
       kind: callable
       name: _sort_candidates
-      address: "C000::ProjectResolutionProvider._sort_candidates@L351"
+      address: 'resolvelib::ProjectResolutionProvider::_sort_candidates@L392'
     - id: C001M016
       kind: callable
       name: is_satisfied_by
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@L363"
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L407'
     - id: C001M017
       kind: callable
       name: get_dependencies
-      address: "C000::ProjectResolutionProvider.get_dependencies@L378"
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L424'
     - id: C001M018
       kind: callable
       name: get_preference
-      address: "C000::ProjectResolutionProvider.get_preference@L434"
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L485'
     - id: C000F006
       kind: callable
       name: resolve
-      address: "C000::resolve@L485"
+      address: 'resolvelib::resolve@L544'
   branches:
-    - id: C000F001B0001
-      parent: C000F001
-      address: "C000::_expand_tags_for_context@if context_tag.interpreter.startswith('cp') and context_tag.interpreter[2:].isdigit()@L45"
-      summary: "CPython-ish ABI fallback tags added"
-    - id: C000F001B0002
-      parent: C000F001
-      address: "C000::_expand_tags_for_context@else@L45"
-      summary: "no ABI fallback tags added"
-    - id: C000F002B0001
-      parent: C000F002
-      address: "C000::_safe_url_basename@if not base@L58"
-      summary: "base empty -> raise ValueError"
-    - id: C000F002B0002
-      parent: C000F002
-      address: "C000::_safe_url_basename@else@L58"
-      summary: "base non-empty -> return basename"
-    - id: C000F003B0001
-      parent: C000F003
-      address: "C000::path_from_file_uri@if u.scheme != 'file'@L65"
-      summary: "non-file scheme -> raise ValueError"
-    - id: C000F003B0002
-      parent: C000F003
-      address: "C000::path_from_file_uri@else@L65"
-      summary: "file scheme -> return filesystem Path"
-    - id: C000F004B0001
-      parent: C000F004
-      address: "C000::_env_python_version@try Version(str(raw))@L75"
-      summary: "raw parses as Version"
-    - id: C000F004B0002
-      parent: C000F004
-      address: "C000::_env_python_version@except InvalidVersion@L77"
-      summary: "raw invalid -> Version('0')"
-    - id: C000F005B0001
-      parent: C000F005
-      address: "C000::_version_sort_key@try Version(v)@L83"
-      summary: "v parses as Version"
-    - id: C000F005B0002
-      parent: C000F005
-      address: "C000::_version_sort_key@except InvalidVersion@L85"
-      summary: "v invalid -> treat as string"
-    - id: C001M003B0001
-      parent: C001M003
-      address: "C000::ProjectResolutionProvider._best_hash@if not (item.hashes or {})@L109"
-      summary: "hashes empty -> None"
-    - id: C001M003B0002
-      parent: C001M003
-      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha256')@L110"
-      summary: "sha256 present -> return sha256"
-    - id: C001M003B0003
-      parent: C001M003
-      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha512')@L110"
-      summary: "sha512 present (sha256 absent) -> return sha512"
-    - id: C001M003B0004
-      parent: C001M003
-      address: "C000::ProjectResolutionProvider._best_hash@if hashes.get('sha384')@L110"
-      summary: "sha384 present (sha256/sha512 absent) -> return sha384"
-    - id: C001M003B0005
-      parent: C001M003
-      address: "C000::ProjectResolutionProvider._best_hash@no preferred hash found@L114"
-      summary: "hashes present but no preferred alg -> None"
-    - id: C001M004B0001
-      parent: C001M004
-      address: "C000::ProjectResolutionProvider.find_matches@if uri_candidates is not None@L129"
-      summary: "direct-URI candidates present -> return sorted uri candidates"
-    - id: C001M004B0002
-      parent: C001M004
-      address: "C000::ProjectResolutionProvider.find_matches@else@L129"
-      summary: "no direct-URI candidates -> build index candidates and return sorted"
-    - id: C001M006B0001
-      parent: C001M006
-      address: "C000::ProjectResolutionProvider._update_requested_extras@if not req_list@L153"
-      summary: "no requirements -> no update"
-    - id: C001M006B0002
-      parent: C001M006
-      address: "C000::ProjectResolutionProvider._update_requested_extras@if not extras_union@L160"
-      summary: "no extras across requirements -> no update"
-    - id: C001M006B0003
-      parent: C001M006
-      address: "C000::ProjectResolutionProvider._update_requested_extras@update requested extras@L163"
-      summary: "extras present -> union into _requested_extras_by_name[name]"
-    - id: C001M008B0001
-      parent: C001M008
-      address: "C000::ProjectResolutionProvider._build_uri_candidates@if not uri_reqs@L181"
-      summary: "no uri requirements -> None"
-    - id: C001M008B0002
-      parent: C001M008
-      address: "C000::ProjectResolutionProvider._build_uri_candidates@if not parsed.scheme@L187"
-      summary: "uri missing scheme -> raise ValueError"
-    - id: C001M008B0003
-      parent: C001M008
-      address: "C000::ProjectResolutionProvider._build_uri_candidates@all candidates None@L193"
-      summary: "uri reqs but no usable candidates -> empty list"
-    - id: C001M008B0004
-      parent: C001M008
-      address: "C000::ProjectResolutionProvider._build_uri_candidates@at least one candidate appended@L190"
-      summary: "uri reqs yield candidates -> list"
-    - id: C001M009B0001
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@except Exception@L206"
-      summary: "wheel filename parse fails -> raise ValueError"
-    - id: C001M009B0002
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if canonicalize_name(dist) != name@L210"
-      summary: "dist mismatch -> None"
-    - id: C001M009B0003
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if best_tag is None@L215"
-      summary: "no supported tag match -> None"
-    - id: C001M009B0004
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if (wk.name,wk.version,wk.tag) in bad@L227"
-      summary: "candidate in incompatibilities -> None"
-    - id: C001M009B0005
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@if req.version is not None and not req.version.contains(wk.version)@L230"
-      summary: "direct uri version not allowed by requirement -> None"
-    - id: C001M009B0006
-      parent: C001M009
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@success@L233"
-      summary: "construct WheelKey and ResolverCandidate"
-    - id: C001M010B0001
-      parent: C001M010
-      address: "C000::ProjectResolutionProvider._combined_spec@no r.version found@L242"
-      summary: "all requirement versions None -> returns None"
-    - id: C001M010B0002
-      parent: C001M010
-      address: "C000::ProjectResolutionProvider._combined_spec@at least one r.version combined@L241"
-      summary: "returns SpecifierSet (possibly multi-part)"
-    - id: C001M011B0001
-      parent: C001M011
-      address: "C000::ProjectResolutionProvider._load_pep691@if pep691 is not None@L246"
-      summary: "cache hit -> return cached Pep691Metadata"
-    - id: C001M011B0002
-      parent: C001M011
-      address: "C000::ProjectResolutionProvider._load_pep691@cache miss load@L249"
-      summary: "load index metadata JSON from filesystem, parse, cache, return"
-    - id: C001M012B0001
-      parent: C001M012
-      address: "C000::ProjectResolutionProvider._build_index_candidates@pep691.files empty@L267"
-      summary: "no files -> empty list"
-    - id: C001M012B0002
-      parent: C001M012
-      address: "C000::ProjectResolutionProvider._build_index_candidates@all c is None@L274"
-      summary: "no usable files -> empty list"
-    - id: C001M012B0003
-      parent: C001M012
-      address: "C000::ProjectResolutionProvider._build_index_candidates@at least one candidate appended@L274"
-      summary: "returns list of ResolverCandidate"
-    - id: C001M013B0001
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if not f.filename.lower().endswith('.whl')@L286"
-      summary: "non-wheel file -> None"
-    - id: C001M013B0002
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if f.yanked and policy==SKIP@L289"
-      summary: "yanked wheel skipped -> None"
-    - id: C001M013B0003
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@except Exception parse_wheel_filename@L292"
-      summary: "parse_wheel_filename fails -> None"
-    - id: C001M013B0004
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if canonicalize_name(dist) != name@L297"
-      summary: "dist mismatch -> None"
-    - id: C001M013B0005
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if combined_spec excludes ver_str@L302"
-      summary: "version not in combined spec -> None"
-    - id: C001M013B0006
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if f.requires_python and not SpecifierSet(...).contains(py_version)@L305"
-      summary: "requires_python excludes env python -> None"
-    - id: C001M013B0007
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@except Exception parsing requires_python@L309"
-      summary: "requires_python parse error -> ignore and continue"
-    - id: C001M013B0008
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if best_tag is None@L314"
-      summary: "no supported tag match -> None"
-    - id: C001M013B0009
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if hash_spec is None@L318"
-      summary: "no acceptable hash present -> None"
-    - id: C001M013B0010
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@if (wk.name,wk.version,wk.tag) in bad@L333"
-      summary: "candidate in incompatibilities -> None"
-    - id: C001M013B0011
-      parent: C001M013
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@success@L336"
-      summary: "construct WheelKey and ResolverCandidate"
-    - id: C001M014B0001
-      parent: C001M014
-      address: "C000::ProjectResolutionProvider._best_tag@if ordered is not None and match found@L345"
-      summary: "ordered tag list present -> return first matching tag"
-    - id: C001M014B0002
-      parent: C001M014
-      address: "C000::ProjectResolutionProvider._best_tag@if ordered is not None and no match@L348"
-      summary: "ordered tag list present -> no match -> None"
-    - id: C001M014B0003
-      parent: C001M014
-      address: "C000::ProjectResolutionProvider._best_tag@if ordered is None and match found@L346"
-      summary: "fallback supported_tags used -> return first matching tag"
-    - id: C001M014B0004
-      parent: C001M014
-      address: "C000::ProjectResolutionProvider._best_tag@if ordered is None and no match@L348"
-      summary: "fallback supported_tags used -> no match -> None"
-    - id: C001M016B0001
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@if candidate.name != requirement.name@L364"
-      summary: "name mismatch -> False"
-    - id: C001M016B0002
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.uri is not None and origin_uri matches@L367"
-      summary: "direct uri requirement satisfied -> True"
-    - id: C001M016B0003
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.uri is not None and origin_uri differs@L367"
-      summary: "direct uri requirement not satisfied -> False"
-    - id: C001M016B0004
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@if requirement.version is None@L370"
-      summary: "no version constraint -> True"
-    - id: C001M016B0005
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@try requirement.version.contains(candidate.version) True@L373"
-      summary: "version constraint satisfied -> True"
-    - id: C001M016B0006
-      parent: C001M016
-      address: "C000::ProjectResolutionProvider.is_satisfied_by@contains False or raises@L375"
-      summary: "version constraint not satisfied -> False"
-    - id: C001M017B0001
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if wk.origin_uri is None@L380"
-      summary: "no origin uri -> return empty iterable"
-    - id: C001M017B0002
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if meta cache hit@L384"
-      summary: "use cached Pep658Metadata"
-    - id: C001M017B0003
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if meta is None@L385"
-      summary: "load core metadata from filesystem, parse, cache"
-    - id: C001M017B0004
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@except Exception Requirement(raw)@L403"
-      summary: "invalid requires_dist entry -> skipped"
-    - id: C001M017B0005
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if req.marker is None@L408"
-      summary: "no marker -> dependency appended"
-    - id: C001M017B0006
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if requested_extras and some extra evaluates True@L409"
-      summary: "marker satisfied for at least one requested extra -> appended"
-    - id: C001M017B0007
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if requested_extras and none evaluate True@L417"
-      summary: "marker not satisfied by any requested extra -> skipped"
-    - id: C001M017B0008
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if not requested_extras and marker evaluates True@L420"
-      summary: "marker satisfied under base env -> appended"
-    - id: C001M017B0009
-      parent: C001M017
-      address: "C000::ProjectResolutionProvider.get_dependencies@if not requested_extras and marker evaluates False@L420"
-      summary: "marker not satisfied under base env -> skipped"
-    - id: C001M018B0001
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@0 if is_backtrack_cause else 1 (True)@L477"
-      summary: "backtrack cause -> first tuple element 0"
-    - id: C001M018B0002
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@0 if is_backtrack_cause else 1 (False)@L477"
-      summary: "not backtrack cause -> first tuple element 1"
-    - id: C001M018B0003
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@0 if is_root else 1 (True)@L478"
-      summary: "root requirement -> second tuple element 0"
-    - id: C001M018B0004
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@0 if is_root else 1 (False)@L478"
-      summary: "non-root -> second tuple element 1"
-    - id: C001M018B0005
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@1 if is_already_resolved else 0 (True)@L481"
-      summary: "already resolved -> fourth tuple element 1"
-    - id: C001M018B0006
-      parent: C001M018
-      address: "C000::ProjectResolutionProvider.get_preference@1 if is_already_resolved else 0 (False)@L481"
-      summary: "not resolved -> fourth tuple element 0"
+    - id: C000F001E0001
+      address: 'resolvelib::_expand_tags_for_context@L63'
+      summary: 'condition true → enters block to add CPython ABI tags'
+    - id: C000F001E0002
+      address: 'resolvelib::_expand_tags_for_context@L63'
+      summary: 'condition false → skips CPython ABI tags'
+    - id: C000F001E0003
+      address: 'resolvelib::_expand_tags_for_context@L73'
+      summary: 'returns frozenset(tags)'
+    - id: C000F002E0001
+      address: 'resolvelib::_safe_url_basename@L79'
+      summary: 'not base true → raises ValueError'
+    - id: C000F002E0002
+      address: 'resolvelib::_safe_url_basename@L79'
+      summary: 'not base false → continues to return'
+    - id: C000F002E0003
+      address: 'resolvelib::_safe_url_basename@L81'
+      summary: 'returns base'
+    - id: C000F003E0001
+      address: 'resolvelib::path_from_file_uri@L86'
+      summary: 'u.scheme != "file" true → raises ValueError'
+    - id: C000F003E0002
+      address: 'resolvelib::path_from_file_uri@L86'
+      summary: 'u.scheme != "file" false → continues to return'
+    - id: C000F003E0003
+      address: 'resolvelib::path_from_file_uri@L88'
+      summary: 'returns Path(url2pathname(u.path))'
+    - id: C000F004E0001
+      address: 'resolvelib::_env_python_version@L97'
+      summary: 'Version(str(raw)) succeeds → returns version'
+    - id: C000F004E0002
+      address: 'resolvelib::_env_python_version@L97'
+      summary: 'Version(str(raw)) raises InvalidVersion → enters except'
+    - id: C000F004E0003
+      address: 'resolvelib::_env_python_version@L99'
+      summary: 'returns Version("0")'
+    - id: C000F005E0001
+      address: 'resolvelib::_version_sort_key@L105'
+      summary: 'Version(v) succeeds → returns (1, Version(v))'
+    - id: C000F005E0002
+      address: 'resolvelib::_version_sort_key@L105'
+      summary: 'Version(v) raises InvalidVersion → enters except'
+    - id: C000F005E0003
+      address: 'resolvelib::_version_sort_key@L107'
+      summary: 'returns (0, v)'
+    - id: C001M001E0001
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L122'
+      summary: 'self._services = services'
+    - id: C001M001E0002
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L123'
+      summary: 'self._env = env'
+    - id: C001M001E0003
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L124'
+      summary: 'self._index_base = index_base'
+    - id: C001M001E0004
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L125'
+      summary: 'self._policy = env.policy'
+    - id: C001M001E0005
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L126'
+      summary: 'self._index_cache initialized'
+    - id: C001M001E0006
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L127'
+      summary: 'self._core_metadata_cache initialized'
+    - id: C001M001E0007
+      address: 'resolvelib::ProjectResolutionProvider::__init__@L128'
+      summary: 'self._requested_extras_by_name initialized'
+    - id: C001M002E0001
+      address: 'resolvelib::ProjectResolutionProvider::identify@L133'
+      summary: 'returns requirement_or_candidate.name'
+    - id: C001M003E0001
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L139'
+      summary: 'hashes truthy → enters if block'
+    - id: C001M003E0002
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L139'
+      summary: 'hashes falsy → returns None'
+    - id: C001M003E0003
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L140'
+      summary: 'for loop 0 iterations → returns None'
+    - id: C001M003E0004
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L140'
+      summary: 'for loop ≥1 iterations → loop executes'
+    - id: C001M003E0005
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L142'
+      summary: 'h truthy → returns (alg, h)'
+    - id: C001M003E0006
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L142'
+      summary: 'h falsy → continues iteration'
+    - id: C001M003E0007
+      address: 'resolvelib::ProjectResolutionProvider::_best_hash@L144'
+      summary: 'returns None after loop'
+    - id: C001M004E0001
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L152'
+      summary: 'canonicalize_name executed'
+    - id: C001M004E0002
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L154'
+      summary: '_materialize_requirements called'
+    - id: C001M004E0003
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L155'
+      summary: '_update_requested_extras called'
+    - id: C001M004E0004
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L157'
+      summary: '_compute_bad_set called'
+    - id: C001M004E0005
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L159'
+      summary: '_build_uri_candidates called'
+    - id: C001M004E0006
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L160'
+      summary: 'uri_candidates is not None → returns sorted'
+    - id: C001M004E0007
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L160'
+      summary: 'uri_candidates is None → continues'
+    - id: C001M004E0008
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L163'
+      summary: '_combined_spec called'
+    - id: C001M004E0009
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L165'
+      summary: '_load_pep691 called'
+    - id: C001M004E0010
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L166'
+      summary: '_env_python_version called'
+    - id: C001M004E0011
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L168'
+      summary: '_build_index_candidates called'
+    - id: C001M004E0012
+      address: 'resolvelib::ProjectResolutionProvider::find_matches@L176'
+      summary: 'returns sorted named_candidates'
+    - id: C001M005E0001
+      address: 'resolvelib::ProjectResolutionProvider::_materialize_requirements@L182'
+      summary: 'returns list from requirements.get'
+    - id: C001M006E0001
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L187'
+      summary: 'not req_list → returns early'
+    - id: C001M006E0002
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L187'
+      summary: 'req_list exists → continues'
+    - id: C001M006E0003
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L191'
+      summary: 'for loop 0 iterations'
+    - id: C001M006E0004
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L191'
+      summary: 'for loop ≥1 iterations'
+    - id: C001M006E0005
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L194'
+      summary: 'not extras_union → returns early'
+    - id: C001M006E0006
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L194'
+      summary: 'extras_union exists → continues'
+    - id: C001M006E0007
+      address: 'resolvelib::ProjectResolutionProvider::_update_requested_extras@L198'
+      summary: 'updates _requested_extras_by_name'
+    - id: C001M007E0001
+      address: 'resolvelib::ProjectResolutionProvider::_compute_bad_set@L204'
+      summary: 'returns set comprehension'
+    - id: C001M008E0001
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L215'
+      summary: 'list comp empty → uri_reqs = []'
+    - id: C001M008E0002
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L215'
+      summary: 'list comp all filtered → uri_reqs = []'
+    - id: C001M008E0003
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L215'
+      summary: 'list comp some pass → uri_reqs populated'
+    - id: C001M008E0004
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L216'
+      summary: 'not uri_reqs → returns None'
+    - id: C001M008E0005
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L216'
+      summary: 'uri_reqs exists → continues'
+    - id: C001M008E0006
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L220'
+      summary: 'for loop 0 iterations'
+    - id: C001M008E0007
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L220'
+      summary: 'for loop ≥1 iterations'
+    - id: C001M008E0008
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L222'
+      summary: 'not parsed.scheme → raises ValueError'
+    - id: C001M008E0009
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L222'
+      summary: 'parsed.scheme exists → continues'
+    - id: C001M008E0010
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L225'
+      summary: 'c is not None → appends'
+    - id: C001M008E0011
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L225'
+      summary: 'c is None → continues iteration'
+    - id: C001M008E0012
+      address: 'resolvelib::ProjectResolutionProvider::_build_uri_candidates@L228'
+      summary: 'returns candidates'
+    - id: C001M009E0001
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L233'
+      summary: 'assert req.uri is not None passes → continues'
+    - id: C001M009E0002
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L233'
+      summary: 'assert req.uri is not None fails → raises AssertionError'
+    - id: C001M009E0003
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L236'
+      summary: '_safe_url_basename succeeds'
+    - id: C001M009E0004
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L236'
+      summary: 'Exception raised → enters except'
+    - id: C001M009E0005
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L239'
+      summary: 'raises ValueError'
+    - id: C001M009E0006
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L243'
+      summary: 'canonicalize_name != name → returns None'
+    - id: C001M009E0007
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L243'
+      summary: 'canonicalize_name == name → continues'
+    - id: C001M009E0008
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L247'
+      summary: 'no best_tag → returns None'
+    - id: C001M009E0009
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L247'
+      summary: 'best_tag found → continues'
+    - id: C001M009E0010
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L250'
+      summary: 'parsed.scheme == "file" → sets local_path'
+    - id: C001M009E0011
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L250'
+      summary: 'parsed.scheme != "file" → local_path = None'
+    - id: C001M009E0012
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L252'
+      summary: 'local_path is None → returns None'
+    - id: C001M009E0013
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L252'
+      summary: 'local_path exists → continues'
+    - id: C001M009E0014
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L254'
+      summary: 'not local_path.exists() → returns None'
+    - id: C001M009E0015
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L254'
+      summary: 'local_path.exists() → continues'
+    - id: C001M009E0016
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_uri_req@L255'
+      summary: 'returns ResolverCandidate'
+    - id: C001M010E0001
+      address: 'resolvelib::ProjectResolutionProvider::_combined_spec@L259'
+      summary: 'not req_list → returns None'
+    - id: C001M010E0002
+      address: 'resolvelib::ProjectResolutionProvider::_combined_spec@L259'
+      summary: 'req_list exists → continues'
+    - id: C001M010E0003
+      address: 'resolvelib::ProjectResolutionProvider::_combined_spec@L262'
+      summary: 'returns SpecifierSet'
+    - id: C001M011E0001
+      address: 'resolvelib::ProjectResolutionProvider::_load_pep691@L265'
+      summary: 'name in cache → returns cached'
+    - id: C001M011E0002
+      address: 'resolvelib::ProjectResolutionProvider::_load_pep691@L265'
+      summary: 'name not in cache → continues'
+    - id: C001M011E0003
+      address: 'resolvelib::ProjectResolutionProvider::_load_pep691@L272'
+      summary: 'loads and caches metadata'
+    - id: C001M011E0004
+      address: 'resolvelib::ProjectResolutionProvider::_load_pep691@L273'
+      summary: 'returns meta'
+    - id: C001M012E0001
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L311'
+      summary: 'for loop 0 iterations'
+    - id: C001M012E0002
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L311'
+      summary: 'for loop ≥1 iterations'
+    - id: C001M012E0003
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L314'
+      summary: 'c is not None → appends'
+    - id: C001M012E0004
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L314'
+      summary: 'c is None → continues'
+    - id: C001M012E0005
+      address: 'resolvelib::ProjectResolutionProvider::_build_index_candidates@L315'
+      summary: 'returns candidates'
+    - id: C001M013E0001
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L327'
+      summary: 'not endswith .whl → returns None'
+    - id: C001M013E0002
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L327'
+      summary: 'endswith .whl → continues'
+    - id: C001M013E0003
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L330'
+      summary: 'yanked and SKIP → returns None'
+    - id: C001M013E0004
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L330'
+      summary: 'not yanked or not SKIP → continues'
+    - id: C001M013E0005
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L334'
+      summary: 'parse_wheel_filename succeeds'
+    - id: C001M013E0006
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L334'
+      summary: 'parse_wheel_filename raises → returns None'
+    - id: C001M013E0007
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L338'
+      summary: 'canonicalize != name → returns None'
+    - id: C001M013E0008
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L338'
+      summary: 'canonicalize == name → continues'
+    - id: C001M013E0009
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L343'
+      summary: 'spec exists and not contains → returns None'
+    - id: C001M013E0010
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L343'
+      summary: 'spec None or contains → continues'
+    - id: C001M013E0011
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L346'
+      summary: 'f.requires_python truthy → enters block'
+    - id: C001M013E0012
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L346'
+      summary: 'f.requires_python falsy → skips block'
+    - id: C001M013E0013
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L348'
+      summary: 'not contains → returns None'
+    - id: C001M013E0014
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L348'
+      summary: 'contains → continues'
+    - id: C001M013E0015
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L348'
+      summary: 'Exception raised → enters except'
+    - id: C001M013E0016
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L350'
+      summary: 'pass → continues'
+    - id: C001M013E0017
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L354'
+      summary: 'best_tag assignment'
+    - id: C001M013E0018
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L355'
+      summary: 'best_tag is None → returns None'
+    - id: C001M013E0019
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L355'
+      summary: 'best_tag exists → continues'
+    - id: C001M013E0020
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L358'
+      summary: 'hash_spec assignment'
+    - id: C001M013E0021
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L359'
+      summary: 'hash_spec is None → returns None'
+    - id: C001M013E0022
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L359'
+      summary: 'hash_spec exists → continues'
+    - id: C001M013E0023
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L374'
+      summary: 'tup in bad → returns None'
+    - id: C001M013E0024
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L374'
+      summary: 'tup not in bad → continues'
+    - id: C001M013E0025
+      address: 'resolvelib::ProjectResolutionProvider::_candidate_from_index_file@L377'
+      summary: 'returns ResolverCandidate'
+    - id: C001M014E0001
+      address: 'resolvelib::ProjectResolutionProvider::_best_tag@L387'
+      summary: 'getattr returns value'
+    - id: C001M014E0002
+      address: 'resolvelib::ProjectResolutionProvider::_best_tag@L388'
+      summary: 'ordered is None → fallback'
+    - id: C001M014E0003
+      address: 'resolvelib::ProjectResolutionProvider::_best_tag@L388'
+      summary: 'ordered exists → continues'
+    - id: C001M014E0004
+      address: 'resolvelib::ProjectResolutionProvider::_best_tag@L390'
+      summary: 'returns next result'
+    - id: C001M015E0001
+      address: 'resolvelib::ProjectResolutionProvider::_sort_candidates@L402'
+      summary: 'candidates.sort executes'
+    - id: C001M015E0002
+      address: 'resolvelib::ProjectResolutionProvider::_sort_candidates@L405'
+      summary: 'returns candidates'
+    - id: C001M016E0001
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L410'
+      summary: 'names differ → returns False'
+    - id: C001M016E0002
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L410'
+      summary: 'names match → continues'
+    - id: C001M016E0003
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L413'
+      summary: 'uri not None → returns comparison'
+    - id: C001M016E0004
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L413'
+      summary: 'uri is None → continues'
+    - id: C001M016E0005
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L416'
+      summary: 'version is None → returns True'
+    - id: C001M016E0006
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L416'
+      summary: 'version exists → continues'
+    - id: C001M016E0007
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L420'
+      summary: 'contains succeeds → returns result'
+    - id: C001M016E0008
+      address: 'resolvelib::ProjectResolutionProvider::is_satisfied_by@L420'
+      summary: 'Exception → returns False'
+    - id: C001M017E0001
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L428'
+      summary: 'if wk.origin_uri is None → returns ()'
+    - id: C001M017E0002
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L428'
+      summary: 'wk.origin_uri is not None → continues'
+    - id: C001M017E0003
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L432'
+      summary: 'meta = cache.get(cache_key)'
+    - id: C001M017E0004
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L433'
+      summary: 'meta is None → loads metadata'
+    - id: C001M017E0005
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L433'
+      summary: 'meta is not None → skips load'
+    - id: C001M017E0006
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L450'
+      summary: 'for loop 0 iterations → deps = []'
+    - id: C001M017E0007
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L450'
+      summary: 'for loop ≥1 iterations → loop body executes'
+    - id: C001M017E0008
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L452'
+      summary: 'Requirement(raw) succeeds → req created'
+    - id: C001M017E0009
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L452'
+      summary: 'Requirement(raw) raises Exception → continue to next iteration'
+    - id: C001M017E0010
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L456'
+      summary: 'req.marker is not None → enters marker evaluation block'
+    - id: C001M017E0011
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L456'
+      summary: 'req.marker is None → skips marker evaluation, proceeds to append'
+    - id: C001M017E0012
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L457'
+      summary: 'requested_extras truthy → evaluates with extras'
+    - id: C001M017E0013
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L457'
+      summary: 'requested_extras falsy → single evaluation without extras'
+    - id: C001M017E0014
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L459'
+      summary: 'for extra loop 0 iterations → ok = False'
+    - id: C001M017E0015
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L459'
+      summary: 'for extra loop ≥1 iterations → evaluates markers'
+    - id: C001M017E0016
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L462'
+      summary: 'req.marker.evaluate true → ok = True, breaks'
+    - id: C001M017E0017
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L462'
+      summary: 'req.marker.evaluate false → continues iteration'
+    - id: C001M017E0018
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L465'
+      summary: 'not ok (true) → continue outer loop'
+    - id: C001M017E0019
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L465'
+      summary: 'not ok (false) → proceeds to append'
+    - id: C001M017E0020
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L468'
+      summary: 'not req.marker.evaluate (true) → continue outer loop'
+    - id: C001M017E0021
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L468'
+      summary: 'req.marker.evaluate (true) → proceeds to append'
+    - id: C001M017E0022
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L471'
+      summary: 'deps.append(ResolverRequirement(...)) executes'
+    - id: C001M017E0023
+      address: 'resolvelib::ProjectResolutionProvider::get_dependencies@L483'
+      summary: 'returns deps'
+    - id: C001M018E0001
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L507'
+      summary: 'information.get returns iterator'
+    - id: C001M018E0002
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L511'
+      summary: 'any ri.parent is None check'
+    - id: C001M018E0003
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L515'
+      summary: 'sum parent_count calculation'
+    - id: C001M018E0004
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L519'
+      summary: 'any backtrack check'
+    - id: C001M018E0005
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L525'
+      summary: 'identifier in resolutions check'
+    - id: C001M018E0006
+      address: 'resolvelib::ProjectResolutionProvider::get_preference@L535'
+      summary: 'returns preference tuple'
+    - id: C000F006E0001
+      address: 'resolvelib::resolve@L547'
+      summary: 'ProjectResolutionProvider created'
+    - id: C000F006E0002
+      address: 'resolvelib::resolve@L548'
+      summary: 'ProjectResolutionReporter created'
+    - id: C000F006E0003
+      address: 'resolvelib::resolve@L549'
+      summary: 'Resolver created'
+    - id: C000F006E0004
+      address: 'resolvelib::resolve@L552'
+      summary: 'returns resolver.resolve(roots)'
 ---
 docKind: ledger
-schemaVersion: "1"
+schemaVersion: '1.0.0'
 unit:
   id: C000
-  name: "project_resolution_engine.internal.resolvelib"
   kind: unit
+  name: resolvelib
   children:
     - id: C000F001
-      name: _expand_tags_for_context
       kind: callable
-      signature: "_expand_tags_for_context(*, python_version: Version, context_tag: Tag) -> frozenset[Tag]"
+      name: _expand_tags_for_context
+      signature: '_expand_tags_for_context(*, python_version: Version, context_tag: Tag) -> frozenset[Tag]'
       callable:
         params:
           - name: python_version
@@ -419,87 +616,177 @@ unit:
           - name: context_tag
             type:
               name: Tag
+        returnType:
+          name: 'frozenset[Tag]'
         branches:
-          - id: C000F001B0001
-            condition: "if context_tag.interpreter.startswith('cp') and context_tag.interpreter[2:].isdigit()"
-            outcome: "returned tag set includes cp-abi3 and cp-none for context_tag.platform"
-          - id: C000F001B0002
-            condition: "else"
-            outcome: "returned tag set omits cp-abi3/cp-none fallback tags"
+          - id: C000F001E0001
+            condition: 'if (context_tag.interpreter.startswith("cp") and context_tag.interpreter[2:].isdigit())'
+            outcome: 'enters block'
+          - id: C000F001E0002
+            condition: 'else'
+            outcome: 'skips block'
+          - id: C000F001E0003
+            condition: 'return'
+            outcome: 'returns frozenset(tags)'
+        integration:
+          interunit:
+            - id: IC000F001E0001
+              target: Tag
+              kind: construct
+              signature: 'Tag(py_maj, "none", "any")'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003]
+                - [C000F001E0002, C000F001E0003]
     - id: C000F002
-      name: _safe_url_basename
       kind: callable
-      signature: "_safe_url_basename(url: str) -> str"
+      name: _safe_url_basename
+      signature: '_safe_url_basename(url: str) -> str'
       callable:
         params:
           - name: url
             type:
               name: str
+        returnType:
+          name: str
         branches:
-          - id: C000F002B0001
-            condition: "if not base"
-            outcome: "raises ValueError('URL has no path basename: ...')"
-          - id: C000F002B0002
-            condition: "else"
-            outcome: "returns Path(unquote(urlparse(url).path)).name"
+          - id: C000F002E0001
+            condition: 'if not base'
+            outcome: 'raises ValueError'
+          - id: C000F002E0002
+            condition: 'else'
+            outcome: 'continues'
+          - id: C000F002E0003
+            condition: 'return'
+            outcome: 'returns base'
+        integration:
+          interunit:
+            - id: IC000F002E0001
+              target: urlparse
+              kind: call
+              signature: 'urlparse(url)'
+              executionPaths:
+                - [C000F002E0001]
+                - [C000F002E0002]
+            - id: IC000F002E0002
+              target: Path
+              kind: construct
+              signature: 'Path(unquote(parsed.path))'
+              executionPaths:
+                - [C000F002E0001]
+                - [C000F002E0002]
     - id: C000F003
-      name: path_from_file_uri
       kind: callable
-      signature: "path_from_file_uri(uri: str) -> Path"
+      name: path_from_file_uri
+      signature: 'path_from_file_uri(uri: str) -> Path'
       callable:
         params:
           - name: uri
             type:
               name: str
+        returnType:
+          name: Path
         branches:
-          - id: C000F003B0001
-            condition: "if u.scheme != 'file'"
-            outcome: "raises ValueError('Expected file URI, got: ...')"
-          - id: C000F003B0002
-            condition: "else"
-            outcome: "returns Path(url2pathname(u.path))"
+          - id: C000F003E0001
+            condition: 'if u.scheme != "file"'
+            outcome: 'raises ValueError'
+          - id: C000F003E0002
+            condition: 'else'
+            outcome: 'continues'
+          - id: C000F003E0003
+            condition: 'return'
+            outcome: 'returns Path'
+        integration:
+          interunit:
+            - id: IC000F003E0001
+              target: urlparse
+              kind: call
+              signature: 'urlparse(uri)'
+              executionPaths:
+                - [C000F003E0001]
+                - [C000F003E0002]
+            - id: IC000F003E0002
+              target: Path
+              kind: construct
+              signature: 'Path(url2pathname(u.path))'
+              executionPaths:
+                - [C000F003E0002, C000F003E0003]
     - id: C000F004
-      name: _env_python_version
       kind: callable
-      signature: "_env_python_version(env: ResolutionEnv) -> Version"
+      name: _env_python_version
+      signature: '_env_python_version(env: ResolutionEnv) -> Version'
       callable:
         params:
           - name: env
             type:
               name: ResolutionEnv
+        returnType:
+          name: Version
         branches:
-          - id: C000F004B0001
-            condition: "try: Version(str(raw))"
-            outcome: "returns Version(parsed from env.marker_environment python_full_version/python_version)"
-          - id: C000F004B0002
-            condition: "except InvalidVersion"
-            outcome: "returns Version('0')"
+          - id: C000F004E0001
+            condition: 'Version(str(raw)) succeeds'
+            outcome: 'returns version'
+          - id: C000F004E0002
+            condition: 'Version(str(raw)) raises InvalidVersion'
+            outcome: 'enters except'
+          - id: C000F004E0003
+            condition: 'except handler'
+            outcome: 'returns Version("0")'
+        integration:
+          interunit:
+            - id: IC000F004E0001
+              target: Version
+              kind: construct
+              signature: 'Version(str(raw))'
+              executionPaths:
+                - [C000F004E0001]
+            - id: IC000F004E0002
+              target: Version
+              kind: construct
+              signature: 'Version("0")'
+              executionPaths:
+                - [C000F004E0002, C000F004E0003]
     - id: C000F005
-      name: _version_sort_key
       kind: callable
-      signature: "_version_sort_key(v: str) -> tuple[int, Version | str]"
+      name: _version_sort_key
+      signature: '_version_sort_key(v: str) -> tuple[int, Version | str]'
       callable:
         params:
           - name: v
             type:
               name: str
+        returnType:
+          name: 'tuple[int, Version | str]'
         branches:
-          - id: C000F005B0001
-            condition: "try: Version(v)"
-            outcome: "returns (1, Version(v))"
-          - id: C000F005B0002
-            condition: "except InvalidVersion"
-            outcome: "returns (0, v)"
+          - id: C000F005E0001
+            condition: 'Version(v) succeeds'
+            outcome: 'returns (1, Version(v))'
+          - id: C000F005E0002
+            condition: 'Version(v) raises InvalidVersion'
+            outcome: 'enters except'
+          - id: C000F005E0003
+            condition: 'except handler'
+            outcome: 'returns (0, v)'
+        integration:
+          interunit:
+            - id: IC000F005E0001
+              target: Version
+              kind: construct
+              signature: 'Version(v)'
+              executionPaths:
+                - [C000F005E0001]
     - id: C001
-      name: ProjectResolutionProvider
       kind: class
+      name: ProjectResolutionProvider
       children:
         - id: C001M001
-          name: __init__
           kind: callable
-          signature: "__init__(self, *, services: ResolutionServices, env: ResolutionEnv, index_base: str = 'https://pypi.org/simple') -> None"
+          name: __init__
+          signature: '__init__(self, *, services: ResolutionServices, env: ResolutionEnv, index_base: str = "https://pypi.org/simple") -> None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: services
                 type:
                   name: ResolutionServices
@@ -509,139 +796,268 @@ unit:
               - name: index_base
                 type:
                   name: str
-                default: "https://pypi.org/simple"
+                default: '"https://pypi.org/simple"'
+            returnType:
+              name: None
             branches:
-              - id: C001M001B0001
-                condition: "always"
-                outcome: "initializes provider state and empty caches"
+              - id: C001M001E0001
+                condition: 'assignment'
+                outcome: 'self._services = services'
+              - id: C001M001E0002
+                condition: 'assignment'
+                outcome: 'self._env = env'
+              - id: C001M001E0003
+                condition: 'assignment'
+                outcome: 'self._index_base = index_base'
+              - id: C001M001E0004
+                condition: 'assignment'
+                outcome: 'self._policy = env.policy'
+              - id: C001M001E0005
+                condition: 'assignment'
+                outcome: 'self._index_cache initialized'
+              - id: C001M001E0006
+                condition: 'assignment'
+                outcome: 'self._core_metadata_cache initialized'
+              - id: C001M001E0007
+                condition: 'assignment'
+                outcome: 'self._requested_extras_by_name initialized'
         - id: C001M002
-          name: identify
           kind: callable
-          signature: "identify(self, requirement_or_candidate: ResolverRequirement | ResolverCandidate) -> str"
+          name: identify
+          signature: 'identify(self, requirement_or_candidate: ResolverRequirement | ResolverCandidate) -> str'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: requirement_or_candidate
                 type:
-                  name: "ResolverRequirement | ResolverCandidate"
+                  name: 'ResolverRequirement | ResolverCandidate'
+            returnType:
+              name: str
             branches:
-              - id: C001M002B0001
-                condition: "always"
-                outcome: "returns requirement_or_candidate.name"
+              - id: C001M002E0001
+                condition: 'return'
+                outcome: 'returns requirement_or_candidate.name'
         - id: C001M003
-          name: _best_hash
           kind: callable
-          decorators:
-            - name: staticmethod
-          signature: "_best_hash(item: Pep691FileMetadata) -> tuple[str, str] | None"
+          name: _best_hash
+          signature: '_best_hash(item: Pep691FileMetadata) -> tuple[str, str] | None'
           callable:
             params:
               - name: item
                 type:
                   name: Pep691FileMetadata
+            returnType:
+              name: 'tuple[str, str] | None'
             branches:
-              - id: C001M003B0001
-                condition: "if not (item.hashes or {})"
-                outcome: "returns None"
-              - id: C001M003B0002
-                condition: "if (item.hashes or {}).get('sha256')"
-                outcome: "returns ('sha256', <hash>)"
-              - id: C001M003B0003
-                condition: "if (item.hashes or {}).get('sha512') and sha256 not present"
-                outcome: "returns ('sha512', <hash>)"
-              - id: C001M003B0004
-                condition: "if (item.hashes or {}).get('sha384') and sha256/sha512 not present"
-                outcome: "returns ('sha384', <hash>)"
-              - id: C001M003B0005
-                condition: "hashes present but none of ('sha256','sha512','sha384') present"
-                outcome: "returns None"
+              - id: C001M003E0001
+                condition: 'if hashes'
+                outcome: 'enters block'
+              - id: C001M003E0002
+                condition: 'else'
+                outcome: 'returns None'
+              - id: C001M003E0003
+                condition: 'for loop 0 iterations'
+                outcome: 'exits loop, returns None'
+              - id: C001M003E0004
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop executes'
+              - id: C001M003E0005
+                condition: 'if h'
+                outcome: 'returns (alg, h)'
+              - id: C001M003E0006
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M003E0007
+                condition: 'return'
+                outcome: 'returns None'
         - id: C001M004
-          name: find_matches
           kind: callable
-          signature: "find_matches(self, identifier: str, requirements: Mapping[str, Iterator[ResolverRequirement]], incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> Iterable[ResolverCandidate]"
+          name: find_matches
+          signature: 'find_matches(self, identifier: str, requirements: Mapping[str, Iterator[ResolverRequirement]], incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> Iterable[ResolverCandidate]'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: identifier
                 type:
                   name: str
               - name: requirements
                 type:
-                  name: "Mapping[str, Iterator[ResolverRequirement]]"
+                  name: 'Mapping[str, Iterator[ResolverRequirement]]'
               - name: incompatibilities
                 type:
-                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+                  name: 'Mapping[str, Iterator[ResolverCandidate]]'
+            returnType:
+              name: 'Iterable[ResolverCandidate]'
+            branches:
+              - id: C001M004E0001
+                condition: 'assignment'
+                outcome: 'name = canonicalize_name(identifier)'
+              - id: C001M004E0002
+                condition: 'call'
+                outcome: 'req_list = self._materialize_requirements(...)'
+              - id: C001M004E0003
+                condition: 'call'
+                outcome: 'self._update_requested_extras(...)'
+              - id: C001M004E0004
+                condition: 'assignment'
+                outcome: 'bad = self._compute_bad_set(...)'
+              - id: C001M004E0005
+                condition: 'assignment'
+                outcome: 'uri_candidates = self._build_uri_candidates(...)'
+              - id: C001M004E0006
+                condition: 'if uri_candidates is not None'
+                outcome: 'returns sorted'
+              - id: C001M004E0007
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M004E0008
+                condition: 'assignment'
+                outcome: 'combined_spec = self._combined_spec(...)'
+              - id: C001M004E0009
+                condition: 'assignment'
+                outcome: 'pep691 = self._load_pep691(...)'
+              - id: C001M004E0010
+                condition: 'assignment'
+                outcome: 'py_version = _env_python_version(...)'
+              - id: C001M004E0011
+                condition: 'assignment'
+                outcome: 'named_candidates = self._build_index_candidates(...)'
+              - id: C001M004E0012
+                condition: 'return'
+                outcome: 'returns sorted named_candidates'
             integration:
               interunit:
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._materialize_requirements"
+                - id: IC001M004E0001
+                  target: canonicalize_name
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._update_requested_extras"
+                  signature: 'canonicalize_name(identifier)'
+                  executionPaths:
+                    - [C001M004E0001]
+                - id: IC001M004E0002
+                  target: ProjectResolutionProvider._materialize_requirements
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._compute_bad_set"
+                  signature: 'self._materialize_requirements(requirements, name)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002]
+                - id: IC001M004E0003
+                  target: ProjectResolutionProvider._update_requested_extras
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._build_uri_candidates"
+                  signature: 'self._update_requested_extras(name, req_list)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003]
+                - id: IC001M004E0004
+                  target: ProjectResolutionProvider._compute_bad_set
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._combined_spec"
+                  signature: 'self._compute_bad_set(name, incompatibilities)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004]
+                - id: IC001M004E0005
+                  target: ProjectResolutionProvider._build_uri_candidates
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._load_pep691"
+                  signature: 'self._build_uri_candidates(name, req_list, bad)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005]
+                - id: IC001M004E0006
+                  target: ProjectResolutionProvider._sort_candidates
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib._env_python_version"
+                  signature: 'self._sort_candidates(uri_candidates)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0006]
+                - id: IC001M004E0008
+                  target: ProjectResolutionProvider._combined_spec
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._build_index_candidates"
+                  signature: 'self._combined_spec(req_list)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0007, C001M004E0008]
+                - id: IC001M004E0009
+                  target: ProjectResolutionProvider._load_pep691
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._sort_candidates"
+                  signature: 'self._load_pep691(name)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0007, C001M004E0008, C001M004E0009]
+                - id: IC001M004E0010
+                  target: _env_python_version
                   kind: call
-            branches:
-              - id: C001M004B0001
-                condition: "if uri_candidates is not None"
-                outcome: "returns _sort_candidates(uri_candidates)"
-              - id: C001M004B0002
-                condition: "else"
-                outcome: "returns _sort_candidates(named_candidates)"
+                  signature: '_env_python_version(self._env)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0007, C001M004E0008, C001M004E0009, C001M004E0010]
+                - id: IC001M004E0011
+                  target: ProjectResolutionProvider._build_index_candidates
+                  kind: call
+                  signature: 'self._build_index_candidates(...)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0007, C001M004E0008, C001M004E0009, C001M004E0010, C001M004E0011]
+                - id: IC001M004E0012
+                  target: ProjectResolutionProvider._sort_candidates
+                  kind: call
+                  signature: 'self._sort_candidates(named_candidates)'
+                  executionPaths:
+                    - [C001M004E0001, C001M004E0002, C001M004E0003, C001M004E0004, C001M004E0005, C001M004E0007, C001M004E0008, C001M004E0009, C001M004E0010, C001M004E0011, C001M004E0012]
         - id: C001M005
-          name: _materialize_requirements
           kind: callable
-          decorators:
-            - name: staticmethod
-          signature: "_materialize_requirements(requirements: Mapping[str, Iterator[ResolverRequirement]], name: str) -> list[ResolverRequirement]"
+          name: _materialize_requirements
+          signature: '_materialize_requirements(requirements: Mapping[str, Iterator[ResolverRequirement]], name: str) -> list[ResolverRequirement]'
           callable:
             params:
               - name: requirements
                 type:
-                  name: "Mapping[str, Iterator[ResolverRequirement]]"
+                  name: 'Mapping[str, Iterator[ResolverRequirement]]'
               - name: name
                 type:
                   name: str
+            returnType:
+              name: 'list[ResolverRequirement]'
             branches:
-              - id: C001M005B0001
-                condition: "always"
-                outcome: "returns list(requirements.get(name, iter(())))"
+              - id: C001M005E0001
+                condition: 'return'
+                outcome: 'returns list'
         - id: C001M006
-          name: _update_requested_extras
           kind: callable
-          signature: "_update_requested_extras(self, name: str, req_list: Sequence[ResolverRequirement]) -> None"
+          name: _update_requested_extras
+          signature: '_update_requested_extras(self, name: str, req_list: Sequence[ResolverRequirement]) -> None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
               - name: req_list
                 type:
-                  name: "Sequence[ResolverRequirement]"
+                  name: 'Sequence[ResolverRequirement]'
+            returnType:
+              name: None
             branches:
-              - id: C001M006B0001
-                condition: "if not req_list"
-                outcome: "returns without updating _requested_extras_by_name"
-              - id: C001M006B0002
-                condition: "if not extras_union"
-                outcome: "returns without updating _requested_extras_by_name"
-              - id: C001M006B0003
-                condition: "else"
-                outcome: "_requested_extras_by_name[name] updated to union of existing and collected extras"
+              - id: C001M006E0001
+                condition: 'if not req_list'
+                outcome: 'returns early'
+              - id: C001M006E0002
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M006E0003
+                condition: 'for loop 0 iterations'
+                outcome: 'extras_union empty'
+              - id: C001M006E0004
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop executes'
+              - id: C001M006E0005
+                condition: 'if not extras_union'
+                outcome: 'returns early'
+              - id: C001M006E0006
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M006E0007
+                condition: 'assignment'
+                outcome: 'updates dictionary'
         - id: C001M007
-          name: _compute_bad_set
           kind: callable
-          decorators:
-            - name: staticmethod
-          signature: "_compute_bad_set(name: str, incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> set[tuple[str, str, str]]"
+          name: _compute_bad_set
+          signature: '_compute_bad_set(name: str, incompatibilities: Mapping[str, Iterator[ResolverCandidate]]) -> set[tuple[str, str, str]]'
           callable:
             params:
               - name: name
@@ -649,52 +1065,95 @@ unit:
                   name: str
               - name: incompatibilities
                 type:
-                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+                  name: 'Mapping[str, Iterator[ResolverCandidate]]'
+            returnType:
+              name: 'set[tuple[str, str, str]]'
             branches:
-              - id: C001M007B0001
-                condition: "always"
-                outcome: "returns {(c.name, c.wheel_key.version, c.wheel_key.tag) for c in incompatibilities.get(name, iter(()))}"
+              - id: C001M007E0001
+                condition: 'return'
+                outcome: 'returns set comprehension'
         - id: C001M008
-          name: _build_uri_candidates
           kind: callable
-          signature: "_build_uri_candidates(self, name: str, req_list: Sequence[ResolverRequirement], bad: set[tuple[str, str, str]]) -> list[ResolverCandidate] | None"
+          name: _build_uri_candidates
+          signature: '_build_uri_candidates(self, name: str, req_list: Sequence[ResolverRequirement], bad: set[tuple[str, str, str]]) -> list[ResolverCandidate] | None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
               - name: req_list
                 type:
-                  name: "Sequence[ResolverRequirement]"
+                  name: 'Sequence[ResolverRequirement]'
               - name: bad
                 type:
-                  name: "set[tuple[str, str, str]]"
+                  name: 'set[tuple[str, str, str]]'
+            returnType:
+              name: 'list[ResolverCandidate] | None'
+            branches:
+              - id: C001M008E0001
+                condition: 'list comp empty'
+                outcome: 'uri_reqs = []'
+              - id: C001M008E0002
+                condition: 'list comp all filtered'
+                outcome: 'uri_reqs = []'
+              - id: C001M008E0003
+                condition: 'list comp some pass'
+                outcome: 'uri_reqs populated'
+              - id: C001M008E0004
+                condition: 'if not uri_reqs'
+                outcome: 'returns None'
+              - id: C001M008E0005
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M008E0006
+                condition: 'for loop 0 iterations'
+                outcome: 'candidates = []'
+              - id: C001M008E0007
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop executes'
+              - id: C001M008E0008
+                condition: 'if not parsed.scheme'
+                outcome: 'raises ValueError'
+              - id: C001M008E0009
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M008E0010
+                condition: 'if c is not None'
+                outcome: 'appends candidate'
+              - id: C001M008E0011
+                condition: 'else'
+                outcome: 'continues iteration'
+              - id: C001M008E0012
+                condition: 'return'
+                outcome: 'returns candidates'
             integration:
               interunit:
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._candidate_from_uri_req"
+                - id: IC001M008E0001
+                  target: urlparse
                   kind: call
-              boundaries:
-                - target: "urllib.parse.urlparse"
+                  signature: 'urlparse(r.uri)'
+                  executionPaths:
+                    - [C001M008E0003, C001M008E0005, C001M008E0007, C001M008E0008]
+                    - [C001M008E0003, C001M008E0005, C001M008E0007, C001M008E0009]
+                - id: IC001M008E0002
+                  target: ProjectResolutionProvider._candidate_from_uri_req
                   kind: call
-            branches:
-              - id: C001M008B0001
-                condition: "if not uri_reqs"
-                outcome: "returns None"
-              - id: C001M008B0002
-                condition: "if not parsed.scheme"
-                outcome: "raises ValueError('Invalid resolver requirement URI: ...')"
-              - id: C001M008B0003
-                condition: "uri_reqs present and all c is None"
-                outcome: "returns []"
-              - id: C001M008B0004
-                condition: "uri_reqs present and some c is not None"
-                outcome: "returns list of ResolverCandidate"
+                  signature: 'self._candidate_from_uri_req(name=name, req=r, bad=bad)'
+                  executionPaths:
+                    - [C001M008E0003, C001M008E0005, C001M008E0007, C001M008E0009, C001M008E0010]
+                    - [C001M008E0003, C001M008E0005, C001M008E0007, C001M008E0009, C001M008E0011]
         - id: C001M009
-          name: _candidate_from_uri_req
           kind: callable
-          signature: "_candidate_from_uri_req(self, *, name: str, req: ResolverRequirement, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None"
+          name: _candidate_from_uri_req
+          signature: '_candidate_from_uri_req(self, *, name: str, req: ResolverRequirement, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
@@ -703,90 +1162,200 @@ unit:
                   name: ResolverRequirement
               - name: bad
                 type:
-                  name: "set[tuple[str, str, str]]"
+                  name: 'set[tuple[str, str, str]]'
+            returnType:
+              name: 'ResolverCandidate | None'
+            branches:
+              - id: C001M009E0001
+                condition: 'assert req.uri is not None (passes)'
+                outcome: 'continues'
+              - id: C001M009E0002
+                condition: 'assert req.uri is not None (fails)'
+                outcome: 'raises AssertionError'
+              - id: C001M009E0003
+                condition: 'try succeeds'
+                outcome: 'filename and parse succeed'
+              - id: C001M009E0004
+                condition: 'Exception raised'
+                outcome: 'enters except'
+              - id: C001M009E0005
+                condition: 'raise'
+                outcome: 'raises ValueError'
+              - id: C001M009E0006
+                condition: 'if canonicalize_name(dist) != name'
+                outcome: 'returns None'
+              - id: C001M009E0007
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M009E0008
+                condition: 'if best_tag is None'
+                outcome: 'returns None'
+              - id: C001M009E0009
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M009E0010
+                condition: 'if tup in bad'
+                outcome: 'returns None'
+              - id: C001M009E0011
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M009E0012
+                condition: 'if req.version is not None and not req.version.contains(wk.version)'
+                outcome: 'returns None'
+              - id: C001M009E0013
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M009E0014
+                condition: 'return'
+                outcome: 'returns ResolverCandidate'
             integration:
               interunit:
-                - target: "project_resolution_engine.internal.resolvelib._safe_url_basename"
+                - id: IC001M009E0001
+                  target: _safe_url_basename
                   kind: call
-                - target: "project_resolution_engine.model.keys.WheelKey"
+                  signature: '_safe_url_basename(req.uri)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003]
+                - id: IC001M009E0002
+                  target: parse_wheel_filename
+                  kind: call
+                  signature: 'parse_wheel_filename(filename)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003]
+                - id: IC001M009E0003
+                  target: canonicalize_name
+                  kind: call
+                  signature: 'canonicalize_name(dist)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003, C001M009E0006]
+                    - [C001M009E0001, C001M009E0003, C001M009E0007]
+                - id: IC001M009E0004
+                  target: ProjectResolutionProvider._best_tag
+                  kind: call
+                  signature: 'self._best_tag(file_tag_set)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003, C001M009E0007, C001M009E0008]
+                    - [C001M009E0001, C001M009E0003, C001M009E0007, C001M009E0009]
+                - id: IC001M009E0005
+                  target: WheelKey
                   kind: construct
-                - target: "project_resolution_engine.internal.resolvelib_types.ResolverCandidate"
+                  signature: 'WheelKey(...)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003, C001M009E0007, C001M009E0009, C001M009E0010]
+                    - [C001M009E0001, C001M009E0003, C001M009E0007, C001M009E0009, C001M009E0011]
+                - id: IC001M009E0006
+                  target: ResolverCandidate
                   kind: construct
-            branches:
-              - id: C001M009B0001
-                condition: "except Exception"
-                outcome: "raises ValueError('Direct URI requirement does not look like a wheel file ...')"
-              - id: C001M009B0002
-                condition: "if canonicalize_name(dist) != name"
-                outcome: "returns None"
-              - id: C001M009B0003
-                condition: "if best_tag is None"
-                outcome: "returns None"
-              - id: C001M009B0004
-                condition: "if (wk.name, wk.version, wk.tag) in bad"
-                outcome: "returns None"
-              - id: C001M009B0005
-                condition: "if req.version is not None and not req.version.contains(wk.version)"
-                outcome: "returns None"
-              - id: C001M009B0006
-                condition: "else"
-                outcome: "returns ResolverCandidate(wheel_key=wk)"
+                  signature: 'ResolverCandidate(wheel_key=wk)'
+                  executionPaths:
+                    - [C001M009E0001, C001M009E0003, C001M009E0007, C001M009E0009, C001M009E0011, C001M009E0013, C001M009E0014]
         - id: C001M010
-          name: _combined_spec
           kind: callable
-          decorators:
-            - name: staticmethod
-          signature: "_combined_spec(req_list: Sequence[ResolverRequirement]) -> SpecifierSet | None"
+          name: _combined_spec
+          signature: '_combined_spec(req_list: Sequence[ResolverRequirement]) -> SpecifierSet | None'
           callable:
             params:
               - name: req_list
                 type:
-                  name: "Sequence[ResolverRequirement]"
+                  name: 'Sequence[ResolverRequirement]'
+            returnType:
+              name: 'SpecifierSet | None'
             branches:
-              - id: C001M010B0001
-                condition: "no r.version present"
-                outcome: "returns None"
-              - id: C001M010B0002
-                condition: "at least one r.version present"
-                outcome: "returns SpecifierSet constructed from versions (comma-combined)"
+              - id: C001M010E0001
+                condition: 'for loop 0 iterations'
+                outcome: 'combined_spec stays None'
+              - id: C001M010E0002
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop executes'
+              - id: C001M010E0003
+                condition: 'return'
+                outcome: 'returns combined_spec'
+            integration:
+              interunit:
+                - id: IC001M010E0001
+                  target: SpecifierSet
+                  kind: construct
+                  signature: 'SpecifierSet(...)'
+                  executionPaths:
+                    - [C001M010E0002, C001M010E0003]
         - id: C001M011
-          name: _load_pep691
           kind: callable
-          signature: "_load_pep691(self, name: str) -> Pep691Metadata"
+          name: _load_pep691
+          signature: '_load_pep691(self, name: str) -> Pep691Metadata'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
+            returnType:
+              name: Pep691Metadata
+            branches:
+              - id: C001M011E0001
+                condition: 'if pep691 is not None'
+                outcome: 'returns cached'
+              - id: C001M011E0002
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M011E0003
+                condition: 'loads and caches metadata'
+                outcome: 'meta loaded'
+              - id: C001M011E0004
+                condition: 'return'
+                outcome: 'returns meta'
             integration:
               interunit:
-                - target: "project_resolution_engine.model.keys.IndexMetadataKey"
+                - id: IC001M011E0001
+                  target: IndexMetadataKey
                   kind: construct
-                - target: "project_resolution_engine.services.ResolutionServices.index_metadata.resolve"
+                  signature: 'IndexMetadataKey(project=name, index_base=self._index_base)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
+                - id: IC001M011E0002
+                  target: ResolutionServices.index_metadata.resolve
                   kind: call
-                - target: "project_resolution_engine.model.pep.Pep691Metadata.from_mapping"
+                  signature: 'self._services.index_metadata.resolve(idx_key)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
+                - id: IC001M011E0003
+                  target: path_from_file_uri
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.path_from_file_uri"
+                  signature: 'path_from_file_uri(idx_record.destination_uri)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
+                - id: IC001M011E0004
+                  target: json.loads
                   kind: call
+                  signature: 'json.loads(idx_path.read_text(encoding="utf-8"))'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
+                - id: IC001M011E0005
+                  target: Pep691Metadata.from_mapping
+                  kind: call
+                  signature: 'Pep691Metadata.from_mapping(payload)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
               boundaries:
-                - target: "pathlib.Path.read_text"
+                - id: IC001M011E0006
+                  target: Path.read_text
                   kind: io
                   boundary:
                     kind: filesystem
                     operation: read
-            branches:
-              - id: C001M011B0001
-                condition: "if pep691 is not None"
-                outcome: "returns cached Pep691Metadata"
-              - id: C001M011B0002
-                condition: "else"
-                outcome: "reads cached index JSON from filesystem, parses to Pep691Metadata, caches, returns"
+                  signature: 'idx_path.read_text(encoding="utf-8")'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0003]
         - id: C001M012
-          name: _build_index_candidates
           kind: callable
-          signature: "_build_index_candidates(self, *, name: str, pep691: Pep691Metadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> list[ResolverCandidate]"
+          name: _build_index_candidates
+          signature: '_build_index_candidates(self, *, name: str, pep691: Pep691Metadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> list[ResolverCandidate]'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
@@ -795,33 +1364,49 @@ unit:
                   name: Pep691Metadata
               - name: combined_spec
                 type:
-                  name: "SpecifierSet | None"
+                  name: 'SpecifierSet | None'
               - name: py_version
                 type:
                   name: str
               - name: bad
                 type:
-                  name: "set[tuple[str, str, str]]"
+                  name: 'set[tuple[str, str, str]]'
+            returnType:
+              name: 'list[ResolverCandidate]'
+            branches:
+              - id: C001M012E0001
+                condition: 'for loop 0 iterations'
+                outcome: 'candidates = []'
+              - id: C001M012E0002
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop executes'
+              - id: C001M012E0003
+                condition: 'if c is not None'
+                outcome: 'appends'
+              - id: C001M012E0004
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M012E0005
+                condition: 'return'
+                outcome: 'returns candidates'
             integration:
               interunit:
-                - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider._candidate_from_index_file"
+                - id: IC001M012E0001
+                  target: ProjectResolutionProvider._candidate_from_index_file
                   kind: call
-            branches:
-              - id: C001M012B0001
-                condition: "for f in pep691.files has zero iterations"
-                outcome: "returns []"
-              - id: C001M012B0002
-                condition: "for f in pep691.files and all c is None"
-                outcome: "returns []"
-              - id: C001M012B0003
-                condition: "for f in pep691.files and some c is not None"
-                outcome: "returns list of ResolverCandidate"
+                  signature: 'self._candidate_from_index_file(...)'
+                  executionPaths:
+                    - [C001M012E0002, C001M012E0003]
+                    - [C001M012E0002, C001M012E0004]
         - id: C001M013
-          name: _candidate_from_index_file
           kind: callable
-          signature: "_candidate_from_index_file(self, *, name: str, f: Pep691FileMetadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None"
+          name: _candidate_from_index_file
+          signature: '_candidate_from_index_file(self, *, name: str, f: Pep691FileMetadata, combined_spec: SpecifierSet | None, py_version: str, bad: set[tuple[str, str, str]]) -> ResolverCandidate | None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: name
                 type:
                   name: str
@@ -830,305 +1415,478 @@ unit:
                   name: Pep691FileMetadata
               - name: combined_spec
                 type:
-                  name: "SpecifierSet | None"
+                  name: 'SpecifierSet | None'
               - name: py_version
                 type:
                   name: str
               - name: bad
                 type:
-                  name: "set[tuple[str, str, str]]"
+                  name: 'set[tuple[str, str, str]]'
+            returnType:
+              name: 'ResolverCandidate | None'
+            branches:
+              - id: C001M013E0001
+                condition: 'if not f.filename.lower().endswith(".whl")'
+                outcome: 'returns None'
+              - id: C001M013E0002
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0003
+                condition: 'if f.yanked and policy SKIP'
+                outcome: 'returns None'
+              - id: C001M013E0004
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0005
+                condition: 'try succeeds'
+                outcome: 'parse succeeds'
+              - id: C001M013E0006
+                condition: 'Exception'
+                outcome: 'returns None'
+              - id: C001M013E0007
+                condition: 'if canonicalize != name'
+                outcome: 'returns None'
+              - id: C001M013E0008
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0009
+                condition: 'if not contains'
+                outcome: 'returns None'
+              - id: C001M013E0010
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0011
+                condition: 'if f.requires_python'
+                outcome: 'enters block'
+              - id: C001M013E0012
+                condition: 'else'
+                outcome: 'skips block'
+              - id: C001M013E0013
+                condition: 'if not contains'
+                outcome: 'returns None'
+              - id: C001M013E0014
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0015
+                condition: 'Exception'
+                outcome: 'pass'
+              - id: C001M013E0016
+                condition: 'pass'
+                outcome: 'continues'
+              - id: C001M013E0017
+                condition: 'assignment'
+                outcome: 'best_tag assigned'
+              - id: C001M013E0018
+                condition: 'if best_tag is None'
+                outcome: 'returns None'
+              - id: C001M013E0019
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0020
+                condition: 'assignment'
+                outcome: 'hash_spec assigned'
+              - id: C001M013E0021
+                condition: 'if hash_spec is None'
+                outcome: 'returns None'
+              - id: C001M013E0022
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0023
+                condition: 'if tup in bad'
+                outcome: 'returns None'
+              - id: C001M013E0024
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M013E0025
+                condition: 'return'
+                outcome: 'returns ResolverCandidate'
             integration:
               interunit:
-                - target: "project_resolution_engine.model.keys.WheelKey"
+                - id: IC001M013E0001
+                  target: parse_wheel_filename
+                  kind: call
+                  signature: 'parse_wheel_filename(f.filename)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005]
+                - id: IC001M013E0002
+                  target: canonicalize_name
+                  kind: call
+                  signature: 'canonicalize_name(dist)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0007]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008]
+                - id: IC001M013E0003
+                  target: SpecifierSet
                   kind: construct
-                - target: "project_resolution_engine.internal.resolvelib_types.ResolverCandidate"
+                  signature: 'SpecifierSet(f.requires_python)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0013]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0014]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0015]
+                - id: IC001M013E0004
+                  target: ProjectResolutionProvider._best_tag
+                  kind: call
+                  signature: 'self._best_tag(file_tag_set)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0014, C001M013E0017]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0015, C001M013E0016, C001M013E0017]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0012, C001M013E0017]
+                - id: IC001M013E0005
+                  target: ProjectResolutionProvider._best_hash
+                  kind: call
+                  signature: 'self._best_hash(f)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0014, C001M013E0017, C001M013E0019, C001M013E0020]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0015, C001M013E0016, C001M013E0017, C001M013E0019, C001M013E0020]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0012, C001M013E0017, C001M013E0019, C001M013E0020]
+                - id: IC001M013E0006
+                  target: WheelKey
                   kind: construct
-            branches:
-              - id: C001M013B0001
-                condition: "if not f.filename.lower().endswith('.whl')"
-                outcome: "returns None"
-              - id: C001M013B0002
-                condition: "if f.yanked and self._policy.yanked_wheel_policy == YankedWheelPolicy.SKIP"
-                outcome: "returns None"
-              - id: C001M013B0003
-                condition: "except Exception (parse_wheel_filename)"
-                outcome: "returns None"
-              - id: C001M013B0004
-                condition: "if canonicalize_name(dist) != name"
-                outcome: "returns None"
-              - id: C001M013B0005
-                condition: "if combined_spec is not None and not combined_spec.contains(ver_str)"
-                outcome: "returns None"
-              - id: C001M013B0006
-                condition: "if f.requires_python and not SpecifierSet(f.requires_python).contains(py_version)"
-                outcome: "returns None"
-              - id: C001M013B0007
-                condition: "except Exception (SpecifierSet(f.requires_python))"
-                outcome: "ignores requires_python filter and continues evaluation"
-              - id: C001M013B0008
-                condition: "if best_tag is None"
-                outcome: "returns None"
-              - id: C001M013B0009
-                condition: "if hash_spec is None"
-                outcome: "returns None"
-              - id: C001M013B0010
-                condition: "if (wk.name, wk.version, wk.tag) in bad"
-                outcome: "returns None"
-              - id: C001M013B0011
-                condition: "else"
-                outcome: "returns ResolverCandidate(wheel_key=wk)"
+                  signature: 'WheelKey(...)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0014, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0015, C001M013E0016, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0012, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
+                - id: IC001M013E0007
+                  target: ResolverCandidate
+                  kind: construct
+                  signature: 'ResolverCandidate(wheel_key=wk)'
+                  executionPaths:
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0014, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0011, C001M013E0015, C001M013E0016, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
+                    - [C001M013E0002, C001M013E0004, C001M013E0005, C001M013E0008, C001M013E0010, C001M013E0012, C001M013E0017, C001M013E0019, C001M013E0020, C001M013E0022, C001M013E0024, C001M013E0025]
         - id: C001M014
-          name: _best_tag
           kind: callable
-          signature: "_best_tag(self, file_tag_set: set[str]) -> str | None"
+          name: _best_tag
+          signature: '_best_tag(self, file_tag_set: set[str]) -> str | None'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: file_tag_set
                 type:
-                  name: "set[str]"
+                  name: 'set[str]'
+            returnType:
+              name: 'str | None'
             branches:
-              - id: C001M014B0001
-                condition: "ordered = getattr(self._env, 'supported_tags_ordered', None) is not None and match exists"
-                outcome: "returns first matching tag from ordered"
-              - id: C001M014B0002
-                condition: "ordered is not None and no match exists"
-                outcome: "returns None"
-              - id: C001M014B0003
-                condition: "ordered is None and fallback self._env.supported_tags has match"
-                outcome: "returns first matching tag from fallback"
-              - id: C001M014B0004
-                condition: "ordered is None and fallback has no match"
-                outcome: "returns None"
+              - id: C001M014E0001
+                condition: 'assignment'
+                outcome: 'ordered = getattr(...)'
+              - id: C001M014E0002
+                condition: 'if ordered is None'
+                outcome: 'fallback to supported_tags'
+              - id: C001M014E0003
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M014E0004
+                condition: 'return'
+                outcome: 'returns next(...)'
         - id: C001M015
-          name: _sort_candidates
           kind: callable
-          decorators:
-            - name: staticmethod
-          signature: "_sort_candidates(candidates: list[ResolverCandidate]) -> list[ResolverCandidate]"
+          name: _sort_candidates
+          signature: '_sort_candidates(candidates: list[ResolverCandidate]) -> list[ResolverCandidate]'
           callable:
             params:
               - name: candidates
                 type:
-                  name: "list[ResolverCandidate]"
+                  name: 'list[ResolverCandidate]'
+            returnType:
+              name: 'list[ResolverCandidate]'
             branches:
-              - id: C001M015B0001
-                condition: "always"
-                outcome: "sorts candidates in place (reverse=True) and returns same list object"
+              - id: C001M015E0001
+                condition: 'sort'
+                outcome: 'candidates.sort(...)'
+              - id: C001M015E0002
+                condition: 'return'
+                outcome: 'returns candidates'
+            integration:
+              interunit:
+                - id: IC001M015E0001
+                  target: _version_sort_key
+                  kind: call
+                  signature: '_version_sort_key(c.version)'
+                  executionPaths:
+                    - [C001M015E0001]
         - id: C001M016
-          name: is_satisfied_by
           kind: callable
-          signature: "is_satisfied_by(self, requirement: ResolverRequirement, candidate: ResolverCandidate) -> bool"
+          name: is_satisfied_by
+          signature: 'is_satisfied_by(self, requirement: ResolverRequirement, candidate: ResolverCandidate) -> bool'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: requirement
                 type:
                   name: ResolverRequirement
               - name: candidate
                 type:
                   name: ResolverCandidate
+            returnType:
+              name: bool
             branches:
-              - id: C001M016B0001
-                condition: "if candidate.name != requirement.name"
-                outcome: "returns False"
-              - id: C001M016B0002
-                condition: "if requirement.uri is not None and candidate.wheel_key.origin_uri == requirement.uri"
-                outcome: "returns True"
-              - id: C001M016B0003
-                condition: "if requirement.uri is not None and candidate.wheel_key.origin_uri != requirement.uri"
-                outcome: "returns False"
-              - id: C001M016B0004
-                condition: "if requirement.version is None"
-                outcome: "returns True"
-              - id: C001M016B0005
-                condition: "try: requirement.version.contains(candidate.version) is True"
-                outcome: "returns True"
-              - id: C001M016B0006
-                condition: "except Exception or contains(...) is False"
-                outcome: "returns False"
+              - id: C001M016E0001
+                condition: 'if candidate.name != requirement.name'
+                outcome: 'returns False'
+              - id: C001M016E0002
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M016E0003
+                condition: 'if requirement.uri is not None'
+                outcome: 'returns comparison'
+              - id: C001M016E0004
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M016E0005
+                condition: 'if requirement.version is None'
+                outcome: 'returns True'
+              - id: C001M016E0006
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M016E0007
+                condition: 'try succeeds'
+                outcome: 'returns contains result'
+              - id: C001M016E0008
+                condition: 'Exception'
+                outcome: 'returns False'
         - id: C001M017
-          name: get_dependencies
           kind: callable
-          signature: "get_dependencies(self, candidate: ResolverCandidate) -> Iterable[ResolverRequirement]"
+          name: get_dependencies
+          signature: 'get_dependencies(self, candidate: ResolverCandidate) -> Iterable[ResolverRequirement]'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: candidate
                 type:
                   name: ResolverCandidate
+            returnType:
+              name: 'Iterable[ResolverRequirement]'
+            branches:
+              - id: C001M017E0001
+                condition: 'if wk.origin_uri is None'
+                outcome: 'returns ()'
+              - id: C001M017E0002
+                condition: 'else'
+                outcome: 'continues'
+              - id: C001M017E0003
+                condition: 'assignment'
+                outcome: 'meta = cache.get(cache_key)'
+              - id: C001M017E0004
+                condition: 'if meta is None'
+                outcome: 'loads metadata'
+              - id: C001M017E0005
+                condition: 'else'
+                outcome: 'skips load'
+              - id: C001M017E0006
+                condition: 'for loop 0 iterations'
+                outcome: 'deps = []'
+              - id: C001M017E0007
+                condition: 'for loop ≥1 iterations'
+                outcome: 'loop body executes'
+              - id: C001M017E0008
+                condition: 'Requirement(raw) succeeds'
+                outcome: 'req created'
+              - id: C001M017E0009
+                condition: 'Requirement(raw) raises Exception'
+                outcome: 'continue to next iteration'
+              - id: C001M017E0010
+                condition: 'if req.marker is not None'
+                outcome: 'enters marker evaluation block'
+              - id: C001M017E0011
+                condition: 'else (req.marker is None)'
+                outcome: 'skips marker evaluation, proceeds to append'
+              - id: C001M017E0012
+                condition: 'if requested_extras (truthy)'
+                outcome: 'evaluates with extras'
+              - id: C001M017E0013
+                condition: 'else (requested_extras falsy)'
+                outcome: 'single evaluation without extras'
+              - id: C001M017E0014
+                condition: 'for extra loop 0 iterations'
+                outcome: 'ok = False'
+              - id: C001M017E0015
+                condition: 'for extra loop ≥1 iterations'
+                outcome: 'evaluates markers'
+              - id: C001M017E0016
+                condition: 'if req.marker.evaluate (true)'
+                outcome: 'ok = True, breaks'
+              - id: C001M017E0017
+                condition: 'else (req.marker.evaluate false)'
+                outcome: 'continues iteration'
+              - id: C001M017E0018
+                condition: 'if not ok (true)'
+                outcome: 'continue outer loop'
+              - id: C001M017E0019
+                condition: 'else (ok is True)'
+                outcome: 'proceeds to append'
+              - id: C001M017E0020
+                condition: 'if not req.marker.evaluate (true)'
+                outcome: 'continue outer loop'
+              - id: C001M017E0021
+                condition: 'else (req.marker.evaluate true)'
+                outcome: 'proceeds to append'
+              - id: C001M017E0022
+                condition: 'append'
+                outcome: 'deps.append(ResolverRequirement(...))'
+              - id: C001M017E0023
+                condition: 'return'
+                outcome: 'returns deps'
             integration:
               interunit:
-                - target: "project_resolution_engine.model.keys.CoreMetadataKey"
+                - id: IC001M017E0001
+                  target: CoreMetadataKey
                   kind: construct
-                - target: "project_resolution_engine.services.ResolutionServices.core_metadata.resolve"
+                  signature: 'CoreMetadataKey(...)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004]
+                - id: IC001M017E0002
+                  target: ResolutionServices.core_metadata.resolve
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib.path_from_file_uri"
+                  signature: 'self._services.core_metadata.resolve(cm_key)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004]
+                - id: IC001M017E0003
+                  target: path_from_file_uri
                   kind: call
-                - target: "project_resolution_engine.model.pep.Pep658Metadata.from_core_metadata_text"
+                  signature: 'path_from_file_uri(cm_record.destination_uri)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004]
+                - id: IC001M017E0004
+                  target: Pep658Metadata.from_core_metadata_text
                   kind: call
-                - target: "project_resolution_engine.internal.resolvelib_types.ResolverRequirement"
+                  signature: 'Pep658Metadata.from_core_metadata_text(text)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004]
+                - id: IC001M017E0005
+                  target: Requirement
                   kind: construct
-                - target: "project_resolution_engine.model.resolution.WheelSpec"
+                  signature: 'Requirement(raw)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004, C001M017E0007, C001M017E0008]
+                    - [C001M017E0002, C001M017E0003, C001M017E0005, C001M017E0007, C001M017E0008]
+                - id: IC001M017E0006
+                  target: ResolverRequirement
                   kind: construct
+                  signature: 'ResolverRequirement(...)'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004, C001M017E0007, C001M017E0008, C001M017E0010, C001M017E0012, C001M017E0015, C001M017E0016, C001M017E0019, C001M017E0022]
+                    - [C001M017E0002, C001M017E0003, C001M017E0004, C001M017E0007, C001M017E0008, C001M017E0010, C001M017E0013, C001M017E0021, C001M017E0022]
+                    - [C001M017E0002, C001M017E0003, C001M017E0004, C001M017E0007, C001M017E0008, C001M017E0011, C001M017E0022]
+                    - [C001M017E0002, C001M017E0003, C001M017E0005, C001M017E0007, C001M017E0008, C001M017E0010, C001M017E0012, C001M017E0015, C001M017E0016, C001M017E0019, C001M017E0022]
+                    - [C001M017E0002, C001M017E0003, C001M017E0005, C001M017E0007, C001M017E0008, C001M017E0010, C001M017E0013, C001M017E0021, C001M017E0022]
+                    - [C001M017E0002, C001M017E0003, C001M017E0005, C001M017E0007, C001M017E0008, C001M017E0011, C001M017E0022]
               boundaries:
-                - target: "pathlib.Path.read_text"
+                - id: IC001M017E0007
+                  target: Path.read_text
                   kind: io
                   boundary:
                     kind: filesystem
                     operation: read
-            branches:
-              - id: C001M017B0001
-                condition: "if wk.origin_uri is None"
-                outcome: "returns ()"
-              - id: C001M017B0002
-                condition: "if meta is not None (cache hit)"
-                outcome: "uses cached Pep658Metadata"
-              - id: C001M017B0003
-                condition: "if meta is None (cache miss)"
-                outcome: "loads core metadata text from filesystem, parses, caches"
-              - id: C001M017B0004
-                condition: "except Exception when parsing Requirement(raw)"
-                outcome: "skips that requires_dist entry"
-              - id: C001M017B0005
-                condition: "if req.marker is None"
-                outcome: "appends ResolverRequirement for req"
-              - id: C001M017B0006
-                condition: "if req.marker is not None and requested_extras and marker evaluates True for some extra"
-                outcome: "appends ResolverRequirement for req"
-              - id: C001M017B0007
-                condition: "if req.marker is not None and requested_extras and marker evaluates False for all extras"
-                outcome: "skips req"
-              - id: C001M017B0008
-                condition: "if req.marker is not None and not requested_extras and marker evaluates True"
-                outcome: "appends ResolverRequirement for req"
-              - id: C001M017B0009
-                condition: "if req.marker is not None and not requested_extras and marker evaluates False"
-                outcome: "skips req"
+                  signature: 'cm_path.read_text(encoding="utf-8", errors="replace")'
+                  executionPaths:
+                    - [C001M017E0002, C001M017E0003, C001M017E0004]
         - id: C001M018
-          name: get_preference
           kind: callable
-          signature: "get_preference(self, identifier: str, resolutions: Mapping[str, ResolverCandidate], candidates: Mapping[str, Iterator[ResolverCandidate]], information: Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]], backtrack_causes: Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> Preference"
+          name: get_preference
+          signature: 'get_preference(self, identifier: str, resolutions: Mapping[str, ResolverCandidate], candidates: Mapping[str, Iterator[ResolverCandidate]], information: Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]], backtrack_causes: Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> Preference'
           callable:
             params:
+              - name: self
+                type:
+                  name: ProjectResolutionProvider
               - name: identifier
                 type:
                   name: str
               - name: resolutions
                 type:
-                  name: "Mapping[str, ResolverCandidate]"
+                  name: 'Mapping[str, ResolverCandidate]'
               - name: candidates
                 type:
-                  name: "Mapping[str, Iterator[ResolverCandidate]]"
+                  name: 'Mapping[str, Iterator[ResolverCandidate]]'
               - name: information
                 type:
-                  name: "Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]]"
+                  name: 'Mapping[str, Iterator[RequirementInformation[ResolverRequirement, ResolverCandidate]]]'
               - name: backtrack_causes
                 type:
-                  name: "Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]"
+                  name: 'Sequence[RequirementInformation[ResolverRequirement, ResolverCandidate]]'
+            returnType:
+              name: Preference
             branches:
-              - id: C001M018B0001
-                condition: "0 if is_backtrack_cause else 1 (is_backtrack_cause True)"
-                outcome: "preference tuple element[0] == 0"
-              - id: C001M018B0002
-                condition: "0 if is_backtrack_cause else 1 (is_backtrack_cause False)"
-                outcome: "preference tuple element[0] == 1"
-              - id: C001M018B0003
-                condition: "0 if is_root else 1 (is_root True)"
-                outcome: "preference tuple element[1] == 0"
-              - id: C001M018B0004
-                condition: "0 if is_root else 1 (is_root False)"
-                outcome: "preference tuple element[1] == 1"
-              - id: C001M018B0005
-                condition: "1 if is_already_resolved else 0 (is_already_resolved True)"
-                outcome: "preference tuple element[3] == 1"
-              - id: C001M018B0006
-                condition: "1 if is_already_resolved else 0 (is_already_resolved False)"
-                outcome: "preference tuple element[3] == 0"
+              - id: C001M018E0001
+                condition: 'assignment'
+                outcome: 'infos = tuple(...)'
+              - id: C001M018E0002
+                condition: 'check'
+                outcome: 'is_root = any(...)'
+              - id: C001M018E0003
+                condition: 'sum'
+                outcome: 'parent_count = sum(...)'
+              - id: C001M018E0004
+                condition: 'check'
+                outcome: 'is_backtrack_cause = any(...)'
+              - id: C001M018E0005
+                condition: 'check'
+                outcome: 'is_already_resolved check'
+              - id: C001M018E0006
+                condition: 'return'
+                outcome: 'returns preference tuple'
     - id: C000F006
-      name: resolve
       kind: callable
-      signature: "resolve(*, services, env: ResolutionEnv, roots: Sequence[ResolverRequirement]) -> Result[ResolverRequirement, ResolverCandidate, str]"
+      name: resolve
+      signature: 'resolve(*, services, env: ResolutionEnv, roots: Sequence[ResolverRequirement]) -> Result[ResolverRequirement, ResolverCandidate, str]'
       callable:
         params:
           - name: services
+            type:
+              name: ResolutionServices
           - name: env
             type:
               name: ResolutionEnv
           - name: roots
             type:
-              name: "Sequence[ResolverRequirement]"
+              name: 'Sequence[ResolverRequirement]'
+        returnType:
+          name: 'Result[ResolverRequirement, ResolverCandidate, str]'
+        branches:
+          - id: C000F006E0001
+            condition: 'assignment'
+            outcome: 'provider created'
+          - id: C000F006E0002
+            condition: 'assignment'
+            outcome: 'reporter created'
+          - id: C000F006E0003
+            condition: 'assignment'
+            outcome: 'resolver created'
+          - id: C000F006E0004
+            condition: 'return'
+            outcome: 'returns resolver.resolve(roots)'
         integration:
           interunit:
-            - target: "project_resolution_engine.internal.resolvelib.ProjectResolutionProvider"
+            - id: IC000F006E0001
+              target: ProjectResolutionProvider
               kind: construct
-            - target: "project_resolution_engine.internal.resolvelib_types.ProjectResolutionReporter"
+              signature: 'ProjectResolutionProvider(services=services, env=env)'
+              executionPaths:
+                - [C000F006E0001]
+            - id: IC000F006E0002
+              target: ProjectResolutionReporter
               kind: construct
-            - target: "resolvelib.Resolver"
+              signature: 'ProjectResolutionReporter()'
+              executionPaths:
+                - [C000F006E0001, C000F006E0002]
+            - id: IC000F006E0003
+              target: Resolver
               kind: construct
-            - target: "resolvelib.Resolver.resolve"
-              kind: call
-        branches:
-          - id: C000F006B0001
-            condition: "always"
-            outcome: "returns Resolver(provider, reporter).resolve(roots)"
+              signature: 'Resolver(provider, reporter)'
+              executionPaths:
+                - [C000F006E0001, C000F006E0002, C000F006E0003]
 ---
 docKind: ledger-generation-review
-schemaVersion: "1"
+schemaVersion: '1.0.0'
 unit:
-  name: "project_resolution_engine.internal.resolvelib"
-  language: "python"
-findings:
-  - severity: warn
-    category: anomaly
-    message: "Presence of any URI requirement short-circuits index resolution, even if all URI candidates are filtered out (returns empty list and does not fall back to PEP 691 index files)."
-    appliesTo:
-      - "C000::ProjectResolutionProvider.find_matches@L116"
-      - "C000::ProjectResolutionProvider._build_uri_candidates@L175"
-    evidence:
-      address: "C000::ProjectResolutionProvider.find_matches@L128"
-      lineStart: 128
-      lineEnd: 145
-      snippet: "uri_candidates = self._build_uri_candidates(...)\nif uri_candidates is not None:\n    return self._sort_candidates(uri_candidates)"
-    recommendedAction: "Confirm intended behavior: if URI reqs exist but yield 0 viable wheels, should resolution stop ([]) or fall back to index candidates?"
-
-  - severity: warn
-    category: ambiguity
-    message: "Tag preference selection can be arbitrary when env.supported_tags_ordered is absent, because fallback env.supported_tags may be unordered; best_tag then depends on iteration order."
-    appliesTo: "C000::ProjectResolutionProvider._best_tag@L338"
-    evidence:
-      address: "C000::ProjectResolutionProvider._best_tag@L345"
-      lineStart: 338
-      lineEnd: 349
-      snippet: "ordered = getattr(self._env, 'supported_tags_ordered', None)\nif ordered is None:\n    ordered = self._env.supported_tags  # fallback, possibly unordered"
-    recommendedAction: "If deterministic selection matters, require supported_tags_ordered or sort supported_tags explicitly."
-
-  - severity: warn
-    category: anomaly
-    message: "requires_python parsing errors are silently ignored, which can admit wheels that should have been filtered by requires_python."
-    appliesTo: "C000::ProjectResolutionProvider._candidate_from_index_file@L278"
-    evidence:
-      address: "C000::ProjectResolutionProvider._candidate_from_index_file@L305"
-      lineStart: 305
-      lineEnd: 310
-      snippet: "if f.requires_python:\n    try:\n        if not SpecifierSet(f.requires_python).contains(py_version):\n            return None\n    except Exception:\n        pass"
-    recommendedAction: "Decide policy: treat invalid requires_python as skip, or surface as a warning/exception."
-
-  - severity: info
-    category: assumption
-    message: "get_dependencies mutates env.marker_environment by setdefault('extra',''), which may be an intentional convenience but is a side effect on shared env state."
-    appliesTo: "C000::ProjectResolutionProvider.get_dependencies@L378"
-    evidence:
-      address: "C000::ProjectResolutionProvider.get_dependencies@L398"
-      lineStart: 398
-      lineEnd: 400
-      snippet: "marker_env_base = cast(dict[str, str], cast(object, self._env.marker_environment))\nmarker_env_base.setdefault('extra', '')"
-    recommendedAction: "Confirm whether env.marker_environment is safe to mutate; if not, copy before setdefault."
-
-  - severity: info
-    category: assumption
-    message: "Direct-URI wheel parsing errors are collapsed into ValueError without exception chaining; tests can only assert the ValueError message substring, not the underlying parse error."
-    appliesTo: "C000::ProjectResolutionProvider._candidate_from_uri_req@L195"
-    evidence:
-      address: "C000::ProjectResolutionProvider._candidate_from_uri_req@L203"
-      lineStart: 203
-      lineEnd: 208
-      snippet: "try:\n    filename = _safe_url_basename(req.uri)\n    dist, ver, _build, tags = parse_wheel_filename(filename)\nexcept Exception:\n    raise ValueError('Direct URI requirement does not look like a wheel file ...')"
-    recommendedAction: "If diagnostics matter, consider `raise ... from e` (or keep current behavior if deliberate)."
+  name: resolvelib
+  language: python
+findings: []

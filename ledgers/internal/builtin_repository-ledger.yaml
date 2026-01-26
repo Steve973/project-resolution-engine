@@ -1,0 +1,849 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: builtin_repository
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C000
+      kind: unit
+      name: builtin_repository
+      address: 'builtin_repository'
+    - id: C001
+      kind: class
+      name: EphemeralArtifactRepository
+      address: 'builtin_repository::EphemeralArtifactRepository@L18'
+    - id: C001M001
+      kind: callable
+      name: root_path
+      address: 'builtin_repository::EphemeralArtifactRepository::root_path@L46'
+    - id: C001M002
+      kind: callable
+      name: root_uri
+      address: 'builtin_repository::EphemeralArtifactRepository::root_uri@L50'
+    - id: C001M003
+      kind: callable
+      name: close
+      address: 'builtin_repository::EphemeralArtifactRepository::close@L53'
+    - id: C001M004
+      kind: callable
+      name: __enter__
+      address: 'builtin_repository::EphemeralArtifactRepository::__enter__@L59'
+    - id: C001M005
+      kind: callable
+      name: __exit__
+      address: 'builtin_repository::EphemeralArtifactRepository::__exit__@L62'
+    - id: C001M006
+      kind: callable
+      name: get
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L68'
+    - id: C001M007
+      kind: callable
+      name: put
+      address: 'builtin_repository::EphemeralArtifactRepository::put@L91'
+    - id: C001M008
+      kind: callable
+      name: delete
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L94'
+    - id: C001M009
+      kind: callable
+      name: allocate_destination_uri
+      address: 'builtin_repository::EphemeralArtifactRepository::allocate_destination_uri@L113'
+    - id: C001M010
+      kind: callable
+      name: _is_under_root
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L126'
+    - id: C001M011
+      kind: callable
+      name: _allocate_path_for_key
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L133'
+  branches:
+    - id: C001M001E0001
+      parent: C001M001
+      address: 'builtin_repository::EphemeralArtifactRepository::root_path@L47'
+      summary: 'returns self._root'
+    - id: C001M002E0001
+      parent: C001M002
+      address: 'builtin_repository::EphemeralArtifactRepository::root_uri@L51'
+      summary: 'returns self._root.as_uri()'
+    - id: C001M003E0001
+      parent: C001M003
+      address: 'builtin_repository::EphemeralArtifactRepository::close@L56'
+      summary: 'executes: self._index.clear()'
+    - id: C001M003E0002
+      parent: C001M003
+      address: 'builtin_repository::EphemeralArtifactRepository::close@L57'
+      summary: 'executes: self._tmp.cleanup()'
+    - id: C001M004E0001
+      parent: C001M004
+      address: 'builtin_repository::EphemeralArtifactRepository::__enter__@L60'
+      summary: 'returns self'
+    - id: C001M005E0001
+      parent: C001M005
+      address: 'builtin_repository::EphemeralArtifactRepository::__exit__@L63'
+      summary: 'executes: self.close()'
+    - id: C001M006E0001
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L71'
+      summary: 'executes: record = self._index.get(key)'
+    - id: C001M006E0002
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L72'
+      summary: 'record is None → returns None'
+    - id: C001M006E0003
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L72'
+      summary: 'record is not None → continues to line 77'
+    - id: C001M006E0004
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L77'
+      summary: 'executes: dest = record.destination_uri'
+    - id: C001M006E0005
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L78'
+      summary: 'dest.startswith("file://") is True → enters try block'
+    - id: C001M006E0006
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L78'
+      summary: 'dest.startswith("file://") is False → continues to line 89'
+    - id: C001M006E0007
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L80'
+      summary: 'executes: path = Path(dest.removeprefix("file://"))'
+    - id: C001M006E0008
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L81'
+      summary: 'not path.exists() is True → removes from index and returns None'
+    - id: C001M006E0009
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L81'
+      summary: 'not path.exists() is False → continues to line 89'
+    - id: C001M006E0010
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L82'
+      summary: 'executes: self._index.pop(key, None)'
+    - id: C001M006E0011
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L83'
+      summary: 'returns None'
+    - id: C001M006E0012
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L84'
+      summary: 'try block raises Exception → enters except handler'
+    - id: C001M006E0013
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L84'
+      summary: 'try block succeeds → continues to line 89'
+    - id: C001M006E0014
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L87'
+      summary: 'returns record'
+    - id: C001M006E0015
+      parent: C001M006
+      address: 'builtin_repository::EphemeralArtifactRepository::get@L89'
+      summary: 'returns record'
+    - id: C001M007E0001
+      parent: C001M007
+      address: 'builtin_repository::EphemeralArtifactRepository::put@L92'
+      summary: 'executes: self._index[record.key] = record'
+    - id: C001M008E0001
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L95'
+      summary: 'executes: record = self._index.pop(key, None)'
+    - id: C001M008E0002
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L96'
+      summary: 'record is None → returns'
+    - id: C001M008E0003
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L96'
+      summary: 'record is not None → continues to line 100'
+    - id: C001M008E0004
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L97'
+      summary: 'returns'
+    - id: C001M008E0005
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L100'
+      summary: 'executes: dest = record.destination_uri'
+    - id: C001M008E0006
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L101'
+      summary: 'not dest.startswith("file://") is True → returns'
+    - id: C001M008E0007
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L101'
+      summary: 'not dest.startswith("file://") is False → continues to try block'
+    - id: C001M008E0008
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L102'
+      summary: 'returns'
+    - id: C001M008E0009
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L104'
+      summary: 'try block succeeds → path operations execute'
+    - id: C001M008E0010
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L104'
+      summary: 'try block raises Exception → enters except handler'
+    - id: C001M008E0011
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L105'
+      summary: 'executes: path = Path(dest.removeprefix("file://")).resolve()'
+    - id: C001M008E0012
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L106'
+      summary: 'self._is_under_root(path) and path.exists() is True → deletes file'
+    - id: C001M008E0013
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L106'
+      summary: 'self._is_under_root(path) and path.exists() is False → skips deletion'
+    - id: C001M008E0014
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L107'
+      summary: 'executes: path.unlink()'
+    - id: C001M008E0015
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L108'
+      summary: 'returns (from except handler)'
+    - id: C001M008E0016
+      parent: C001M008
+      address: 'builtin_repository::EphemeralArtifactRepository::delete@L111'
+      summary: 'returns'
+    - id: C001M009E0001
+      parent: C001M009
+      address: 'builtin_repository::EphemeralArtifactRepository::allocate_destination_uri@L119'
+      summary: 'executes: path = self._allocate_path_for_key(key)'
+    - id: C001M009E0002
+      parent: C001M009
+      address: 'builtin_repository::EphemeralArtifactRepository::allocate_destination_uri@L120'
+      summary: 'executes: path.parent.mkdir(parents=True, exist_ok=True)'
+    - id: C001M009E0003
+      parent: C001M009
+      address: 'builtin_repository::EphemeralArtifactRepository::allocate_destination_uri@L121'
+      summary: 'returns path.as_uri()'
+    - id: C001M010E0001
+      parent: C001M010
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L128'
+      summary: 'try block succeeds → returns True'
+    - id: C001M010E0002
+      parent: C001M010
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L128'
+      summary: 'try block raises Exception → enters except handler'
+    - id: C001M010E0003
+      parent: C001M010
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L129'
+      summary: 'executes: path.relative_to(self._root)'
+    - id: C001M010E0004
+      parent: C001M010
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L130'
+      summary: 'returns True'
+    - id: C001M010E0005
+      parent: C001M010
+      address: 'builtin_repository::EphemeralArtifactRepository::_is_under_root@L132'
+      summary: 'returns False'
+    - id: C001M011E0001
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L134'
+      summary: 'match key: case IndexMetadataKey()'
+    - id: C001M011E0002
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L134'
+      summary: 'match key: case CoreMetadataKey()'
+    - id: C001M011E0003
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L134'
+      summary: 'match key: case WheelKey()'
+    - id: C001M011E0004
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L134'
+      summary: 'match key: case _ (default)'
+    - id: C001M011E0005
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L135'
+      summary: 'executes: base_hash = _short_hash(k.index_base)'
+    - id: C001M011E0006
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L136'
+      summary: 'executes: project = _safe_segment(k.project)'
+    - id: C001M011E0007
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L138'
+      summary: 'returns path for IndexMetadataKey'
+    - id: C001M011E0008
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L141'
+      summary: 'executes: name = _safe_segment(k.name)'
+    - id: C001M011E0009
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L142'
+      summary: 'executes: version = _safe_segment(k.version)'
+    - id: C001M011E0010
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L143'
+      summary: 'executes: tag = _safe_segment(k.tag)'
+    - id: C001M011E0011
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L144'
+      summary: 'executes: url_hash = _short_hash(k.file_url)'
+    - id: C001M011E0012
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L146'
+      summary: 'returns path for CoreMetadataKey'
+    - id: C001M011E0013
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L151'
+      summary: 'executes: name = _safe_segment(k.name)'
+    - id: C001M011E0014
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L152'
+      summary: 'executes: version = _safe_segment(k.version)'
+    - id: C001M011E0015
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L153'
+      summary: 'executes: tag = _safe_segment(k.tag)'
+    - id: C001M011E0016
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L154'
+      summary: 'k.origin_uri is None → raises ValueError'
+    - id: C001M011E0017
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L154'
+      summary: 'k.origin_uri is not None → continues to line 156'
+    - id: C001M011E0018
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L155'
+      summary: 'raises ValueError("WheelKey must have an origin_uri")'
+    - id: C001M011E0019
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L156'
+      summary: 'executes: url_hash = _short_hash(k.origin_uri)'
+    - id: C001M011E0020
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L159'
+      summary: 'executes: base = _url_basename(k.origin_uri)'
+    - id: C001M011E0021
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L160'
+      summary: 'base is not None and base.endswith(".whl") → uses URL basename'
+    - id: C001M011E0022
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L160'
+      summary: 'condition is False → uses hash-based filename'
+    - id: C001M011E0023
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L161'
+      summary: 'executes: filename = f"{url_hash}-{_safe_segment(base)}"'
+    - id: C001M011E0024
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L163'
+      summary: 'executes: filename = f"{url_hash}.whl"'
+    - id: C001M011E0025
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L165'
+      summary: 'returns path for WheelKey'
+    - id: C001M011E0026
+      parent: C001M011
+      address: 'builtin_repository::EphemeralArtifactRepository::_allocate_path_for_key@L169'
+      summary: 'raises TypeError'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: builtin_repository
+  children:
+    - id: C001
+      kind: class
+      name: EphemeralArtifactRepository
+      decorators:
+        - name: dataclass
+          kwargs:
+            slots: true
+      children:
+        - id: C001M001
+          kind: callable
+          name: root_path
+          signature: 'root_path(self) -> Path'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+            returnType:
+              name: Path
+            branches:
+              - id: C001M001E0001
+                condition: 'return self._root'
+                outcome: 'returns self._root'
+        - id: C001M002
+          kind: callable
+          name: root_uri
+          signature: 'root_uri(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+            returnType:
+              name: str
+            branches:
+              - id: C001M002E0001
+                condition: 'return self._root.as_uri()'
+                outcome: 'returns self._root.as_uri()'
+        - id: C001M003
+          kind: callable
+          name: close
+          signature: 'close(self) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+            returnType:
+              name: None
+            branches:
+              - id: C001M003E0001
+                condition: 'executes'
+                outcome: 'self._index.clear()'
+              - id: C001M003E0002
+                condition: 'executes'
+                outcome: 'self._tmp.cleanup()'
+        - id: C001M004
+          kind: callable
+          name: __enter__
+          signature: '__enter__(self) -> EphemeralArtifactRepository'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+            returnType:
+              name: EphemeralArtifactRepository
+            branches:
+              - id: C001M004E0001
+                condition: 'return self'
+                outcome: 'returns self'
+        - id: C001M005
+          kind: callable
+          name: __exit__
+          signature: '__exit__(self, exc_type, exc, tb) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: exc_type
+              - name: exc
+              - name: tb
+            returnType:
+              name: None
+            branches:
+              - id: C001M005E0001
+                condition: 'executes'
+                outcome: 'self.close()'
+            integration:
+              interunit:
+                - id: IC001M005E0001
+                  target: EphemeralArtifactRepository.close
+                  kind: call
+                  signature: 'self.close()'
+                  executionPaths:
+                    - [C001M005E0001]
+        - id: C001M006
+          kind: callable
+          name: get
+          signature: 'get(self, key: BaseArtifactKey) -> ArtifactRecord | None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: key
+                type:
+                  name: BaseArtifactKey
+            returnType:
+              name: 'ArtifactRecord | None'
+            branches:
+              - id: C001M006E0001
+                condition: 'executes'
+                outcome: 'record = self._index.get(key)'
+              - id: C001M006E0002
+                condition: 'if record is None'
+                outcome: 'returns None'
+              - id: C001M006E0003
+                condition: 'else'
+                outcome: 'continues to line 77'
+              - id: C001M006E0004
+                condition: 'executes'
+                outcome: 'dest = record.destination_uri'
+              - id: C001M006E0005
+                condition: 'if dest.startswith("file://")'
+                outcome: 'enters try block'
+              - id: C001M006E0006
+                condition: 'else'
+                outcome: 'continues to line 89'
+              - id: C001M006E0007
+                condition: 'executes'
+                outcome: 'path = Path(dest.removeprefix("file://"))'
+              - id: C001M006E0008
+                condition: 'if not path.exists()'
+                outcome: 'removes from index and returns None'
+              - id: C001M006E0009
+                condition: 'else'
+                outcome: 'continues to return record'
+              - id: C001M006E0010
+                condition: 'executes'
+                outcome: 'self._index.pop(key, None)'
+              - id: C001M006E0011
+                condition: 'return None'
+                outcome: 'returns None'
+              - id: C001M006E0012
+                condition: 'except Exception'
+                outcome: 'exception raised in try block'
+              - id: C001M006E0013
+                condition: 'try succeeds'
+                outcome: 'no exception raised'
+              - id: C001M006E0014
+                condition: 'return record'
+                outcome: 'returns record (from except handler)'
+              - id: C001M006E0015
+                condition: 'return record'
+                outcome: 'returns record'
+        - id: C001M007
+          kind: callable
+          name: put
+          signature: 'put(self, record: ArtifactRecord) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: record
+                type:
+                  name: ArtifactRecord
+            returnType:
+              name: None
+            branches:
+              - id: C001M007E0001
+                condition: 'executes'
+                outcome: 'self._index[record.key] = record'
+        - id: C001M008
+          kind: callable
+          name: delete
+          signature: 'delete(self, key: BaseArtifactKey) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: key
+                type:
+                  name: BaseArtifactKey
+            returnType:
+              name: None
+            branches:
+              - id: C001M008E0001
+                condition: 'executes'
+                outcome: 'record = self._index.pop(key, None)'
+              - id: C001M008E0002
+                condition: 'if record is None'
+                outcome: 'returns'
+              - id: C001M008E0003
+                condition: 'else'
+                outcome: 'continues to line 100'
+              - id: C001M008E0004
+                condition: 'return'
+                outcome: 'returns'
+              - id: C001M008E0005
+                condition: 'executes'
+                outcome: 'dest = record.destination_uri'
+              - id: C001M008E0006
+                condition: 'if not dest.startswith("file://")'
+                outcome: 'returns'
+              - id: C001M008E0007
+                condition: 'else'
+                outcome: 'continues to try block'
+              - id: C001M008E0008
+                condition: 'return'
+                outcome: 'returns'
+              - id: C001M008E0009
+                condition: 'try succeeds'
+                outcome: 'executes path operations'
+              - id: C001M008E0010
+                condition: 'except Exception'
+                outcome: 'exception raised in try block'
+              - id: C001M008E0011
+                condition: 'executes'
+                outcome: 'path = Path(dest.removeprefix("file://")).resolve()'
+              - id: C001M008E0012
+                condition: 'if self._is_under_root(path) and path.exists()'
+                outcome: 'deletes file'
+              - id: C001M008E0013
+                condition: 'else'
+                outcome: 'skips deletion'
+              - id: C001M008E0014
+                condition: 'executes'
+                outcome: 'path.unlink()'
+              - id: C001M008E0015
+                condition: 'return'
+                outcome: 'returns (from except handler)'
+              - id: C001M008E0016
+                condition: 'return'
+                outcome: 'returns'
+            integration:
+              interunit:
+                - id: IC001M008E0012
+                  target: EphemeralArtifactRepository._is_under_root
+                  kind: call
+                  signature: 'self._is_under_root(path)'
+                  executionPaths:
+                    - [C001M008E0001, C001M008E0003, C001M008E0005, C001M008E0007, C001M008E0009, C001M008E0011, C001M008E0012]
+        - id: C001M009
+          kind: callable
+          name: allocate_destination_uri
+          signature: 'allocate_destination_uri(self, key: BaseArtifactKey) -> str'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: key
+                type:
+                  name: BaseArtifactKey
+            returnType:
+              name: str
+            branches:
+              - id: C001M009E0001
+                condition: 'executes'
+                outcome: 'path = self._allocate_path_for_key(key)'
+              - id: C001M009E0002
+                condition: 'executes'
+                outcome: 'path.parent.mkdir(parents=True, exist_ok=True)'
+              - id: C001M009E0003
+                condition: 'return path.as_uri()'
+                outcome: 'returns path.as_uri()'
+            integration:
+              interunit:
+                - id: IC001M009E0001
+                  target: EphemeralArtifactRepository._allocate_path_for_key
+                  kind: call
+                  signature: 'self._allocate_path_for_key(key)'
+                  executionPaths:
+                    - [C001M009E0001]
+        - id: C001M010
+          kind: callable
+          name: _is_under_root
+          signature: '_is_under_root(self, path: Path) -> bool'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: path
+                type:
+                  name: Path
+            returnType:
+              name: bool
+            branches:
+              - id: C001M010E0001
+                condition: 'try succeeds'
+                outcome: 'returns True'
+              - id: C001M010E0002
+                condition: 'except Exception'
+                outcome: 'exception raised'
+              - id: C001M010E0003
+                condition: 'executes'
+                outcome: 'path.relative_to(self._root)'
+              - id: C001M010E0004
+                condition: 'return True'
+                outcome: 'returns True'
+              - id: C001M010E0005
+                condition: 'return False'
+                outcome: 'returns False'
+        - id: C001M011
+          kind: callable
+          name: _allocate_path_for_key
+          signature: '_allocate_path_for_key(self, key: BaseArtifactKey) -> Path'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: EphemeralArtifactRepository
+              - name: key
+                type:
+                  name: BaseArtifactKey
+            returnType:
+              name: Path
+            branches:
+              - id: C001M011E0001
+                condition: 'case IndexMetadataKey() as k'
+                outcome: 'matches IndexMetadataKey pattern'
+              - id: C001M011E0002
+                condition: 'case CoreMetadataKey() as k'
+                outcome: 'matches CoreMetadataKey pattern'
+              - id: C001M011E0003
+                condition: 'case WheelKey() as k'
+                outcome: 'matches WheelKey pattern'
+              - id: C001M011E0004
+                condition: 'case _'
+                outcome: 'no match, default case'
+              - id: C001M011E0005
+                condition: 'executes'
+                outcome: 'base_hash = _short_hash(k.index_base)'
+              - id: C001M011E0006
+                condition: 'executes'
+                outcome: 'project = _safe_segment(k.project)'
+              - id: C001M011E0007
+                condition: 'return ...'
+                outcome: 'returns path for IndexMetadataKey'
+              - id: C001M011E0008
+                condition: 'executes'
+                outcome: 'name = _safe_segment(k.name)'
+              - id: C001M011E0009
+                condition: 'executes'
+                outcome: 'version = _safe_segment(k.version)'
+              - id: C001M011E0010
+                condition: 'executes'
+                outcome: 'tag = _safe_segment(k.tag)'
+              - id: C001M011E0011
+                condition: 'executes'
+                outcome: 'url_hash = _short_hash(k.file_url)'
+              - id: C001M011E0012
+                condition: 'return ...'
+                outcome: 'returns path for CoreMetadataKey'
+              - id: C001M011E0013
+                condition: 'executes'
+                outcome: 'name = _safe_segment(k.name)'
+              - id: C001M011E0014
+                condition: 'executes'
+                outcome: 'version = _safe_segment(k.version)'
+              - id: C001M011E0015
+                condition: 'executes'
+                outcome: 'tag = _safe_segment(k.tag)'
+              - id: C001M011E0016
+                condition: 'if k.origin_uri is None'
+                outcome: 'raises ValueError'
+              - id: C001M011E0017
+                condition: 'else'
+                outcome: 'continues to line 156'
+              - id: C001M011E0018
+                condition: 'raise ValueError(...)'
+                outcome: 'raises ValueError("WheelKey must have an origin_uri")'
+              - id: C001M011E0019
+                condition: 'executes'
+                outcome: 'url_hash = _short_hash(k.origin_uri)'
+              - id: C001M011E0020
+                condition: 'executes'
+                outcome: 'base = _url_basename(k.origin_uri)'
+              - id: C001M011E0021
+                condition: 'if base is not None and base.endswith(".whl")'
+                outcome: 'uses URL basename for filename'
+              - id: C001M011E0022
+                condition: 'else'
+                outcome: 'uses hash-based filename'
+              - id: C001M011E0023
+                condition: 'executes'
+                outcome: 'filename = f"{url_hash}-{_safe_segment(base)}"'
+              - id: C001M011E0024
+                condition: 'executes'
+                outcome: 'filename = f"{url_hash}.whl"'
+              - id: C001M011E0025
+                condition: 'return ...'
+                outcome: 'returns path for WheelKey'
+              - id: C001M011E0026
+                condition: 'raise TypeError(...)'
+                outcome: 'raises TypeError for unsupported key type'
+            integration:
+              interunit:
+                - id: IC001M011E0005
+                  target: _short_hash
+                  kind: call
+                  signature: '_short_hash(k.index_base)'
+                  executionPaths:
+                    - [C001M011E0001, C001M011E0005]
+                - id: IC001M011E0006
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.project)'
+                  executionPaths:
+                    - [C001M011E0001, C001M011E0005, C001M011E0006]
+                - id: IC001M011E0008
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.name)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0008]
+                - id: IC001M011E0009
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.version)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0008, C001M011E0009]
+                - id: IC001M011E0010
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.tag)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0008, C001M011E0009, C001M011E0010]
+                - id: IC001M011E0011
+                  target: _short_hash
+                  kind: call
+                  signature: '_short_hash(k.file_url)'
+                  executionPaths:
+                    - [C001M011E0002, C001M011E0008, C001M011E0009, C001M011E0010, C001M011E0011]
+                - id: IC001M011E0013
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.name)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013]
+                - id: IC001M011E0014
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.version)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013, C001M011E0014]
+                - id: IC001M011E0015
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(k.tag)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013, C001M011E0014, C001M011E0015]
+                - id: IC001M011E0019
+                  target: _short_hash
+                  kind: call
+                  signature: '_short_hash(k.origin_uri)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013, C001M011E0014, C001M011E0015, C001M011E0017, C001M011E0019]
+                - id: IC001M011E0020
+                  target: _url_basename
+                  kind: call
+                  signature: '_url_basename(k.origin_uri)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013, C001M011E0014, C001M011E0015, C001M011E0017, C001M011E0019, C001M011E0020]
+                - id: IC001M011E0023
+                  target: _safe_segment
+                  kind: call
+                  signature: '_safe_segment(base)'
+                  executionPaths:
+                    - [C001M011E0003, C001M011E0013, C001M011E0014, C001M011E0015, C001M011E0017, C001M011E0019, C001M011E0020, C001M011E0021, C001M011E0023]
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: builtin_repository
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'The __init__ method is not enumerated as a callable in this ledger. Constructor behavior is captured in class-level metadata but not as a separate callable entry.'
+  - severity: info
+    category: assumption
+    message: 'tempfile.TemporaryDirectory is treated as a standard library boundary (filesystem) but not explicitly listed as an integration fact since it is called in __init__ which is not enumerated.'

@@ -1,0 +1,198 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: repository
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C000
+    kind: unit
+    name: repository
+    address: repository@L1
+  - id: C001
+    kind: class
+    name: ArtifactRepository
+    address: repository::ArtifactRepository@L25
+  - id: C001M001
+    kind: callable
+    name: close
+    address: repository::ArtifactRepository::close@L38
+  - id: C002
+    kind: class
+    name: ArtifactRecord
+    address: repository::ArtifactRecord@L54
+  - id: C002M001
+    kind: callable
+    name: to_mapping
+    address: repository::ArtifactRecord::to_mapping@L64
+  - id: C002M002
+    kind: callable
+    name: from_mapping
+    address: repository::ArtifactRecord::from_mapping@L78
+  branches:
+  - id: C001M001E0001
+    address: repository::ArtifactRepository.close@L45
+    summary: 'executes: return None'
+  - id: C002M001E0001
+    address: repository::ArtifactRecord.to_mapping@L65
+    summary: 'executes: mapping = {...}'
+  - id: C002M001E0002
+    address: repository::ArtifactRecord.to_mapping@L74
+    summary: self.content_hashes truthy → mapping.update(...) executes
+  - id: C002M001E0003
+    address: repository::ArtifactRecord.to_mapping@L74
+    summary: self.content_hashes falsy → skips to line 76
+  - id: C002M001E0004
+    address: repository::ArtifactRecord.to_mapping@L75
+    summary: 'executes: mapping.update({''content_hashes'': self.content_hashes})'
+  - id: C002M001E0005
+    address: repository::ArtifactRecord.to_mapping@L76
+    summary: 'executes: return mapping'
+  - id: C002M002E0001
+    address: repository::ArtifactRecord.from_mapping@L80
+    summary: 'executes: incoming_hashes = mapping.get(''content_hashes'', {})'
+  - id: C002M002E0002
+    address: repository::ArtifactRecord.from_mapping@L81
+    summary: 'executes: return cls(...)'
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: repository
+  children:
+  - id: C001
+    kind: class
+    name: ArtifactRepository
+    modifiers:
+    - abstract
+    children:
+    - id: C001M001
+      kind: callable
+      name: close
+      signature: close(self) -> None
+      callable:
+        params:
+        - name: self
+          type:
+            name: ArtifactRepository
+        returnType:
+          name: None
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: return None
+  - id: C002
+    kind: class
+    name: ArtifactRecord
+    decorators:
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+    children:
+    - id: C002M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      callable:
+        params:
+        - name: self
+          type:
+            name: ArtifactRecord
+        - name: args
+        - name: kwargs
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C002M001E0001
+          condition: executes
+          outcome: 'mapping: dict[str, Any] = {''key'': self.key.to_mapping(), ''destination_uri'':
+            self.destination_uri, ''origin_uri'': self.origin_uri, ''source'': self.source.value,
+            ''content_sha256'': self.content_sha256, ''size'': self.size, ''created_at_epoch_s'':
+            self.created_at_epoch_s}'
+        - id: C002M001E0002
+          condition: if self.content_hashes
+          outcome: continues to line 75
+        - id: C002M001E0003
+          condition: else
+          outcome: continues to line 76
+        - id: C002M001E0004
+          condition: executes
+          outcome: 'mapping.update({''content_hashes'': self.content_hashes})'
+        - id: C002M001E0005
+          condition: executes
+          outcome: return mapping
+        integration:
+          interunit:
+          - id: IC002M001E0001
+            target: BaseArtifactKey.to_mapping
+            kind: call
+            signature: self.key.to_mapping()
+            executionPaths:
+            - - C002M001E0001
+            notes: Called within mapping dict construction on line 66
+    - id: C002M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      decorators:
+      - name: classmethod
+      callable:
+        params:
+        - name: cls
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+        returnType:
+          name: Self
+        branches:
+        - id: C002M002E0001
+          condition: executes
+          outcome: incoming_hashes = mapping.get('content_hashes', {})
+        - id: C002M002E0002
+          condition: executes
+          outcome: return cls(key=BaseArtifactKey.from_mapping(mapping['key']), destination_uri=mapping['destination_uri'],
+            origin_uri=mapping['origin_uri'], source=ArtifactSource(mapping.get('source',
+            ArtifactSource.OTHER.value)), content_sha256=mapping.get('content_sha256'),
+            size=mapping.get('size'), created_at_epoch_s=mapping.get('created_at_epoch_s'),
+            content_hashes=dict(incoming_hashes))
+        integration:
+          interunit:
+          - id: IC002M002E0002
+            target: BaseArtifactKey.from_mapping
+            kind: call
+            signature: BaseArtifactKey.from_mapping(mapping['key'])
+            executionPaths:
+            - - C002M002E0001
+              - C002M002E0002
+            notes: Called within cls() constructor on line 82
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: repository
+  language: python
+  callablesAnalyzed: 3
+  totalExeItems: 8
+  interunitIntegrations: 2
+  boundaryIntegrations: 0
+findings:
+- severity: info
+  category: assumption
+  message: Abstract base classes ArtifactRepository and ArtifactResolver contain abstract
+    methods that are not analyzed as they have no implementation in this unit
+  appliesTo:
+  - C001
+  - ArtifactResolver
+- severity: info
+  category: assumption
+  message: Enum class ArtifactSource is not analyzed as a callable; only its usage
+    is tracked
+  appliesTo:
+  - ArtifactSource

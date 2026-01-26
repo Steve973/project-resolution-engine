@@ -1,0 +1,199 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: toml
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C000F001
+      kind: callable
+      name: load_toml_file
+      address: 'toml::load_toml_file@L11'
+    - id: C000F002
+      kind: callable
+      name: load_toml_text
+      address: 'toml::load_toml_text@L35'
+    - id: C000F003
+      kind: callable
+      name: dump_toml_to_str
+      address: 'toml::dump_toml_to_str@L52'
+    - id: C000F004
+      kind: callable
+      name: dump_toml_to_file
+      address: 'toml::dump_toml_to_file@L71'
+  branches:
+    - id: C000F001E0001
+      address: 'toml::load_toml_file@with open@L31'
+      summary: 'open(path, ''rb'') enters context successfully → continues to line 32'
+    - id: C000F001E0002
+      address: 'toml::load_toml_file@with open@L31'
+      summary: 'open(path, ''rb'') raises exception → exits with exception'
+    - id: C000F001E0003
+      address: 'toml::load_toml_file@return@L32'
+      summary: 'executes: returns tomli.load(f)'
+    - id: C000F002E0001
+      address: 'toml::load_toml_text@return@L49'
+      summary: 'executes: returns tomli.loads(text)'
+    - id: C000F003E0001
+      address: 'toml::dump_toml_to_str@return@L68'
+      summary: 'executes: returns tomli_w.dumps(data, indent=indent)'
+    - id: C000F004E0001
+      address: 'toml::dump_toml_to_file@L86'
+      summary: 'executes: Path(path).write_text(dump_toml_to_str(data), encoding=''utf-8'')'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: toml
+  children:
+    - id: C000F001
+      kind: callable
+      name: load_toml_file
+      signature: 'load_toml_file(path: str | Path) -> dict[str, Any]'
+      callable:
+        params:
+          - name: path
+            type:
+              name: 'str | Path'
+        returnType:
+          name: 'dict[str, Any]'
+        raises:
+          - name: FileNotFoundError
+            notes: 'If the specified file does not exist'
+          - name: PermissionError
+            notes: 'If the file cannot be accessed due to permissions'
+          - name: tomli.TOMLDecodeError
+            notes: 'If the file content is not valid TOML'
+        branches:
+          - id: C000F001E0001
+            condition: 'with open(path, ''rb'') as f'
+            outcome: 'enters context successfully, continues to line 32'
+          - id: C000F001E0002
+            condition: 'with open(path, ''rb'') as f'
+            outcome: 'raises exception (FileNotFoundError, PermissionError, etc.)'
+          - id: C000F001E0003
+            condition: 'return tomli.load(f)'
+            outcome: 'returns parsed TOML dict'
+        integration:
+          interunit:
+            - id: IC000F001E0003
+              target: tomli.load
+              kind: call
+              signature: 'tomli.load(f)'
+              executionPaths:
+                - [C000F001E0001, C000F001E0003]
+              notes: 'Called within with block after successful open'
+          boundaries:
+            - id: IC000F001E0001
+              target: open
+              kind: io
+              signature: 'open(path, ''rb'')'
+              boundary:
+                kind: filesystem
+                operation: read
+              executionPaths:
+                - [C000F001E0001]
+              notes: 'Opens file for binary read; can raise FileNotFoundError or PermissionError'
+    - id: C000F002
+      kind: callable
+      name: load_toml_text
+      signature: 'load_toml_text(text: str) -> dict[str, Any]'
+      callable:
+        params:
+          - name: text
+            type:
+              name: str
+        returnType:
+          name: 'dict[str, Any]'
+        branches:
+          - id: C000F002E0001
+            condition: 'return tomli.loads(text)'
+            outcome: 'returns parsed TOML dict'
+        integration:
+          interunit:
+            - id: IC000F002E0001
+              target: tomli.loads
+              kind: call
+              signature: 'tomli.loads(text)'
+              executionPaths:
+                - [C000F002E0001]
+    - id: C000F003
+      kind: callable
+      name: dump_toml_to_str
+      signature: 'dump_toml_to_str(data: Mapping[str, Any], indent: int = 2) -> str'
+      callable:
+        params:
+          - name: data
+            type:
+              name: 'Mapping[str, Any]'
+          - name: indent
+            type:
+              name: int
+            default: 2
+        returnType:
+          name: str
+        branches:
+          - id: C000F003E0001
+            condition: 'return tomli_w.dumps(data, indent=indent)'
+            outcome: 'returns TOML formatted string'
+        integration:
+          interunit:
+            - id: IC000F003E0001
+              target: tomli_w.dumps
+              kind: call
+              signature: 'tomli_w.dumps(data, indent=indent)'
+              executionPaths:
+                - [C000F003E0001]
+    - id: C000F004
+      kind: callable
+      name: dump_toml_to_file
+      signature: 'dump_toml_to_file(data: Mapping[str, Any], path: str | Path) -> None'
+      callable:
+        params:
+          - name: data
+            type:
+              name: 'Mapping[str, Any]'
+          - name: path
+            type:
+              name: 'str | Path'
+        returnType:
+          name: None
+        branches:
+          - id: C000F004E0001
+            condition: 'Path(path).write_text(dump_toml_to_str(data), encoding=''utf-8'')'
+            outcome: 'writes TOML content to file'
+        integration:
+          interunit:
+            - id: IC000F004E0001
+              target: dump_toml_to_str
+              kind: call
+              signature: 'dump_toml_to_str(data)'
+              executionPaths:
+                - [C000F004E0001]
+              notes: 'Calls another function in this unit'
+          boundaries:
+            - id: IC000F004E0001
+              target: Path.write_text
+              kind: io
+              signature: 'Path(path).write_text(dump_toml_to_str(data), encoding=''utf-8'')'
+              boundary:
+                kind: filesystem
+                operation: write
+              executionPaths:
+                - [C000F004E0001]
+              notes: 'Writes content to file; can raise PermissionError or OSError'
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: toml
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Integration IC000F004E0001 has duplicate ID - both interunit call to dump_toml_to_str and boundary call to Path.write_text use the same EI ID. This is technically allowed but may need clarification in execution paths.'
+    appliesTo: IC000F004E0001
+    recommendedAction: 'Consider whether these should be separate EIs or if the current representation accurately captures the single-line compound operation.'

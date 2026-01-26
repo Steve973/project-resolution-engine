@@ -10,10 +10,10 @@ from project_resolution_engine.strategies import (
     StrategyCriticality,
 )
 
-
 # --------------------------------------------------------------------------------------
 # Helpers (not tests)
 # --------------------------------------------------------------------------------------
+
 
 class _DummyPkg:
     __name__ = "dummy_pkg"
@@ -32,18 +32,27 @@ class _EP:
 # StrategyRef.normalized_instance_id
 # --------------------------------------------------------------------------------------
 
+
 @pytest.mark.parametrize(
     "strategy_name, instance_id, expect, expect_err_substr, covers",
     [
         # covers: C002M001B0001
-        ("", "", None, "StrategyRef requires strategy_name or instance_id", ["C002M001B0001"]),
+        (
+            "",
+            "",
+            None,
+            "StrategyRef requires strategy_name or instance_id",
+            ["C002M001B0001"],
+        ),
         # covers: C002M001B0002
         ("s", "", "s", None, ["C002M001B0002"]),
         # also covers: C002M001B0002 (instance_id wins)
         ("s", "iid", "iid", None, ["C002M001B0002"]),
     ],
 )
-def test_strategyref_normalized_instance_id(strategy_name, instance_id, expect, expect_err_substr, covers):
+def test_strategyref_normalized_instance_id(
+    strategy_name, instance_id, expect, expect_err_substr, covers
+):
     ref = strat.StrategyRef(strategy_name=strategy_name, instance_id=instance_id)
     if expect_err_substr:
         with pytest.raises(strat.StrategyConfigError) as e:
@@ -57,6 +66,7 @@ def test_strategyref_normalized_instance_id(strategy_name, instance_id, expect, 
 # BaseArtifactResolutionStrategyConfig (defaults / plan)
 # --------------------------------------------------------------------------------------
 
+
 # noinspection PyTypeChecker
 def test_base_config_defaults_and_plan():
     # covers: C004M001B0001, C004M002B0001
@@ -69,6 +79,7 @@ def test_base_config_defaults_and_plan():
 # DefaultStrategyConfig.plan
 # --------------------------------------------------------------------------------------
 
+
 class _StrategyNameAttr:
     strategy_name = "from_attr"
 
@@ -78,14 +89,22 @@ class _StrategyNameAttr:
     "cfg, expect_err_substr, covers",
     [
         # covers: C005M001B0001
-        ({"strategy_name": 123, "instance_id": "x"}, "strategy_name must be a non-empty string", ["C005M001B0001"]),
+        (
+            {"strategy_name": 123, "instance_id": "x"},
+            "strategy_name must be a non-empty string",
+            ["C005M001B0001"],
+        ),
         # covers: C005M001B0003
-        ({"strategy_name": "s", "instance_id": 5}, "instance_id must be a non-empty string", ["C005M001B0003"]),
+        (
+            {"strategy_name": "s", "instance_id": 5},
+            "instance_id must be a non-empty string",
+            ["C005M001B0003"],
+        ),
         # covers: C005M001B0005
         (
-                {"strategy_name": "s", "instance_id": "x", "precedence": "nope"},
-                "precedence: expected int",
-                ["C005M001B0005"],
+            {"strategy_name": "s", "instance_id": "x", "precedence": "nope"},
+            "precedence: expected int",
+            ["C005M001B0005"],
         ),
     ],
 )
@@ -96,7 +115,9 @@ def test_default_strategy_config_plan_validation(cfg, expect_err_substr, covers)
 
 
 # noinspection PyTypeChecker
-def test_default_strategy_config_plan_validation_fallback_invalid_strategy_name(monkeypatch):
+def test_default_strategy_config_plan_validation_fallback_invalid_strategy_name(
+    monkeypatch,
+):
     # covers: C005M001B0001 (fallback via _strategy_name_for_class produces invalid value)
     monkeypatch.setattr(strat, "_strategy_name_for_class", lambda cls: "")
     with pytest.raises(strat.StrategyConfigError) as e:
@@ -132,6 +153,7 @@ def test_default_strategy_config_plan_success_and_ctor_kwarg_stripping():
 # _iter_module_objects
 # --------------------------------------------------------------------------------------
 
+
 # noinspection PyTypeChecker
 def test_iter_module_objects_empty_package_name_raises_value_error():
     # covers: C000F001B0001
@@ -160,7 +182,11 @@ def test_iter_module_objects_walk_packages_yields_objects(monkeypatch):
         raise ImportError(name)
 
     monkeypatch.setattr(strat.importlib, "import_module", _import_module)
-    monkeypatch.setattr(strat.pkgutil, "walk_packages", lambda *a, **k: [(None, "dummy_pkg.mod1", False)])
+    monkeypatch.setattr(
+        strat.pkgutil,
+        "walk_packages",
+        lambda *a, **k: [(None, "dummy_pkg.mod1", False)],
+    )
     out = list(strat._iter_module_objects("dummy_pkg"))
     assert 1 in out
     assert "x" in out
@@ -169,6 +195,7 @@ def test_iter_module_objects_walk_packages_yields_objects(monkeypatch):
 # --------------------------------------------------------------------------------------
 # _iter_entrypoint_objects
 # --------------------------------------------------------------------------------------
+
 
 def test_iter_entrypoint_objects_empty_group_and_no_eps(monkeypatch):
     # covers: C000F002B0001, C000F002B0003
@@ -195,6 +222,7 @@ def test_iter_entrypoint_objects_group_with_eps(monkeypatch):
 # --------------------------------------------------------------------------------------
 # builtin / entrypoint discovery filters
 # --------------------------------------------------------------------------------------
+
 
 class _AbstractStrategy(BaseArtifactResolutionStrategy[Any]):
     # abstract is OK for issubclass checks
@@ -250,19 +278,28 @@ def test_builtin_config_spec_classes_empty(monkeypatch):
 
 def test_builtin_config_spec_classes_filters(monkeypatch):
     # covers: C000F005B0002..B0004
-    monkeypatch.setattr(strat, "_iter_module_objects", lambda package_name: iter([_SpecA, 123, _NotAStrategy]))
+    monkeypatch.setattr(
+        strat,
+        "_iter_module_objects",
+        lambda package_name: iter([_SpecA, 123, _NotAStrategy]),
+    )
     assert strat._builtin_config_spec_classes("pkg") == [_SpecA]
 
 
 def test_entrypoint_config_spec_classes_filters(monkeypatch):
     # covers: C000F006B0001..B0004
-    monkeypatch.setattr(strat, "_iter_entrypoint_objects", lambda group: iter([_SpecA, 123, _NotAStrategy]))
+    monkeypatch.setattr(
+        strat,
+        "_iter_entrypoint_objects",
+        lambda group: iter([_SpecA, 123, _NotAStrategy]),
+    )
     assert strat._entrypoint_config_spec_classes("g") == [_SpecA]
 
 
 # --------------------------------------------------------------------------------------
 # _strategy_name_for_class
 # --------------------------------------------------------------------------------------
+
 
 class _HasStrategyName:
     strategy_name = "sn"
@@ -293,11 +330,14 @@ def test_strategy_name_for_class(cls, expected, covers):
 # discover_strategy_classes
 # --------------------------------------------------------------------------------------
 
+
 def test_discover_strategy_classes_no_strategies(monkeypatch):
     # covers: C000F008B0001, C000F008B0005
     monkeypatch.setattr(strat, "_builtin_strategy_classes", lambda pkg: [])
     monkeypatch.setattr(strat, "_entrypoint_strategy_classes", lambda grp: [])
-    out = strat.discover_strategy_classes(strategy_package="p", strategy_entrypoint_group="g")
+    out = strat.discover_strategy_classes(
+        strategy_package="p", strategy_entrypoint_group="g"
+    )
     assert out == {}
 
 
@@ -312,11 +352,15 @@ def test_discover_strategy_classes_duplicate_in_builtin(monkeypatch):
     monkeypatch.setattr(strat, "_builtin_strategy_classes", lambda pkg: [A, B])
     monkeypatch.setattr(strat, "_entrypoint_strategy_classes", lambda grp: [])
     with pytest.raises(strat.StrategyConfigError) as e:
-        strat.discover_strategy_classes(strategy_package="p", strategy_entrypoint_group="g")
+        strat.discover_strategy_classes(
+            strategy_package="p", strategy_entrypoint_group="g"
+        )
     assert "duplicate strategy_name discovered" in str(e.value)
 
 
-def test_discover_strategy_classes_duplicate_between_builtin_and_entrypoint(monkeypatch):
+def test_discover_strategy_classes_duplicate_between_builtin_and_entrypoint(
+    monkeypatch,
+):
     # covers: C000F008B0004, C000F008B0006, C000F008B0007
     class A:
         strategy_name = "dup"
@@ -327,7 +371,9 @@ def test_discover_strategy_classes_duplicate_between_builtin_and_entrypoint(monk
     monkeypatch.setattr(strat, "_builtin_strategy_classes", lambda pkg: [A])
     monkeypatch.setattr(strat, "_entrypoint_strategy_classes", lambda grp: [C])
     with pytest.raises(strat.StrategyConfigError) as e:
-        strat.discover_strategy_classes(strategy_package="p", strategy_entrypoint_group="g")
+        strat.discover_strategy_classes(
+            strategy_package="p", strategy_entrypoint_group="g"
+        )
     assert "duplicate strategy_name discovered" in str(e.value)
 
 
@@ -341,7 +387,9 @@ def test_discover_strategy_classes_success_with_origins(monkeypatch):
 
     monkeypatch.setattr(strat, "_builtin_strategy_classes", lambda pkg: [A])
     monkeypatch.setattr(strat, "_entrypoint_strategy_classes", lambda grp: [B])
-    out = strat.discover_strategy_classes(strategy_package="p", strategy_entrypoint_group="g")
+    out = strat.discover_strategy_classes(
+        strategy_package="p", strategy_entrypoint_group="g"
+    )
     assert out["a"].origin == "builtin"
     assert out["b"].origin == "entrypoint"
 
@@ -350,11 +398,17 @@ def test_discover_strategy_classes_success_with_origins(monkeypatch):
 # discover_config_specs
 # --------------------------------------------------------------------------------------
 
+
 def test_discover_config_specs_empty(monkeypatch):
     # covers: C000F009B0001
     monkeypatch.setattr(strat, "_builtin_config_spec_classes", lambda pkg: [])
     monkeypatch.setattr(strat, "_entrypoint_config_spec_classes", lambda grp: [])
-    assert strat.discover_config_specs(builtin_config_package="p", config_entrypoint_group="g") == {}
+    assert (
+        strat.discover_config_specs(
+            builtin_config_package="p", config_entrypoint_group="g"
+        )
+        == {}
+    )
 
 
 def test_discover_config_specs_filters_and_registers(monkeypatch):
@@ -368,9 +422,13 @@ def test_discover_config_specs_filters_and_registers(monkeypatch):
     class Ok:
         strategy_name = "ok"
 
-    monkeypatch.setattr(strat, "_builtin_config_spec_classes", lambda pkg: [NoName, NotStr, Ok])
+    monkeypatch.setattr(
+        strat, "_builtin_config_spec_classes", lambda pkg: [NoName, NotStr, Ok]
+    )
     monkeypatch.setattr(strat, "_entrypoint_config_spec_classes", lambda grp: [])
-    out = strat.discover_config_specs(builtin_config_package="p", config_entrypoint_group="g")
+    out = strat.discover_config_specs(
+        builtin_config_package="p", config_entrypoint_group="g"
+    )
     assert out == {"ok": Ok}
 
 
@@ -385,13 +443,16 @@ def test_discover_config_specs_duplicate(monkeypatch):
     monkeypatch.setattr(strat, "_builtin_config_spec_classes", lambda pkg: [A])
     monkeypatch.setattr(strat, "_entrypoint_config_spec_classes", lambda grp: [B])
     with pytest.raises(strat.StrategyConfigError) as e:
-        strat.discover_config_specs(builtin_config_package="p", config_entrypoint_group="g")
+        strat.discover_config_specs(
+            builtin_config_package="p", config_entrypoint_group="g"
+        )
     assert "duplicate config spec" in str(e.value)
 
 
 # --------------------------------------------------------------------------------------
 # _ensure_dict / _effective_precedence / _effective_criticality
 # --------------------------------------------------------------------------------------
+
 
 def test_ensure_dict_returns_copy():
     # covers: C000F010B0001
@@ -414,22 +475,45 @@ class _PrecNonInt:
     "cfg, strategy_cls, fallback, expect, expect_err_substr, covers",
     [
         # covers: C000F011B0001, C000F011B0004
-        ({"precedence": 3}, _PrecNonInt, 99, 3, None, ["C000F011B0001", "C000F011B0004"]),
+        (
+            {"precedence": 3},
+            _PrecNonInt,
+            99,
+            3,
+            None,
+            ["C000F011B0001", "C000F011B0004"],
+        ),
         # covers: C000F011B0003
-        ({"precedence": "no"}, _PrecInt, 99, None, "precedence: expected int", ["C000F011B0001", "C000F011B0003"]),
+        (
+            {"precedence": "no"},
+            _PrecInt,
+            99,
+            None,
+            "precedence: expected int",
+            ["C000F011B0001", "C000F011B0003"],
+        ),
         # covers: C000F011B0002, C000F011B0005
         ({}, _PrecNonInt, 11, 11, None, ["C000F011B0002", "C000F011B0005"]),
         # covers: C000F011B0002, C000F011B0006
         ({}, _PrecInt, 11, 7, None, ["C000F011B0002", "C000F011B0006"]),
     ],
 )
-def test_effective_precedence(cfg, strategy_cls, fallback, expect, expect_err_substr, covers):
+def test_effective_precedence(
+    cfg, strategy_cls, fallback, expect, expect_err_substr, covers
+):
     if expect_err_substr:
         with pytest.raises(strat.StrategyConfigError) as e:
-            strat._effective_precedence(cfg=cfg, strategy_cls=strategy_cls, fallback=fallback)
+            strat._effective_precedence(
+                cfg=cfg, strategy_cls=strategy_cls, fallback=fallback
+            )
         assert expect_err_substr in str(e.value)
     else:
-        assert strat._effective_precedence(cfg=cfg, strategy_cls=strategy_cls, fallback=fallback) == expect
+        assert (
+            strat._effective_precedence(
+                cfg=cfg, strategy_cls=strategy_cls, fallback=fallback
+            )
+            == expect
+        )
 
 
 class _CritEnum:
@@ -453,25 +537,69 @@ class _CritOther:
     "cfg, strategy_cls, expect, expect_err_substr, covers",
     [
         # covers: C000F012B0001, C000F012B0003
-        ({"criticality": StrategyCriticality.REQUIRED}, _CritOther, StrategyCriticality.REQUIRED, None,
-         ["C000F012B0001", "C000F012B0003"]),
+        (
+            {"criticality": StrategyCriticality.REQUIRED},
+            _CritOther,
+            StrategyCriticality.REQUIRED,
+            None,
+            ["C000F012B0001", "C000F012B0003"],
+        ),
         # covers: C000F012B0001, C000F012B0004, C000F012B0006
-        ({"criticality": "required"}, _CritOther, StrategyCriticality.REQUIRED, None,
-         ["C000F012B0001", "C000F012B0004", "C000F012B0006"]),
+        (
+            {"criticality": "required"},
+            _CritOther,
+            StrategyCriticality.REQUIRED,
+            None,
+            ["C000F012B0001", "C000F012B0004", "C000F012B0006"],
+        ),
         # covers: C000F012B0001, C000F012B0004, C000F012B0007
-        ({"criticality": "invalid"}, _CritOther, None, "criticality: invalid value",
-         ["C000F012B0001", "C000F012B0004", "C000F012B0007"]),
+        (
+            {"criticality": "invalid"},
+            _CritOther,
+            None,
+            "criticality: invalid value",
+            ["C000F012B0001", "C000F012B0004", "C000F012B0007"],
+        ),
         # covers: C000F012B0001, C000F012B0005
-        ({"criticality": 123}, _CritOther, None, "criticality: expected StrategyCriticality or str",
-         ["C000F012B0001", "C000F012B0005"]),
+        (
+            {"criticality": 123},
+            _CritOther,
+            None,
+            "criticality: expected StrategyCriticality or str",
+            ["C000F012B0001", "C000F012B0005"],
+        ),
         # covers: C000F012B0002, C000F012B0008
-        ({}, _CritEnum, StrategyCriticality.IMPERATIVE, None, ["C000F012B0002", "C000F012B0008"]),
+        (
+            {},
+            _CritEnum,
+            StrategyCriticality.IMPERATIVE,
+            None,
+            ["C000F012B0002", "C000F012B0008"],
+        ),
         # covers: C000F012B0002, C000F012B0009, C000F012B0011
-        ({}, _CritStrValid, StrategyCriticality.REQUIRED, None, ["C000F012B0002", "C000F012B0009", "C000F012B0011"]),
+        (
+            {},
+            _CritStrValid,
+            StrategyCriticality.REQUIRED,
+            None,
+            ["C000F012B0002", "C000F012B0009", "C000F012B0011"],
+        ),
         # covers: C000F012B0002, C000F012B0009, C000F012B0012
-        ({}, _CritStrInvalid, StrategyCriticality.OPTIONAL, None, ["C000F012B0002", "C000F012B0009", "C000F012B0012"]),
+        (
+            {},
+            _CritStrInvalid,
+            StrategyCriticality.OPTIONAL,
+            None,
+            ["C000F012B0002", "C000F012B0009", "C000F012B0012"],
+        ),
         # covers: C000F012B0002, C000F012B0010
-        ({}, _CritOther, StrategyCriticality.OPTIONAL, None, ["C000F012B0002", "C000F012B0010"]),
+        (
+            {},
+            _CritOther,
+            StrategyCriticality.OPTIONAL,
+            None,
+            ["C000F012B0002", "C000F012B0010"],
+        ),
     ],
 )
 def test_effective_criticality(cfg, strategy_cls, expect, expect_err_substr, covers):
@@ -480,12 +608,15 @@ def test_effective_criticality(cfg, strategy_cls, expect, expect_err_substr, cov
             strat._effective_criticality(cfg=cfg, strategy_cls=strategy_cls)
         assert expect_err_substr in str(e.value)
     else:
-        assert strat._effective_criticality(cfg=cfg, strategy_cls=strategy_cls) == expect
+        assert (
+            strat._effective_criticality(cfg=cfg, strategy_cls=strategy_cls) == expect
+        )
 
 
 # --------------------------------------------------------------------------------------
 # _scan_deps
 # --------------------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize(
     "val, expect_deps, covers",
@@ -495,13 +626,25 @@ def test_effective_criticality(cfg, strategy_cls, expect, expect_err_substr, cov
         # covers: C000F013B0003, C000F013B0005
         ({}, set(), ["C000F013B0003", "C000F013B0005"]),
         # covers: C000F013B0003, C000F013B0006
-        ({"x": strat.StrategyRef(strategy_name="b")}, {"b"}, ["C000F013B0003", "C000F013B0006"]),
+        (
+            {"x": strat.StrategyRef(strategy_name="b")},
+            {"b"},
+            ["C000F013B0003", "C000F013B0006"],
+        ),
         # covers: C000F013B0007, C000F013B0009
         ([], set(), ["C000F013B0007", "C000F013B0009"]),
         # covers: C000F013B0007, C000F013B0010
-        ([strat.StrategyRef(strategy_name="c")], {"c"}, ["C000F013B0007", "C000F013B0010"]),
+        (
+            [strat.StrategyRef(strategy_name="c")],
+            {"c"},
+            ["C000F013B0007", "C000F013B0010"],
+        ),
         # covers: C000F013B0007 (tuple path)
-        ((strat.StrategyRef(strategy_name="d"),), {"d"}, ["C000F013B0007", "C000F013B0010"]),
+        (
+            (strat.StrategyRef(strategy_name="d"),),
+            {"d"},
+            ["C000F013B0007", "C000F013B0010"],
+        ),
         # covers: C000F013B0008
         ("nope", set(), ["C000F013B0008"]),
     ],
@@ -516,12 +659,18 @@ def test_scan_deps(val, expect_deps, covers):
 # build_strategy_plans (top-level early exits)
 # --------------------------------------------------------------------------------------
 
+
 def test_build_strategy_plans_no_plans(monkeypatch):
     # covers: C000F014B0001
     ingested = strat._IngestedConfigs(cfg_by_instance_id={}, bound_iids_by_strategy={})
     monkeypatch.setattr(strat, "_ingest_raw_configs", lambda **kwargs: ingested)
     monkeypatch.setattr(strat, "_plan_all_strategies", lambda **kwargs: ([], {}))
-    assert strat.build_strategy_plans(strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None) == []
+    assert (
+        strat.build_strategy_plans(
+            strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None
+        )
+        == []
+    )
 
 
 # noinspection PyTypeChecker
@@ -531,11 +680,25 @@ def test_build_strategy_plans_no_enabled_plans(monkeypatch):
     monkeypatch.setattr(strat, "_ingest_raw_configs", lambda **kwargs: ingested)
 
     dummy_plan = strat.StrategyPlan(
-        strategy_name="s", instance_id="s", strategy_cls=object, ctor_kwargs={}, depends_on=(), precedence=1
+        strategy_name="s",
+        instance_id="s",
+        strategy_cls=object,
+        ctor_kwargs={},
+        depends_on=(),
+        precedence=1,
     )
-    monkeypatch.setattr(strat, "_plan_all_strategies", lambda **kwargs: ([dummy_plan], {"s": {"instance_id": "s"}}))
+    monkeypatch.setattr(
+        strat,
+        "_plan_all_strategies",
+        lambda **kwargs: ([dummy_plan], {"s": {"instance_id": "s"}}),
+    )
     monkeypatch.setattr(strat, "_enable_plans", lambda **kwargs: ([], {}))
-    assert strat.build_strategy_plans(strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None) == []
+    assert (
+        strat.build_strategy_plans(
+            strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None
+        )
+        == []
+    )
 
 
 # noinspection PyTypeChecker
@@ -545,16 +708,34 @@ def test_build_strategy_plans_success_calls_validation(monkeypatch):
     monkeypatch.setattr(strat, "_ingest_raw_configs", lambda **kwargs: ingested)
 
     dummy_plan = strat.StrategyPlan(
-        strategy_name="s", instance_id="s", strategy_cls=object, ctor_kwargs={}, depends_on=(), precedence=1
+        strategy_name="s",
+        instance_id="s",
+        strategy_cls=object,
+        ctor_kwargs={},
+        depends_on=(),
+        precedence=1,
     )
-    monkeypatch.setattr(strat, "_plan_all_strategies", lambda **kwargs: ([dummy_plan], {"s": {"instance_id": "s"}}))
+    monkeypatch.setattr(
+        strat,
+        "_plan_all_strategies",
+        lambda **kwargs: ([dummy_plan], {"s": {"instance_id": "s"}}),
+    )
 
     enabled = [
         strat.StrategyPlan(
-            strategy_name="s", instance_id="s", strategy_cls=object, ctor_kwargs={}, depends_on=(), precedence=1
+            strategy_name="s",
+            instance_id="s",
+            strategy_cls=object,
+            ctor_kwargs={},
+            depends_on=(),
+            precedence=1,
         )
     ]
-    monkeypatch.setattr(strat, "_enable_plans", lambda **kwargs: (enabled, {"s": StrategyCriticality.OPTIONAL}))
+    monkeypatch.setattr(
+        strat,
+        "_enable_plans",
+        lambda **kwargs: (enabled, {"s": StrategyCriticality.OPTIONAL}),
+    )
 
     called = {"deps": 0, "closure": 0}
     monkeypatch.setattr(
@@ -568,7 +749,9 @@ def test_build_strategy_plans_success_calls_validation(monkeypatch):
         lambda **kw: called.__setitem__("closure", called["closure"] + 1),
     )
 
-    out = strat.build_strategy_plans(strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None)
+    out = strat.build_strategy_plans(
+        strategy_classes={}, config_specs={}, raw_configs_by_instance_id=None
+    )
     assert out == enabled
     assert called["deps"] == 1
     assert called["closure"] == 1
@@ -577,6 +760,7 @@ def test_build_strategy_plans_success_calls_validation(monkeypatch):
 # --------------------------------------------------------------------------------------
 # _ingest_raw_configs and its validators
 # --------------------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize(
     "iid, expect_err_substr, covers",
@@ -626,34 +810,70 @@ def test_validate_or_set_cfg_instance_id_sets_value():
     "iid, cfg, strategy_classes, expect, expect_err_substr, covers",
     [
         # covers: C000F019B0001, C000F019B0006
-        ("a", {}, {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")}, "a", None,
-         ["C000F019B0001", "C000F019B0006"]),
+        (
+            "a",
+            {},
+            {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+            "a",
+            None,
+            ["C000F019B0001", "C000F019B0006"],
+        ),
         # covers: C000F019B0002, C000F019B0006
-        ("a", {"strategy_name": "a"}, {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")}, "a", None,
-         ["C000F019B0002", "C000F019B0006"]),
+        (
+            "a",
+            {"strategy_name": "a"},
+            {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+            "a",
+            None,
+            ["C000F019B0002", "C000F019B0006"],
+        ),
         # covers: C000F019B0003
-        ("a", {"strategy_name": ""}, {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")}, None,
-         "must be a non empty string", ["C000F019B0003"]),
+        (
+            "a",
+            {"strategy_name": ""},
+            {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+            None,
+            "must be a non empty string",
+            ["C000F019B0003"],
+        ),
         # covers: C000F019B0005
-        ("a", {"strategy_name": "missing"}, {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
-         None, "unknown strategy_name", ["C000F019B0005"]),
+        (
+            "a",
+            {"strategy_name": "missing"},
+            {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+            None,
+            "unknown strategy_name",
+            ["C000F019B0005"],
+        ),
     ],
 )
-def test_normalize_and_validate_strategy_name(iid, cfg, strategy_classes, expect, expect_err_substr, covers):
+def test_normalize_and_validate_strategy_name(
+    iid, cfg, strategy_classes, expect, expect_err_substr, covers
+):
     if expect_err_substr:
         with pytest.raises(strat.StrategyConfigError) as e:
-            strat._normalize_and_validate_strategy_name(iid=iid, cfg=dict(cfg), strategy_classes=strategy_classes)
+            strat._normalize_and_validate_strategy_name(
+                iid=iid, cfg=dict(cfg), strategy_classes=strategy_classes
+            )
         assert expect_err_substr in str(e.value)
     else:
-        assert strat._normalize_and_validate_strategy_name(iid=iid, cfg=dict(cfg),
-                                                           strategy_classes=strategy_classes) == expect
+        assert (
+            strat._normalize_and_validate_strategy_name(
+                iid=iid, cfg=dict(cfg), strategy_classes=strategy_classes
+            )
+            == expect
+        )
 
 
 # noinspection PyTypeChecker
 def test_ingest_raw_configs_none_or_empty():
     # covers: C000F015B0001, C000F015B0003
-    strategy_classes = {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")}
-    out = strat._ingest_raw_configs(raw_configs_by_instance_id=None, strategy_classes=strategy_classes)
+    strategy_classes = {
+        "a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")
+    }
+    out = strat._ingest_raw_configs(
+        raw_configs_by_instance_id=None, strategy_classes=strategy_classes
+    )
     assert out.cfg_by_instance_id == {}
     assert out.bound_iids_by_strategy == {}
 
@@ -661,8 +881,12 @@ def test_ingest_raw_configs_none_or_empty():
 # noinspection PyTypeChecker
 def test_ingest_raw_configs_success_binds_instance():
     # covers: C000F015B0002, C000F015B0004
-    strategy_classes = {"a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")}
-    out = strat._ingest_raw_configs(raw_configs_by_instance_id={"a": {}}, strategy_classes=strategy_classes)
+    strategy_classes = {
+        "a": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")
+    }
+    out = strat._ingest_raw_configs(
+        raw_configs_by_instance_id={"a": {}}, strategy_classes=strategy_classes
+    )
     assert out.cfg_by_instance_id["a"]["instance_id"] == "a"
     assert out.cfg_by_instance_id["a"]["strategy_name"] == "a"
     assert out.bound_iids_by_strategy == {"a": ["a"]}
@@ -671,6 +895,7 @@ def test_ingest_raw_configs_success_binds_instance():
 # --------------------------------------------------------------------------------------
 # _select_instance_ids_for_strategy / _enforce_singleton_policy
 # --------------------------------------------------------------------------------------
+
 
 # noinspection PyTypeChecker
 @pytest.mark.parametrize(
@@ -682,7 +907,9 @@ def test_ingest_raw_configs_success_binds_instance():
         ("builtin", ["x"], ["x"], None, ["C000F021B0004"]),
     ],
 )
-def test_select_instance_ids_for_strategy(origin, initial_iids, expect_iids, expect_defaults_key, covers):
+def test_select_instance_ids_for_strategy(
+    origin, initial_iids, expect_iids, expect_defaults_key, covers
+):
     info = strat._StrategyClassInfo(strategy_cls=object, origin=origin)
     defaults: dict[str, dict[str, Any]] = {}
     out = strat._select_instance_ids_for_strategy(
@@ -702,9 +929,24 @@ def test_select_instance_ids_for_strategy(origin, initial_iids, expect_iids, exp
 @pytest.mark.parametrize(
     "policy, iids, expect_err_substr, covers",
     [
-        (InstantiationPolicy.SINGLETON, [], "is SINGLETON but 0 instances were configured", ["C000F022B0001"]),
-        (InstantiationPolicy.SINGLETON, ["x", "y"], "is SINGLETON but 2 instances were configured", ["C000F022B0001"]),
-        (InstantiationPolicy.SINGLETON, ["x"], "instance_id 'x' != strategy_name", ["C000F022B0002"]),
+        (
+            InstantiationPolicy.SINGLETON,
+            [],
+            "is SINGLETON but 0 instances were configured",
+            ["C000F022B0001"],
+        ),
+        (
+            InstantiationPolicy.SINGLETON,
+            ["x", "y"],
+            "is SINGLETON but 2 instances were configured",
+            ["C000F022B0001"],
+        ),
+        (
+            InstantiationPolicy.SINGLETON,
+            ["x"],
+            "instance_id 'x' != strategy_name",
+            ["C000F022B0002"],
+        ),
         (InstantiationPolicy.SINGLETON, ["s"], None, ["C000F022B0003"]),
         (InstantiationPolicy.PROTOTYPE, ["x", "y"], None, ["C000F022B0004"]),
     ],
@@ -721,6 +963,7 @@ def test_enforce_singleton_policy(policy, iids, expect_err_substr, covers):
 # --------------------------------------------------------------------------------------
 # _plan_all_strategies
 # --------------------------------------------------------------------------------------
+
 
 def test_plan_all_strategies_no_strategies():
     # covers: C000F020B0001
@@ -787,7 +1030,9 @@ def test_plan_all_strategies_success_builtin_defaults_and_entrypoint_bound():
         "entry": strat._StrategyClassInfo(strategy_cls=Entry, origin="entrypoint"),
     }
 
-    cfg_by_instance_id = {"entry1": {"instance_id": "entry1", "strategy_name": "entry", "foo": 1}}
+    cfg_by_instance_id = {
+        "entry1": {"instance_id": "entry1", "strategy_name": "entry", "foo": 1}
+    }
     bound = {"entry": ["entry1"]}
 
     class Spec(strat.BaseArtifactResolutionStrategyConfig):
@@ -829,10 +1074,17 @@ def test_plan_all_strategies_success_builtin_defaults_and_entrypoint_bound():
 # _enable_plans / _strip_planner_keys
 # --------------------------------------------------------------------------------------
 
+
 def test_strip_planner_keys():
     # covers: C000F024B0001
     out = strat._strip_planner_keys(
-        {"strategy_name": "s", "instance_id": "i", "precedence": 1, "criticality": "x", "keep": 2}
+        {
+            "strategy_name": "s",
+            "instance_id": "i",
+            "precedence": 1,
+            "criticality": "x",
+            "keep": 2,
+        }
     )
     assert out == {"keep": 2}
 
@@ -850,7 +1102,9 @@ def test_enable_plans_duplicate_instance_id_raises():
     p1 = strat.StrategyPlan("s", "iid", object, {}, (), 1)
     p2 = strat.StrategyPlan("s", "iid", object, {}, (), 1)
     with pytest.raises(strat.StrategyConfigError) as e:
-        strat._enable_plans(plans=[p1, p2], effective_cfg_by_iid={"iid": {"instance_id": "iid"}})
+        strat._enable_plans(
+            plans=[p1, p2], effective_cfg_by_iid={"iid": {"instance_id": "iid"}}
+        )
     assert "duplicate instance_id planned" in str(e.value)
 
 
@@ -870,13 +1124,17 @@ def test_enable_plans_skips_disabled_and_enables_others_with_deps():
         precedence = 50
 
     p_disabled = strat.StrategyPlan("s", "d", C, {"x": 1}, (), 1)
-    p_enabled = strat.StrategyPlan("s", "e", C, {"dep": strat.StrategyRef(strategy_name="d")}, ("z",), 1)
+    p_enabled = strat.StrategyPlan(
+        "s", "e", C, {"dep": strat.StrategyRef(strategy_name="d")}, ("z",), 1
+    )
 
     effective = {
         "d": {"instance_id": "d", "criticality": StrategyCriticality.DISABLED},
         "e": {"instance_id": "e", "precedence": 3, "criticality": "required"},
     }
-    enabled, crit = strat._enable_plans(plans=[p_disabled, p_enabled], effective_cfg_by_iid=effective)
+    enabled, crit = strat._enable_plans(
+        plans=[p_disabled, p_enabled], effective_cfg_by_iid=effective
+    )
     assert [p.instance_id for p in enabled] == ["e"]
     assert crit == {"e": StrategyCriticality.REQUIRED}
     assert enabled[0].depends_on == tuple(sorted({"z", "d"}))
@@ -886,6 +1144,7 @@ def test_enable_plans_skips_disabled_and_enables_others_with_deps():
 # --------------------------------------------------------------------------------------
 # _validate_enabled_dependencies_exist
 # --------------------------------------------------------------------------------------
+
 
 def test_validate_enabled_dependencies_exist_empty_list():
     # covers: C000F025B0001
@@ -920,29 +1179,43 @@ def test_validate_enabled_dependencies_exist_present_dep_ok():
 # _enforce_imperative_closure
 # --------------------------------------------------------------------------------------
 
+
 # noinspection PyTypeChecker
 def test_enforce_imperative_closure_no_imperative_returns():
     # covers: C000F026B0001
-    plans = [strat.StrategyPlan("s", "a", object, {}, (), 1, StrategyCriticality.OPTIONAL)]
-    strat._enforce_imperative_closure(enabled_plans=plans, crit_by_iid={"a": StrategyCriticality.OPTIONAL})
+    plans = [
+        strat.StrategyPlan("s", "a", object, {}, (), 1, StrategyCriticality.OPTIONAL)
+    ]
+    strat._enforce_imperative_closure(
+        enabled_plans=plans, crit_by_iid={"a": StrategyCriticality.OPTIONAL}
+    )
 
 
 # noinspection PyTypeChecker
 def test_enforce_imperative_closure_root_has_no_deps():
     # covers: C000F026B0002, C000F026B0004, C000F026B0005
-    plans = [strat.StrategyPlan("s", "a", object, {}, (), 1, StrategyCriticality.IMPERATIVE)]
-    strat._enforce_imperative_closure(enabled_plans=plans, crit_by_iid={"a": StrategyCriticality.IMPERATIVE})
+    plans = [
+        strat.StrategyPlan("s", "a", object, {}, (), 1, StrategyCriticality.IMPERATIVE)
+    ]
+    strat._enforce_imperative_closure(
+        enabled_plans=plans, crit_by_iid={"a": StrategyCriticality.IMPERATIVE}
+    )
 
 
 # noinspection PyTypeChecker
 def test_enforce_imperative_closure_raises_for_non_imperative_dep():
     # covers: C000F026B0006, C000F026B0009
-    a = strat.StrategyPlan("s", "a", object, {}, ("b",), 1, StrategyCriticality.IMPERATIVE)
+    a = strat.StrategyPlan(
+        "s", "a", object, {}, ("b",), 1, StrategyCriticality.IMPERATIVE
+    )
     b = strat.StrategyPlan("s", "b", object, {}, (), 1, StrategyCriticality.OPTIONAL)
     with pytest.raises(strat.StrategyConfigError) as e:
         strat._enforce_imperative_closure(
             enabled_plans=[a, b],
-            crit_by_iid={"a": StrategyCriticality.IMPERATIVE, "b": StrategyCriticality.OPTIONAL},
+            crit_by_iid={
+                "a": StrategyCriticality.IMPERATIVE,
+                "b": StrategyCriticality.OPTIONAL,
+            },
         )
     assert "depends on non IMPERATIVE" in str(e.value)
 
@@ -950,9 +1223,15 @@ def test_enforce_imperative_closure_raises_for_non_imperative_dep():
 # noinspection PyTypeChecker
 def test_enforce_imperative_closure_transitive_and_seen_dep_skips_duplicates():
     # covers: C000F026B0007, C000F026B0010, C000F026B0011, C000F026B0012
-    root = strat.StrategyPlan("s", "root", object, {}, ("dep1", "dep2"), 1, StrategyCriticality.IMPERATIVE)
-    dep1 = strat.StrategyPlan("s", "dep1", object, {}, (), 1, StrategyCriticality.IMPERATIVE)
-    dep2 = strat.StrategyPlan("s", "dep2", object, {}, ("dep1",), 1, StrategyCriticality.IMPERATIVE)
+    root = strat.StrategyPlan(
+        "s", "root", object, {}, ("dep1", "dep2"), 1, StrategyCriticality.IMPERATIVE
+    )
+    dep1 = strat.StrategyPlan(
+        "s", "dep1", object, {}, (), 1, StrategyCriticality.IMPERATIVE
+    )
+    dep2 = strat.StrategyPlan(
+        "s", "dep2", object, {}, ("dep1",), 1, StrategyCriticality.IMPERATIVE
+    )
     strat._enforce_imperative_closure(
         enabled_plans=[root, dep1, dep2],
         crit_by_iid={
@@ -966,6 +1245,7 @@ def test_enforce_imperative_closure_transitive_and_seen_dep_skips_duplicates():
 # --------------------------------------------------------------------------------------
 # topo_sort_plans
 # --------------------------------------------------------------------------------------
+
 
 def test_topo_sort_plans_empty():
     # covers: C000F027B0001
@@ -1007,6 +1287,7 @@ def test_topo_sort_plans_orders_by_precedence_and_breaks_ties():
 # _validate_ctor_kwargs
 # --------------------------------------------------------------------------------------
 
+
 class _AcceptsKw:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
@@ -1021,26 +1302,33 @@ class _NoKw:
 # noinspection PyTypeChecker
 def test_validate_ctor_kwargs_accepts_kwargs():
     # covers: C000F028B0001
-    strat._validate_ctor_kwargs(strategy_cls=_AcceptsKw, ctor_kwargs={"x": 1}, ctx="ctx")
+    strat._validate_ctor_kwargs(
+        strategy_cls=_AcceptsKw, ctor_kwargs={"x": 1}, ctx="ctx"
+    )
 
 
 # noinspection PyTypeChecker
 def test_validate_ctor_kwargs_rejects_extra_kwargs():
     # covers: C000F028B0002, C000F028B0004
     with pytest.raises(strat.StrategyConfigError) as e:
-        strat._validate_ctor_kwargs(strategy_cls=_NoKw, ctor_kwargs={"a": 1, "extra": 2}, ctx="ctx")
+        strat._validate_ctor_kwargs(
+            strategy_cls=_NoKw, ctor_kwargs={"a": 1, "extra": 2}, ctx="ctx"
+        )
     assert "ctor does not accept kwargs" in str(e.value)
 
 
 # noinspection PyTypeChecker
 def test_validate_ctor_kwargs_allows_only_allowed_keys():
     # covers: C000F028B0002, C000F028B0003
-    strat._validate_ctor_kwargs(strategy_cls=_NoKw, ctor_kwargs={"a": 1, "b": 2}, ctx="ctx")
+    strat._validate_ctor_kwargs(
+        strategy_cls=_NoKw, ctor_kwargs={"a": 1, "b": 2}, ctx="ctx"
+    )
 
 
 # --------------------------------------------------------------------------------------
 # _resolve_ctor_kwargs
 # --------------------------------------------------------------------------------------
+
 
 def test_resolve_ctor_kwargs_empty():
     # covers: C000F029B0001
@@ -1075,6 +1363,7 @@ def test_resolve_ctor_kwargs_nested_types_and_registry_hits():
 # _apply_plan_metadata
 # --------------------------------------------------------------------------------------
 
+
 # noinspection PyTypeChecker
 def test_apply_plan_metadata_no_attrs_is_noop():
     # covers: C000F030N001B0001
@@ -1082,7 +1371,9 @@ def test_apply_plan_metadata_no_attrs_is_noop():
         pass
 
     inst = NoAttrs()
-    plan = strat.StrategyPlan("s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED)
+    plan = strat.StrategyPlan(
+        "s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED
+    )
     strat._apply_plan_metadata(inst=inst, plan=plan, ctx="ctx")  # should not raise
 
 
@@ -1096,7 +1387,9 @@ def test_apply_plan_metadata_attrs_already_match_is_noop():
             self.criticality = StrategyCriticality.REQUIRED
 
     inst = HasAttrs()
-    plan = strat.StrategyPlan("s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED)
+    plan = strat.StrategyPlan(
+        "s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED
+    )
     strat._apply_plan_metadata(inst=inst, plan=plan, ctx="ctx")
     assert inst.instance_id == "iid"
 
@@ -1111,7 +1404,9 @@ def test_apply_plan_metadata_sets_attrs_when_different():
             self.criticality = StrategyCriticality.OPTIONAL
 
     inst = HasAttrs()
-    plan = strat.StrategyPlan("s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED)
+    plan = strat.StrategyPlan(
+        "s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED
+    )
     strat._apply_plan_metadata(inst=inst, plan=plan, ctx="ctx")
     assert inst.instance_id == "iid"
     assert inst.precedence == 1
@@ -1127,7 +1422,9 @@ def test_apply_plan_metadata_raises_if_cannot_set_attr():
             return "old"
 
     inst = ReadOnly()
-    plan = strat.StrategyPlan("s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED)
+    plan = strat.StrategyPlan(
+        "s", "iid", object, {}, (), 1, StrategyCriticality.REQUIRED
+    )
     with pytest.raises(strat.StrategyConfigError) as e:
         strat._apply_plan_metadata(inst=inst, plan=plan, ctx="ctx")
     assert "could not set instance_id" in str(e.value)
@@ -1136,6 +1433,7 @@ def test_apply_plan_metadata_raises_if_cannot_set_attr():
 # --------------------------------------------------------------------------------------
 # instantiate_plans
 # --------------------------------------------------------------------------------------
+
 
 def test_instantiate_plans_empty():
     # covers: C000F031B0001
@@ -1197,7 +1495,9 @@ def test_instantiate_plans_success_with_dependency_injection():
             self.instance_id = "user"
 
     dep_plan = strat.StrategyPlan("dep", "dep", Dep, {}, (), 1)
-    user_plan = strat.StrategyPlan("user", "user", User, {"dep": strat.StrategyRef(instance_id="dep")}, ("dep",), 2)
+    user_plan = strat.StrategyPlan(
+        "user", "user", User, {"dep": strat.StrategyRef(instance_id="dep")}, ("dep",), 2
+    )
 
     out = strat.instantiate_plans([dep_plan, user_plan])
     assert len(out) == 2
@@ -1210,13 +1510,16 @@ def test_instantiate_plans_success_with_dependency_injection():
 # load_strategies
 # --------------------------------------------------------------------------------------
 
+
 # noinspection PyTypeChecker
 def test_load_strategies_uses_empty_config_specs_when_no_config_packages(monkeypatch):
     # covers: C000F032B0002, C000F032B0004
     monkeypatch.setattr(
         strat,
         "discover_strategy_classes",
-        lambda **kw: {"s": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+        lambda **kw: {
+            "s": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")
+        },
     )
     monkeypatch.setattr(strat, "build_strategy_plans", lambda **kw: [])
     monkeypatch.setattr(strat, "topo_sort_plans", lambda plans: plans)
@@ -1227,13 +1530,17 @@ def test_load_strategies_uses_empty_config_specs_when_no_config_packages(monkeyp
 
 
 # noinspection PyTypeChecker
-def test_load_strategies_calls_discover_config_specs_when_config_packages_present(monkeypatch):
+def test_load_strategies_calls_discover_config_specs_when_config_packages_present(
+    monkeypatch,
+):
     # covers: C000F032B0001
     called = {"cfg": 0}
     monkeypatch.setattr(
         strat,
         "discover_strategy_classes",
-        lambda **kw: {"s": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")},
+        lambda **kw: {
+            "s": strat._StrategyClassInfo(strategy_cls=object, origin="builtin")
+        },
     )
     monkeypatch.setattr(
         strat,
@@ -1244,7 +1551,9 @@ def test_load_strategies_calls_discover_config_specs_when_config_packages_presen
     monkeypatch.setattr(strat, "topo_sort_plans", lambda plans: plans)
     monkeypatch.setattr(strat, "instantiate_plans", lambda plans: ["ok"])
 
-    strat.load_strategies(strategy_package="p", strategy_entrypoint_group="g", builtin_config_package="bp")
+    strat.load_strategies(
+        strategy_package="p", strategy_entrypoint_group="g", builtin_config_package="bp"
+    )
     assert called["cfg"] == 1
 
 

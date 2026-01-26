@@ -1,16 +1,16 @@
-import io
 import builtins
-import pytest
+import io
 
+import pytest
 import tomli
 import tomli_w
 
 import project_resolution_engine.internal.util.toml as toml_mod
 
-
 # --------------------------------------------------------------------------
 # C000F001: load_toml_file
 # --------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize(
     "content, expected",
@@ -29,7 +29,7 @@ def test_load_toml_file_success(tmp_path, content, expected):
     "exception_type",
     [
         FileNotFoundError,  # C000F001B0002
-        PermissionError,    # C000F001B0003
+        PermissionError,  # C000F001B0003
     ],
 )
 def test_load_toml_file_open_exceptions(monkeypatch, exception_type):
@@ -59,6 +59,7 @@ def test_load_toml_file_decode_error(monkeypatch):
 # C000F002: load_toml_text
 # --------------------------------------------------------------------------
 
+
 def test_load_toml_text_success():
     # C000F002B0001
     text = "a = 1"
@@ -80,6 +81,7 @@ def test_load_toml_text_decode_error(monkeypatch):
 # C000F003: dump_toml_to_str
 # --------------------------------------------------------------------------
 
+
 def test_dump_toml_to_str(monkeypatch):
     # C000F003B0001
     captured = {}
@@ -98,6 +100,7 @@ def test_dump_toml_to_str(monkeypatch):
 # --------------------------------------------------------------------------
 # C000F004: dump_toml_to_file
 # --------------------------------------------------------------------------
+
 
 def test_dump_toml_to_file(tmp_path, monkeypatch):
     # C000F004B0001

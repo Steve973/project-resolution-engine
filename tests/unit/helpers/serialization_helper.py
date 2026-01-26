@@ -1,9 +1,13 @@
-from project_resolution_engine.internal.util.multiformat import MultiformatSerializableMixin, \
-    MultiformatDeserializableMixin, MultiformatModelMixin
+from project_resolution_engine.internal.util.multiformat import (
+    MultiformatSerializableMixin,
+    MultiformatDeserializableMixin,
+    MultiformatModelMixin,
+)
 
 
 class SerializableFixture(MultiformatSerializableMixin):
     """Test class implementing MultiformatSerializableMixin."""
+
     def __init__(self, data):
         self.data = data
 
@@ -13,6 +17,7 @@ class SerializableFixture(MultiformatSerializableMixin):
 
 class DeserializableFixture(MultiformatDeserializableMixin):
     """Test class implementing MultiformatDeserializableMixin."""
+
     def __init__(self, data):
         self.data = data
         self.source_description = None
@@ -24,6 +29,7 @@ class DeserializableFixture(MultiformatDeserializableMixin):
 
 class MultiformatModelFixture(MultiformatModelMixin):
     """Test class implementing MultiformatModelMixin."""
+
     def __init__(self, data):
         self.data = data
         self.source_description = None

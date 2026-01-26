@@ -15,7 +15,8 @@ from project_resolution_engine.model.resolution import (
     PreReleasePolicy,
     InvalidRequiresDistPolicy,
     ResolutionEnv,
-    ArtifactResolutionError, WheelSpec
+    ArtifactResolutionError,
+    WheelSpec,
 )
 
 # ==============================================================================
@@ -61,7 +62,14 @@ POLICY_FROM_MAPPING_SUCCESS_CASES = [
         },
         None,
         ["ignore", "skip", "default", "skip"],
-        ["C006M002B0001", "C006M002B0004", "C006M002B0006", "C006M002B0008", "C006M002B0010", "C006M002B0012"],
+        [
+            "C006M002B0001",
+            "C006M002B0004",
+            "C006M002B0006",
+            "C006M002B0008",
+            "C006M002B0010",
+            "C006M002B0012",
+        ],
     ),
     # Covers: C006M002B0002, C006M002B0004, C006M002B0006, C006M002B0008, C006M002B0010, C006M002B0012
     (
@@ -74,7 +82,14 @@ POLICY_FROM_MAPPING_SUCCESS_CASES = [
         },
         frozenset(),
         ["honor", "allow", "allow", "raise"],
-        ["C006M002B0002", "C006M002B0004", "C006M002B0006", "C006M002B0008", "C006M002B0010", "C006M002B0012"],
+        [
+            "C006M002B0002",
+            "C006M002B0004",
+            "C006M002B0006",
+            "C006M002B0008",
+            "C006M002B0010",
+            "C006M002B0012",
+        ],
     ),
     # Covers: C006M002B0003, C006M002B0004, C006M002B0006, C006M002B0008, C006M002B0010, C006M002B0012
     (
@@ -87,7 +102,14 @@ POLICY_FROM_MAPPING_SUCCESS_CASES = [
         },
         frozenset({"http", "https"}),
         ["raise", "skip", "disallow", "skip"],
-        ["C006M002B0003", "C006M002B0004", "C006M002B0006", "C006M002B0008", "C006M002B0010", "C006M002B0012"],
+        [
+            "C006M002B0003",
+            "C006M002B0004",
+            "C006M002B0006",
+            "C006M002B0008",
+            "C006M002B0010",
+            "C006M002B0012",
+        ],
     ),
 ]
 
@@ -141,21 +163,39 @@ POLICY_FROM_MAPPING_INVALID_ENUM_CASES = [
 WHEEL_SPEC_POST_INIT_CASES = [
     # Covers: C008M001B0001, C008M001B0005
     (
-        {"name": "pkg", "version": None, "extras": frozenset(), "marker": None, "uri": "  https://x  "},
+        {
+            "name": "pkg",
+            "version": None,
+            "extras": frozenset(),
+            "marker": None,
+            "uri": "  https://x  ",
+        },
         "https://x",
         None,
         ["C008M001B0001", "C008M001B0005"],
     ),
     # Covers: C008M001B0002, C008M001B0005
     (
-        {"name": "pkg", "version": ">=1", "extras": frozenset(), "marker": None, "uri": "   "},
+        {
+            "name": "pkg",
+            "version": ">=1",
+            "extras": frozenset(),
+            "marker": None,
+            "uri": "   ",
+        },
         None,
         ">=1",
         ["C008M001B0002", "C008M001B0005"],
     ),
     # Covers: C008M001B0003, C008M001B0005
     (
-        {"name": "pkg", "version": ">=2", "extras": frozenset(), "marker": None, "uri": None},
+        {
+            "name": "pkg",
+            "version": ">=2",
+            "extras": frozenset(),
+            "marker": None,
+            "uri": None,
+        },
         None,
         ">=2",
         ["C008M001B0003", "C008M001B0005"],
@@ -165,7 +205,13 @@ WHEEL_SPEC_POST_INIT_CASES = [
 WHEEL_SPEC_POST_INIT_RAISE_CASES = [
     # Covers: C008M001B0003, C008M001B0004
     (
-        {"name": "pkg", "version": None, "extras": frozenset(), "marker": None, "uri": None},
+        {
+            "name": "pkg",
+            "version": None,
+            "extras": frozenset(),
+            "marker": None,
+            "uri": None,
+        },
         "Must specify either a version or a URI",
         ["C008M001B0003", "C008M001B0004"],
     ),
@@ -174,8 +220,13 @@ WHEEL_SPEC_POST_INIT_RAISE_CASES = [
 WHEEL_SPEC_TO_MAPPING_CASES = [
     # Covers: C008M004B0001, C008M004B0004, C008M004B0005
     (
-        WheelSpec(name="pkg", version=SpecifierSet(">=1"), extras=frozenset({"x"}), marker=None,
-                             uri="https://x"),
+        WheelSpec(
+            name="pkg",
+            version=SpecifierSet(">=1"),
+            extras=frozenset({"x"}),
+            marker=None,
+            uri="https://x",
+        ),
         {"version": ">=1", "marker": None},
         ["C008M004B0001", "C008M004B0004", "C008M004B0005"],
     ),
@@ -196,15 +247,26 @@ WHEEL_SPEC_TO_MAPPING_CASES = [
 WHEEL_SPEC_FROM_MAPPING_CASES = [
     # Covers: C008M005B0001, C008M005B0004, C008M005B0005
     (
-        {"name": "pkg", "version": ">=1", "extras": [], "marker": None, "uri": "https://x"},
+        {
+            "name": "pkg",
+            "version": ">=1",
+            "extras": [],
+            "marker": None,
+            "uri": "https://x",
+        },
         (">=1", None, "https://x"),
         ["C008M005B0001", "C008M005B0004", "C008M005B0005"],
     ),
     # Covers: C008M005B0002, C008M005B0003, C008M005B0005
     # NOTE: uri must be non-empty here or WheelSpec.__post_init__ will raise.
     (
-        {"name": "pkg", "version": None, "extras": ["a"], "marker": 'python_version >= "3.10"',
-         "uri": "https://example.invalid/pkg.whl"},
+        {
+            "name": "pkg",
+            "version": None,
+            "extras": ["a"],
+            "marker": 'python_version >= "3.10"',
+            "uri": "https://example.invalid/pkg.whl",
+        },
         (None, 'python_version >= "3.10"', "https://example.invalid/pkg.whl"),
         ["C008M005B0002", "C008M005B0003", "C008M005B0005"],
     ),
@@ -215,6 +277,7 @@ WHEEL_SPEC_FROM_MAPPING_CASES = [
 # Helpers
 # ==============================================================================
 
+
 @dataclass(frozen=True)
 class _FakeKey:
     kind: Any = "WHEEL"  # not used by ResolutionError; present to resemble a key object
@@ -224,11 +287,12 @@ class _FakeKey:
 # Tests
 # ==============================================================================
 
+
 @pytest.mark.parametrize("policy, expected_schemes, covers", POLICY_TO_MAPPING_CASES)
 def test_resolution_policy_to_mapping_cases(
-        policy: ResolutionPolicy,
-        expected_schemes: list[str] | None,
-        covers: list[str],
+    policy: ResolutionPolicy,
+    expected_schemes: list[str] | None,
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see POLICY_TO_MAPPING_CASES
     out = policy.to_mapping()
@@ -236,17 +300,22 @@ def test_resolution_policy_to_mapping_cases(
     assert out["requires_dist_url_policy"] == policy.requires_dist_url_policy.value
     assert out["yanked_wheel_policy"] == policy.yanked_wheel_policy.value
     assert out["prerelease_policy"] == policy.prerelease_policy.value
-    assert out["invalid_requires_dist_policy"] == policy.invalid_requires_dist_policy.value
+    assert (
+        out["invalid_requires_dist_policy"] == policy.invalid_requires_dist_policy.value
+    )
 
     assert out["allowed_requires_dist_url_schemes"] == expected_schemes
 
 
-@pytest.mark.parametrize("mapping, expected_allowed, expected_values, covers", POLICY_FROM_MAPPING_SUCCESS_CASES)
+@pytest.mark.parametrize(
+    "mapping, expected_allowed, expected_values, covers",
+    POLICY_FROM_MAPPING_SUCCESS_CASES,
+)
 def test_resolution_policy_from_mapping_success_cases(
-        mapping: Mapping[str, Any],
-        expected_allowed: frozenset[str] | None,
-        expected_values: list[str],
-        covers: list[str],
+    mapping: Mapping[str, Any],
+    expected_allowed: frozenset[str] | None,
+    expected_values: list[str],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see POLICY_FROM_MAPPING_SUCCESS_CASES
     p = ResolutionPolicy.from_mapping(mapping)
@@ -258,11 +327,13 @@ def test_resolution_policy_from_mapping_success_cases(
     assert p.invalid_requires_dist_policy.value == expected_values[3]
 
 
-@pytest.mark.parametrize("mapping, expected_substring, covers", POLICY_FROM_MAPPING_INVALID_ENUM_CASES)
+@pytest.mark.parametrize(
+    "mapping, expected_substring, covers", POLICY_FROM_MAPPING_INVALID_ENUM_CASES
+)
 def test_resolution_policy_from_mapping_invalid_enum_cases(
-        mapping: Mapping[str, Any],
-        expected_substring: str,
-        covers: list[str],
+    mapping: Mapping[str, Any],
+    expected_substring: str,
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see POLICY_FROM_MAPPING_INVALID_ENUM_CASES
     with pytest.raises(ValueError) as exc:
@@ -292,14 +363,20 @@ def test_resolution_env_to_mapping_roundtrip_includes_policy_mapping() -> None:
     assert set(out["supported_tags"]) == {"tag1", "tag2"}
     assert out["marker_environment"] == {}
     assert isinstance(out["policy"], Mapping)
-    assert out["policy"]["requires_dist_url_policy"] == RequiresDistUrlPolicy.IGNORE.value
+    assert (
+        out["policy"]["requires_dist_url_policy"] == RequiresDistUrlPolicy.IGNORE.value
+    )
 
 
-def test_resolution_env_from_mapping_calls_validate_typed_dict_and_returns_env(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_resolution_env_from_mapping_calls_validate_typed_dict_and_returns_env(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Covers: C007M002B0001, C007M002B0002
     calls: list[tuple[Any, ...]] = []
 
-    def _fake_validate(desc: str, mapping: Mapping[str, Any], validation_type: type, value_type: Any) -> None:
+    def _fake_validate(
+        desc: str, mapping: Mapping[str, Any], validation_type: type, value_type: Any
+    ) -> None:
         calls.append((desc, dict(mapping), validation_type, value_type))
 
     monkeypatch.setattr(resolution, "validate_typed_dict", _fake_validate)
@@ -326,12 +403,14 @@ def test_resolution_env_from_mapping_calls_validate_typed_dict_and_returns_env(m
     assert isinstance(env.policy, ResolutionPolicy)
 
 
-@pytest.mark.parametrize("kwargs, expected_uri, expected_version_str, covers", WHEEL_SPEC_POST_INIT_CASES)
+@pytest.mark.parametrize(
+    "kwargs, expected_uri, expected_version_str, covers", WHEEL_SPEC_POST_INIT_CASES
+)
 def test_wheel_spec_post_init_cases(
-        kwargs: Mapping[str, Any],
-        expected_uri: str | None,
-        expected_version_str: str | None,
-        covers: list[str],
+    kwargs: Mapping[str, Any],
+    expected_uri: str | None,
+    expected_version_str: str | None,
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see WHEEL_SPEC_POST_INIT_CASES
     version = SpecifierSet(kwargs["version"]) if kwargs["version"] is not None else None
@@ -350,8 +429,12 @@ def test_wheel_spec_post_init_cases(
         assert str(ws.version) == expected_version_str
 
 
-@pytest.mark.parametrize("kwargs, expected_substring, covers", WHEEL_SPEC_POST_INIT_RAISE_CASES)
-def test_wheel_spec_post_init_raises(kwargs: Mapping[str, Any], expected_substring: str, covers: list[str]) -> None:
+@pytest.mark.parametrize(
+    "kwargs, expected_substring, covers", WHEEL_SPEC_POST_INIT_RAISE_CASES
+)
+def test_wheel_spec_post_init_raises(
+    kwargs: Mapping[str, Any], expected_substring: str, covers: list[str]
+) -> None:
     # Covers (per-row): see WHEEL_SPEC_POST_INIT_RAISE_CASES
     with pytest.raises(ValueError) as exc:
         WheelSpec(
@@ -367,17 +450,22 @@ def test_wheel_spec_post_init_raises(kwargs: Mapping[str, Any], expected_substri
 
 def test_wheel_spec_identifier_and_str_use_name_and_version() -> None:
     # Covers: C008M002B0001, C008M003B0001
-    ws = WheelSpec(name="pkg", version=SpecifierSet(">=1"), extras=frozenset(), marker=None,
-                              uri=None)
+    ws = WheelSpec(
+        name="pkg",
+        version=SpecifierSet(">=1"),
+        extras=frozenset(),
+        marker=None,
+        uri=None,
+    )
     assert ws.identifier == "pkg->=1"
     assert str(ws) == "pkg->=1"
 
 
 @pytest.mark.parametrize("ws, expected_parts, covers", WHEEL_SPEC_TO_MAPPING_CASES)
 def test_wheel_spec_to_mapping_cases(
-        ws: WheelSpec,
-        expected_parts: Mapping[str, Any],
-        covers: list[str],
+    ws: WheelSpec,
+    expected_parts: Mapping[str, Any],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see WHEEL_SPEC_TO_MAPPING_CASES
     out = ws.to_mapping()
@@ -391,9 +479,9 @@ def test_wheel_spec_to_mapping_cases(
 
 @pytest.mark.parametrize("mapping, expected, covers", WHEEL_SPEC_FROM_MAPPING_CASES)
 def test_wheel_spec_from_mapping_cases(
-        mapping: Mapping[str, Any],
-        expected: tuple[str | None, str | None, str | None],
-        covers: list[str],
+    mapping: Mapping[str, Any],
+    expected: tuple[str | None, str | None, str | None],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see WHEEL_SPEC_FROM_MAPPING_CASES
     ws = WheelSpec.from_mapping(mapping)

@@ -1,0 +1,616 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: api
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C000F001
+    kind: callable
+    name: _normalize_strategy_configs
+    address: api::_normalize_strategy_configs
+  - id: C000F002
+    kind: callable
+    name: _roots_for_env
+    address: api::_roots_for_env
+  - id: C000F003
+    kind: callable
+    name: _wk_by_name_from_result
+    address: api::_wk_by_name_from_result
+  - id: C000F004
+    kind: callable
+    name: _deps_by_parent_from_result
+    address: api::_deps_by_parent_from_result
+  - id: C000F005
+    kind: callable
+    name: _apply_dependency_ids
+    address: api::_apply_dependency_ids
+  - id: C000F006
+    kind: callable
+    name: _format_requirements_text
+    address: api::_format_requirements_text
+  - id: C001M001
+    kind: callable
+    name: resolve
+    address: api::ProjectResolutionEngine::resolve
+  branches:
+  - id: C000F001E0001
+    address: _normalize_strategy_configs@L46
+    summary: 'executes: configs_by_instance_id = {}'
+  - id: C000F001E0002
+    address: _normalize_strategy_configs@L47
+    summary: strategy_configs is None true → returns configs_by_instance_id at line 48
+  - id: C000F001E0003
+    address: _normalize_strategy_configs@L47
+    summary: strategy_configs is None false → continues to line 50
+  - id: C000F001E0004
+    address: _normalize_strategy_configs@L48
+    summary: 'executes: returns configs_by_instance_id'
+  - id: C000F001E0005
+    address: _normalize_strategy_configs@L50
+    summary: strategy_configs is empty → 0 iterations
+  - id: C000F001E0006
+    address: _normalize_strategy_configs@L50
+    summary: strategy_configs has items → ≥1 iterations
+  - id: C000F001E0007
+    address: _normalize_strategy_configs@L51
+    summary: c.get(''strategy_name'') executes
+  - id: C000F001E0008
+    address: _normalize_strategy_configs@L51
+    summary: c.get(''instance_id'', ...) executes with result, iid assigned
+  - id: C000F001E0009
+    address: _normalize_strategy_configs@L52
+    summary: not iid true → raises ValueError at line 53
+  - id: C000F001E0010
+    address: _normalize_strategy_configs@L52
+    summary: not iid false → continues to line 55
+  - id: C000F001E0011
+    address: _normalize_strategy_configs@L53
+    summary: 'executes: raises ValueError'
+  - id: C000F001E0012
+    address: _normalize_strategy_configs@L55
+    summary: dict(c) succeeds → cfg assigned
+  - id: C000F001E0013
+    address: _normalize_strategy_configs@L55
+    summary: dict(c) raises exception → exception propagates
+  - id: C000F001E0014
+    address: _normalize_strategy_configs@L56
+    summary: 'executes: cfg[''''instance_id''''] = iid'
+  - id: C000F001E0015
+    address: _normalize_strategy_configs@L57
+    summary: 'executes: configs_by_instance_id[iid] = cast(...)'
+  - id: C000F001E0016
+    address: _normalize_strategy_configs@L59
+    summary: 'executes: returns configs_by_instance_id'
+  - id: C000F002E0001
+    address: _roots_for_env@L85
+    summary: 'executes: roots = []'
+  - id: C000F002E0002
+    address: _roots_for_env@L86
+    summary: params.root_wheels is empty → 0 iterations
+  - id: C000F002E0003
+    address: _roots_for_env@L86
+    summary: params.root_wheels has items → ≥1 iterations
+  - id: C000F002E0004
+    address: _roots_for_env@L87
+    summary: 'executes: marker_env = cast(...)'
+  - id: C000F002E0005
+    address: _roots_for_env@L88
+    summary: ws.marker is not None and not ws.marker.evaluate(environment=marker_env) true → ...
+  - id: C000F002E0006
+    address: _roots_for_env@L88
+    summary: ws.marker is not None and not ws.marker.evaluate(environment=marker_env) false →...
+  - id: C000F002E0007
+    address: _roots_for_env@L89
+    summary: 'executes: continue'
+  - id: C000F002E0008
+    address: _roots_for_env@L90
+    summary: 'executes: roots.append(ResolverRequirement(wheel_spec=ws))'
+  - id: C000F002E0009
+    address: _roots_for_env@L92
+    summary: 'executes: returns roots'
+  - id: C000F003E0001
+    address: _wk_by_name_from_result@L113
+    summary: 'executes: pinned_by_name = result.mapping'
+  - id: C000F003E0002
+    address: _wk_by_name_from_result@L114
+    summary: pinned_by_name.items() returns empty → comprehension empty → returns {}
+  - id: C000F003E0003
+    address: _wk_by_name_from_result@L114
+    summary: pinned_by_name.items() returns items → comprehension with items → returns popula...
+  - id: C000F004E0001
+    address: _deps_by_parent_from_result@L139
+    summary: wk_by_name.keys() returns empty → comprehension empty → deps_by_parent = {}
+  - id: C000F004E0002
+    address: _deps_by_parent_from_result@L139
+    summary: wk_by_name.keys() returns items → comprehension with items → deps_by_parent popu...
+  - id: C000F004E0003
+    address: _deps_by_parent_from_result@L141
+    summary: result.criteria.items() returns empty → 0 iterations
+  - id: C000F004E0004
+    address: _deps_by_parent_from_result@L141
+    summary: result.criteria.items() returns items → ≥1 iterations
+  - id: C000F004E0005
+    address: _deps_by_parent_from_result@L142
+    summary: crit.information is empty → 0 iterations
+  - id: C000F004E0006
+    address: _deps_by_parent_from_result@L142
+    summary: crit.information has items → ≥1 iterations
+  - id: C000F004E0007
+    address: _deps_by_parent_from_result@L143
+    summary: 'executes: parent = info.parent'
+  - id: C000F004E0008
+    address: _deps_by_parent_from_result@L144
+    summary: parent is None true → continues to line 145
+  - id: C000F004E0009
+    address: _deps_by_parent_from_result@L144
+    summary: parent is None false → continues to line 147
+  - id: C000F004E0010
+    address: _deps_by_parent_from_result@L145
+    summary: 'executes: continue'
+  - id: C000F004E0011
+    address: _deps_by_parent_from_result@L147
+    summary: parent in deps_by_parent and child_name in wk_by_name true → continues to line 1...
+  - id: C000F004E0012
+    address: _deps_by_parent_from_result@L147
+    summary: parent in deps_by_parent and child_name in wk_by_name false → continues to next ...
+  - id: C000F004E0013
+    address: _deps_by_parent_from_result@L148
+    summary: 'executes: deps_by_parent[parent.name].add(child_name)'
+  - id: C000F004E0014
+    address: _deps_by_parent_from_result@L150
+    summary: 'executes: returns deps_by_parent'
+  - id: C000F005E0001
+    address: _apply_dependency_ids@L175
+    summary: deps_by_parent.items() returns empty → 0 iterations
+  - id: C000F005E0002
+    address: _apply_dependency_ids@L175
+    summary: deps_by_parent.items() returns items → ≥1 iterations
+  - id: C000F005E0003
+    address: _apply_dependency_ids@L176
+    summary: 'executes: parent_wk = wk_by_name[parent_name]'
+  - id: C000F005E0004
+    address: _apply_dependency_ids@L177
+    summary: sorted(child_names) returns empty → comprehension empty → dep_wks = []
+  - id: C000F005E0005
+    address: _apply_dependency_ids@L177
+    summary: sorted(child_names) returns items → comprehension with items → dep_wks populated
+  - id: C000F005E0006
+    address: _apply_dependency_ids@L178
+    summary: 'executes: parent_wk.set_dependency_ids(dep_wks)'
+  - id: C000F006E0001
+    address: _format_requirements_text@L195
+    summary: sorted(wheel_keys) returns empty → generator empty → returns ''\n''
+  - id: C000F006E0002
+    address: _format_requirements_text@L195
+    summary: sorted(wheel_keys) returns items → generator with items → returns formatted stri...
+  - id: C001M001E0001
+    address: resolve@L221
+    summary: 'executes: reqs_by_env = {}'
+  - id: C001M001E0002
+    address: resolve@L222
+    summary: 'executes: wheels_by_env = {}'
+  - id: C001M001E0003
+    address: resolve@L224
+    summary: 'executes: configs_by_instance_id = _normalize_strategy_configs(params.strategy_c...'
+  - id: C001M001E0004
+    address: resolve@L226
+    summary: open_repository enters successfully → continues to line 227
+  - id: C001M001E0005
+    address: resolve@L226
+    summary: open_repository raises exception → exception propagates
+  - id: C001M001E0006
+    address: resolve@L227
+    summary: 'executes: services = load_services(repo=repo, strategy_configs_by_instance_id=co...'
+  - id: C001M001E0007
+    address: resolve@L231
+    summary: params.target_environments is empty → 0 iterations
+  - id: C001M001E0008
+    address: resolve@L231
+    summary: params.target_environments has items → ≥1 iterations
+  - id: C001M001E0009
+    address: resolve@L232
+    summary: 'executes: roots = _roots_for_env(params, env)'
+  - id: C001M001E0010
+    address: resolve@L234
+    summary: 'executes: result = rl_resolve(services=services, env=env, roots=roots)'
+  - id: C001M001E0011
+    address: resolve@L238
+    summary: 'executes: wk_by_name = _wk_by_name_from_result(result)'
+  - id: C001M001E0012
+    address: resolve@L239
+    summary: 'executes: deps_by_parent = _deps_by_parent_from_result(result, wk_by_name)'
+  - id: C001M001E0013
+    address: resolve@L240
+    summary: 'executes: _apply_dependency_ids(deps_by_parent, wk_by_name)'
+  - id: C001M001E0014
+    address: resolve@L242
+    summary: wk_by_name.values() returns empty → list() empty → wheel_keys = []
+  - id: C001M001E0015
+    address: resolve@L242
+    summary: wk_by_name.values() returns items → list() with items → wheel_keys populated
+  - id: C001M001E0016
+    address: resolve@L243
+    summary: 'executes: reqs_by_env[env.identifier] = _format_requirements_text(wheel_keys)'
+  - id: C001M001E0017
+    address: resolve@L245
+    summary: params.resolution_mode is ResolutionMode.RESOLVED_WHEELS true → continues to lin...
+  - id: C001M001E0018
+    address: resolve@L245
+    summary: params.resolution_mode is ResolutionMode.RESOLVED_WHEELS false → continues to ne...
+  - id: C001M001E0019
+    address: resolve@L247
+    summary: 'executes: wheels_by_env[env.identifier] = []'
+  - id: C001M001E0020
+    address: resolve@L249
+    summary: 'executes: returns ResolutionResult(requirements_by_env=reqs_by_env, resolved_whe...'
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: api
+  children:
+  - id: C000F001
+    kind: callable
+    name: _normalize_strategy_configs
+    callable:
+      branches:
+      - id: C000F001E0001
+        condition: executes
+        outcome: configs_by_instance_id = {}
+      - id: C000F001E0002
+        condition: strategy_configs is None true
+        outcome: returns configs_by_instance_id at line 48
+      - id: C000F001E0003
+        condition: strategy_configs is None false
+        outcome: continues to line 50
+      - id: C000F001E0004
+        condition: executes
+        outcome: returns configs_by_instance_id
+      - id: C000F001E0005
+        condition: strategy_configs is empty
+        outcome: 0 iterations
+      - id: C000F001E0006
+        condition: strategy_configs has items
+        outcome: ≥1 iterations
+      - id: C000F001E0007
+        condition: executes
+        outcome: c.get(''strategy_name'') executes
+      - id: C000F001E0008
+        condition: executes
+        outcome: c.get(''instance_id'', ...) executes with result, iid assigned
+      - id: C000F001E0009
+        condition: not iid true
+        outcome: raises ValueError at line 53
+      - id: C000F001E0010
+        condition: not iid false
+        outcome: continues to line 55
+      - id: C000F001E0011
+        condition: executes
+        outcome: raises ValueError
+      - id: C000F001E0012
+        condition: dict(c) succeeds
+        outcome: cfg assigned
+      - id: C000F001E0013
+        condition: dict(c) raises exception
+        outcome: exception propagates
+      - id: C000F001E0014
+        condition: executes
+        outcome: cfg[''instance_id''] = iid
+      - id: C000F001E0015
+        condition: executes
+        outcome: configs_by_instance_id[iid] = cast(...)
+      - id: C000F001E0016
+        condition: executes
+        outcome: returns configs_by_instance_id
+  - id: C000F002
+    kind: callable
+    name: _roots_for_env
+    callable:
+      branches:
+      - id: C000F002E0001
+        condition: executes
+        outcome: roots = []
+      - id: C000F002E0002
+        condition: params.root_wheels is empty
+        outcome: 0 iterations
+      - id: C000F002E0003
+        condition: params.root_wheels has items
+        outcome: ≥1 iterations
+      - id: C000F002E0004
+        condition: executes
+        outcome: marker_env = cast(...)
+      - id: C000F002E0005
+        condition: ws.marker is not None and not ws.marker.evaluate(environment=marker_env) true
+        outcome: continues to line 89
+      - id: C000F002E0006
+        condition: ws.marker is not None and not ws.marker.evaluate(environment=marker_env) false
+        outcome: continues to line 90
+      - id: C000F002E0007
+        condition: executes
+        outcome: continue
+      - id: C000F002E0008
+        condition: executes
+        outcome: roots.append(ResolverRequirement(wheel_spec=ws))
+      - id: C000F002E0009
+        condition: executes
+        outcome: returns roots
+      integration:
+        interunit:
+        - id: IC000F002E0007
+          target: ResolverRequirement.__init__
+          kind: construct
+          signature: ResolverRequirement(wheel_spec=ws)
+          executionPaths:
+          - - C000F002E0001
+            - C000F002E0003
+            - C000F002E0005
+            - C000F002E0007
+          notes: Constructs ResolverRequirement from wheel_spec
+  - id: C000F003
+    kind: callable
+    name: _wk_by_name_from_result
+    callable:
+      branches:
+      - id: C000F003E0001
+        condition: executes
+        outcome: pinned_by_name = result.mapping
+      - id: C000F003E0002
+        condition: pinned_by_name.items() returns empty
+        outcome: comprehension empty → returns {}
+      - id: C000F003E0003
+        condition: pinned_by_name.items() returns items
+        outcome: comprehension with items → returns populated dict
+  - id: C000F004
+    kind: callable
+    name: _deps_by_parent_from_result
+    callable:
+      branches:
+      - id: C000F004E0001
+        condition: wk_by_name.keys() returns empty
+        outcome: comprehension empty → deps_by_parent = {}
+      - id: C000F004E0002
+        condition: wk_by_name.keys() returns items
+        outcome: comprehension with items → deps_by_parent populated
+      - id: C000F004E0003
+        condition: result.criteria.items() returns empty
+        outcome: 0 iterations
+      - id: C000F004E0004
+        condition: result.criteria.items() returns items
+        outcome: ≥1 iterations
+      - id: C000F004E0005
+        condition: crit.information is empty
+        outcome: 0 iterations
+      - id: C000F004E0006
+        condition: crit.information has items
+        outcome: ≥1 iterations
+      - id: C000F004E0007
+        condition: executes
+        outcome: parent = info.parent
+      - id: C000F004E0008
+        condition: parent is None true
+        outcome: continues to line 145
+      - id: C000F004E0009
+        condition: parent is None false
+        outcome: continues to line 147
+      - id: C000F004E0010
+        condition: executes
+        outcome: continue
+      - id: C000F004E0011
+        condition: parent in deps_by_parent and child_name in wk_by_name true
+        outcome: continues to line 148
+      - id: C000F004E0012
+        condition: parent in deps_by_parent and child_name in wk_by_name false
+        outcome: continues to next iteration
+      - id: C000F004E0013
+        condition: executes
+        outcome: deps_by_parent[parent.name].add(child_name)
+      - id: C000F004E0014
+        condition: executes
+        outcome: returns deps_by_parent
+  - id: C000F005
+    kind: callable
+    name: _apply_dependency_ids
+    callable:
+      branches:
+      - id: C000F005E0001
+        condition: deps_by_parent.items() returns empty
+        outcome: 0 iterations
+      - id: C000F005E0002
+        condition: deps_by_parent.items() returns items
+        outcome: ≥1 iterations
+      - id: C000F005E0003
+        condition: executes
+        outcome: parent_wk = wk_by_name[parent_name]
+      - id: C000F005E0004
+        condition: sorted(child_names) returns empty
+        outcome: comprehension empty → dep_wks = []
+      - id: C000F005E0005
+        condition: sorted(child_names) returns items
+        outcome: comprehension with items → dep_wks populated
+      - id: C000F005E0006
+        condition: executes
+        outcome: parent_wk.set_dependency_ids(dep_wks)
+      integration:
+        interunit:
+        - id: IC000F005E0006
+          target: WheelKey.set_dependency_ids
+          kind: call
+          signature: parent_wk.set_dependency_ids(dep_wks)
+          executionPaths:
+          - - C000F005E0002
+            - C000F005E0003
+            - C000F005E0006
+          notes: Sets dependency IDs on WheelKey object
+  - id: C000F006
+    kind: callable
+    name: _format_requirements_text
+    callable:
+      branches:
+      - id: C000F006E0001
+        condition: sorted(wheel_keys) returns empty
+        outcome: generator empty → returns ''\n''
+      - id: C000F006E0002
+        condition: sorted(wheel_keys) returns items
+        outcome: generator with items → returns formatted string
+  - id: C001
+    kind: class
+    name: ProjectResolutionEngine
+    decorators:
+    - name: dataclass
+      kwargs:
+        kw_only: true
+        frozen: true
+        slots: true
+    children:
+    - id: C001M001
+      kind: callable
+      name: resolve
+      modifiers:
+      - staticmethod
+      callable:
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: reqs_by_env = {}
+        - id: C001M001E0002
+          condition: executes
+          outcome: wheels_by_env = {}
+        - id: C001M001E0003
+          condition: executes
+          outcome: configs_by_instance_id = _normalize_strategy_configs(params.strategy_configs)
+        - id: C001M001E0004
+          condition: open_repository enters successfully
+          outcome: continues to line 227
+        - id: C001M001E0005
+          condition: open_repository raises exception
+          outcome: exception propagates
+        - id: C001M001E0006
+          condition: executes
+          outcome: services = load_services(repo=repo, strategy_configs_by_instance_id=configs_by_instance_id)
+        - id: C001M001E0007
+          condition: params.target_environments is empty
+          outcome: 0 iterations
+        - id: C001M001E0008
+          condition: params.target_environments has items
+          outcome: ≥1 iterations
+        - id: C001M001E0009
+          condition: executes
+          outcome: roots = _roots_for_env(params, env)
+        - id: C001M001E0010
+          condition: executes
+          outcome: result = rl_resolve(services=services, env=env, roots=roots)
+        - id: C001M001E0011
+          condition: executes
+          outcome: wk_by_name = _wk_by_name_from_result(result)
+        - id: C001M001E0012
+          condition: executes
+          outcome: deps_by_parent = _deps_by_parent_from_result(result, wk_by_name)
+        - id: C001M001E0013
+          condition: executes
+          outcome: _apply_dependency_ids(deps_by_parent, wk_by_name)
+        - id: C001M001E0014
+          condition: wk_by_name.values() returns empty
+          outcome: list() empty → wheel_keys = []
+        - id: C001M001E0015
+          condition: wk_by_name.values() returns items
+          outcome: list() with items → wheel_keys populated
+        - id: C001M001E0016
+          condition: executes
+          outcome: reqs_by_env[env.identifier] = _format_requirements_text(wheel_keys)
+        - id: C001M001E0017
+          condition: params.resolution_mode is ResolutionMode.RESOLVED_WHEELS true
+          outcome: continues to line 247
+        - id: C001M001E0018
+          condition: params.resolution_mode is ResolutionMode.RESOLVED_WHEELS false
+          outcome: continues to next iteration
+        - id: C001M001E0019
+          condition: executes
+          outcome: wheels_by_env[env.identifier] = []
+        - id: C001M001E0020
+          condition: executes
+          outcome: returns ResolutionResult(requirements_by_env=reqs_by_env, resolved_wheels_by_env=wheels_by_env)
+        integration:
+          interunit:
+          - id: IC001M001E0005
+            target: load_services
+            kind: call
+            signature: load_services(repo=repo, strategy_configs_by_instance_id=configs_by_instance_id)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0004
+              - C001M001E0005
+            notes: Loads services from external module
+          - id: IC001M001E0009
+            target: rl_resolve
+            kind: call
+            signature: rl_resolve(services=services, env=env, roots=roots)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0004
+              - C001M001E0005
+              - C001M001E0007
+              - C001M001E0008
+              - C001M001E0009
+            notes: External resolvelib integration
+          - id: IC001M001E0020
+            target: ResolutionResult.__init__
+            kind: construct
+            signature: ResolutionResult(requirements_by_env=reqs_by_env, resolved_wheels_by_env=wheels_by_env)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0004
+              - C001M001E0005
+              - C001M001E0007
+              - C001M001E0008
+              - C001M001E0009
+              - C001M001E0010
+              - C001M001E0011
+              - C001M001E0012
+              - C001M001E0013
+              - C001M001E0015
+              - C001M001E0016
+              - C001M001E0020
+            notes: Constructs ResolutionResult - path shown for case without RESOLVED_WHEELS mode
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: api
+  language: python
+findings:
+- severity: info
+  category: assumption
+  message: .items()/.keys()/.values() method calls enumerated as creating 2 outcomes (empty vs non-empty result) per Section 2.1.4
+  appliesTo:
+  - C000F003E0002
+  - C000F004E0001
+  - C000F004E0003
+  - C000F005E0001
+- severity: info
+  category: assumption
+  message: Nested operations (e.g., c.get('strategy_name') as parameter to c.get('instance_id', ...)) enumerated as separate EIs
+  appliesTo:
+  - C000F001E0005
+  - C000F001E0006
+- severity: info
+  category: assumption
+  message: dict() constructor call at line 55 can raise exception for non-dict-convertible objects
+  appliesTo:
+  - C000F001E0009
+  - C000F001E0010
+- severity: info
+  category: assumption
+  message: cast() is type-checking-only function, treated as simple assignment (1 EI)
+  appliesTo:
+  - C000F001E0012
+  - C000F002E0003

@@ -1,0 +1,441 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: orchestration
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: StrategyChainArtifactResolver
+      address: 'orchestration::StrategyChainArtifactResolver@L19'
+    - id: C001M001
+      kind: callable
+      name: resolve
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L38'
+    - id: C002
+      kind: class
+      name: ArtifactCoordinator
+      address: 'orchestration::ArtifactCoordinator@L82'
+    - id: C002M001
+      kind: callable
+      name: resolve
+      address: 'orchestration::ArtifactCoordinator::resolve@L86'
+  branches:
+    - id: C001M001E0001
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L39'
+      summary: 'executes: causes = []'
+    - id: C001M001E0002
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L41'
+      summary: 'executes: has_imperative = any(...)'
+    - id: C001M001E0003
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L45'
+      summary: 'has_imperative truthy → continues to line 46'
+    - id: C001M001E0004
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L45'
+      summary: 'has_imperative falsy → continues to line 54'
+    - id: C001M001E0005
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L46'
+      summary: 'executes: has_non_imperative = any(...)'
+    - id: C001M001E0006
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L50'
+      summary: 'has_non_imperative truthy → continues to line 51'
+    - id: C001M001E0007
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L50'
+      summary: 'has_non_imperative falsy → continues to line 54'
+    - id: C001M001E0008
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L51'
+      summary: 'raises RuntimeError'
+    - id: C001M001E0009
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L54'
+      summary: 'self.strategies is empty → loop body never executes (0 iterations)'
+    - id: C001M001E0010
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L54'
+      summary: 'self.strategies has items → loop body executes (≥1 iterations)'
+    - id: C001M001E0011
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L55'
+      summary: 'strategy.criticality is StrategyCriticality.DISABLED → continues to line 56'
+    - id: C001M001E0012
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L55'
+      summary: 'strategy.criticality is not StrategyCriticality.DISABLED → continues to line 59'
+    - id: C001M001E0013
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L56'
+      summary: 'executes: logging.debug(...)'
+    - id: C001M001E0014
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L57'
+      summary: 'executes: continue'
+    - id: C001M001E0015
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L59'
+      summary: 'executes: enters try block'
+    - id: C001M001E0016
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L60'
+      summary: 'executes: record = strategy.resolve(...)'
+    - id: C001M001E0017
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L61'
+      summary: 'record is None → continues to line 62'
+    - id: C001M001E0018
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L61'
+      summary: 'record is not None → continues to line 66'
+    - id: C001M001E0019
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L62'
+      summary: 'executes: logging.debug(...)'
+    - id: C001M001E0020
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L65'
+      summary: 'executes: continue'
+    - id: C001M001E0021
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L66'
+      summary: 'returns record'
+    - id: C001M001E0022
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L68'
+      summary: 'strategy.resolve raises StrategyNotApplicable → enters except handler'
+    - id: C001M001E0023
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L69'
+      summary: 'executes: logging.debug(...)'
+    - id: C001M001E0024
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L70'
+      summary: 'executes: continue'
+    - id: C001M001E0025
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L72'
+      summary: 'strategy.resolve raises BaseException → enters except handler'
+    - id: C001M001E0026
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L73'
+      summary: 'executes: causes.append(e)'
+    - id: C001M001E0027
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L74'
+      summary: 'executes: logging.debug(...)'
+    - id: C001M001E0028
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L77'
+      summary: 'executes: continue'
+    - id: C001M001E0029
+      parent: C001M001
+      address: 'orchestration::StrategyChainArtifactResolver::resolve@L78'
+      summary: 'raises ArtifactResolutionError'
+    - id: C002M001E0001
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L87'
+      summary: 'executes: hit = self.repo.get(key)'
+    - id: C002M001E0002
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L88'
+      summary: 'hit is not None → continues to line 89'
+    - id: C002M001E0003
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L88'
+      summary: 'hit is None → continues to line 91'
+    - id: C002M001E0004
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L89'
+      summary: 'returns hit'
+    - id: C002M001E0005
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L91'
+      summary: 'executes: dest_uri = self.repo.allocate_destination_uri(key)'
+    - id: C002M001E0006
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L92'
+      summary: 'executes: record = self.resolver.resolve(...)'
+    - id: C002M001E0007
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L93'
+      summary: 'executes: self.repo.put(record)'
+    - id: C002M001E0008
+      parent: C002M001
+      address: 'orchestration::ArtifactCoordinator::resolve@L94'
+      summary: 'returns record'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: orchestration
+  children:
+    - id: C001
+      kind: class
+      name: StrategyChainArtifactResolver
+      children:
+        - id: C001M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, key: ArtifactKeyType, destination_uri: str) -> ArtifactRecord'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: StrategyChainArtifactResolver
+              - name: key
+                type:
+                  name: ArtifactKeyType
+              - name: destination_uri
+                type:
+                  name: str
+            returnType:
+              name: ArtifactRecord
+            branches:
+              - id: C001M001E0001
+                condition: 'executes'
+                outcome: 'causes = []'
+              - id: C001M001E0002
+                condition: 'executes'
+                outcome: 'has_imperative = any(strategy.criticality is StrategyCriticality.IMPERATIVE for strategy in self.strategies)'
+              - id: C001M001E0003
+                condition: 'if has_imperative'
+                outcome: 'continues to line 46'
+              - id: C001M001E0004
+                condition: 'else'
+                outcome: 'continues to line 54'
+              - id: C001M001E0005
+                condition: 'executes'
+                outcome: 'has_non_imperative = any(strategy.criticality is not StrategyCriticality.IMPERATIVE for strategy in self.strategies)'
+              - id: C001M001E0006
+                condition: 'if has_non_imperative'
+                outcome: 'continues to line 51'
+              - id: C001M001E0007
+                condition: 'else'
+                outcome: 'continues to line 54'
+              - id: C001M001E0008
+                condition: 'raise statement'
+                outcome: 'raises RuntimeError("All strategies must be imperative or all must be non-imperative, but not both")'
+              - id: C001M001E0009
+                condition: 'for strategy in self.strategies (0 iterations)'
+                outcome: 'loop body never executes, continues to line 78'
+              - id: C001M001E0010
+                condition: 'for strategy in self.strategies (≥1 iterations)'
+                outcome: 'loop body executes'
+              - id: C001M001E0011
+                condition: 'if strategy.criticality is StrategyCriticality.DISABLED'
+                outcome: 'continues to line 56'
+              - id: C001M001E0012
+                condition: 'else'
+                outcome: 'continues to line 59'
+              - id: C001M001E0013
+                condition: 'executes'
+                outcome: 'logging.debug(f''strategy disabled: {strategy.name} key={key!r}'')'
+              - id: C001M001E0014
+                condition: 'executes'
+                outcome: 'continue to next iteration'
+              - id: C001M001E0015
+                condition: 'try'
+                outcome: 'enters try block'
+              - id: C001M001E0016
+                condition: 'executes'
+                outcome: 'record = strategy.resolve(key=key, destination_uri=destination_uri)'
+              - id: C001M001E0017
+                condition: 'if record is None'
+                outcome: 'continues to line 62'
+              - id: C001M001E0018
+                condition: 'else'
+                outcome: 'continues to line 66'
+              - id: C001M001E0019
+                condition: 'executes'
+                outcome: 'logging.debug(f''strategy returned None: {strategy.name} key={key!r}'')'
+              - id: C001M001E0020
+                condition: 'executes'
+                outcome: 'continue to next iteration'
+              - id: C001M001E0021
+                condition: 'return statement'
+                outcome: 'returns record'
+              - id: C001M001E0022
+                condition: 'except StrategyNotApplicable'
+                outcome: 'exception caught, enters handler'
+              - id: C001M001E0023
+                condition: 'executes'
+                outcome: 'logging.debug(f''strategy not applicable: {strategy.name} key={key!r}'')'
+              - id: C001M001E0024
+                condition: 'executes'
+                outcome: 'continue to next iteration'
+              - id: C001M001E0025
+                condition: 'except BaseException as e'
+                outcome: 'exception caught, enters handler'
+              - id: C001M001E0026
+                condition: 'executes'
+                outcome: 'causes.append(e)'
+              - id: C001M001E0027
+                condition: 'executes'
+                outcome: 'logging.debug(f''strategy failed: {strategy.name} key={key!r} err={type(e).__name__}: {e}'')'
+              - id: C001M001E0028
+                condition: 'executes'
+                outcome: 'continue to next iteration'
+              - id: C001M001E0029
+                condition: 'raise statement'
+                outcome: 'raises ArtifactResolutionError("No strategy was able to resolve the requested artifact", key=key, causes=tuple(causes))'
+            integration:
+              interunit:
+                - id: IC001M001E0016
+                  target: BaseArtifactResolutionStrategy.resolve
+                  kind: call
+                  signature: 'strategy.resolve(key=key, destination_uri=destination_uri)'
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0011, C001M001E0013, C001M001E0014, C001M001E0016]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0011, C001M001E0013, C001M001E0014, C001M001E0016]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0011, C001M001E0013, C001M001E0014, C001M001E0016]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016]
+                  notes: 'Called within try block on each non-disabled strategy'
+                - id: IC001M001E0029
+                  target: ArtifactResolutionError
+                  kind: construct
+                  signature: 'ArtifactResolutionError("No strategy was able to resolve the requested artifact", key=key, causes=tuple(causes))'
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0009, C001M001E0029]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0009, C001M001E0029]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0009, C001M001E0029]
+                  notes: 'Raised when all strategies fail or loop completes without return'
+              boundaries:
+                - id: IC001M001E0013
+                  target: logging.debug
+                  kind: call
+                  signature: 'logging.debug(f''strategy disabled: {strategy.name} key={key!r}'')'
+                  boundary:
+                    kind: other
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0011, C001M001E0013]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0011, C001M001E0013]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0011, C001M001E0013]
+                - id: IC001M001E0019
+                  target: logging.debug
+                  kind: call
+                  signature: 'logging.debug(f''strategy returned None: {strategy.name} key={key!r}'')'
+                  boundary:
+                    kind: other
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0017, C001M001E0019]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0017, C001M001E0019]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0017, C001M001E0019]
+                - id: IC001M001E0023
+                  target: logging.debug
+                  kind: call
+                  signature: 'logging.debug(f''strategy not applicable: {strategy.name} key={key!r}'')'
+                  boundary:
+                    kind: other
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0022, C001M001E0023]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0022, C001M001E0023]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0022, C001M001E0023]
+                - id: IC001M001E0027
+                  target: logging.debug
+                  kind: call
+                  signature: 'logging.debug(f''strategy failed: {strategy.name} key={key!r} err={type(e).__name__}: {e}'')'
+                  boundary:
+                    kind: other
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0006, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0025, C001M001E0026, C001M001E0027]
+                    - [C001M001E0001, C001M001E0002, C001M001E0003, C001M001E0005, C001M001E0007, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0025, C001M001E0026, C001M001E0027]
+                    - [C001M001E0001, C001M001E0002, C001M001E0004, C001M001E0010, C001M001E0012, C001M001E0015, C001M001E0016, C001M001E0025, C001M001E0026, C001M001E0027]
+    - id: C002
+      kind: class
+      name: ArtifactCoordinator
+      children:
+        - id: C002M001
+          kind: callable
+          name: resolve
+          signature: 'resolve(self, key: ArtifactKeyType) -> ArtifactRecord'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ArtifactCoordinator
+              - name: key
+                type:
+                  name: ArtifactKeyType
+            returnType:
+              name: ArtifactRecord
+            branches:
+              - id: C002M001E0001
+                condition: 'executes'
+                outcome: 'hit = self.repo.get(key)'
+              - id: C002M001E0002
+                condition: 'if hit is not None'
+                outcome: 'continues to line 89'
+              - id: C002M001E0003
+                condition: 'else'
+                outcome: 'continues to line 91'
+              - id: C002M001E0004
+                condition: 'return statement'
+                outcome: 'returns hit'
+              - id: C002M001E0005
+                condition: 'executes'
+                outcome: 'dest_uri = self.repo.allocate_destination_uri(key)'
+              - id: C002M001E0006
+                condition: 'executes'
+                outcome: 'record = self.resolver.resolve(key=key, destination_uri=dest_uri)'
+              - id: C002M001E0007
+                condition: 'executes'
+                outcome: 'self.repo.put(record)'
+              - id: C002M001E0008
+                condition: 'return statement'
+                outcome: 'returns record'
+            integration:
+              interunit:
+                - id: IC002M001E0001
+                  target: ArtifactRepository.get
+                  kind: call
+                  signature: 'self.repo.get(key)'
+                  executionPaths:
+                    - [C002M001E0001]
+                - id: IC002M001E0005
+                  target: ArtifactRepository.allocate_destination_uri
+                  kind: call
+                  signature: 'self.repo.allocate_destination_uri(key)'
+                  executionPaths:
+                    - [C002M001E0001, C002M001E0003, C002M001E0005]
+                - id: IC002M001E0006
+                  target: ArtifactResolver.resolve
+                  kind: call
+                  signature: 'self.resolver.resolve(key=key, destination_uri=dest_uri)'
+                  executionPaths:
+                    - [C002M001E0001, C002M001E0003, C002M001E0005, C002M001E0006]
+                - id: IC002M001E0007
+                  target: ArtifactRepository.put
+                  kind: call
+                  signature: 'self.repo.put(record)'
+                  executionPaths:
+                    - [C002M001E0001, C002M001E0003, C002M001E0005, C002M001E0006, C002M001E0007]
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: orchestration
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Execution paths for integrations enumerate all combinations of independent conditionals before reaching the integration point'

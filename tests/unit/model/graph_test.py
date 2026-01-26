@@ -8,18 +8,21 @@ from packaging.specifiers import SpecifierSet
 from project_resolution_engine.model import graph as graph
 from unit.helpers.models_helper import FakeWheelKey
 
-
 # ------------------------------------------------------------------------------
 # Helpers
 # ------------------------------------------------------------------------------
 
+
 def _wk(
-        name: str,
-        version: str,
-        tag: str = "py3-none-any",
-        *,
-        dependency_ids: frozenset[str] | None = None) -> FakeWheelKey:
-    return FakeWheelKey(name=name, version=version, tag=tag, dependency_ids=dependency_ids)
+    name: str,
+    version: str,
+    tag: str = "py3-none-any",
+    *,
+    dependency_ids: frozenset[str] | None = None,
+) -> FakeWheelKey:
+    return FakeWheelKey(
+        name=name, version=version, tag=tag, dependency_ids=dependency_ids
+    )
 
 
 @pytest.fixture(autouse=True)
@@ -31,6 +34,7 @@ def _patch_wheelkey(monkeypatch: pytest.MonkeyPatch) -> None:
 # ------------------------------------------------------------------------------
 # ResolvedNode
 # ------------------------------------------------------------------------------
+
 
 # noinspection PyTypeChecker
 @pytest.mark.parametrize(
@@ -59,7 +63,8 @@ def test_resolvednode_property_passthrough(prop: str, expected: Any) -> None:
         dependency_ids=frozenset({"dep_1-0.1-py3-none-any"}),
         origin_uri="https://example.invalid/demo.whl",
         marker="python_version >= '3.9'",
-        extras=frozenset({"fast"}))
+        extras=frozenset({"fast"}),
+    )
     node = graph.ResolvedNode(wheel_key=wk)
     assert getattr(node, prop) == expected
 
@@ -82,23 +87,30 @@ def test_resolvednode_to_mapping_delegates_to_wheelkey() -> None:
     assert node.to_mapping() == {"wheel_key": wk.to_mapping()}
 
 
-def test_resolvednode_from_mapping_uses_wheelkey_from_mapping(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_resolvednode_from_mapping_uses_wheelkey_from_mapping(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Covers:
     # C001M012B0001
     sentinel = _wk("sentinel", "9.9.9")
 
-    def _from_mapping(cls: type[FakeWheelKey], mapping: Mapping[str, Any], **_: Any) -> FakeWheelKey:
+    def _from_mapping(
+        cls: type[FakeWheelKey], mapping: Mapping[str, Any], **_: Any
+    ) -> FakeWheelKey:
         assert mapping == {"name": "x", "version": "1", "tag": "t"}
         return sentinel
 
     monkeypatch.setattr(FakeWheelKey, "from_mapping", classmethod(_from_mapping))
-    node = graph.ResolvedNode.from_mapping({"wheel_key": {"name": "x", "version": "1", "tag": "t"}})
+    node = graph.ResolvedNode.from_mapping(
+        {"wheel_key": {"name": "x", "version": "1", "tag": "t"}}
+    )
     assert node.wheel_key is sentinel
 
 
 # ------------------------------------------------------------------------------
 # ResolvedGraph.__post_init__
 # ------------------------------------------------------------------------------
+
 
 # noinspection PyTypeChecker
 def test_resolvedgraph_post_init_raises_for_missing_roots() -> None:
@@ -137,7 +149,9 @@ def test_resolvedgraph_post_init_raises_for_missing_dependency_id() -> None:
     wk_a_with_dep = _wk("a", "1.0.0", dependency_ids=frozenset({missing_dep_id}))
     node_a = graph.ResolvedNode(wheel_key=wk_a_with_dep)
     with pytest.raises(ValueError, match="Dependencies refer to missing nodes"):
-        graph.ResolvedGraph(supported_python_band=band, _roots={wk_a}, nodes={wk_a_with_dep: node_a})
+        graph.ResolvedGraph(
+            supported_python_band=band, _roots={wk_a}, nodes={wk_a_with_dep: node_a}
+        )
 
 
 # noinspection PyTypeChecker
@@ -153,12 +167,14 @@ def test_resolvedgraph_post_init_allows_when_dependency_present() -> None:
     graph.ResolvedGraph(
         supported_python_band=band,
         _roots={wk_a},
-        nodes={wk_a_with_dep: node_a, wk_b: node_b})
+        nodes={wk_a_with_dep: node_a, wk_b: node_b},
+    )
 
 
 # ------------------------------------------------------------------------------
 # ResolvedGraph.roots and to_mapping
 # ------------------------------------------------------------------------------
+
 
 # noinspection PyTypeChecker
 def test_resolvedgraph_roots_sorted() -> None:
@@ -167,8 +183,11 @@ def test_resolvedgraph_roots_sorted() -> None:
     band = SpecifierSet(">=3.9")
     wk_b = _wk("b", "1.0.0")
     wk_a = _wk("a", "1.0.0")
-    g = graph.ResolvedGraph(supported_python_band=band, _roots={wk_b, wk_a},
-                            nodes={wk_a: graph.ResolvedNode(wk_a), wk_b: graph.ResolvedNode(wk_b)})
+    g = graph.ResolvedGraph(
+        supported_python_band=band,
+        _roots={wk_b, wk_a},
+        nodes={wk_a: graph.ResolvedNode(wk_a), wk_b: graph.ResolvedNode(wk_b)},
+    )
     assert g.roots == [wk_a, wk_b]
 
 
@@ -182,7 +201,11 @@ def test_resolvedgraph_to_mapping_structure() -> None:
     node_a = graph.ResolvedNode(wheel_key=wk_a)
     node_b = graph.ResolvedNode(wheel_key=wk_b)
 
-    g = graph.ResolvedGraph(supported_python_band=band, _roots={wk_b, wk_a}, nodes={wk_a: node_a, wk_b: node_b})
+    g = graph.ResolvedGraph(
+        supported_python_band=band,
+        _roots={wk_b, wk_a},
+        nodes={wk_a: node_a, wk_b: node_b},
+    )
     m = g.to_mapping()
 
     assert m["supported_python_band"] == str(band)
@@ -197,6 +220,7 @@ def test_resolvedgraph_to_mapping_structure() -> None:
 # ResolvedGraph.from_mapping
 # ------------------------------------------------------------------------------
 
+
 @pytest.mark.parametrize(
     "roots_value, nodes_value, expected_root_count, expected_node_count, covers",
     [
@@ -206,20 +230,29 @@ def test_resolvedgraph_to_mapping_structure() -> None:
         # mapping.get("roots") truthy -> roots preserved
         # mapping.get("nodes") truthy -> nodes preserved, loop >= 1
         (
-                [{"name": "a", "version": "1.0.0", "tag": "py3-none-any"}],
-                {"ignored-key": {"wheel_key": {"name": "a", "version": "1.0.0", "tag": "py3-none-any"}}},
-                1,
-                1,
-                {"C002M004B0001", "C002M004B0003", "C002M004B0006"},
+            [{"name": "a", "version": "1.0.0", "tag": "py3-none-any"}],
+            {
+                "ignored-key": {
+                    "wheel_key": {
+                        "name": "a",
+                        "version": "1.0.0",
+                        "tag": "py3-none-any",
+                    }
+                }
+            },
+            1,
+            1,
+            {"C002M004B0001", "C002M004B0003", "C002M004B0006"},
         ),
     ],
 )
 def test_resolvedgraph_from_mapping_variants(
-        roots_value: Any,
-        nodes_value: Any,
-        expected_root_count: int,
-        expected_node_count: int,
-        covers: set[str]) -> None:
+    roots_value: Any,
+    nodes_value: Any,
+    expected_root_count: int,
+    expected_node_count: int,
+    covers: set[str],
+) -> None:
     # Covers:
     # C002M004B0001..C002M004B0006 via parametrized variants
     payload: dict[str, Any] = {"supported_python_band": ">=3.9"}

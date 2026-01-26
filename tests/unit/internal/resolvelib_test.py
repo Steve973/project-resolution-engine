@@ -28,13 +28,15 @@ from unit.helpers.models_helper import (
     FakeResolverRequirement,
     FakeResolverCandidate,
     FakePep691FileMetadata,
-    FakePep691Metadata
+    FakePep691Metadata,
 )
 
 
 @pytest.fixture
 def patch_pep691_metadata(monkeypatch):
-    monkeypatch.setattr(resolvelib_mod, "Pep691Metadata", FakePep691Metadata, raising=True)
+    monkeypatch.setattr(
+        resolvelib_mod, "Pep691Metadata", FakePep691Metadata, raising=True
+    )
 
 
 # ==============================================================================
@@ -312,6 +314,7 @@ def patch_pep691_metadata(monkeypatch):
 # Local test doubles (external deps are stubbed; unit under test is resolvelib.py)
 # ==============================================================================
 
+
 @dataclass(slots=True)
 class _FakeRecord:
     destination_uri: str
@@ -349,12 +352,12 @@ class _FakeEnv:
     """
 
     def __init__(
-            self,
-            *,
-            supported_tags: Sequence[str] | frozenset[str],
-            marker_environment: dict[str, str] | None = None,
-            yanked_policy: YankedWheelPolicy = YankedWheelPolicy.SKIP,
-            supported_tags_ordered: Sequence[str] | None = None,
+        self,
+        *,
+        supported_tags: Sequence[str] | frozenset[str],
+        marker_environment: dict[str, str] | None = None,
+        yanked_policy: YankedWheelPolicy = YankedWheelPolicy.SKIP,
+        supported_tags_ordered: Sequence[str] | None = None,
     ) -> None:
         self.supported_tags = supported_tags
         self.marker_environment = marker_environment or {}
@@ -363,7 +366,9 @@ class _FakeEnv:
             self.supported_tags_ordered = list(supported_tags_ordered)
 
 
-def _wk(*, name: str, version: str, tag: str, origin_uri: str | None = None) -> FakeWheelKey:
+def _wk(
+    *, name: str, version: str, tag: str, origin_uri: str | None = None
+) -> FakeWheelKey:
     return FakeWheelKey(
         name=name,
         version=version,
@@ -374,8 +379,13 @@ def _wk(*, name: str, version: str, tag: str, origin_uri: str | None = None) -> 
     )
 
 
-def _req(*, name: str, version: str | None = None, uri: str | None = None,
-         extras: Sequence[str] = ()) -> FakeResolverRequirement:
+def _req(
+    *,
+    name: str,
+    version: str | None = None,
+    uri: str | None = None,
+    extras: Sequence[str] = (),
+) -> FakeResolverRequirement:
     spec = SpecifierSet(version) if version is not None else None
     return FakeResolverRequirement(
         wheel_spec=FakeWheelSpec(
@@ -389,12 +399,12 @@ def _req(*, name: str, version: str | None = None, uri: str | None = None,
 
 
 def _pep691_file(
-        *,
-        filename: str,
-        url: str = "https://files.example/x.whl",
-        hashes: Mapping[str, str] | None = None,
-        requires_python: str | None = None,
-        yanked: bool = False,
+    *,
+    filename: str,
+    url: str = "https://files.example/x.whl",
+    hashes: Mapping[str, str] | None = None,
+    requires_python: str | None = None,
+    yanked: bool = False,
 ) -> FakePep691FileMetadata:
     return FakePep691FileMetadata(
         filename=filename,
@@ -425,17 +435,36 @@ def _write_core_metadata(tmp_path: Path, text: str) -> Path:
 
 _ENV_PY_VER_CASES = [
     # Covers: C000F004B0001, C000F004B0004
-    {"env": _FakeEnv(supported_tags=(), marker_environment={"python_full_version": "3.11.7"}), "expect": "3.11.7",
-     "covers": ["C000F004B0001", "C000F004B0004"]},
+    {
+        "env": _FakeEnv(
+            supported_tags=(), marker_environment={"python_full_version": "3.11.7"}
+        ),
+        "expect": "3.11.7",
+        "covers": ["C000F004B0001", "C000F004B0004"],
+    },
     # Covers: C000F004B0002, C000F004B0004
-    {"env": _FakeEnv(supported_tags=(), marker_environment={"python_version": "3.11"}), "expect": "3.11",
-     "covers": ["C000F004B0002", "C000F004B0004"]},
+    {
+        "env": _FakeEnv(
+            supported_tags=(), marker_environment={"python_version": "3.11"}
+        ),
+        "expect": "3.11",
+        "covers": ["C000F004B0002", "C000F004B0004"],
+    },
     # Covers: C000F004B0003, C000F004B0004
-    {"env": _FakeEnv(supported_tags=(), marker_environment={}), "expect": "0",
-     "covers": ["C000F004B0003", "C000F004B0004"]},
+    {
+        "env": _FakeEnv(supported_tags=(), marker_environment={}),
+        "expect": "0",
+        "covers": ["C000F004B0003", "C000F004B0004"],
+    },
     # Covers: C000F004B0001, C000F004B0005
-    {"env": _FakeEnv(supported_tags=(), marker_environment={"python_full_version": "not-a-version"}), "expect": "0",
-     "covers": ["C000F004B0001", "C000F004B0005"]},
+    {
+        "env": _FakeEnv(
+            supported_tags=(),
+            marker_environment={"python_full_version": "not-a-version"},
+        ),
+        "expect": "0",
+        "covers": ["C000F004B0001", "C000F004B0005"],
+    },
 ]
 
 _VERSION_SORT_KEY_CASES = [
@@ -447,15 +476,26 @@ _VERSION_SORT_KEY_CASES = [
 
 _SAFE_URL_BASENAME_CASES = [
     # Covers: C000F002B0001
-    {"url": "https://example.com/", "raises": "URL has no path basename", "covers": ["C000F002B0001"]},
+    {
+        "url": "https://example.com/",
+        "raises": "URL has no path basename",
+        "covers": ["C000F002B0001"],
+    },
     # Covers: C000F002B0002
-    {"url": "https://example.com/files/demo%2D1.0.0-py3-none-any.whl", "expect": "demo-1.0.0-py3-none-any.whl",
-     "covers": ["C000F002B0002"]},
+    {
+        "url": "https://example.com/files/demo%2D1.0.0-py3-none-any.whl",
+        "expect": "demo-1.0.0-py3-none-any.whl",
+        "covers": ["C000F002B0002"],
+    },
 ]
 
 _PATH_FROM_FILE_URI_CASES = [
     # Covers: C000F003B0001
-    {"uri": "https://example.com/x", "raises": "Expected file URI", "covers": ["C000F003B0001"]},
+    {
+        "uri": "https://example.com/x",
+        "raises": "Expected file URI",
+        "covers": ["C000F003B0001"],
+    },
 ]
 
 _BEST_HASH_CASES = [
@@ -476,6 +516,7 @@ _BEST_HASH_CASES = [
 # Tests: module functions
 # ==============================================================================
 
+
 def test_expand_tags_for_context_cp_and_non_cp():
     # Covers: C000F001B0001, C000F001B0002
     pyver = Version("3.11")
@@ -488,7 +529,9 @@ def test_expand_tags_for_context_cp_and_non_cp():
     seed_non = Tag("py3", "none", "any")
     tags_non = _expand_tags_for_context(python_version=pyver, context_tag=seed_non)
     assert Tag("py3", "abi3", "any") not in tags_non
-    assert Tag("py3", "none", "any") in tags_non  # base tag set still includes context_tag
+    assert (
+        Tag("py3", "none", "any") in tags_non
+    )  # base tag set still includes context_tag
 
 
 @pytest.mark.parametrize("row", _SAFE_URL_BASENAME_CASES)
@@ -536,14 +579,19 @@ def test_version_sort_key_cases(row: dict[str, Any]):
 # Tests: provider basics
 # ==============================================================================
 
+
 def test_provider_init_and_identify():
     # Covers: C001M001B0001, C001M002B0001
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     r = _req(name="My-Pkg", version="==1.0")
-    c = FakeResolverCandidate(wheel_key=_wk(name="my-pkg", version="1.0.0", tag="py3-none-any"))
+    c = FakeResolverCandidate(
+        wheel_key=_wk(name="my-pkg", version="1.0.0", tag="py3-none-any")
+    )
     assert p.identify(r) == "my-pkg"
     assert p.identify(c) == "my-pkg"
 
@@ -566,14 +614,18 @@ def test_materialize_requirements_empty_and_non_empty():
     empty = ProjectResolutionProvider._materialize_requirements({}, "demo")
     assert empty == []
 
-    non_empty = ProjectResolutionProvider._materialize_requirements({"demo": iter((r1, r2))}, "demo")
+    non_empty = ProjectResolutionProvider._materialize_requirements(
+        {"demo": iter((r1, r2))}, "demo"
+    )
     assert non_empty == [r1, r2]
 
 
 def test_update_requested_extras_branches():
     # Covers: C001M006B0001, C001M006B0003, C001M006B0004, C001M006B0005
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     # B0001: empty req_list -> no mutation
@@ -586,7 +638,9 @@ def test_update_requested_extras_branches():
 
     # B0005: union with existing
     p._requested_extras_by_name["demo"] = frozenset({"a"})
-    p._update_requested_extras("demo", [_req(name="demo", version="==1.0", extras=("b", "c"))])
+    p._update_requested_extras(
+        "demo", [_req(name="demo", version="==1.0", extras=("b", "c"))]
+    )
     assert p._requested_extras_by_name["demo"] == frozenset({"a", "b", "c"})
 
 
@@ -595,8 +649,12 @@ def test_compute_bad_set_empty_and_non_empty():
     bad0 = ProjectResolutionProvider._compute_bad_set("demo", {})
     assert bad0 == set()
 
-    c1 = FakeResolverCandidate(wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any"))
-    c2 = FakeResolverCandidate(wheel_key=_wk(name="demo", version="2.0.0", tag="py3-none-any"))
+    c1 = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any")
+    )
+    c2 = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="2.0.0", tag="py3-none-any")
+    )
     bad = ProjectResolutionProvider._compute_bad_set("demo", {"demo": iter((c1, c2))})
     assert ("demo", "1.0.0", "py3-none-any") in bad
     assert ("demo", "2.0.0", "py3-none-any") in bad
@@ -606,26 +664,43 @@ def test_compute_bad_set_empty_and_non_empty():
 # Tests: URI candidate path
 # ==============================================================================
 
+
 def test_build_uri_candidates_none_and_invalid_scheme_and_append():
     # Covers: C001M008B0001, C001M008B0003, C001M008B0004, C001M008B0005
-    env = _FakeEnv(supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    env = _FakeEnv(
+        supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",)
+    )
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
     bad: set[tuple[str, str, str]] = set()
 
     # B0001: no uri requirements -> None
-    assert p._build_uri_candidates("demo", [_req(name="demo", version="==1.0")], bad) is None
+    assert (
+        p._build_uri_candidates("demo", [_req(name="demo", version="==1.0")], bad)
+        is None
+    )
 
     # B0003: uri with no scheme -> ValueError
     with pytest.raises(ValueError) as ei:
-        _ = p._build_uri_candidates("demo", [_req(name="demo", version="==1.0", uri="demo-1.0.0-py3-none-any.whl")],
-                                    bad)
+        _ = p._build_uri_candidates(
+            "demo",
+            [_req(name="demo", version="==1.0", uri="demo-1.0.0-py3-none-any.whl")],
+            bad,
+        )
     assert "Invalid resolver requirement URI" in str(ei.value)
 
     # B0004: valid scheme but candidate_from_uri_req returns None (dist mismatch)
     out0 = p._build_uri_candidates(
         "demo",
-        [_req(name="demo", version="==1.0", uri="https://example.com/other-1.0.0-py3-none-any.whl")],
+        [
+            _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/other-1.0.0-py3-none-any.whl",
+            )
+        ],
         bad,
     )
     assert out0 == []
@@ -633,12 +708,21 @@ def test_build_uri_candidates_none_and_invalid_scheme_and_append():
     # B0005: candidate appended
     out1 = p._build_uri_candidates(
         "demo",
-        [_req(name="demo", version="==1.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl")],
+        [
+            _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+            )
+        ],
         bad,
     )
     assert out1 is not None
     assert len(out1) == 1
-    assert out1[0].wheel_key.origin_uri == "https://example.com/demo-1.0.0-py3-none-any.whl"
+    assert (
+        out1[0].wheel_key.origin_uri
+        == "https://example.com/demo-1.0.0-py3-none-any.whl"
+    )
 
 
 @pytest.mark.parametrize(
@@ -646,44 +730,68 @@ def test_build_uri_candidates_none_and_invalid_scheme_and_append():
     [
         # Covers: C001M009B0001
         {
-            "req": _req(name="demo", version="==1.0", uri="https://example.com/not-a-wheel.txt"),
+            "req": _req(
+                name="demo", version="==1.0", uri="https://example.com/not-a-wheel.txt"
+            ),
             "bad": set(),
             "raises": "does not look like a wheel file",
             "covers": ["C001M009B0001"],
         },
         # Covers: C001M009B0002
         {
-            "req": _req(name="demo", version="==1.0", uri="https://example.com/other-1.0.0-py3-none-any.whl"),
+            "req": _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/other-1.0.0-py3-none-any.whl",
+            ),
             "bad": set(),
             "expect": None,
             "covers": ["C001M009B0002"],
         },
         # Covers: C001M009B0003
         {
-            "req": _req(name="demo", version="==1.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl"),
-            "env": _FakeEnv(supported_tags=("cp311-cp311-manylinux_2_17_x86_64",),
-                            supported_tags_ordered=("cp311-cp311-manylinux_2_17_x86_64",)),
+            "req": _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+            ),
+            "env": _FakeEnv(
+                supported_tags=("cp311-cp311-manylinux_2_17_x86_64",),
+                supported_tags_ordered=("cp311-cp311-manylinux_2_17_x86_64",),
+            ),
             "bad": set(),
             "expect": None,
             "covers": ["C001M009B0003"],
         },
         # Covers: C001M009B0004
         {
-            "req": _req(name="demo", version="==1.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl"),
+            "req": _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+            ),
             "bad": {("demo", "1.0.0", "py3-none-any")},
             "expect": None,
             "covers": ["C001M009B0004"],
         },
         # Covers: C001M009B0005
         {
-            "req": _req(name="demo", version="==2.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl"),
+            "req": _req(
+                name="demo",
+                version="==2.0",
+                uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+            ),
             "bad": set(),
             "expect": None,
             "covers": ["C001M009B0005"],
         },
         # Covers: C001M009B0006
         {
-            "req": _req(name="demo", version="==1.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl"),
+            "req": _req(
+                name="demo",
+                version="==1.0",
+                uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+            ),
             "bad": set(),
             "expect_origin": "https://example.com/demo-1.0.0-py3-none-any.whl",
             "covers": ["C001M009B0006"],
@@ -692,8 +800,12 @@ def test_build_uri_candidates_none_and_invalid_scheme_and_append():
 )
 def test_candidate_from_uri_req_branches(row: dict[str, Any]):
     # Covers: per-row row["covers"]
-    env = row.get("env") or _FakeEnv(supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    env = row.get("env") or _FakeEnv(
+        supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",)
+    )
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     if "raises" in row:
@@ -716,14 +828,32 @@ def test_candidate_from_uri_req_branches(row: dict[str, Any]):
         # Covers: C001M010B0001
         {"reqs": [], "expect": None, "covers": ["C001M010B0001"]},
         # Covers: C001M010B0002
-        {"reqs": [_req(name="demo", version=None, uri="https://example.com/demo-1.0.0-py3-none-any.whl")],
-         "expect": None,
-         "covers": ["C001M010B0002"]},
+        {
+            "reqs": [
+                _req(
+                    name="demo",
+                    version=None,
+                    uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+                )
+            ],
+            "expect": None,
+            "covers": ["C001M010B0002"],
+        },
         # Covers: C001M010B0003
-        {"reqs": [_req(name="demo", version=">=1.0")], "expect": ">=1.0", "covers": ["C001M010B0003"]},
+        {
+            "reqs": [_req(name="demo", version=">=1.0")],
+            "expect": ">=1.0",
+            "covers": ["C001M010B0003"],
+        },
         # Covers: C001M010B0004
-        {"reqs": [_req(name="demo", version=">=1.0"), _req(name="demo", version="<2.0")], "expect": "<2.0,>=1.0",
-         "covers": ["C001M010B0004"]},
+        {
+            "reqs": [
+                _req(name="demo", version=">=1.0"),
+                _req(name="demo", version="<2.0"),
+            ],
+            "expect": "<2.0,>=1.0",
+            "covers": ["C001M010B0004"],
+        },
     ],
 )
 def test_combined_spec_cases(row: dict[str, Any]):
@@ -740,12 +870,15 @@ def test_combined_spec_cases(row: dict[str, Any]):
 # Tests: index candidate path (PEP 691 + PEP 658 core metadata)
 # ==============================================================================
 
+
 def test_load_pep691_cache_miss_then_hit(tmp_path: Path, patch_pep691_metadata):
     # Covers: C001M011B0002, C001M011B0001
     payload = {
         "name": "demo",
         "files": [
-            _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}).to_mapping(),
+            _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ).to_mapping(),
         ],
         "last_serial": 1,
     }
@@ -770,23 +903,39 @@ def test_load_pep691_cache_miss_then_hit(tmp_path: Path, patch_pep691_metadata):
 
 def test_build_index_candidates_loop_0_and_none_and_some():
     # Covers: C001M012B0001, C001M012B0002, C001M012B0003
-    env = _FakeEnv(supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    env = _FakeEnv(
+        supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",)
+    )
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     pep_empty = FakePep691Metadata(name="demo", files=[])
-    out0 = p._build_index_candidates(name="demo", pep691=pep_empty, combined_spec=None, py_version="3.11", bad=set())
+    out0 = p._build_index_candidates(
+        name="demo", pep691=pep_empty, combined_spec=None, py_version="3.11", bad=set()
+    )
     assert out0 == []
 
-    pep_none = FakePep691Metadata(name="demo", files=[_pep691_file(filename="not-a-wheel.txt")])
-    out1 = p._build_index_candidates(name="demo", pep691=pep_none, combined_spec=None, py_version="3.11", bad=set())
+    pep_none = FakePep691Metadata(
+        name="demo", files=[_pep691_file(filename="not-a-wheel.txt")]
+    )
+    out1 = p._build_index_candidates(
+        name="demo", pep691=pep_none, combined_spec=None, py_version="3.11", bad=set()
+    )
     assert out1 == []
 
     pep_some = FakePep691Metadata(
         name="demo",
-        files=[_pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64})],
+        files=[
+            _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            )
+        ],
     )
-    out2 = p._build_index_candidates(name="demo", pep691=pep_some, combined_spec=None, py_version="3.11", bad=set())
+    out2 = p._build_index_candidates(
+        name="demo", pep691=pep_some, combined_spec=None, py_version="3.11", bad=set()
+    )
     assert len(out2) == 1
     assert out2[0].wheel_key.content_hash == "a" * 64
 
@@ -795,49 +944,121 @@ def test_build_index_candidates_loop_0_and_none_and_some():
     "row",
     [
         # Covers: C001M013B0001
-        {"f": _pep691_file(filename="demo-1.0.0.tar.gz"), "expect": None, "covers": ["C001M013B0001"]},
+        {
+            "f": _pep691_file(filename="demo-1.0.0.tar.gz"),
+            "expect": None,
+            "covers": ["C001M013B0001"],
+        },
         # Covers: C001M013B0002
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", yanked=True, hashes={"sha256": "a" * 64}),
-         "policy": YankedWheelPolicy.SKIP, "expect": None, "covers": ["C001M013B0002"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl",
+                yanked=True,
+                hashes={"sha256": "a" * 64},
+            ),
+            "policy": YankedWheelPolicy.SKIP,
+            "expect": None,
+            "covers": ["C001M013B0002"],
+        },
         # Covers: C001M013B0003
-        {"f": _pep691_file(filename="bad.whl", hashes={"sha256": "a" * 64}), "expect": None,
-         "covers": ["C001M013B0003"]},
+        {
+            "f": _pep691_file(filename="bad.whl", hashes={"sha256": "a" * 64}),
+            "expect": None,
+            "covers": ["C001M013B0003"],
+        },
         # Covers: C001M013B0004
-        {"f": _pep691_file(filename="other-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}),
-         "expect": None, "covers": ["C001M013B0004"]},
+        {
+            "f": _pep691_file(
+                filename="other-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ),
+            "expect": None,
+            "covers": ["C001M013B0004"],
+        },
         # Covers: C001M013B0005
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}),
-         "combined": SpecifierSet("==2.0.0"), "expect": None, "covers": ["C001M013B0005"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ),
+            "combined": SpecifierSet("==2.0.0"),
+            "expect": None,
+            "covers": ["C001M013B0005"],
+        },
         # Covers: C001M013B0006
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}, requires_python="<3.0"),
-         "expect": None, "covers": ["C001M013B0006"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl",
+                hashes={"sha256": "a" * 64},
+                requires_python="<3.0",
+            ),
+            "expect": None,
+            "covers": ["C001M013B0006"],
+        },
         # Covers: C001M013B0007
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64},
-                           requires_python="not-a-spec"),
-         "expect_non_none": True, "covers": ["C001M013B0007", "C001M013B0011"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl",
+                hashes={"sha256": "a" * 64},
+                requires_python="not-a-spec",
+            ),
+            "expect_non_none": True,
+            "covers": ["C001M013B0007", "C001M013B0011"],
+        },
         # Covers: C001M013B0008
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}),
-         "env": _FakeEnv(supported_tags=("cp311-cp311-manylinux_2_17_x86_64",),
-                         supported_tags_ordered=("cp311-cp311-manylinux_2_17_x86_64",)),
-         "expect": None, "covers": ["C001M013B0008"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ),
+            "env": _FakeEnv(
+                supported_tags=("cp311-cp311-manylinux_2_17_x86_64",),
+                supported_tags_ordered=("cp311-cp311-manylinux_2_17_x86_64",),
+            ),
+            "expect": None,
+            "covers": ["C001M013B0008"],
+        },
         # Covers: C001M013B0009
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={}),
-         "expect": None, "covers": ["C001M013B0009"]},
+        {
+            "f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={}),
+            "expect": None,
+            "covers": ["C001M013B0009"],
+        },
         # Covers: C001M013B0010
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}),
-         "bad": {("demo", "1.0.0", "py3-none-any")}, "expect": None, "covers": ["C001M013B0010"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ),
+            "bad": {("demo", "1.0.0", "py3-none-any")},
+            "expect": None,
+            "covers": ["C001M013B0010"],
+        },
         # Covers: C001M013B0011
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}),
-         "expect_non_none": True, "covers": ["C001M013B0011"]},
-        {"f": _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}, requires_python=">=3.8"),
-         "expect_non_none": True, "covers": ["C001M013B0011"]},
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ),
+            "expect_non_none": True,
+            "covers": ["C001M013B0011"],
+        },
+        {
+            "f": _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl",
+                hashes={"sha256": "a" * 64},
+                requires_python=">=3.8",
+            ),
+            "expect_non_none": True,
+            "covers": ["C001M013B0011"],
+        },
     ],
 )
 def test_candidate_from_index_file_branches(row: dict[str, Any]):
     # Covers: per-row row["covers"]
-    env = row.get("env") or _FakeEnv(supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",),
-                                     yanked_policy=row.get("policy", YankedWheelPolicy.SKIP))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    env = row.get("env") or _FakeEnv(
+        supported_tags=("py3-none-any",),
+        supported_tags_ordered=("py3-none-any",),
+        yanked_policy=row.get("policy", YankedWheelPolicy.SKIP),
+    )
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     out = p._candidate_from_index_file(
@@ -857,7 +1078,9 @@ def test_candidate_from_index_file_branches(row: dict[str, Any]):
 
 def test_best_tag_ordered_and_fallback():
     # Covers: C001M014B0001, C001M014B0002
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
 
     # ordered branch
     env1 = _FakeEnv(
@@ -877,37 +1100,64 @@ def test_sort_candidates_empty_and_sorted():
     # Covers: C001M015B0001, C001M015B0002, plus C000F005B0001/C000F005B0002 transitively
     assert ProjectResolutionProvider._sort_candidates([]) == []
 
-    c1 = FakeResolverCandidate(wheel_key=_wk(name="demo", version="1.0.0", tag="py2-none-any"))
-    c2 = FakeResolverCandidate(wheel_key=_wk(name="demo", version="2.0.0", tag="py2-none-any"))
-    c3 = FakeResolverCandidate(wheel_key=_wk(name="demo", version="2.0.0", tag="py3-none-any"))
+    c1 = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="1.0.0", tag="py2-none-any")
+    )
+    c2 = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="2.0.0", tag="py2-none-any")
+    )
+    c3 = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="2.0.0", tag="py3-none-any")
+    )
     arr = [c1, c2, c3]
     out = ProjectResolutionProvider._sort_candidates(arr)
     assert out is arr
     assert [c.wheel_key.version for c in out] == ["2.0.0", "2.0.0", "1.0.0"]
-    assert out[0].wheel_key.tag == "py3-none-any"  # version tie broken by tag desc (lexical)
+    assert (
+        out[0].wheel_key.tag == "py3-none-any"
+    )  # version tie broken by tag desc (lexical)
 
 
 def test_is_satisfied_by_all_branches():
     # Covers: C001M016B0001..B0006
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     cand = FakeResolverCandidate(
-        wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any", origin_uri="https://x/demo.whl"))
+        wheel_key=_wk(
+            name="demo",
+            version="1.0.0",
+            tag="py3-none-any",
+            origin_uri="https://x/demo.whl",
+        )
+    )
 
     # name mismatch
     assert p.is_satisfied_by(_req(name="other", version="==1.0"), cand) is False
 
     # uri matches
-    assert p.is_satisfied_by(_req(name="demo", version="==1.0", uri="https://x/demo.whl"), cand) is True
+    assert (
+        p.is_satisfied_by(
+            _req(name="demo", version="==1.0", uri="https://x/demo.whl"), cand
+        )
+        is True
+    )
 
     # uri mismatch
-    assert p.is_satisfied_by(_req(name="demo", version="==1.0", uri="https://x/other.whl"), cand) is False
+    assert (
+        p.is_satisfied_by(
+            _req(name="demo", version="==1.0", uri="https://x/other.whl"), cand
+        )
+        is False
+    )
 
     # no uri, no version
-    assert p.is_satisfied_by(_req(name="demo", version="==1.0"),
-                             cand) is True  # FakeWheelSpec requires version or uri; we supply version but requirement.version None isn't possible with FakeWheelSpec.
+    assert (
+        p.is_satisfied_by(_req(name="demo", version="==1.0"), cand) is True
+    )  # FakeWheelSpec requires version or uri; we supply version but requirement.version None isn't possible with FakeWheelSpec.
     # So explicitly cover B0004 by crafting a requirement-like object:
     req_like = SimpleNamespace(name="demo", uri=None, version=None)
     assert p.is_satisfied_by(req_like, cand) is True
@@ -928,10 +1178,14 @@ def test_is_satisfied_by_all_branches():
 def test_get_dependencies_origin_uri_none():
     # Covers: C001M017B0001
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
-    c = FakeResolverCandidate(wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any", origin_uri=None))
+    c = FakeResolverCandidate(
+        wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any", origin_uri=None)
+    )
     assert p.get_dependencies(c) == ()
 
 
@@ -963,7 +1217,9 @@ def test_get_dependencies_cache_and_markers_and_invalid_requires_dist(tmp_path: 
     core_rec = _FakeRecord(destination_uri=cm_path.as_uri())
 
     core_coord = _FakeCoordinator({"default": core_rec})
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=core_coord)
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=core_coord
+    )
 
     env = _FakeEnv(
         supported_tags=("py3-none-any",),
@@ -1017,23 +1273,30 @@ def test_get_dependencies_requires_dist_loop_zero(tmp_path: Path):
     core_rec = _FakeRecord(destination_uri=cm_path.as_uri())
 
     core_coord = _FakeCoordinator({"default": core_rec})
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=core_coord)
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=core_coord
+    )
 
-    env = _FakeEnv(supported_tags=("py3-none-any",), marker_environment={"python_version": "3.11"})
+    env = _FakeEnv(
+        supported_tags=("py3-none-any",), marker_environment={"python_version": "3.11"}
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
-    cand = FakeResolverCandidate(wheel_key=_wk(
-        name="demo",
-        version="1.0.0",
-        tag="py3-none-any",
-        origin_uri="https://files.example/demo-1.0.0-py3-none-any.whl",
-    ))
+    cand = FakeResolverCandidate(
+        wheel_key=_wk(
+            name="demo",
+            version="1.0.0",
+            tag="py3-none-any",
+            origin_uri="https://files.example/demo-1.0.0-py3-none-any.whl",
+        )
+    )
     assert list(p.get_dependencies(cand)) == []
 
 
 # ==============================================================================
 # Tests: get_preference
 # ==============================================================================
+
 
 @dataclass(slots=True)
 class _RI:
@@ -1044,7 +1307,9 @@ class _RI:
 def test_get_preference_cases():
     # Covers: C001M018B0001..B0008 (by subcases)
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
     p = ProjectResolutionProvider(services=services, env=env)
 
     ident = "demo"
@@ -1064,7 +1329,9 @@ def test_get_preference_cases():
         identifier=ident,
         resolutions={},
         candidates={},
-        information={ident: iter((_RI(requirement=SimpleNamespace(name=ident), parent=None),))},
+        information={
+            ident: iter((_RI(requirement=SimpleNamespace(name=ident), parent=None),))
+        },
         backtrack_causes=[],
     )
     assert pref1[1] == 0  # root flag
@@ -1074,10 +1341,14 @@ def test_get_preference_cases():
         identifier=ident,
         resolutions={},
         candidates={},
-        information={ident: iter((
-            _RI(requirement=SimpleNamespace(name=ident), parent="p1"),
-            _RI(requirement=SimpleNamespace(name=ident), parent="p2"),
-        ))},
+        information={
+            ident: iter(
+                (
+                    _RI(requirement=SimpleNamespace(name=ident), parent="p1"),
+                    _RI(requirement=SimpleNamespace(name=ident), parent="p2"),
+                )
+            )
+        },
         backtrack_causes=[],
     )
     assert pref2[1] == 1
@@ -1088,7 +1359,9 @@ def test_get_preference_cases():
         identifier=ident,
         resolutions={},
         candidates={},
-        information={ident: iter((_RI(requirement=SimpleNamespace(name=ident), parent=None),))},
+        information={
+            ident: iter((_RI(requirement=SimpleNamespace(name=ident), parent=None),))
+        },
         backtrack_causes=[_RI(requirement=SimpleNamespace(name=ident), parent="x")],
     )
     assert pref3[0] == 0
@@ -1096,7 +1369,11 @@ def test_get_preference_cases():
     # already resolved
     pref4 = p.get_preference(
         identifier=ident,
-        resolutions={ident: FakeResolverCandidate(wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any"))},
+        resolutions={
+            ident: FakeResolverCandidate(
+                wheel_key=_wk(name="demo", version="1.0.0", tag="py3-none-any")
+            )
+        },
         candidates={},
         information={},
         backtrack_causes=[],
@@ -1108,16 +1385,29 @@ def test_get_preference_cases():
 # Tests: find_matches + resolve()
 # ==============================================================================
 
+
 def test_find_matches_uri_path_does_not_touch_index_services():
     # Covers: C001M004B0001, C001M004B0002 (plus URI path internals transitively)
-    env = _FakeEnv(supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",))
+    env = _FakeEnv(
+        supported_tags=("py3-none-any",), supported_tags_ordered=("py3-none-any",)
+    )
     index_coord = _FakeCoordinator({})
     core_coord = _FakeCoordinator({})
     services = _FakeServices(index_metadata=index_coord, core_metadata=core_coord)
 
     p = ProjectResolutionProvider(services=services, env=env)
 
-    reqs = {"demo": iter((_req(name="demo", version="==1.0", uri="https://example.com/demo-1.0.0-py3-none-any.whl"),))}
+    reqs = {
+        "demo": iter(
+            (
+                _req(
+                    name="demo",
+                    version="==1.0",
+                    uri="https://example.com/demo-1.0.0-py3-none-any.whl",
+                ),
+            )
+        )
+    }
     out = list(p.find_matches("demo", reqs, incompatibilities={}))
     assert len(out) == 1
     assert index_coord.calls == []  # no pep691 load
@@ -1128,8 +1418,12 @@ def test_find_matches_named_path_loads_pep691_and_builds_candidates(tmp_path: Pa
     payload = {
         "name": "demo",
         "files": [
-            _pep691_file(filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}).to_mapping(),
-            _pep691_file(filename="demo-2.0.0-py3-none-any.whl", hashes={"sha256": "b" * 64}).to_mapping(),
+            _pep691_file(
+                filename="demo-1.0.0-py3-none-any.whl", hashes={"sha256": "a" * 64}
+            ).to_mapping(),
+            _pep691_file(
+                filename="demo-2.0.0-py3-none-any.whl", hashes={"sha256": "b" * 64}
+            ).to_mapping(),
         ],
     }
     idx_path = _write_json(tmp_path, payload)
@@ -1164,10 +1458,14 @@ def test_resolve_constructs_resolver_and_calls_resolve(monkeypatch):
             assert isinstance(roots, Sequence)
             return sentinel
 
-    monkeypatch.setattr("project_resolution_engine.internal.resolvelib.Resolver", _FakeResolver)
+    monkeypatch.setattr(
+        "project_resolution_engine.internal.resolvelib.Resolver", _FakeResolver
+    )
 
     env = _FakeEnv(supported_tags=("py3-none-any",))
-    services = _FakeServices(index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({}))
+    services = _FakeServices(
+        index_metadata=_FakeCoordinator({}), core_metadata=_FakeCoordinator({})
+    )
 
     roots = [_req(name="demo", version=">=1.0")]
     out = resolve_via_resolvelib(services=services, env=env, roots=roots)

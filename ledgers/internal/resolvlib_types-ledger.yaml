@@ -1,0 +1,867 @@
+docKind: derived-ids
+schemaVersion: '1.0.0'
+unit:
+  name: resolvelib_types
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: Preference
+      address: 'resolvelib_types::Preference@L17'
+    - id: C001M001
+      kind: callable
+      name: __lt__
+      address: 'resolvelib_types::Preference::__lt__@L18'
+    - id: C002
+      kind: class
+      name: ResolverRequirement
+      address: 'resolvelib_types::ResolverRequirement@L21'
+    - id: C002M001
+      kind: callable
+      name: name
+      address: 'resolvelib_types::ResolverRequirement::name@L25'
+    - id: C002M002
+      kind: callable
+      name: version
+      address: 'resolvelib_types::ResolverRequirement::version@L28'
+    - id: C002M003
+      kind: callable
+      name: extras
+      address: 'resolvelib_types::ResolverRequirement::extras@L32'
+    - id: C002M004
+      kind: callable
+      name: marker
+      address: 'resolvelib_types::ResolverRequirement::marker@L36'
+    - id: C002M005
+      kind: callable
+      name: uri
+      address: 'resolvelib_types::ResolverRequirement::uri@L40'
+    - id: C002M006
+      kind: callable
+      name: to_mapping
+      address: 'resolvelib_types::ResolverRequirement::to_mapping@L44'
+    - id: C002M007
+      kind: callable
+      name: from_mapping
+      address: 'resolvelib_types::ResolverRequirement::from_mapping@L47'
+    - id: C003
+      kind: class
+      name: ResolverCandidate
+      address: 'resolvelib_types::ResolverCandidate@L52'
+    - id: C003M001
+      kind: callable
+      name: name
+      address: 'resolvelib_types::ResolverCandidate::name@L56'
+    - id: C003M002
+      kind: callable
+      name: version
+      address: 'resolvelib_types::ResolverCandidate::version@L59'
+    - id: C003M003
+      kind: callable
+      name: tag
+      address: 'resolvelib_types::ResolverCandidate::tag@L62'
+    - id: C003M004
+      kind: callable
+      name: requires_python
+      address: 'resolvelib_types::ResolverCandidate::requires_python@L65'
+    - id: C003M005
+      kind: callable
+      name: satisfied_tags
+      address: 'resolvelib_types::ResolverCandidate::satisfied_tags@L68'
+    - id: C003M006
+      kind: callable
+      name: dependency_ids
+      address: 'resolvelib_types::ResolverCandidate::dependency_ids@L71'
+    - id: C003M007
+      kind: callable
+      name: origin_uri
+      address: 'resolvelib_types::ResolverCandidate::origin_uri@L74'
+    - id: C003M008
+      kind: callable
+      name: marker
+      address: 'resolvelib_types::ResolverCandidate::marker@L77'
+    - id: C003M009
+      kind: callable
+      name: extras
+      address: 'resolvelib_types::ResolverCandidate::extras@L80'
+    - id: C003M010
+      kind: callable
+      name: to_mapping
+      address: 'resolvelib_types::ResolverCandidate::to_mapping@L83'
+    - id: C003M011
+      kind: callable
+      name: from_mapping
+      address: 'resolvelib_types::ResolverCandidate::from_mapping@L86'
+    - id: C004
+      kind: class
+      name: ProjectResolutionReporter
+      address: 'resolvelib_types::ProjectResolutionReporter@L90'
+    - id: C004M001
+      kind: callable
+      name: starting
+      address: 'resolvelib_types::ProjectResolutionReporter::starting@L93'
+    - id: C004M002
+      kind: callable
+      name: starting_round
+      address: 'resolvelib_types::ProjectResolutionReporter::starting_round@L96'
+    - id: C004M003
+      kind: callable
+      name: ending_round
+      address: 'resolvelib_types::ProjectResolutionReporter::ending_round@L99'
+    - id: C004M004
+      kind: callable
+      name: ending
+      address: 'resolvelib_types::ProjectResolutionReporter::ending@L104'
+    - id: C004M005
+      kind: callable
+      name: adding_requirement
+      address: 'resolvelib_types::ProjectResolutionReporter::adding_requirement@L107'
+    - id: C004M006
+      kind: callable
+      name: pinning
+      address: 'resolvelib_types::ProjectResolutionReporter::pinning@L110'
+    - id: C004M007
+      kind: callable
+      name: rejecting_candidate
+      address: 'resolvelib_types::ProjectResolutionReporter::rejecting_candidate@L113'
+    - id: C004M008
+      kind: callable
+      name: resolving_conflicts
+      address: 'resolvelib_types::ProjectResolutionReporter::resolving_conflicts@L121'
+  branches:
+    - id: C001M001E0001
+      address: 'resolvelib_types::Preference::__lt__@L18'
+      summary: 'executes: protocol method declaration'
+    - id: C002M001E0001
+      address: 'resolvelib_types::ResolverRequirement::name@L26'
+      summary: 'executes: returns canonicalize_name(self.wheel_spec.name)'
+    - id: C002M002E0001
+      address: 'resolvelib_types::ResolverRequirement::version@L30'
+      summary: 'executes: returns self.wheel_spec.version'
+    - id: C002M003E0001
+      address: 'resolvelib_types::ResolverRequirement::extras@L34'
+      summary: 'executes: returns self.wheel_spec.extras'
+    - id: C002M004E0001
+      address: 'resolvelib_types::ResolverRequirement::marker@L38'
+      summary: 'executes: returns self.wheel_spec.marker'
+    - id: C002M005E0001
+      address: 'resolvelib_types::ResolverRequirement::uri@L42'
+      summary: 'executes: returns self.wheel_spec.uri'
+    - id: C002M006E0001
+      address: 'resolvelib_types::ResolverRequirement::to_mapping@L45'
+      summary: 'executes: returns {"wheel_spec": self.wheel_spec.to_mapping()}'
+    - id: C002M007E0001
+      address: 'resolvelib_types::ResolverRequirement::from_mapping@L49'
+      summary: 'executes: returns cls(wheel_spec=WheelSpec.from_mapping(mapping["wheel_spec"]))'
+    - id: C003M001E0001
+      address: 'resolvelib_types::ResolverCandidate::name@L57'
+      summary: 'executes: returns self.wheel_key.name'
+    - id: C003M002E0001
+      address: 'resolvelib_types::ResolverCandidate::version@L60'
+      summary: 'executes: returns self.wheel_key.version'
+    - id: C003M003E0001
+      address: 'resolvelib_types::ResolverCandidate::tag@L63'
+      summary: 'executes: returns self.wheel_key.tag'
+    - id: C003M004E0001
+      address: 'resolvelib_types::ResolverCandidate::requires_python@L66'
+      summary: 'executes: returns self.wheel_key.requires_python'
+    - id: C003M005E0001
+      address: 'resolvelib_types::ResolverCandidate::satisfied_tags@L69'
+      summary: 'executes: returns self.wheel_key.satisfied_tags'
+    - id: C003M006E0001
+      address: 'resolvelib_types::ResolverCandidate::dependency_ids@L72'
+      summary: 'executes: returns self.wheel_key.dependency_ids'
+    - id: C003M007E0001
+      address: 'resolvelib_types::ResolverCandidate::origin_uri@L75'
+      summary: 'executes: returns self.wheel_key.origin_uri'
+    - id: C003M008E0001
+      address: 'resolvelib_types::ResolverCandidate::marker@L78'
+      summary: 'executes: returns self.wheel_key.marker'
+    - id: C003M009E0001
+      address: 'resolvelib_types::ResolverCandidate::extras@L81'
+      summary: 'executes: returns self.wheel_key.extras'
+    - id: C003M010E0001
+      address: 'resolvelib_types::ResolverCandidate::to_mapping@L84'
+      summary: 'executes: returns {"wheel_key": self.wheel_key.to_mapping()}'
+    - id: C003M011E0001
+      address: 'resolvelib_types::ResolverCandidate::from_mapping@L87'
+      summary: 'executes: returns cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))'
+    - id: C004M001E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::starting@L94'
+      summary: 'executes: logging.log(logging.INFO, "Starting resolution...")'
+    - id: C004M002E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::starting_round@L97'
+      summary: 'executes: logging.log(logging.DEBUG, f"Starting round {index}")'
+    - id: C004M003E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::ending_round@L102'
+      summary: 'executes: logging.log(logging.DEBUG, f"Ending round {index}")'
+    - id: C004M004E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::ending@L105'
+      summary: 'executes: logging.log(logging.INFO, "Resolution complete.")'
+    - id: C004M005E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::adding_requirement@L108'
+      summary: 'executes: logging.log(logging.DEBUG, f"Adding requirement: {requirement}")'
+    - id: C004M006E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::pinning@L111'
+      summary: 'executes: logging.log(logging.DEBUG, f"Pinning candidate: {candidate}")'
+    - id: C004M007E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::rejecting_candidate@L119'
+      summary: 'executes: logging.log(logging.DEBUG, f"Rejecting candidate: {candidate} (criterion={criterion}")'
+    - id: C004M008E0001
+      address: 'resolvelib_types::ProjectResolutionReporter::resolving_conflicts@L127'
+      summary: 'executes: logging.log(logging.DEBUG, f"Resolving conflicts: {causes}")'
+---
+docKind: ledger
+schemaVersion: '1.0.0'
+unit:
+  id: C000
+  kind: unit
+  name: resolvelib_types
+  children:
+    - id: C001
+      kind: class
+      name: Preference
+      children:
+        - id: C001M001
+          kind: callable
+          name: __lt__
+          signature: '__lt__(self, __other: Any) -> bool'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: Preference
+              - name: __other
+                type:
+                  name: Any
+            returnType:
+              name: bool
+            branches:
+              - id: C001M001E0001
+                condition: 'protocol method'
+                outcome: 'declares method signature'
+    - id: C002
+      kind: class
+      name: ResolverRequirement
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+            slots: true
+            kw_only: true
+      children:
+        - id: C002M001
+          kind: callable
+          name: name
+          signature: 'name(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+            returnType:
+              name: str
+            branches:
+              - id: C002M001E0001
+                condition: 'executes'
+                outcome: 'returns canonicalize_name(self.wheel_spec.name)'
+            integration:
+              interunit:
+                - id: IC002M001E0001
+                  target: canonicalize_name
+                  kind: call
+                  signature: 'canonicalize_name(self.wheel_spec.name)'
+                  executionPaths:
+                    - [C002M001E0001]
+        - id: C002M002
+          kind: callable
+          name: version
+          signature: 'version(self) -> SpecifierSet | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+            returnType:
+              name: 'SpecifierSet | None'
+            branches:
+              - id: C002M002E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_spec.version'
+        - id: C002M003
+          kind: callable
+          name: extras
+          signature: 'extras(self) -> frozenset[str]'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+            returnType:
+              name: 'frozenset[str]'
+            branches:
+              - id: C002M003E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_spec.extras'
+        - id: C002M004
+          kind: callable
+          name: marker
+          signature: 'marker(self) -> Marker | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+            returnType:
+              name: 'Marker | None'
+            branches:
+              - id: C002M004E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_spec.marker'
+        - id: C002M005
+          kind: callable
+          name: uri
+          signature: 'uri(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C002M005E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_spec.uri'
+        - id: C002M006
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverRequirement
+              - name: args
+              - name: kwargs
+            returnType:
+              name: 'dict[str, Any]'
+            branches:
+              - id: C002M006E0001
+                condition: 'executes'
+                outcome: 'returns {"wheel_spec": self.wheel_spec.to_mapping()}'
+            integration:
+              interunit:
+                - id: IC002M006E0001
+                  target: WheelSpec.to_mapping
+                  kind: call
+                  signature: 'self.wheel_spec.to_mapping()'
+                  executionPaths:
+                    - [C002M006E0001]
+        - id: C002M007
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: 'Mapping[str, Any]'
+              - name: _
+                type:
+                  name: Any
+            returnType:
+              name: Self
+            branches:
+              - id: C002M007E0001
+                condition: 'executes'
+                outcome: 'returns cls(wheel_spec=WheelSpec.from_mapping(mapping["wheel_spec"]))'
+            integration:
+              interunit:
+                - id: IC002M007E0001
+                  target: WheelSpec.from_mapping
+                  kind: call
+                  signature: 'WheelSpec.from_mapping(mapping["wheel_spec"])'
+                  executionPaths:
+                    - [C002M007E0001]
+    - id: C003
+      kind: class
+      name: ResolverCandidate
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+            slots: true
+            kw_only: true
+      children:
+        - id: C003M001
+          kind: callable
+          name: name
+          signature: 'name(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: str
+            branches:
+              - id: C003M001E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.name'
+        - id: C003M002
+          kind: callable
+          name: version
+          signature: 'version(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: str
+            branches:
+              - id: C003M002E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.version'
+        - id: C003M003
+          kind: callable
+          name: tag
+          signature: 'tag(self) -> str'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: str
+            branches:
+              - id: C003M003E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.tag'
+        - id: C003M004
+          kind: callable
+          name: requires_python
+          signature: 'requires_python(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C003M004E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.requires_python'
+        - id: C003M005
+          kind: callable
+          name: satisfied_tags
+          signature: 'satisfied_tags(self) -> frozenset[str]'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'frozenset[str]'
+            branches:
+              - id: C003M005E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.satisfied_tags'
+        - id: C003M006
+          kind: callable
+          name: dependency_ids
+          signature: 'dependency_ids(self) -> frozenset[str] | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'frozenset[str] | None'
+            branches:
+              - id: C003M006E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.dependency_ids'
+        - id: C003M007
+          kind: callable
+          name: origin_uri
+          signature: 'origin_uri(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C003M007E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.origin_uri'
+        - id: C003M008
+          kind: callable
+          name: marker
+          signature: 'marker(self) -> str | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'str | None'
+            branches:
+              - id: C003M008E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.marker'
+        - id: C003M009
+          kind: callable
+          name: extras
+          signature: 'extras(self) -> frozenset[str] | None'
+          decorators:
+            - name: property
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: 'frozenset[str] | None'
+            branches:
+              - id: C003M009E0001
+                condition: 'executes'
+                outcome: 'returns self.wheel_key.extras'
+        - id: C003M010
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ResolverCandidate
+              - name: args
+              - name: kwargs
+            returnType:
+              name: 'dict[str, Any]'
+            branches:
+              - id: C003M010E0001
+                condition: 'executes'
+                outcome: 'returns {"wheel_key": self.wheel_key.to_mapping()}'
+            integration:
+              interunit:
+                - id: IC003M010E0001
+                  target: WheelKey.to_mapping
+                  kind: call
+                  signature: 'self.wheel_key.to_mapping()'
+                  executionPaths:
+                    - [C003M010E0001]
+        - id: C003M011
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: mapping
+                type:
+                  name: 'Mapping[str, Any]'
+              - name: _
+                type:
+                  name: Any
+            returnType:
+              name: Self
+            branches:
+              - id: C003M011E0001
+                condition: 'executes'
+                outcome: 'returns cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))'
+            integration:
+              interunit:
+                - id: IC003M011E0001
+                  target: WheelKey.from_mapping
+                  kind: call
+                  signature: 'WheelKey.from_mapping(mapping["wheel_key"])'
+                  executionPaths:
+                    - [C003M011E0001]
+    - id: C004
+      kind: class
+      name: ProjectResolutionReporter
+      children:
+        - id: C004M001
+          kind: callable
+          name: starting
+          signature: 'starting(self) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+            returnType:
+              name: None
+            branches:
+              - id: C004M001E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.INFO, "Starting resolution...")'
+            integration:
+              boundaries:
+                - id: IC004M001E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.INFO, "Starting resolution...")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M001E0001]
+        - id: C004M002
+          kind: callable
+          name: starting_round
+          signature: 'starting_round(self, index: int) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: index
+                type:
+                  name: int
+            returnType:
+              name: None
+            branches:
+              - id: C004M002E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Starting round {index}")'
+            integration:
+              boundaries:
+                - id: IC004M002E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Starting round {index}")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M002E0001]
+        - id: C004M003
+          kind: callable
+          name: ending_round
+          signature: 'ending_round(self, index: int, state: State[ResolverRequirement, ResolverCandidate, str]) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: index
+                type:
+                  name: int
+              - name: state
+                type:
+                  name: 'State[ResolverRequirement, ResolverCandidate, str]'
+            returnType:
+              name: None
+            branches:
+              - id: C004M003E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Ending round {index}")'
+            integration:
+              boundaries:
+                - id: IC004M003E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Ending round {index}")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M003E0001]
+        - id: C004M004
+          kind: callable
+          name: ending
+          signature: 'ending(self, state) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: state
+            returnType:
+              name: None
+            branches:
+              - id: C004M004E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.INFO, "Resolution complete.")'
+            integration:
+              boundaries:
+                - id: IC004M004E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.INFO, "Resolution complete.")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M004E0001]
+        - id: C004M005
+          kind: callable
+          name: adding_requirement
+          signature: 'adding_requirement(self, requirement, parent) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: requirement
+              - name: parent
+            returnType:
+              name: None
+            branches:
+              - id: C004M005E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Adding requirement: {requirement}")'
+            integration:
+              boundaries:
+                - id: IC004M005E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Adding requirement: {requirement}")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M005E0001]
+        - id: C004M006
+          kind: callable
+          name: pinning
+          signature: 'pinning(self, candidate) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: candidate
+            returnType:
+              name: None
+            branches:
+              - id: C004M006E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Pinning candidate: {candidate}")'
+            integration:
+              boundaries:
+                - id: IC004M006E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Pinning candidate: {candidate}")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M006E0001]
+        - id: C004M007
+          kind: callable
+          name: rejecting_candidate
+          signature: 'rejecting_candidate(self, criterion: Criterion[ResolverRequirement, ResolverCandidate], candidate: ResolverCandidate) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: criterion
+                type:
+                  name: 'Criterion[ResolverRequirement, ResolverCandidate]'
+              - name: candidate
+                type:
+                  name: ResolverCandidate
+            returnType:
+              name: None
+            branches:
+              - id: C004M007E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Rejecting candidate: {candidate} (criterion={criterion})")'
+            integration:
+              boundaries:
+                - id: IC004M007E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Rejecting candidate: {candidate} (criterion={criterion})")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M007E0001]
+        - id: C004M008
+          kind: callable
+          name: resolving_conflicts
+          signature: 'resolving_conflicts(self, causes: Collection[RequirementInformation[ResolverRequirement, ResolverCandidate]]) -> None'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: ProjectResolutionReporter
+              - name: causes
+                type:
+                  name: 'Collection[RequirementInformation[ResolverRequirement, ResolverCandidate]]'
+            returnType:
+              name: None
+            branches:
+              - id: C004M008E0001
+                condition: 'executes'
+                outcome: 'logging.log(logging.DEBUG, f"Resolving conflicts: {causes}")'
+            integration:
+              boundaries:
+                - id: IC004M008E0001
+                  target: logging.log
+                  kind: call
+                  signature: 'logging.log(logging.DEBUG, f"Resolving conflicts: {causes}")'
+                  boundary:
+                    kind: env
+                    system: logging
+                    operation: write
+                  executionPaths:
+                    - [C004M008E0001]
+---
+docKind: ledger-generation-review
+schemaVersion: '1.0.0'
+unit:
+  name: resolvelib_types
+  language: python
+findings: []

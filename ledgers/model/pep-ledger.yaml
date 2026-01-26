@@ -1,0 +1,536 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: pep
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C000
+    kind: unit
+    name: pep
+    address: pep
+  - id: C000F001
+    kind: callable
+    name: _coerce_field
+    address: pep::_coerce_field@L13
+  - id: C001
+    kind: class
+    name: Pep658Metadata
+    address: pep::Pep658Metadata@L24
+  - id: C001M001
+    kind: callable
+    name: to_mapping
+    address: pep::Pep658Metadata::to_mapping@L47
+  - id: C001M002
+    kind: callable
+    name: from_mapping
+    address: pep::Pep658Metadata::from_mapping@L55
+  - id: C001M003
+    kind: callable
+    name: from_core_metadata_text
+    address: pep::Pep658Metadata::from_core_metadata_text@L82
+  - id: C002
+    kind: class
+    name: Pep691FileMetadata
+    address: pep::Pep691FileMetadata@L119
+  - id: C002M001
+    kind: callable
+    name: to_mapping
+    address: pep::Pep691FileMetadata::to_mapping@L128
+  - id: C002M002
+    kind: callable
+    name: from_mapping
+    address: pep::Pep691FileMetadata::from_mapping@L139
+  - id: C003
+    kind: class
+    name: Pep691Metadata
+    address: pep::Pep691Metadata@L159
+  - id: C003M001
+    kind: callable
+    name: to_mapping
+    address: pep::Pep691Metadata::to_mapping@L164
+  - id: C003M002
+    kind: callable
+    name: from_mapping
+    address: pep::Pep691Metadata::from_mapping@L171
+  branches:
+  - id: C000F001E0001
+    address: pep::_coerce_field@if isinstance(value, Mapping)@L15
+    summary: isinstance(value, Mapping) true → continues to line 16
+  - id: C000F001E0002
+    address: pep::_coerce_field@if isinstance(value, Mapping)@L15
+    summary: isinstance(value, Mapping) false → continues to line 18
+  - id: C000F001E0003
+    address: pep::_coerce_field@return@L16
+    summary: return dict(value)
+  - id: C000F001E0004
+    address: pep::_coerce_field@if isinstance(value, bool)@L18
+    summary: isinstance(value, bool) true → continues to line 19
+  - id: C000F001E0005
+    address: pep::_coerce_field@if isinstance(value, bool)@L18
+    summary: isinstance(value, bool) false → continues to line 20
+  - id: C000F001E0006
+    address: pep::_coerce_field@return@L19
+    summary: return value
+  - id: C000F001E0007
+    address: pep::_coerce_field@return@L20
+    summary: return False
+  - id: C001M001E0001
+    address: pep::Pep658Metadata::to_mapping@return@L48
+    summary: return mapping dict
+  - id: C001M002E0001
+    address: pep::Pep658Metadata::from_mapping@return@L75
+    summary: return cls(...)
+  - id: C001M003E0001
+    address: pep::Pep658Metadata::from_core_metadata_text@assignment@L99
+    summary: msg = Parser().parsestr(text)
+  - id: C001M003E0002
+    address: pep::Pep658Metadata::from_core_metadata_text@assignment@L101
+    summary: name = (msg.get("Name") or "").strip()
+  - id: C001M003E0003
+    address: pep::Pep658Metadata::from_core_metadata_text@assignment@L102
+    summary: version = (msg.get("Version") or "").strip()
+  - id: C001M003E0004
+    address: pep::Pep658Metadata::from_core_metadata_text@assignment@L103
+    summary: rp_raw = msg.get("Requires-Python")
+  - id: C001M003E0005
+    address: pep::Pep658Metadata::from_core_metadata_text@ternary@L104
+    summary: rp_raw is truthy → requires_python = rp_raw.strip()
+  - id: C001M003E0006
+    address: pep::Pep658Metadata::from_core_metadata_text@ternary@L104
+    summary: rp_raw is falsy → requires_python = None
+  - id: C001M003E0007
+    address: pep::Pep658Metadata::from_core_metadata_text@assignment@L105
+    summary: rd_headers = msg.get_all("Requires-Dist") or []
+  - id: C001M003E0008
+    address: pep::Pep658Metadata::from_core_metadata_text@comprehension@L106
+    summary: rd_headers empty → requires_dist = []
+  - id: C001M003E0009
+    address: pep::Pep658Metadata::from_core_metadata_text@comprehension@L106
+    summary: rd_headers not empty, all items fail filter → requires_dist = []
+  - id: C001M003E0010
+    address: pep::Pep658Metadata::from_core_metadata_text@comprehension@L106
+    summary: rd_headers not empty, some items pass filter → requires_dist populated
+  - id: C001M003E0011
+    address: pep::Pep658Metadata::from_core_metadata_text@return@L108
+    summary: return cls.from_mapping({...})
+  - id: C002M001E0001
+    address: pep::Pep691FileMetadata::to_mapping@return@L129
+    summary: return mapping dict
+  - id: C002M002E0001
+    address: pep::Pep691FileMetadata::from_mapping@assignment@L141
+    summary: core_metadata = _coerce_field(mapping.get("core-metadata"))
+  - id: C002M002E0002
+    address: pep::Pep691FileMetadata::from_mapping@assignment@L144
+    summary: data_dist_info_metadata = _coerce_field(mapping.get("data-dist-info-metadata"))
+  - id: C002M002E0003
+    address: pep::Pep691FileMetadata::from_mapping@return@L147
+    summary: return cls(...)
+  - id: C003M001E0001
+    address: pep::Pep691Metadata::to_mapping@return@L165
+    summary: return mapping dict
+  - id: C003M002E0001
+    address: pep::Pep691Metadata::from_mapping@comprehension@L173
+    summary: mapping["files"] empty → files = []
+  - id: C003M002E0002
+    address: pep::Pep691Metadata::from_mapping@comprehension@L173
+    summary: mapping["files"] not empty, all fail isinstance check → files = []
+  - id: C003M002E0003
+    address: pep::Pep691Metadata::from_mapping@comprehension@L173
+    summary: mapping["files"] not empty, some pass isinstance check → files populated
+  - id: C003M002E0004
+    address: pep::Pep691Metadata::from_mapping@assignment@L178
+    summary: last_serial = mapping.get("last_serial")
+  - id: C003M002E0005
+    address: pep::Pep691Metadata::from_mapping@return ternary@L179
+    summary: last_serial is not None → return cls(..., last_serial=int(last_serial))
+  - id: C003M002E0006
+    address: pep::Pep691Metadata::from_mapping@return ternary@L179
+    summary: last_serial is None → return cls(..., last_serial=None)
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: pep
+  children:
+  - id: C000F001
+    kind: callable
+    name: _coerce_field
+    signature: '_coerce_field(value: Any) -> bool | Mapping[str, str]'
+    visibility: private
+    callable:
+      params:
+      - name: value
+        type:
+          name: Any
+      returnType:
+        name: bool | Mapping[str, str]
+      branches:
+      - id: C000F001E0001
+        condition: if isinstance(value, Mapping)
+        outcome: continues to line 16
+      - id: C000F001E0002
+        condition: else
+        outcome: continues to line 18
+      - id: C000F001E0003
+        condition: executes
+        outcome: return dict(value)
+      - id: C000F001E0004
+        condition: if isinstance(value, bool)
+        outcome: continues to line 19
+      - id: C000F001E0005
+        condition: else
+        outcome: continues to line 20
+      - id: C000F001E0006
+        condition: executes
+        outcome: return value
+      - id: C000F001E0007
+        condition: executes
+        outcome: return False
+  - id: C001
+    kind: class
+    name: Pep658Metadata
+    decorators:
+    - name: dataclass
+      kwargs:
+        slots: true
+        frozen: true
+    children:
+    - id: C001M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      visibility: public
+      callable:
+        params:
+        - name: self
+          type:
+            name: Pep658Metadata
+        - name: args
+          modifiers:
+          - '*args'
+        - name: kwargs
+          modifiers:
+          - '**kwargs'
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: 'return {"name": self.name, "version": self.version, "requires_python":
+            self.requires_python, "requires_dist": list(self.requires_dist)}'
+    - id: C001M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      visibility: public
+      decorators:
+      - name: classmethod
+      callable:
+        params:
+        - name: cls
+          type:
+            name: type
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+          modifiers:
+          - '**_'
+        returnType:
+          name: Self
+        branches:
+        - id: C001M002E0001
+          condition: executes
+          outcome: return cls(name=str(mapping["name"]), version=str(mapping["version"]),
+            requires_python=(mapping.get("requires_python") or None), requires_dist=frozenset(mapping.get("requires_dist")
+            or []))
+    - id: C001M003
+      kind: callable
+      name: from_core_metadata_text
+      signature: 'from_core_metadata_text(cls, text: str) -> Pep658Metadata'
+      visibility: public
+      decorators:
+      - name: classmethod
+      callable:
+        params:
+        - name: cls
+          type:
+            name: type
+        - name: text
+          type:
+            name: str
+        returnType:
+          name: Pep658Metadata
+        branches:
+        - id: C001M003E0001
+          condition: executes
+          outcome: msg = Parser().parsestr(text)
+        - id: C001M003E0002
+          condition: executes
+          outcome: name = (msg.get("Name") or "").strip()
+        - id: C001M003E0003
+          condition: executes
+          outcome: version = (msg.get("Version") or "").strip()
+        - id: C001M003E0004
+          condition: executes
+          outcome: rp_raw = msg.get("Requires-Python")
+        - id: C001M003E0005
+          condition: if rp_raw
+          outcome: requires_python = rp_raw.strip()
+        - id: C001M003E0006
+          condition: else
+          outcome: requires_python = None
+        - id: C001M003E0007
+          condition: executes
+          outcome: rd_headers = msg.get_all("Requires-Dist") or []
+        - id: C001M003E0008
+          condition: rd_headers empty
+          outcome: requires_dist = []
+        - id: C001M003E0009
+          condition: rd_headers not empty, all items filtered out
+          outcome: requires_dist = []
+        - id: C001M003E0010
+          condition: rd_headers not empty, some items pass filter
+          outcome: requires_dist populated with stripped headers
+        - id: C001M003E0011
+          condition: executes
+          outcome: 'return cls.from_mapping({"name": name, "version": version, "requires_python":
+            requires_python, "requires_dist": requires_dist})'
+        integration:
+          boundaries:
+          - id: IC001M003E0001
+            target: email.parser.Parser.parsestr
+            kind: call
+            signature: Parser().parsestr(text)
+            boundary:
+              kind: other
+              operation: parse
+            executionPaths:
+            - - C001M003E0001
+            notes: Parses email-formatted metadata text using stdlib. Parser() construction
+              is deterministic and always succeeds, so only parsestr() is tracked
+              as integration point.
+  - id: C002
+    kind: class
+    name: Pep691FileMetadata
+    decorators:
+    - name: dataclass
+      kwargs:
+        slots: true
+        frozen: true
+    children:
+    - id: C002M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      visibility: public
+      callable:
+        params:
+        - name: self
+          type:
+            name: Pep691FileMetadata
+        - name: args
+          modifiers:
+          - '*args'
+        - name: kwargs
+          modifiers:
+          - '**kwargs'
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C002M001E0001
+          condition: executes
+          outcome: 'return {"filename": self.filename, "url": self.url, "hashes":
+            dict(self.hashes), "requires_python": self.requires_python, "yanked":
+            self.yanked, "core-metadata": self.core_metadata, "data-dist-info-metadata":
+            self.data_dist_info_metadata}'
+    - id: C002M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      visibility: public
+      decorators:
+      - name: classmethod
+      callable:
+        params:
+        - name: cls
+          type:
+            name: type
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+          modifiers:
+          - '**_'
+        returnType:
+          name: Self
+        branches:
+        - id: C002M002E0001
+          condition: executes
+          outcome: core_metadata = _coerce_field(mapping.get("core-metadata"))
+        - id: C002M002E0002
+          condition: executes
+          outcome: data_dist_info_metadata = _coerce_field(mapping.get("data-dist-info-metadata"))
+        - id: C002M002E0003
+          condition: executes
+          outcome: return cls(filename=mapping["filename"], url=mapping["url"], hashes=mapping["hashes"],
+            requires_python=mapping.get("requires_python"), yanked=mapping["yanked"],
+            core_metadata=core_metadata, data_dist_info_metadata=data_dist_info_metadata)
+  - id: C003
+    kind: class
+    name: Pep691Metadata
+    decorators:
+    - name: dataclass
+      kwargs:
+        slots: true
+        frozen: true
+    children:
+    - id: C003M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      visibility: public
+      callable:
+        params:
+        - name: self
+          type:
+            name: Pep691Metadata
+        - name: args
+          modifiers:
+          - '*args'
+        - name: kwargs
+          modifiers:
+          - '**kwargs'
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C003M001E0001
+          condition: executes
+          outcome: 'return {"name": self.name, "files": [f.to_mapping() for f in self.files],
+            "last_serial": self.last_serial}'
+    - id: C003M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      visibility: public
+      decorators:
+      - name: classmethod
+      callable:
+        params:
+        - name: cls
+          type:
+            name: type
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+          modifiers:
+          - '**_'
+        returnType:
+          name: Self
+        branches:
+        - id: C003M002E0001
+          condition: mapping["files"] is empty
+          outcome: files = []
+        - id: C003M002E0002
+          condition: mapping["files"] not empty, all items fail isinstance(f, Mapping)
+          outcome: files = []
+        - id: C003M002E0003
+          condition: mapping["files"] not empty, some items pass isinstance(f, Mapping)
+          outcome: files populated with Pep691FileMetadata.from_mapping(f) for valid
+            items
+        - id: C003M002E0004
+          condition: executes
+          outcome: last_serial = mapping.get("last_serial")
+        - id: C003M002E0005
+          condition: if last_serial is not None
+          outcome: return cls(..., last_serial=int(last_serial))
+        - id: C003M002E0006
+          condition: else (last_serial is None)
+          outcome: return cls(..., last_serial=None)
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: pep
+  language: python
+findings:
+- severity: info
+  category: assumption
+  message: 'List comprehension on line 106 (from_core_metadata_text) treats filtering
+    as creating 3 EIs: empty source, all filtered, some pass filter'
+  appliesTo:
+  - C001M003E0008
+  - C001M003E0009
+  - C001M003E0010
+  notes: Standard pattern for list comprehensions with filter as per Python companion
+    guide
+- severity: info
+  category: assumption
+  message: List comprehension on line 173 (Pep691Metadata.from_mapping) with isinstance
+    filter creates 3 EIs following standard filtered comprehension pattern
+  appliesTo:
+  - C003M002E0001
+  - C003M002E0002
+  - C003M002E0003
+  notes: Files list may be empty, may have all non-Mapping items filtered out, or
+    may have some valid Mapping items
+- severity: info
+  category: assumption
+  message: Parser() construction not treated as separate EI because it is deterministic
+    and always succeeds
+  appliesTo:
+  - C001M003E0001
+  notes: Parser.__init__() simply assigns instance variables with no failure paths.
+    Only the parsestr(text) call is tracked as integration point since it performs
+    actual parsing that can fail.
+- severity: info
+  category: gap
+  message: Ternary expression on line 104 (requires_python = rp_raw.strip() if rp_raw
+    else None) creates 2 EIs based on rp_raw truthiness
+  appliesTo:
+  - C001M003E0005
+  - C001M003E0006
+  notes: Follows standard ternary pattern from Python companion guide
+- severity: info
+  category: assumption
+  message: Ternary expression on line 182 within return statement (int(last_serial)
+    if last_serial is not None else None) creates 2 EIs
+  appliesTo:
+  - C003M002E0005
+  - C003M002E0006
+  notes: Multi-line return statement has ternary on line 182; per companion guide
+    section 4.2, EIs assigned to first physical line (179) of logical statement. Ternary
+    creates 2 distinct outcomes.
+- severity: info
+  category: assumption
+  message: int(last_serial) operation can raise ValueError if last_serial cannot be
+    converted to int
+  appliesTo:
+  - C003M002E0005
+  notes: Potential exception path not explicitly enumerated as separate EI; assumed
+    to be part of int() operation outcome
+- severity: info
+  category: deviation
+  message: 'Nested operations pattern requires clarification: not all nested operations
+    create multiple EIs'
+  appliesTo:
+  - C001M003E0001
+  notes: Parser().parsestr(text) contains nested operations, but Parser() construction
+    is deterministic with no failure paths, so only parsestr() creates an EI. Spec
+    section 2.1.4 should clarify that nested operations only create separate EIs when
+    each operation can produce distinct outcomes.
+  recommendedAction: 'Update companion guide section 2.1.4 to clarify: "When operations
+    appear as parameters, each operation that can produce distinct outcomes represents
+    at least one distinct EI. Deterministic operations that always succeed (e.g.,
+    simple constructors) do not create separate EIs."'

@@ -4,8 +4,11 @@ from typing import Any
 
 import pytest
 
-from unit.helpers.models_helper import FakeIndexMetadataStrategy, FakeIndexMetadataKey, \
-    ConcreteFakeBaseArtifactResolutionStrategy
+from unit.helpers.models_helper import (
+    FakeIndexMetadataStrategy,
+    FakeIndexMetadataKey,
+    ConcreteFakeBaseArtifactResolutionStrategy,
+)
 
 # ==============================================================================
 # 7) CASE MATRIX
@@ -38,6 +41,7 @@ _RESOLVE_CASES: list[dict[str, Any]] = [
 # ==============================================================================
 # 8) TESTS
 # ==============================================================================
+
 
 @pytest.mark.parametrize(
     "case",

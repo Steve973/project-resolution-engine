@@ -1,0 +1,3357 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: strategy
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C001
+    kind: class
+    name: StrategyRef
+    address: strategy::StrategyRef@L30
+  - id: C002
+    kind: class
+    name: BaseArtifactResolutionStrategyConfig
+    address: strategy::BaseArtifactResolutionStrategyConfig@L68
+  - id: C003
+    kind: class
+    name: DefaultStrategyConfig
+    address: strategy::DefaultStrategyConfig@L97
+  - id: C001M001
+    kind: callable
+    name: normalized_instance_id
+    address: strategy::StrategyRef::normalized_instance_id@L41
+  - id: C002M001
+    kind: callable
+    name: defaults
+    address: strategy::BaseArtifactResolutionStrategyConfig::defaults@L79
+  - id: C002M002
+    kind: callable
+    name: plan
+    address: strategy::BaseArtifactResolutionStrategyConfig::plan@L83
+  - id: C003M001
+    kind: callable
+    name: plan
+    address: strategy::DefaultStrategyConfig::plan@L98
+  - id: C000F001
+    kind: callable
+    name: _iter_module_objects
+    address: strategy::_iter_module_objects@L158
+  - id: C000F002
+    kind: callable
+    name: _iter_entrypoint_objects
+    address: strategy::_iter_entrypoint_objects@L170
+  - id: C000F003
+    kind: callable
+    name: _builtin_strategy_classes
+    address: strategy::_builtin_strategy_classes@L178
+  - id: C000F004
+    kind: callable
+    name: _entrypoint_strategy_classes
+    address: strategy::_entrypoint_strategy_classes@L188
+  - id: C000F005
+    kind: callable
+    name: _builtin_config_spec_classes
+    address: strategy::_builtin_config_spec_classes@L198
+  - id: C000F006
+    kind: callable
+    name: _entrypoint_config_spec_classes
+    address: strategy::_entrypoint_config_spec_classes@L210
+  - id: C000F007
+    kind: callable
+    name: _strategy_name_for_class
+    address: strategy::_strategy_name_for_class@L222
+  - id: C000F008
+    kind: callable
+    name: discover_strategy_classes
+    address: strategy::discover_strategy_classes@L236
+  - id: C000F009
+    kind: callable
+    name: discover_config_specs
+    address: strategy::discover_config_specs@L261
+  - id: C000F011
+    kind: callable
+    name: _ensure_dict
+    address: strategy::_ensure_dict@L293
+  - id: C000F012
+    kind: callable
+    name: _effective_precedence
+    address: strategy::_effective_precedence@L297
+  - id: C000F013
+    kind: callable
+    name: _effective_criticality
+    address: strategy::_effective_criticality@L316
+  - id: C000F014
+    kind: callable
+    name: _scan_deps
+    address: strategy::_scan_deps@L342
+  - id: C000F015
+    kind: callable
+    name: build_strategy_plans
+    address: strategy::build_strategy_plans@L356
+  - id: C000F016
+    kind: callable
+    name: _ingest_raw_configs
+    address: strategy::_ingest_raw_configs@L398
+  - id: C000F017
+    kind: callable
+    name: _validate_instance_id_key
+    address: strategy::_validate_instance_id_key@L430
+  - id: C000F018
+    kind: callable
+    name: _validate_raw_cfg_mapping
+    address: strategy::_validate_raw_cfg_mapping@L437
+  - id: C000F019
+    kind: callable
+    name: _validate_or_set_cfg_instance_id
+    address: strategy::_validate_or_set_cfg_instance_id@L442
+  - id: C000F020
+    kind: callable
+    name: _normalize_and_validate_strategy_name
+    address: strategy::_normalize_and_validate_strategy_name@L450
+  - id: C000F021
+    kind: callable
+    name: _plan_all_strategies
+    address: strategy::_plan_all_strategies@L470
+  - id: C000F022
+    kind: callable
+    name: _select_instance_ids_for_strategy
+    address: strategy::_select_instance_ids_for_strategy@L518
+  - id: C000F023
+    kind: callable
+    name: _enforce_singleton_policy
+    address: strategy::_enforce_singleton_policy@L542
+  - id: C000F024
+    kind: callable
+    name: _enable_plans
+    address: strategy::_enable_plans@L556
+  - id: C000F025
+    kind: callable
+    name: _strip_planner_keys
+    address: strategy::_strip_planner_keys@L606
+  - id: C000F026
+    kind: callable
+    name: _validate_enabled_dependencies_exist
+    address: strategy::_validate_enabled_dependencies_exist@L615
+  - id: C000F027
+    kind: callable
+    name: _enforce_imperative_closure
+    address: strategy::_enforce_imperative_closure@L625
+  - id: C000F028
+    kind: callable
+    name: topo_sort_plans
+    address: strategy::topo_sort_plans@L660
+  - id: C000F029
+    kind: callable
+    name: _validate_ctor_kwargs
+    address: strategy::_validate_ctor_kwargs@L707
+  - id: C000F030
+    kind: callable
+    name: _resolve_ctor_kwargs
+    address: strategy::_resolve_ctor_kwargs@L730
+  - id: C000F031
+    kind: callable
+    name: _apply_plan_metadata
+    address: strategy::_apply_plan_metadata@L752
+  - id: C000F032
+    kind: callable
+    name: instantiate_plans
+    address: strategy::instantiate_plans@L776
+  - id: C000F033
+    kind: callable
+    name: load_strategies
+    address: strategy::load_strategies@L818
+  branches:
+  - id: C001M001E0001
+    address: strategy::normalized_instance_id@L42
+    summary: 'executes: iid = self.instance_id or self.strategy_name'
+  - id: C001M001E0002
+    address: strategy::normalized_instance_id@L43
+    summary: not iid true → continues to line 44
+  - id: C001M001E0003
+    address: strategy::normalized_instance_id@L43
+    summary: not iid false → continues to line 47
+  - id: C001M001E0004
+    address: strategy::normalized_instance_id@L44
+    summary: 'executes: raises StrategyConfigError'
+  - id: C001M001E0005
+    address: strategy::normalized_instance_id@L47
+    summary: 'executes: returns iid'
+  - id: C002M001E0001
+    address: strategy::defaults@L81
+    summary: 'executes: returns {}'
+  - id: C002M002E0001
+    address: strategy::plan@L90
+    summary: 'executes: raises NotImplementedError'
+  - id: C003M001E0001
+    address: strategy::plan@L106
+    summary: config.get('strategy_name') truthy → strategy_name assigned from config
+  - id: C003M001E0002
+    address: strategy::plan@L106
+    summary: config.get('strategy_name') falsy → _strategy_name_for_class called
+  - id: C003M001E0003
+    address: strategy::plan@L107
+    summary: 'executes: _strategy_name_for_class(strategy_cls) called (continuation from falsy path)'
+  - id: C003M001E0004
+    address: strategy::plan@L109
+    summary: not isinstance(strategy_name, str) or not strategy_name true → continues to line 110
+  - id: C003M001E0005
+    address: strategy::plan@L109
+    summary: not isinstance(strategy_name, str) or not strategy_name false → continues to line 112
+  - id: C003M001E0006
+    address: strategy::plan@L110
+    summary: 'executes: raises StrategyConfigError'
+  - id: C003M001E0007
+    address: strategy::plan@L112
+    summary: config.get('instance_id') truthy → instance_id assigned from config
+  - id: C003M001E0008
+    address: strategy::plan@L112
+    summary: config.get('instance_id') falsy → instance_id assigned from strategy_name
+  - id: C003M001E0009
+    address: strategy::plan@L113
+    summary: not isinstance(instance_id, str) or not instance_id true → continues to line 114
+  - id: C003M001E0010
+    address: strategy::plan@L113
+    summary: not isinstance(instance_id, str) or not instance_id false → continues to line 116
+  - id: C003M001E0011
+    address: strategy::plan@L114
+    summary: 'executes: raises StrategyConfigError'
+  - id: C003M001E0012
+    address: strategy::plan@L116
+    summary: 'executes: precedence = config.get(''precedence'', getattr(strategy_cls, ''precedence'', 100))'
+  - id: C003M001E0013
+    address: strategy::plan@L117
+    summary: not isinstance(precedence, int) true → continues to line 118
+  - id: C003M001E0014
+    address: strategy::plan@L117
+    summary: not isinstance(precedence, int) false → continues to line 123
+  - id: C003M001E0015
+    address: strategy::plan@L118
+    summary: 'executes: raises StrategyConfigError'
+  - id: C003M001E0016
+    address: strategy::plan@L123
+    summary: 'executes: ctor_kwargs = dict(config)'
+  - id: C003M001E0017
+    address: strategy::plan@L124
+    summary: 'executes: ctor_kwargs.pop(''strategy_name'', None)'
+  - id: C003M001E0018
+    address: strategy::plan@L125
+    summary: 'executes: ctor_kwargs.pop(''instance_id'', None)'
+  - id: C003M001E0019
+    address: strategy::plan@L126
+    summary: 'executes: ctor_kwargs.pop(''precedence'', None)'
+  - id: C003M001E0020
+    address: strategy::plan@L127
+    summary: 'executes: ctor_kwargs.pop(''criticality'', None)'
+  - id: C003M001E0021
+    address: strategy::plan@L129
+    summary: 'executes: returns list with StrategyPlan'
+  - id: C000F001E0001
+    address: strategy::_iter_module_objects@L159
+    summary: not package_name true → continues to line 160
+  - id: C000F001E0002
+    address: strategy::_iter_module_objects@L159
+    summary: not package_name false → continues to line 161
+  - id: C000F001E0003
+    address: strategy::_iter_module_objects@L160
+    summary: 'executes: yield from ()'
+  - id: C000F001E0004
+    address: strategy::_iter_module_objects@L161
+    summary: 'executes: package = importlib.import_module(package_name)'
+  - id: C000F001E0005
+    address: strategy::_iter_module_objects@L162
+    summary: pkgutil.walk_packages(...) empty → loop body never executes (0 iterations)
+  - id: C000F001E0006
+    address: strategy::_iter_module_objects@L162
+    summary: pkgutil.walk_packages(...) has items → loop body executes (≥1 iterations)
+  - id: C000F001E0007
+    address: strategy::_iter_module_objects@L165
+    summary: 'executes: module = importlib.import_module(mod_name)'
+  - id: C000F001E0008
+    address: strategy::_iter_module_objects@L166
+    summary: 'executes: yield from vars(module).values()'
+  - id: C000F001E0009
+    address: strategy::_iter_module_objects@L167
+    summary: 'executes: returns None'
+  - id: C000F002E0001
+    address: strategy::_iter_entrypoint_objects@L171
+    summary: not group true → continues to line 172
+  - id: C000F002E0002
+    address: strategy::_iter_entrypoint_objects@L171
+    summary: not group false → continues to line 173
+  - id: C000F002E0003
+    address: strategy::_iter_entrypoint_objects@L172
+    summary: 'executes: yield from ()'
+  - id: C000F002E0004
+    address: strategy::_iter_entrypoint_objects@L173
+    summary: entry_points().select(group=group) empty → loop body never executes (0 iterations)
+  - id: C000F002E0005
+    address: strategy::_iter_entrypoint_objects@L173
+    summary: entry_points().select(group=group) has items → loop body executes (≥1 iterations)
+  - id: C000F002E0006
+    address: strategy::_iter_entrypoint_objects@L174
+    summary: 'executes: yield ep.load()'
+  - id: C000F002E0007
+    address: strategy::_iter_entrypoint_objects@L175
+    summary: 'executes: returns None'
+  - id: C000F003E0001
+    address: strategy::_builtin_strategy_classes@L181
+    summary: 'executes: out = []'
+  - id: C000F003E0002
+    address: strategy::_builtin_strategy_classes@L182
+    summary: _iter_module_objects(package_name) empty → loop body never executes (0 iterations)
+  - id: C000F003E0003
+    address: strategy::_builtin_strategy_classes@L182
+    summary: _iter_module_objects(package_name) has items → loop body executes (≥1 iterations)
+  - id: C000F003E0004
+    address: strategy::_builtin_strategy_classes@L183
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) true → continues to line 184
+  - id: C000F003E0005
+    address: strategy::_builtin_strategy_classes@L183
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) false → continues to next iteration
+  - id: C000F003E0006
+    address: strategy::_builtin_strategy_classes@L184
+    summary: 'executes: out.append(obj)'
+  - id: C000F003E0007
+    address: strategy::_builtin_strategy_classes@L185
+    summary: 'executes: returns out'
+  - id: C000F004E0001
+    address: strategy::_entrypoint_strategy_classes@L191
+    summary: 'executes: out = []'
+  - id: C000F004E0002
+    address: strategy::_entrypoint_strategy_classes@L192
+    summary: _iter_entrypoint_objects(group) empty → loop body never executes (0 iterations)
+  - id: C000F004E0003
+    address: strategy::_entrypoint_strategy_classes@L192
+    summary: _iter_entrypoint_objects(group) has items → loop body executes (≥1 iterations)
+  - id: C000F004E0004
+    address: strategy::_entrypoint_strategy_classes@L193
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) true → continues to line 194
+  - id: C000F004E0005
+    address: strategy::_entrypoint_strategy_classes@L193
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) false → continues to next iteration
+  - id: C000F004E0006
+    address: strategy::_entrypoint_strategy_classes@L194
+    summary: 'executes: out.append(obj)'
+  - id: C000F004E0007
+    address: strategy::_entrypoint_strategy_classes@L195
+    summary: 'executes: returns out'
+  - id: C000F005E0001
+    address: strategy::_builtin_config_spec_classes@L201
+    summary: 'executes: out = []'
+  - id: C000F005E0002
+    address: strategy::_builtin_config_spec_classes@L202
+    summary: _iter_module_objects(package_name) empty → loop body never executes (0 iterations)
+  - id: C000F005E0003
+    address: strategy::_builtin_config_spec_classes@L202
+    summary: _iter_module_objects(package_name) has items → loop body executes (≥1 iterations)
+  - id: C000F005E0004
+    address: strategy::_builtin_config_spec_classes@L203
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) true → continues to line 206
+  - id: C000F005E0005
+    address: strategy::_builtin_config_spec_classes@L203
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) false → continues to next iteration
+  - id: C000F005E0006
+    address: strategy::_builtin_config_spec_classes@L206
+    summary: 'executes: out.append(obj)'
+  - id: C000F005E0007
+    address: strategy::_builtin_config_spec_classes@L207
+    summary: 'executes: returns out'
+  - id: C000F006E0001
+    address: strategy::_entrypoint_config_spec_classes@L213
+    summary: 'executes: out = []'
+  - id: C000F006E0002
+    address: strategy::_entrypoint_config_spec_classes@L214
+    summary: _iter_entrypoint_objects(group) empty → loop body never executes (0 iterations)
+  - id: C000F006E0003
+    address: strategy::_entrypoint_config_spec_classes@L214
+    summary: _iter_entrypoint_objects(group) has items → loop body executes (≥1 iterations)
+  - id: C000F006E0004
+    address: strategy::_entrypoint_config_spec_classes@L215
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) true → continues to line 218
+  - id: C000F006E0005
+    address: strategy::_entrypoint_config_spec_classes@L215
+    summary: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) false → continues to next iteration
+  - id: C000F006E0006
+    address: strategy::_entrypoint_config_spec_classes@L218
+    summary: 'executes: out.append(obj)'
+  - id: C000F006E0007
+    address: strategy::_entrypoint_config_spec_classes@L219
+    summary: 'executes: returns out'
+  - id: C000F007E0001
+    address: strategy::_strategy_name_for_class@L224
+    summary: 'executes: name = getattr(strategy_cls, ''strategy_name'', None)'
+  - id: C000F007E0002
+    address: strategy::_strategy_name_for_class@L225
+    summary: isinstance(name, str) and name true → continues to line 226
+  - id: C000F007E0003
+    address: strategy::_strategy_name_for_class@L225
+    summary: isinstance(name, str) and name false → continues to line 229
+  - id: C000F007E0004
+    address: strategy::_strategy_name_for_class@L226
+    summary: 'executes: returns name'
+  - id: C000F007E0005
+    address: strategy::_strategy_name_for_class@L229
+    summary: 'executes: name2 = getattr(strategy_cls, ''name'', None)'
+  - id: C000F007E0006
+    address: strategy::_strategy_name_for_class@L230
+    summary: isinstance(name2, str) and name2 true → continues to line 231
+  - id: C000F007E0007
+    address: strategy::_strategy_name_for_class@L230
+    summary: isinstance(name2, str) and name2 false → continues to line 233
+  - id: C000F007E0008
+    address: strategy::_strategy_name_for_class@L231
+    summary: 'executes: returns name2'
+  - id: C000F007E0009
+    address: strategy::_strategy_name_for_class@L233
+    summary: 'executes: returns strategy_cls.__name__'
+  - id: C000F008E0001
+    address: strategy::discover_strategy_classes@L244
+    summary: 'executes: by_name = {}'
+  - id: C000F008E0002
+    address: strategy::discover_strategy_classes@L246
+    summary: _builtin_strategy_classes(strategy_package) empty → loop body never executes (0 iterations)
+  - id: C000F008E0003
+    address: strategy::discover_strategy_classes@L246
+    summary: _builtin_strategy_classes(strategy_package) has items → loop body executes (≥1 iterations)
+  - id: C000F008E0004
+    address: strategy::discover_strategy_classes@L247
+    summary: 'executes: name = _strategy_name_for_class(cls)'
+  - id: C000F008E0005
+    address: strategy::discover_strategy_classes@L248
+    summary: name in by_name true → continues to line 249
+  - id: C000F008E0006
+    address: strategy::discover_strategy_classes@L248
+    summary: name in by_name false → continues to line 252
+  - id: C000F008E0007
+    address: strategy::discover_strategy_classes@L249
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F008E0008
+    address: strategy::discover_strategy_classes@L252
+    summary: 'executes: by_name[name] = _StrategyClassInfo(...)'
+  - id: C000F008E0009
+    address: strategy::discover_strategy_classes@L254
+    summary: _entrypoint_strategy_classes(strategy_entrypoint_group) empty → loop body never executes (0 iterations)
+  - id: C000F008E0010
+    address: strategy::discover_strategy_classes@L254
+    summary: _entrypoint_strategy_classes(strategy_entrypoint_group) has items → loop body executes (≥1 iterations)
+  - id: C000F008E0011
+    address: strategy::discover_strategy_classes@L255
+    summary: 'executes: name = _strategy_name_for_class(cls)'
+  - id: C000F008E0012
+    address: strategy::discover_strategy_classes@L256
+    summary: name in by_name true → continues to line 257
+  - id: C000F008E0013
+    address: strategy::discover_strategy_classes@L256
+    summary: name in by_name false → continues to line 259
+  - id: C000F008E0014
+    address: strategy::discover_strategy_classes@L257
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F008E0015
+    address: strategy::discover_strategy_classes@L259
+    summary: 'executes: returns by_name'
+  - id: C000F009E0001
+    address: strategy::discover_config_specs@L270
+    summary: _builtin_config_spec_classes(builtin_config_package) executes
+  - id: C000F009E0002
+    address: strategy::discover_config_specs@L270
+    summary: _entrypoint_config_spec_classes(config_entrypoint_group) executes
+  - id: C000F009E0003
+    address: strategy::discover_config_specs@L271
+    summary: 'executes: classes list concatenation completes'
+  - id: C000F009E0004
+    address: strategy::discover_config_specs@L273
+    summary: 'executes: by_strategy_name = {}'
+  - id: C000F009E0005
+    address: strategy::discover_config_specs@L275
+    summary: classes empty → loop body never executes (0 iterations)
+  - id: C000F009E0006
+    address: strategy::discover_config_specs@L275
+    summary: classes has items → loop body executes (≥1 iterations)
+  - id: C000F009E0007
+    address: strategy::discover_config_specs@L276
+    summary: 'executes: strategy_name = getattr(cls, ''strategy_name'', None)'
+  - id: C000F009E0008
+    address: strategy::discover_config_specs@L277
+    summary: not (isinstance(strategy_name, str) and strategy_name) true → continues to line 278
+  - id: C000F009E0009
+    address: strategy::discover_config_specs@L277
+    summary: not (isinstance(strategy_name, str) and strategy_name) false → continues to line 279
+  - id: C000F009E0010
+    address: strategy::discover_config_specs@L278
+    summary: 'executes: continue'
+  - id: C000F009E0011
+    address: strategy::discover_config_specs@L279
+    summary: strategy_name in by_strategy_name true → continues to line 280
+  - id: C000F009E0012
+    address: strategy::discover_config_specs@L279
+    summary: strategy_name in by_strategy_name false → continues to line 283
+  - id: C000F009E0013
+    address: strategy::discover_config_specs@L280
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F009E0014
+    address: strategy::discover_config_specs@L283
+    summary: 'executes: by_strategy_name[strategy_name] = cls'
+  - id: C000F009E0015
+    address: strategy::discover_config_specs@L285
+    summary: 'executes: returns by_strategy_name'
+  - id: C000F011E0001
+    address: strategy::_ensure_dict@L294
+    summary: 'executes: returns dict(cfg)'
+  - id: C000F012E0001
+    address: strategy::_effective_precedence@L303
+    summary: '''precedence'' in cfg true → continues to line 304'
+  - id: C000F012E0002
+    address: strategy::_effective_precedence@L303
+    summary: '''precedence'' in cfg false → continues to line 310'
+  - id: C000F012E0003
+    address: strategy::_effective_precedence@L304
+    summary: 'executes: v = cfg[''precedence'']'
+  - id: C000F012E0004
+    address: strategy::_effective_precedence@L305
+    summary: not isinstance(v, int) true → continues to line 306
+  - id: C000F012E0005
+    address: strategy::_effective_precedence@L305
+    summary: not isinstance(v, int) false → continues to line 309
+  - id: C000F012E0006
+    address: strategy::_effective_precedence@L306
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F012E0007
+    address: strategy::_effective_precedence@L309
+    summary: 'executes: returns v'
+  - id: C000F012E0008
+    address: strategy::_effective_precedence@L310
+    summary: 'executes: v2 = getattr(strategy_cls, ''precedence'', fallback)'
+  - id: C000F012E0009
+    address: strategy::_effective_precedence@L311
+    summary: not isinstance(v2, int) true → continues to line 312
+  - id: C000F012E0010
+    address: strategy::_effective_precedence@L311
+    summary: not isinstance(v2, int) false → continues to line 313
+  - id: C000F012E0011
+    address: strategy::_effective_precedence@L312
+    summary: 'executes: returns fallback'
+  - id: C000F012E0012
+    address: strategy::_effective_precedence@L313
+    summary: 'executes: returns v2'
+  - id: C000F013E0001
+    address: strategy::_effective_criticality@L319
+    summary: '''criticality'' in cfg true → continues to line 320'
+  - id: C000F013E0002
+    address: strategy::_effective_criticality@L319
+    summary: '''criticality'' in cfg false → continues to line 331'
+  - id: C000F013E0003
+    address: strategy::_effective_criticality@L320
+    summary: 'executes: v = cfg[''criticality'']'
+  - id: C000F013E0004
+    address: strategy::_effective_criticality@L321
+    summary: isinstance(v, StrategyCriticality) true → continues to line 322
+  - id: C000F013E0005
+    address: strategy::_effective_criticality@L321
+    summary: isinstance(v, StrategyCriticality) false → continues to line 323
+  - id: C000F013E0006
+    address: strategy::_effective_criticality@L322
+    summary: 'executes: returns v'
+  - id: C000F013E0007
+    address: strategy::_effective_criticality@L323
+    summary: isinstance(v, str) true → continues to line 324
+  - id: C000F013E0008
+    address: strategy::_effective_criticality@L323
+    summary: isinstance(v, str) false → continues to line 328
+  - id: C000F013E0009
+    address: strategy::_effective_criticality@L324
+    summary: StrategyCriticality(v) succeeds → continues to line 325
+  - id: C000F013E0010
+    address: strategy::_effective_criticality@L324
+    summary: StrategyCriticality(v) raises ValueError → enters except handler
+  - id: C000F013E0011
+    address: strategy::_effective_criticality@L325
+    summary: 'executes: returns StrategyCriticality(v)'
+  - id: C000F013E0012
+    address: strategy::_effective_criticality@L327
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F013E0013
+    address: strategy::_effective_criticality@L328
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F013E0014
+    address: strategy::_effective_criticality@L331
+    summary: 'executes: v2 = getattr(strategy_cls, ''criticality'', StrategyCriticality.OPTIONAL)'
+  - id: C000F013E0015
+    address: strategy::_effective_criticality@L332
+    summary: isinstance(v2, StrategyCriticality) true → continues to line 333
+  - id: C000F013E0016
+    address: strategy::_effective_criticality@L332
+    summary: isinstance(v2, StrategyCriticality) false → continues to line 334
+  - id: C000F013E0017
+    address: strategy::_effective_criticality@L333
+    summary: 'executes: returns v2'
+  - id: C000F013E0018
+    address: strategy::_effective_criticality@L334
+    summary: isinstance(v2, str) true → continues to line 335
+  - id: C000F013E0019
+    address: strategy::_effective_criticality@L334
+    summary: isinstance(v2, str) false → continues to line 339
+  - id: C000F013E0020
+    address: strategy::_effective_criticality@L335
+    summary: StrategyCriticality(v2) succeeds → continues to line 336
+  - id: C000F013E0021
+    address: strategy::_effective_criticality@L335
+    summary: StrategyCriticality(v2) raises ValueError → continues to line 338
+  - id: C000F013E0022
+    address: strategy::_effective_criticality@L336
+    summary: 'executes: returns StrategyCriticality(v2)'
+  - id: C000F013E0023
+    address: strategy::_effective_criticality@L338
+    summary: 'executes: returns StrategyCriticality.OPTIONAL'
+  - id: C000F013E0024
+    address: strategy::_effective_criticality@L339
+    summary: 'executes: returns StrategyCriticality.OPTIONAL'
+  - id: C000F014E0001
+    address: strategy::_scan_deps@L343
+    summary: isinstance(val, StrategyRef) true → continues to line 344
+  - id: C000F014E0002
+    address: strategy::_scan_deps@L343
+    summary: isinstance(val, StrategyRef) false → continues to line 346
+  - id: C000F014E0003
+    address: strategy::_scan_deps@L344
+    summary: 'executes: out.add(val.normalized_instance_id())'
+  - id: C000F014E0004
+    address: strategy::_scan_deps@L345
+    summary: 'executes: return'
+  - id: C000F014E0005
+    address: strategy::_scan_deps@L346
+    summary: isinstance(val, Mapping) true → continues to line 347
+  - id: C000F014E0006
+    address: strategy::_scan_deps@L346
+    summary: isinstance(val, Mapping) false → continues to line 350
+  - id: C000F014E0007
+    address: strategy::_scan_deps@L347
+    summary: val.values() empty → loop body never executes (0 iterations)
+  - id: C000F014E0008
+    address: strategy::_scan_deps@L347
+    summary: val.values() has items → loop body executes (≥1 iterations)
+  - id: C000F014E0009
+    address: strategy::_scan_deps@L348
+    summary: 'executes: _scan_deps(v, out)'
+  - id: C000F014E0010
+    address: strategy::_scan_deps@L349
+    summary: 'executes: return'
+  - id: C000F014E0011
+    address: strategy::_scan_deps@L350
+    summary: isinstance(val, (list, tuple)) true → continues to line 351
+  - id: C000F014E0012
+    address: strategy::_scan_deps@L350
+    summary: isinstance(val, (list, tuple)) false → continues to line 353
+  - id: C000F014E0013
+    address: strategy::_scan_deps@L351
+    summary: val empty → loop body never executes (0 iterations)
+  - id: C000F014E0014
+    address: strategy::_scan_deps@L351
+    summary: val has items → loop body executes (≥1 iterations)
+  - id: C000F014E0015
+    address: strategy::_scan_deps@L352
+    summary: 'executes: _scan_deps(v, out)'
+  - id: C000F014E0016
+    address: strategy::_scan_deps@L353
+    summary: 'executes: return'
+  - id: C000F015E0001
+    address: strategy::build_strategy_plans@L371
+    summary: 'executes: ingested = _ingest_raw_configs(...)'
+  - id: C000F015E0002
+    address: strategy::build_strategy_plans@L376
+    summary: 'executes: plans, effective_cfg_by_iid = _plan_all_strategies(...)'
+  - id: C000F015E0003
+    address: strategy::build_strategy_plans@L382
+    summary: not plans true → continues to line 383
+  - id: C000F015E0004
+    address: strategy::build_strategy_plans@L382
+    summary: not plans false → continues to line 385
+  - id: C000F015E0005
+    address: strategy::build_strategy_plans@L383
+    summary: 'executes: returns []'
+  - id: C000F015E0006
+    address: strategy::build_strategy_plans@L385
+    summary: 'executes: enabled_plans, crit_by_iid = _enable_plans(...)'
+  - id: C000F015E0007
+    address: strategy::build_strategy_plans@L388
+    summary: not enabled_plans true → continues to line 389
+  - id: C000F015E0008
+    address: strategy::build_strategy_plans@L388
+    summary: not enabled_plans false → continues to line 391
+  - id: C000F015E0009
+    address: strategy::build_strategy_plans@L389
+    summary: 'executes: returns []'
+  - id: C000F015E0010
+    address: strategy::build_strategy_plans@L391
+    summary: 'executes: _validate_enabled_dependencies_exist(enabled_plans)'
+  - id: C000F015E0011
+    address: strategy::build_strategy_plans@L393
+    summary: 'executes: _enforce_imperative_closure(enabled_plans=enabled_plans, crit_by_iid=crit_by_iid)'
+  - id: C000F015E0012
+    address: strategy::build_strategy_plans@L395
+    summary: 'executes: returns enabled_plans'
+  - id: C000F016E0001
+    address: strategy::_ingest_raw_configs@L403
+    summary: 'executes: raw_configs_by_instance_id = raw_configs_by_instance_id or {}'
+  - id: C000F016E0002
+    address: strategy::_ingest_raw_configs@L405
+    summary: 'executes: cfg_by_instance_id = {}'
+  - id: C000F016E0003
+    address: strategy::_ingest_raw_configs@L406
+    summary: 'executes: bound_iids_by_strategy = defaultdict(list)'
+  - id: C000F016E0004
+    address: strategy::_ingest_raw_configs@L408
+    summary: raw_configs_by_instance_id.items() empty → loop body never executes (0 iterations)
+  - id: C000F016E0005
+    address: strategy::_ingest_raw_configs@L408
+    summary: raw_configs_by_instance_id.items() has items → loop body executes (≥1 iterations)
+  - id: C000F016E0006
+    address: strategy::_ingest_raw_configs@L409
+    summary: 'executes: _validate_instance_id_key(iid)'
+  - id: C000F016E0007
+    address: strategy::_ingest_raw_configs@L410
+    summary: 'executes: _validate_raw_cfg_mapping(iid, raw_cfg)'
+  - id: C000F016E0008
+    address: strategy::_ingest_raw_configs@L412
+    summary: 'executes: cfg = _ensure_dict(raw_cfg)'
+  - id: C000F016E0009
+    address: strategy::_ingest_raw_configs@L414
+    summary: 'executes: _validate_or_set_cfg_instance_id(iid, cfg)'
+  - id: C000F016E0010
+    address: strategy::_ingest_raw_configs@L416
+    summary: 'executes: strategy_name = _normalize_and_validate_strategy_name(...)'
+  - id: C000F016E0011
+    address: strategy::_ingest_raw_configs@L419
+    summary: 'executes: cfg[''strategy_name''] = strategy_name'
+  - id: C000F016E0012
+    address: strategy::_ingest_raw_configs@L421
+    summary: 'executes: cfg_by_instance_id[iid] = cfg'
+  - id: C000F016E0013
+    address: strategy::_ingest_raw_configs@L422
+    summary: 'executes: bound_iids_by_strategy[strategy_name].append(iid)'
+  - id: C000F016E0014
+    address: strategy::_ingest_raw_configs@L424
+    summary: 'executes: returns _IngestedConfigs(...)'
+  - id: C000F017E0001
+    address: strategy::_validate_instance_id_key@L431
+    summary: not isinstance(iid, str) or not iid true → continues to line 432
+  - id: C000F017E0002
+    address: strategy::_validate_instance_id_key@L431
+    summary: not isinstance(iid, str) or not iid false → continues to line 434
+  - id: C000F017E0003
+    address: strategy::_validate_instance_id_key@L432
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F017E0004
+    address: strategy::_validate_instance_id_key@L434
+    summary: 'executes: returns None (implicit)'
+  - id: C000F018E0001
+    address: strategy::_validate_raw_cfg_mapping@L438
+    summary: not isinstance(raw_cfg, Mapping) true → continues to line 439
+  - id: C000F018E0002
+    address: strategy::_validate_raw_cfg_mapping@L438
+    summary: not isinstance(raw_cfg, Mapping) false → continues to end
+  - id: C000F018E0003
+    address: strategy::_validate_raw_cfg_mapping@L439
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F019E0001
+    address: strategy::_validate_or_set_cfg_instance_id@L443
+    summary: '''instance_id'' in cfg and cfg[''instance_id''] != iid true → continues to line 444'
+  - id: C000F019E0002
+    address: strategy::_validate_or_set_cfg_instance_id@L443
+    summary: '''instance_id'' in cfg and cfg[''instance_id''] != iid false → continues to line 447'
+  - id: C000F019E0003
+    address: strategy::_validate_or_set_cfg_instance_id@L444
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F019E0004
+    address: strategy::_validate_or_set_cfg_instance_id@L447
+    summary: 'executes: cfg[''instance_id''] = iid'
+  - id: C000F020E0001
+    address: strategy::_normalize_and_validate_strategy_name@L453
+    summary: 'executes: strategy_name = cfg.get(''strategy_name'')'
+  - id: C000F020E0002
+    address: strategy::_normalize_and_validate_strategy_name@L454
+    summary: strategy_name is None true → continues to line 455
+  - id: C000F020E0003
+    address: strategy::_normalize_and_validate_strategy_name@L454
+    summary: strategy_name is None false → continues to line 457
+  - id: C000F020E0004
+    address: strategy::_normalize_and_validate_strategy_name@L455
+    summary: 'executes: strategy_name = iid'
+  - id: C000F020E0005
+    address: strategy::_normalize_and_validate_strategy_name@L457
+    summary: not isinstance(strategy_name, str) or not strategy_name true → continues to line 458
+  - id: C000F020E0006
+    address: strategy::_normalize_and_validate_strategy_name@L457
+    summary: not isinstance(strategy_name, str) or not strategy_name false → continues to line 462
+  - id: C000F020E0007
+    address: strategy::_normalize_and_validate_strategy_name@L458
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F020E0008
+    address: strategy::_normalize_and_validate_strategy_name@L462
+    summary: strategy_name not in strategy_classes true → continues to line 463
+  - id: C000F020E0009
+    address: strategy::_normalize_and_validate_strategy_name@L462
+    summary: strategy_name not in strategy_classes false → continues to line 467
+  - id: C000F020E0010
+    address: strategy::_normalize_and_validate_strategy_name@L463
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F020E0011
+    address: strategy::_normalize_and_validate_strategy_name@L467
+    summary: 'executes: returns strategy_name'
+  - id: C000F021E0001
+    address: strategy::_plan_all_strategies@L477
+    summary: 'executes: plans = []'
+  - id: C000F021E0002
+    address: strategy::_plan_all_strategies@L478
+    summary: 'executes: defaults_cfg_by_iid = {}'
+  - id: C000F021E0003
+    address: strategy::_plan_all_strategies@L479
+    summary: 'executes: effective_cfg_by_iid = {}'
+  - id: C000F021E0004
+    address: strategy::_plan_all_strategies@L481
+    summary: strategy_classes.items() empty → loop body never executes (0 iterations)
+  - id: C000F021E0005
+    address: strategy::_plan_all_strategies@L481
+    summary: strategy_classes.items() has items → loop body executes (≥1 iterations)
+  - id: C000F021E0006
+    address: strategy::_plan_all_strategies@L482
+    summary: 'executes: strategy_cls = info.strategy_cls'
+  - id: C000F021E0007
+    address: strategy::_plan_all_strategies@L483
+    summary: 'executes: spec_cls = config_specs.get(strategy_name, DefaultStrategyConfig)'
+  - id: C000F021E0008
+    address: strategy::_plan_all_strategies@L484
+    summary: 'executes: policy = getattr(strategy_cls, ''instantiation_policy'', InstantiationPolicy.SINGLETON)'
+  - id: C000F021E0009
+    address: strategy::_plan_all_strategies@L488
+    summary: 'executes: iids = list(bound_iids_by_strategy.get(strategy_name, []))'
+  - id: C000F021E0010
+    address: strategy::_plan_all_strategies@L490
+    summary: 'executes: iids = _select_instance_ids_for_strategy(...)'
+  - id: C000F021E0011
+    address: strategy::_plan_all_strategies@L498
+    summary: 'executes: _enforce_singleton_policy(strategy_name=strategy_name, policy=policy, iids=iids)'
+  - id: C000F021E0012
+    address: strategy::_plan_all_strategies@L500
+    summary: iids empty → loop body never executes (0 iterations)
+  - id: C000F021E0013
+    address: strategy::_plan_all_strategies@L500
+    summary: iids has items → loop body executes (≥1 iterations)
+  - id: C000F021E0014
+    address: strategy::_plan_all_strategies@L501
+    summary: 'executes: raw = cfg_by_instance_id.get(iid) or defaults_cfg_by_iid.get(iid)'
+  - id: C000F021E0015
+    address: strategy::_plan_all_strategies@L502
+    summary: raw is None true → continues to line 503
+  - id: C000F021E0016
+    address: strategy::_plan_all_strategies@L502
+    summary: raw is None false → continues to line 507
+  - id: C000F021E0017
+    address: strategy::_plan_all_strategies@L503
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F021E0018
+    address: strategy::_plan_all_strategies@L507
+    summary: 'executes: merged = dict(spec_cls.defaults())'
+  - id: C000F021E0019
+    address: strategy::_plan_all_strategies@L508
+    summary: 'executes: merged.update(raw)'
+  - id: C000F021E0020
+    address: strategy::_plan_all_strategies@L509
+    summary: 'executes: merged[''strategy_name''] = strategy_name'
+  - id: C000F021E0021
+    address: strategy::_plan_all_strategies@L510
+    summary: 'executes: merged[''instance_id''] = iid'
+  - id: C000F021E0022
+    address: strategy::_plan_all_strategies@L511
+    summary: 'executes: effective_cfg_by_iid[iid] = merged'
+  - id: C000F021E0023
+    address: strategy::_plan_all_strategies@L512
+    summary: 'executes: planned = spec_cls.plan(strategy_cls=strategy_cls, config=merged)'
+  - id: C000F021E0024
+    address: strategy::_plan_all_strategies@L513
+    summary: 'executes: plans.extend(planned)'
+  - id: C000F021E0025
+    address: strategy::_plan_all_strategies@L515
+    summary: 'executes: returns plans, effective_cfg_by_iid'
+  - id: C000F022E0001
+    address: strategy::_select_instance_ids_for_strategy@L526
+    summary: info.origin == 'entrypoint' true → continues to line 527
+  - id: C000F022E0002
+    address: strategy::_select_instance_ids_for_strategy@L526
+    summary: info.origin == 'entrypoint' false → continues to line 532
+  - id: C000F022E0003
+    address: strategy::_select_instance_ids_for_strategy@L527
+    summary: not iids true → continues to line 528
+  - id: C000F022E0004
+    address: strategy::_select_instance_ids_for_strategy@L527
+    summary: not iids false → continues to line 529
+  - id: C000F022E0005
+    address: strategy::_select_instance_ids_for_strategy@L528
+    summary: 'executes: returns []'
+  - id: C000F022E0006
+    address: strategy::_select_instance_ids_for_strategy@L529
+    summary: 'executes: returns iids'
+  - id: C000F022E0007
+    address: strategy::_select_instance_ids_for_strategy@L532
+    summary: not iids true → continues to line 533
+  - id: C000F022E0008
+    address: strategy::_select_instance_ids_for_strategy@L532
+    summary: not iids false → continues to line 539
+  - id: C000F022E0009
+    address: strategy::_select_instance_ids_for_strategy@L533
+    summary: 'executes: cfg = dict(spec_cls.defaults())'
+  - id: C000F022E0010
+    address: strategy::_select_instance_ids_for_strategy@L534
+    summary: 'executes: cfg[''strategy_name''] = strategy_name'
+  - id: C000F022E0011
+    address: strategy::_select_instance_ids_for_strategy@L535
+    summary: 'executes: cfg[''instance_id''] = strategy_name'
+  - id: C000F022E0012
+    address: strategy::_select_instance_ids_for_strategy@L536
+    summary: 'executes: defaults_cfg_by_iid[strategy_name] = cfg'
+  - id: C000F022E0013
+    address: strategy::_select_instance_ids_for_strategy@L537
+    summary: 'executes: returns [strategy_name]'
+  - id: C000F022E0014
+    address: strategy::_select_instance_ids_for_strategy@L539
+    summary: 'executes: returns iids'
+  - id: C000F023E0001
+    address: strategy::_enforce_singleton_policy@L545
+    summary: policy is InstantiationPolicy.SINGLETON true → continues to line 546
+  - id: C000F023E0002
+    address: strategy::_enforce_singleton_policy@L545
+    summary: policy is InstantiationPolicy.SINGLETON false → continues to line 553
+  - id: C000F023E0003
+    address: strategy::_enforce_singleton_policy@L546
+    summary: len(iids) != 1 true → continues to line 547
+  - id: C000F023E0004
+    address: strategy::_enforce_singleton_policy@L546
+    summary: len(iids) != 1 false → continues to line 550
+  - id: C000F023E0005
+    address: strategy::_enforce_singleton_policy@L547
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F023E0006
+    address: strategy::_enforce_singleton_policy@L550
+    summary: iids[0] != strategy_name true → continues to line 551
+  - id: C000F023E0007
+    address: strategy::_enforce_singleton_policy@L550
+    summary: iids[0] != strategy_name false → continues to line 553
+  - id: C000F023E0008
+    address: strategy::_enforce_singleton_policy@L551
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F023E0009
+    address: strategy::_enforce_singleton_policy@L553
+    summary: 'executes: returns None (implicit)'
+  - id: C000F024E0001
+    address: strategy::_enable_plans@L559
+    summary: 'executes: seen = set()'
+  - id: C000F024E0002
+    address: strategy::_enable_plans@L560
+    summary: 'executes: enabled_plans = []'
+  - id: C000F024E0003
+    address: strategy::_enable_plans@L561
+    summary: 'executes: crit_by_iid = {}'
+  - id: C000F024E0004
+    address: strategy::_enable_plans@L563
+    summary: plans empty → loop body never executes (0 iterations)
+  - id: C000F024E0005
+    address: strategy::_enable_plans@L563
+    summary: plans has items → loop body executes (≥1 iterations)
+  - id: C000F024E0006
+    address: strategy::_enable_plans@L564
+    summary: plan.instance_id in seen true → continues to line 565
+  - id: C000F024E0007
+    address: strategy::_enable_plans@L564
+    summary: plan.instance_id in seen false → continues to line 568
+  - id: C000F024E0008
+    address: strategy::_enable_plans@L565
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F024E0009
+    address: strategy::_enable_plans@L568
+    summary: 'executes: seen.add(plan.instance_id)'
+  - id: C000F024E0010
+    address: strategy::_enable_plans@L570
+    summary: 'executes: merged_cfg = effective_cfg_by_iid.get(plan.instance_id)'
+  - id: C000F024E0011
+    address: strategy::_enable_plans@L571
+    summary: merged_cfg is None true → continues to line 572
+  - id: C000F024E0012
+    address: strategy::_enable_plans@L571
+    summary: merged_cfg is None false → continues to line 576
+  - id: C000F024E0013
+    address: strategy::_enable_plans@L572
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F024E0014
+    address: strategy::_enable_plans@L576
+    summary: 'executes: precedence = _effective_precedence(...)'
+  - id: C000F024E0015
+    address: strategy::_enable_plans@L579
+    summary: 'executes: criticality = _effective_criticality(...)'
+  - id: C000F024E0016
+    address: strategy::_enable_plans@L583
+    summary: criticality is StrategyCriticality.DISABLED true → continues to line 584
+  - id: C000F024E0017
+    address: strategy::_enable_plans@L583
+    summary: criticality is StrategyCriticality.DISABLED false → continues to line 586
+  - id: C000F024E0018
+    address: strategy::_enable_plans@L584
+    summary: 'executes: continue'
+  - id: C000F024E0019
+    address: strategy::_enable_plans@L586
+    summary: 'executes: ctor_kwargs = _strip_planner_keys(plan.ctor_kwargs)'
+  - id: C000F024E0020
+    address: strategy::_enable_plans@L587
+    summary: 'executes: deps = set(plan.depends_on)'
+  - id: C000F024E0021
+    address: strategy::_enable_plans@L588
+    summary: 'executes: _scan_deps(ctor_kwargs, deps)'
+  - id: C000F024E0022
+    address: strategy::_enable_plans@L589
+    summary: 'executes: crit_by_iid[plan.instance_id] = criticality'
+  - id: C000F024E0023
+    address: strategy::_enable_plans@L591
+    summary: 'executes: enabled_plans.append(StrategyPlan(...))'
+  - id: C000F024E0024
+    address: strategy::_enable_plans@L603
+    summary: 'executes: returns enabled_plans, crit_by_iid'
+  - id: C000F025E0001
+    address: strategy::_strip_planner_keys@L607
+    summary: 'executes: out = dict(ctor_kwargs)'
+  - id: C000F025E0002
+    address: strategy::_strip_planner_keys@L608
+    summary: 'executes: out.pop(''strategy_name'', None)'
+  - id: C000F025E0003
+    address: strategy::_strip_planner_keys@L609
+    summary: 'executes: out.pop(''instance_id'', None)'
+  - id: C000F025E0004
+    address: strategy::_strip_planner_keys@L610
+    summary: 'executes: out.pop(''precedence'', None)'
+  - id: C000F025E0005
+    address: strategy::_strip_planner_keys@L611
+    summary: 'executes: out.pop(''criticality'', None)'
+  - id: C000F025E0006
+    address: strategy::_strip_planner_keys@L612
+    summary: 'executes: returns out'
+  - id: C000F026E0001
+    address: strategy::_validate_enabled_dependencies_exist@L616
+    summary: 'executes: enabled_ids = {p.instance_id for p in enabled_plans}'
+  - id: C000F026E0002
+    address: strategy::_validate_enabled_dependencies_exist@L617
+    summary: enabled_plans empty → outer loop body never executes (0 iterations)
+  - id: C000F026E0003
+    address: strategy::_validate_enabled_dependencies_exist@L617
+    summary: enabled_plans has items → outer loop body executes (≥1 iterations)
+  - id: C000F026E0004
+    address: strategy::_validate_enabled_dependencies_exist@L618
+    summary: p.depends_on empty → inner loop body never executes (0 iterations)
+  - id: C000F026E0005
+    address: strategy::_validate_enabled_dependencies_exist@L618
+    summary: p.depends_on has items → inner loop body executes (≥1 iterations)
+  - id: C000F026E0006
+    address: strategy::_validate_enabled_dependencies_exist@L619
+    summary: dep not in enabled_ids true → continues to line 620
+  - id: C000F026E0007
+    address: strategy::_validate_enabled_dependencies_exist@L619
+    summary: dep not in enabled_ids false → continues to next iteration
+  - id: C000F026E0008
+    address: strategy::_validate_enabled_dependencies_exist@L620
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F027E0001
+    address: strategy::_enforce_imperative_closure@L628
+    summary: 'executes: imperative = {iid for iid, c in crit_by_iid.items() if c is StrategyCriticality.IMPERATIVE}'
+  - id: C000F027E0002
+    address: strategy::_enforce_imperative_closure@L631
+    summary: not imperative true → continues to line 632
+  - id: C000F027E0003
+    address: strategy::_enforce_imperative_closure@L631
+    summary: not imperative false → continues to line 634
+  - id: C000F027E0004
+    address: strategy::_enforce_imperative_closure@L632
+    summary: 'executes: return'
+  - id: C000F027E0005
+    address: strategy::_enforce_imperative_closure@L634
+    summary: 'executes: deps_by_iid = {p.instance_id: set(p.depends_on) for p in enabled_plans}'
+  - id: C000F027E0006
+    address: strategy::_enforce_imperative_closure@L636
+    summary: imperative empty → loop body never executes (0 iterations)
+  - id: C000F027E0007
+    address: strategy::_enforce_imperative_closure@L636
+    summary: imperative has items → loop body executes (≥1 iterations)
+  - id: C000F027E0008
+    address: strategy::_enforce_imperative_closure@L637
+    summary: 'executes: stack = list(deps_by_iid[root])'
+  - id: C000F027E0009
+    address: strategy::_enforce_imperative_closure@L638
+    summary: 'executes: seen_dep = set()'
+  - id: C000F027E0010
+    address: strategy::_enforce_imperative_closure@L640
+    summary: stack empty → while loop body never executes (0 iterations)
+  - id: C000F027E0011
+    address: strategy::_enforce_imperative_closure@L640
+    summary: stack has items → while loop body executes (≥1 iterations)
+  - id: C000F027E0012
+    address: strategy::_enforce_imperative_closure@L641
+    summary: 'executes: dep = stack.pop()'
+  - id: C000F027E0013
+    address: strategy::_enforce_imperative_closure@L642
+    summary: dep in seen_dep true → continues to line 643
+  - id: C000F027E0014
+    address: strategy::_enforce_imperative_closure@L642
+    summary: dep in seen_dep false → continues to line 644
+  - id: C000F027E0015
+    address: strategy::_enforce_imperative_closure@L643
+    summary: 'executes: continue'
+  - id: C000F027E0016
+    address: strategy::_enforce_imperative_closure@L644
+    summary: 'executes: seen_dep.add(dep)'
+  - id: C000F027E0017
+    address: strategy::_enforce_imperative_closure@L646
+    summary: crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE true → continues to line 647
+  - id: C000F027E0018
+    address: strategy::_enforce_imperative_closure@L646
+    summary: crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE false → continues to line 652
+  - id: C000F027E0019
+    address: strategy::_enforce_imperative_closure@L647
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F027E0020
+    address: strategy::_enforce_imperative_closure@L652
+    summary: 'executes: stack.extend(deps_by_iid.get(dep, ()))'
+  - id: C000F028E0001
+    address: strategy::topo_sort_plans@L666
+    summary: 'executes: by_id = {p.instance_id: p for p in plans}'
+  - id: C000F028E0002
+    address: strategy::topo_sort_plans@L668
+    summary: 'executes: out_edges = {p.instance_id: set() for p in plans}'
+  - id: C000F028E0003
+    address: strategy::topo_sort_plans@L669
+    summary: 'executes: in_degree = {p.instance_id: 0 for p in plans}'
+  - id: C000F028E0004
+    address: strategy::topo_sort_plans@L671
+    summary: plans empty → loop body never executes (0 iterations)
+  - id: C000F028E0005
+    address: strategy::topo_sort_plans@L671
+    summary: plans has items → loop body executes (≥1 iterations)
+  - id: C000F028E0006
+    address: strategy::topo_sort_plans@L672
+    summary: p.depends_on empty → inner loop body never executes (0 iterations)
+  - id: C000F028E0007
+    address: strategy::topo_sort_plans@L672
+    summary: p.depends_on has items → inner loop body executes (≥1 iterations)
+  - id: C000F028E0008
+    address: strategy::topo_sort_plans@L673
+    summary: dep not in by_id true → continues to line 674
+  - id: C000F028E0009
+    address: strategy::topo_sort_plans@L673
+    summary: dep not in by_id false → continues to line 677
+  - id: C000F028E0010
+    address: strategy::topo_sort_plans@L674
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F028E0011
+    address: strategy::topo_sort_plans@L677
+    summary: 'executes: out_edges[dep].add(p.instance_id)'
+  - id: C000F028E0012
+    address: strategy::topo_sort_plans@L678
+    summary: 'executes: in_degree[p.instance_id] += 1'
+  - id: C000F028E0013
+    address: strategy::topo_sort_plans@L680
+    summary: 'executes: ready = [iid for iid, deg in in_degree.items() if deg == 0]'
+  - id: C000F028E0014
+    address: strategy::topo_sort_plans@L681
+    summary: 'executes: ready.sort(key=lambda iid: (by_id[iid].precedence, iid))'
+  - id: C000F028E0015
+    address: strategy::topo_sort_plans@L683
+    summary: 'executes: q = deque(ready)'
+  - id: C000F028E0016
+    address: strategy::topo_sort_plans@L684
+    summary: 'executes: ordered = []'
+  - id: C000F028E0017
+    address: strategy::topo_sort_plans@L686
+    summary: q empty → while loop body never executes (0 iterations)
+  - id: C000F028E0018
+    address: strategy::topo_sort_plans@L686
+    summary: q has items → while loop body executes (≥1 iterations)
+  - id: C000F028E0019
+    address: strategy::topo_sort_plans@L687
+    summary: 'executes: iid = q.popleft()'
+  - id: C000F028E0020
+    address: strategy::topo_sort_plans@L688
+    summary: 'executes: ordered.append(by_id[iid])'
+  - id: C000F028E0021
+    address: strategy::topo_sort_plans@L690
+    summary: sorted(out_edges[iid], ...) empty → loop body never executes (0 iterations)
+  - id: C000F028E0022
+    address: strategy::topo_sort_plans@L690
+    summary: sorted(out_edges[iid], ...) has items → loop body executes (≥1 iterations)
+  - id: C000F028E0023
+    address: strategy::topo_sort_plans@L691
+    summary: 'executes: in_degree[nxt] -= 1'
+  - id: C000F028E0024
+    address: strategy::topo_sort_plans@L692
+    summary: in_degree[nxt] == 0 true → continues to line 693
+  - id: C000F028E0025
+    address: strategy::topo_sort_plans@L692
+    summary: in_degree[nxt] == 0 false → continues to next iteration
+  - id: C000F028E0026
+    address: strategy::topo_sort_plans@L693
+    summary: 'executes: q.append(nxt)'
+  - id: C000F028E0027
+    address: strategy::topo_sort_plans@L695
+    summary: len(ordered) != len(plans) true → continues to line 696
+  - id: C000F028E0028
+    address: strategy::topo_sort_plans@L695
+    summary: len(ordered) != len(plans) false → continues to line 699
+  - id: C000F028E0029
+    address: strategy::topo_sort_plans@L696
+    summary: 'executes: remaining = [iid for iid, deg in in_degree.items() if deg > 0]'
+  - id: C000F028E0030
+    address: strategy::topo_sort_plans@L697
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F028E0031
+    address: strategy::topo_sort_plans@L699
+    summary: 'executes: returns ordered'
+  - id: C000F029E0001
+    address: strategy::_validate_ctor_kwargs@L719
+    summary: 'executes: sig = inspect.signature(strategy_cls)'
+  - id: C000F029E0002
+    address: strategy::_validate_ctor_kwargs@L720
+    summary: 'executes: params = sig.parameters.values()'
+  - id: C000F029E0003
+    address: strategy::_validate_ctor_kwargs@L721
+    summary: 'executes: accepts_kwargs = any(p.kind is p.VAR_KEYWORD for p in params)'
+  - id: C000F029E0004
+    address: strategy::_validate_ctor_kwargs@L722
+    summary: accepts_kwargs true → continues to line 723
+  - id: C000F029E0005
+    address: strategy::_validate_ctor_kwargs@L722
+    summary: accepts_kwargs false → continues to line 724
+  - id: C000F029E0006
+    address: strategy::_validate_ctor_kwargs@L723
+    summary: 'executes: return'
+  - id: C000F029E0007
+    address: strategy::_validate_ctor_kwargs@L724
+    summary: 'executes: allowed = {p.name for p in params}'
+  - id: C000F029E0008
+    address: strategy::_validate_ctor_kwargs@L725
+    summary: 'executes: extra = [k for k in ctor_kwargs.keys() if k not in allowed]'
+  - id: C000F029E0009
+    address: strategy::_validate_ctor_kwargs@L726
+    summary: extra truthy → continues to line 727
+  - id: C000F029E0010
+    address: strategy::_validate_ctor_kwargs@L726
+    summary: extra falsy → continues to end
+  - id: C000F029E0011
+    address: strategy::_validate_ctor_kwargs@L727
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F030E0001
+    address: strategy::_resolve_ctor_kwargs@L733
+    summary: isinstance(val, StrategyRef) true → continues to line 734
+  - id: C000F030E0002
+    address: strategy::_resolve_ctor_kwargs@L733
+    summary: isinstance(val, StrategyRef) false → continues to line 741
+  - id: C000F030E0003
+    address: strategy::_resolve_ctor_kwargs@L734
+    summary: 'executes: iid = val.normalized_instance_id()'
+  - id: C000F030E0004
+    address: strategy::_resolve_ctor_kwargs@L735
+    summary: iid not in registry true → continues to line 736
+  - id: C000F030E0005
+    address: strategy::_resolve_ctor_kwargs@L735
+    summary: iid not in registry false → continues to line 740
+  - id: C000F030E0006
+    address: strategy::_resolve_ctor_kwargs@L736
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F030E0007
+    address: strategy::_resolve_ctor_kwargs@L740
+    summary: 'executes: returns registry[iid]'
+  - id: C000F030E0008
+    address: strategy::_resolve_ctor_kwargs@L741
+    summary: isinstance(val, Mapping) true → continues to line 742
+  - id: C000F030E0009
+    address: strategy::_resolve_ctor_kwargs@L741
+    summary: isinstance(val, Mapping) false → continues to line 743
+  - id: C000F030E0010
+    address: strategy::_resolve_ctor_kwargs@L742
+    summary: 'executes: returns {k: _resolve(v) for k, v in val.items()}'
+  - id: C000F030E0011
+    address: strategy::_resolve_ctor_kwargs@L743
+    summary: isinstance(val, list) true → continues to line 744
+  - id: C000F030E0012
+    address: strategy::_resolve_ctor_kwargs@L743
+    summary: isinstance(val, list) false → continues to line 745
+  - id: C000F030E0013
+    address: strategy::_resolve_ctor_kwargs@L744
+    summary: 'executes: returns [_resolve(v) for v in val]'
+  - id: C000F030E0014
+    address: strategy::_resolve_ctor_kwargs@L745
+    summary: isinstance(val, tuple) true → continues to line 746
+  - id: C000F030E0015
+    address: strategy::_resolve_ctor_kwargs@L745
+    summary: isinstance(val, tuple) false → continues to line 747
+  - id: C000F030E0016
+    address: strategy::_resolve_ctor_kwargs@L746
+    summary: 'executes: returns tuple(_resolve(v) for v in val)'
+  - id: C000F030E0017
+    address: strategy::_resolve_ctor_kwargs@L747
+    summary: 'executes: returns val'
+  - id: C000F030E0018
+    address: strategy::_resolve_ctor_kwargs@L749
+    summary: 'executes: returns {k: _resolve(v) for k, v in ctor_kwargs.items()}'
+  - id: C000F031E0001
+    address: strategy::_apply_plan_metadata@L760
+    summary: not hasattr(inst, name) true → continues to line 761
+  - id: C000F031E0002
+    address: strategy::_apply_plan_metadata@L760
+    summary: not hasattr(inst, name) false → continues to line 763
+  - id: C000F031E0003
+    address: strategy::_apply_plan_metadata@L761
+    summary: 'executes: return'
+  - id: C000F031E0004
+    address: strategy::_apply_plan_metadata@L763
+    summary: 'executes: cur = getattr(inst, name, None)'
+  - id: C000F031E0005
+    address: strategy::_apply_plan_metadata@L764
+    summary: cur == value true → continues to line 765
+  - id: C000F031E0006
+    address: strategy::_apply_plan_metadata@L764
+    summary: cur == value false → continues to line 766
+  - id: C000F031E0007
+    address: strategy::_apply_plan_metadata@L765
+    summary: 'executes: return'
+  - id: C000F031E0008
+    address: strategy::_apply_plan_metadata@L766
+    summary: object.__setattr__(inst, name, value) succeeds → continues to end
+  - id: C000F031E0009
+    address: strategy::_apply_plan_metadata@L766
+    summary: object.__setattr__(inst, name, value) raises Exception → enters except handler
+  - id: C000F031E0010
+    address: strategy::_apply_plan_metadata@L768
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F031E0011
+    address: strategy::_apply_plan_metadata@L771
+    summary: 'executes: _set_attr(''instance_id'', plan.instance_id)'
+  - id: C000F031E0012
+    address: strategy::_apply_plan_metadata@L772
+    summary: 'executes: _set_attr(''precedence'', plan.precedence)'
+  - id: C000F031E0013
+    address: strategy::_apply_plan_metadata@L773
+    summary: 'executes: _set_attr(''criticality'', plan.criticality)'
+  - id: C000F032E0001
+    address: strategy::instantiate_plans@L780
+    summary: 'executes: registry = {}'
+  - id: C000F032E0002
+    address: strategy::instantiate_plans@L781
+    summary: 'executes: instances = []'
+  - id: C000F032E0003
+    address: strategy::instantiate_plans@L783
+    summary: plans empty → loop body never executes (0 iterations)
+  - id: C000F032E0004
+    address: strategy::instantiate_plans@L783
+    summary: plans has items → loop body executes (≥1 iterations)
+  - id: C000F032E0005
+    address: strategy::instantiate_plans@L784
+    summary: 'executes: resolved_kwargs = _resolve_ctor_kwargs(plan.ctor_kwargs, registry)'
+  - id: C000F032E0006
+    address: strategy::instantiate_plans@L785
+    summary: 'executes: ctx = f''strategy={plan.strategy_name} instance_id={plan.instance_id}'''
+  - id: C000F032E0007
+    address: strategy::instantiate_plans@L787
+    summary: 'executes: call_kwargs = dict(resolved_kwargs)'
+  - id: C000F032E0008
+    address: strategy::instantiate_plans@L788
+    summary: 'executes: call_kwargs.pop(''strategy_name'', None)'
+  - id: C000F032E0009
+    address: strategy::instantiate_plans@L789
+    summary: 'executes: call_kwargs.pop(''instance_id'', None)'
+  - id: C000F032E0010
+    address: strategy::instantiate_plans@L790
+    summary: 'executes: call_kwargs.pop(''precedence'', None)'
+  - id: C000F032E0011
+    address: strategy::instantiate_plans@L791
+    summary: 'executes: call_kwargs.pop(''criticality'', None)'
+  - id: C000F032E0012
+    address: strategy::instantiate_plans@L793
+    summary: 'executes: _validate_ctor_kwargs(strategy_cls=plan.strategy_cls, ctor_kwargs=call_kwargs, ctx=ctx)'
+  - id: C000F032E0013
+    address: strategy::instantiate_plans@L797
+    summary: 'executes: inst = plan.strategy_cls(**call_kwargs)'
+  - id: C000F032E0014
+    address: strategy::instantiate_plans@L799
+    summary: 'executes: _apply_plan_metadata(inst=inst, plan=plan, ctx=ctx)'
+  - id: C000F032E0015
+    address: strategy::instantiate_plans@L801
+    summary: getattr(inst, 'instance_id', None) != plan.instance_id true → continues to line 802
+  - id: C000F032E0016
+    address: strategy::instantiate_plans@L801
+    summary: getattr(inst, 'instance_id', None) != plan.instance_id false → continues to line 807
+  - id: C000F032E0017
+    address: strategy::instantiate_plans@L802
+    summary: 'executes: raises StrategyConfigError'
+  - id: C000F032E0018
+    address: strategy::instantiate_plans@L807
+    summary: 'executes: registry[plan.instance_id] = inst'
+  - id: C000F032E0019
+    address: strategy::instantiate_plans@L808
+    summary: 'executes: instances.append(inst)'
+  - id: C000F032E0020
+    address: strategy::instantiate_plans@L810
+    summary: 'executes: returns instances'
+  - id: C000F033E0001
+    address: strategy::load_strategies@L833
+    summary: 'executes: strategy_classes = discover_strategy_classes(...)'
+  - id: C000F033E0002
+    address: strategy::load_strategies@L838
+    summary: builtin_config_package or config_entrypoint_group true → continues to line 839
+  - id: C000F033E0003
+    address: strategy::load_strategies@L838
+    summary: builtin_config_package or config_entrypoint_group false → continues to line 844
+  - id: C000F033E0004
+    address: strategy::load_strategies@L839
+    summary: 'executes: config_specs = discover_config_specs(...)'
+  - id: C000F033E0005
+    address: strategy::load_strategies@L844
+    summary: 'executes: config_specs = {}'
+  - id: C000F033E0006
+    address: strategy::load_strategies@L847
+    summary: 'executes: plans = build_strategy_plans(...)'
+  - id: C000F033E0007
+    address: strategy::load_strategies@L853
+    summary: 'executes: ordered = topo_sort_plans(plans)'
+  - id: C000F033E0008
+    address: strategy::load_strategies@L854
+    summary: 'executes: returns instantiate_plans(ordered)'
+
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: strategy
+  children:
+  - id: C001
+    kind: class
+    name: StrategyRef
+    children:
+    - id: C001M001
+      kind: callable
+      name: normalized_instance_id
+      callable:
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: iid = self.instance_id or self.strategy_name
+        - id: C001M001E0002
+          condition: not iid true
+          outcome: continues to line 44
+        - id: C001M001E0003
+          condition: not iid false
+          outcome: continues to line 47
+        - id: C001M001E0004
+          condition: executes
+          outcome: raises StrategyConfigError
+        - id: C001M001E0005
+          condition: executes
+          outcome: returns iid
+  - id: C002
+    kind: class
+    name: BaseArtifactResolutionStrategyConfig
+    children:
+    - id: C002M001
+      kind: callable
+      name: defaults
+      callable:
+        branches:
+        - id: C002M001E0001
+          condition: executes
+          outcome: returns {}
+    - id: C002M002
+      kind: callable
+      name: plan
+      callable:
+        branches:
+        - id: C002M002E0001
+          condition: executes
+          outcome: raises NotImplementedError
+  - id: C003
+    kind: class
+    name: DefaultStrategyConfig
+    children:
+    - id: C003M001
+      kind: callable
+      name: plan
+      callable:
+        branches:
+        - id: C003M001E0001
+          condition: config.get('strategy_name') truthy
+          outcome: strategy_name assigned from config
+        - id: C003M001E0002
+          condition: config.get('strategy_name') falsy
+          outcome: _strategy_name_for_class called
+        - id: C003M001E0003
+          condition: executes
+          outcome: _strategy_name_for_class(strategy_cls) called (continuation from falsy path)
+        - id: C003M001E0004
+          condition: not isinstance(strategy_name, str) or not strategy_name true
+          outcome: continues to line 110
+        - id: C003M001E0005
+          condition: not isinstance(strategy_name, str) or not strategy_name false
+          outcome: continues to line 112
+        - id: C003M001E0006
+          condition: executes
+          outcome: raises StrategyConfigError
+        - id: C003M001E0007
+          condition: config.get('instance_id') truthy
+          outcome: instance_id assigned from config
+        - id: C003M001E0008
+          condition: config.get('instance_id') falsy
+          outcome: instance_id assigned from strategy_name
+        - id: C003M001E0009
+          condition: not isinstance(instance_id, str) or not instance_id true
+          outcome: continues to line 114
+        - id: C003M001E0010
+          condition: not isinstance(instance_id, str) or not instance_id false
+          outcome: continues to line 116
+        - id: C003M001E0011
+          condition: executes
+          outcome: raises StrategyConfigError
+        - id: C003M001E0012
+          condition: executes
+          outcome: precedence = config.get('precedence', getattr(strategy_cls, 'precedence', 100))
+        - id: C003M001E0013
+          condition: not isinstance(precedence, int) true
+          outcome: continues to line 118
+        - id: C003M001E0014
+          condition: not isinstance(precedence, int) false
+          outcome: continues to line 123
+        - id: C003M001E0015
+          condition: executes
+          outcome: raises StrategyConfigError
+        - id: C003M001E0016
+          condition: executes
+          outcome: ctor_kwargs = dict(config)
+        - id: C003M001E0017
+          condition: executes
+          outcome: ctor_kwargs.pop('strategy_name', None)
+        - id: C003M001E0018
+          condition: executes
+          outcome: ctor_kwargs.pop('instance_id', None)
+        - id: C003M001E0019
+          condition: executes
+          outcome: ctor_kwargs.pop('precedence', None)
+        - id: C003M001E0020
+          condition: executes
+          outcome: ctor_kwargs.pop('criticality', None)
+        - id: C003M001E0021
+          condition: executes
+          outcome: returns list with StrategyPlan
+        integration:
+          interunit:
+          - id: IC003M001E0002
+            target: _strategy_name_for_class
+            kind: call
+            signature: _strategy_name_for_class(strategy_cls)
+            executionPaths:
+            - - C003M001E0001
+              - C003M001E0002
+            notes: Called when config.get('strategy_name') is falsy
+  - id: C000F001
+    kind: callable
+    name: _iter_module_objects
+    callable:
+      branches:
+      - id: C000F001E0001
+        condition: not package_name true
+        outcome: continues to line 160
+      - id: C000F001E0002
+        condition: not package_name false
+        outcome: continues to line 161
+      - id: C000F001E0003
+        condition: executes
+        outcome: yield from ()
+      - id: C000F001E0004
+        condition: executes
+        outcome: package = importlib.import_module(package_name)
+      - id: C000F001E0005
+        condition: pkgutil.walk_packages(...) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F001E0006
+        condition: pkgutil.walk_packages(...) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F001E0007
+        condition: executes
+        outcome: module = importlib.import_module(mod_name)
+      - id: C000F001E0008
+        condition: executes
+        outcome: yield from vars(module).values()
+      - id: C000F001E0009
+        condition: executes
+        outcome: returns None
+      integration:
+        boundaries:
+        - id: IC000F001E0003
+          target: importlib.import_module
+          kind: call
+          signature: importlib.import_module(package_name)
+          boundary:
+            kind: other
+            operation: import
+            notes: Dynamic module import
+          executionPaths:
+          - - C000F001E0002
+            - C000F001E0003
+        - id: IC000F001E0005
+          target: importlib.import_module
+          kind: call
+          signature: importlib.import_module(mod_name)
+          boundary:
+            kind: other
+            operation: import
+            notes: Dynamic module import within loop
+          executionPaths:
+          - - C000F001E0002
+            - C000F001E0003
+            - C000F001E0004
+            - C000F001E0005
+  - id: C000F002
+    kind: callable
+    name: _iter_entrypoint_objects
+    callable:
+      branches:
+      - id: C000F002E0001
+        condition: not group true
+        outcome: continues to line 172
+      - id: C000F002E0002
+        condition: not group false
+        outcome: continues to line 173
+      - id: C000F002E0003
+        condition: executes
+        outcome: yield from ()
+      - id: C000F002E0004
+        condition: entry_points().select(group=group) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F002E0005
+        condition: entry_points().select(group=group) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F002E0006
+        condition: executes
+        outcome: yield ep.load()
+      - id: C000F002E0007
+        condition: executes
+        outcome: returns None
+      integration:
+        boundaries:
+        - id: IC000F002E0003
+          target: entry_points
+          kind: call
+          signature: entry_points().select(group=group)
+          boundary:
+            kind: other
+            operation: read
+            system: importlib.metadata
+            notes: Entry point discovery
+          executionPaths:
+          - - C000F002E0002
+            - C000F002E0003
+  - id: C000F003
+    kind: callable
+    name: _builtin_strategy_classes
+    callable:
+      branches:
+      - id: C000F003E0001
+        condition: executes
+        outcome: out = []
+      - id: C000F003E0002
+        condition: _iter_module_objects(package_name) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F003E0003
+        condition: _iter_module_objects(package_name) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F003E0004
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) true
+        outcome: continues to line 184
+      - id: C000F003E0005
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) false
+        outcome: continues to next iteration
+      - id: C000F003E0006
+        condition: executes
+        outcome: out.append(obj)
+      - id: C000F003E0007
+        condition: executes
+        outcome: returns out
+      integration:
+        interunit:
+        - id: IC000F003E0002
+          target: _iter_module_objects
+          kind: call
+          signature: _iter_module_objects(package_name)
+          executionPaths:
+          - - C000F003E0001
+            - C000F003E0002
+  - id: C000F004
+    kind: callable
+    name: _entrypoint_strategy_classes
+    callable:
+      branches:
+      - id: C000F004E0001
+        condition: executes
+        outcome: out = []
+      - id: C000F004E0002
+        condition: _iter_entrypoint_objects(group) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F004E0003
+        condition: _iter_entrypoint_objects(group) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F004E0004
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) true
+        outcome: continues to line 194
+      - id: C000F004E0005
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategy) false
+        outcome: continues to next iteration
+      - id: C000F004E0006
+        condition: executes
+        outcome: out.append(obj)
+      - id: C000F004E0007
+        condition: executes
+        outcome: returns out
+      integration:
+        interunit:
+        - id: IC000F004E0002
+          target: _iter_entrypoint_objects
+          kind: call
+          signature: _iter_entrypoint_objects(group)
+          executionPaths:
+          - - C000F004E0001
+            - C000F004E0002
+  - id: C000F005
+    kind: callable
+    name: _builtin_config_spec_classes
+    callable:
+      branches:
+      - id: C000F005E0001
+        condition: executes
+        outcome: out = []
+      - id: C000F005E0002
+        condition: _iter_module_objects(package_name) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F005E0003
+        condition: _iter_module_objects(package_name) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F005E0004
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) true
+        outcome: continues to line 206
+      - id: C000F005E0005
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) false
+        outcome: continues to next iteration
+      - id: C000F005E0006
+        condition: executes
+        outcome: out.append(obj)
+      - id: C000F005E0007
+        condition: executes
+        outcome: returns out
+      integration:
+        interunit:
+        - id: IC000F005E0002
+          target: _iter_module_objects
+          kind: call
+          signature: _iter_module_objects(package_name)
+          executionPaths:
+          - - C000F005E0001
+            - C000F005E0002
+  - id: C000F006
+    kind: callable
+    name: _entrypoint_config_spec_classes
+    callable:
+      branches:
+      - id: C000F006E0001
+        condition: executes
+        outcome: out = []
+      - id: C000F006E0002
+        condition: _iter_entrypoint_objects(group) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F006E0003
+        condition: _iter_entrypoint_objects(group) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F006E0004
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) true
+        outcome: continues to line 218
+      - id: C000F006E0005
+        condition: inspect.isclass(obj) and issubclass(obj, BaseArtifactResolutionStrategyConfig) false
+        outcome: continues to next iteration
+      - id: C000F006E0006
+        condition: executes
+        outcome: out.append(obj)
+      - id: C000F006E0007
+        condition: executes
+        outcome: returns out
+      integration:
+        interunit:
+        - id: IC000F006E0002
+          target: _iter_entrypoint_objects
+          kind: call
+          signature: _iter_entrypoint_objects(group)
+          executionPaths:
+          - - C000F006E0001
+            - C000F006E0002
+  - id: C000F007
+    kind: callable
+    name: _strategy_name_for_class
+    callable:
+      branches:
+      - id: C000F007E0001
+        condition: executes
+        outcome: name = getattr(strategy_cls, 'strategy_name', None)
+      - id: C000F007E0002
+        condition: isinstance(name, str) and name true
+        outcome: continues to line 226
+      - id: C000F007E0003
+        condition: isinstance(name, str) and name false
+        outcome: continues to line 229
+      - id: C000F007E0004
+        condition: executes
+        outcome: returns name
+      - id: C000F007E0005
+        condition: executes
+        outcome: name2 = getattr(strategy_cls, 'name', None)
+      - id: C000F007E0006
+        condition: isinstance(name2, str) and name2 true
+        outcome: continues to line 231
+      - id: C000F007E0007
+        condition: isinstance(name2, str) and name2 false
+        outcome: continues to line 233
+      - id: C000F007E0008
+        condition: executes
+        outcome: returns name2
+      - id: C000F007E0009
+        condition: executes
+        outcome: returns strategy_cls.__name__
+  - id: C000F008
+    kind: callable
+    name: discover_strategy_classes
+    callable:
+      branches:
+      - id: C000F008E0001
+        condition: executes
+        outcome: by_name = {}
+      - id: C000F008E0002
+        condition: _builtin_strategy_classes(strategy_package) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F008E0003
+        condition: _builtin_strategy_classes(strategy_package) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F008E0004
+        condition: executes
+        outcome: name = _strategy_name_for_class(cls)
+      - id: C000F008E0005
+        condition: name in by_name true
+        outcome: continues to line 249
+      - id: C000F008E0006
+        condition: name in by_name false
+        outcome: continues to line 252
+      - id: C000F008E0007
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F008E0008
+        condition: executes
+        outcome: by_name[name] = _StrategyClassInfo(...)
+      - id: C000F008E0009
+        condition: _entrypoint_strategy_classes(strategy_entrypoint_group) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F008E0010
+        condition: _entrypoint_strategy_classes(strategy_entrypoint_group) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F008E0011
+        condition: executes
+        outcome: name = _strategy_name_for_class(cls)
+      - id: C000F008E0012
+        condition: name in by_name true
+        outcome: continues to line 257
+      - id: C000F008E0013
+        condition: name in by_name false
+        outcome: continues to line 259
+      - id: C000F008E0014
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F008E0015
+        condition: executes
+        outcome: returns by_name
+      integration:
+        interunit:
+        - id: IC000F008E0002
+          target: _builtin_strategy_classes
+          kind: call
+          signature: _builtin_strategy_classes(strategy_package)
+          executionPaths:
+          - - C000F008E0001
+            - C000F008E0002
+        - id: IC000F008E0003
+          target: _strategy_name_for_class
+          kind: call
+          signature: _strategy_name_for_class(cls)
+          executionPaths:
+          - - C000F008E0001
+            - C000F008E0002
+            - C000F008E0003
+        - id: IC000F008E0007
+          target: _entrypoint_strategy_classes
+          kind: call
+          signature: _entrypoint_strategy_classes(strategy_entrypoint_group)
+          executionPaths:
+          - - C000F008E0001
+            - C000F008E0002
+            - C000F008E0003
+            - C000F008E0004
+            - C000F008E0006
+            - C000F008E0007
+          - - C000F008E0001
+            - C000F008E0002
+            - C000F008E0003
+            - C000F008E0005
+            - C000F008E0007
+        - id: IC000F008E0008
+          target: _strategy_name_for_class
+          kind: call
+          signature: _strategy_name_for_class(cls)
+          executionPaths:
+          - - C000F008E0001
+            - C000F008E0002
+            - C000F008E0003
+            - C000F008E0004
+            - C000F008E0006
+            - C000F008E0007
+            - C000F008E0008
+          - - C000F008E0001
+            - C000F008E0002
+            - C000F008E0003
+            - C000F008E0005
+            - C000F008E0007
+            - C000F008E0008
+  - id: C000F009
+    kind: callable
+    name: discover_config_specs
+    callable:
+      branches:
+      - id: C000F009E0001
+        condition: _builtin_config_spec_classes(builtin_config_package) executes
+        outcome: _builtin_config_spec_classes(builtin_config_package) executes
+      - id: C000F009E0002
+        condition: _entrypoint_config_spec_classes(config_entrypoint_group) executes
+        outcome: _entrypoint_config_spec_classes(config_entrypoint_group) executes
+      - id: C000F009E0003
+        condition: executes
+        outcome: classes list concatenation completes
+      - id: C000F009E0004
+        condition: executes
+        outcome: by_strategy_name = {}
+      - id: C000F009E0005
+        condition: classes empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F009E0006
+        condition: classes has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F009E0007
+        condition: executes
+        outcome: strategy_name = getattr(cls, 'strategy_name', None)
+      - id: C000F009E0008
+        condition: not (isinstance(strategy_name, str) and strategy_name) true
+        outcome: continues to line 278
+      - id: C000F009E0009
+        condition: not (isinstance(strategy_name, str) and strategy_name) false
+        outcome: continues to line 279
+      - id: C000F009E0010
+        condition: executes
+        outcome: continue
+      - id: C000F009E0011
+        condition: strategy_name in by_strategy_name true
+        outcome: continues to line 280
+      - id: C000F009E0012
+        condition: strategy_name in by_strategy_name false
+        outcome: continues to line 283
+      - id: C000F009E0013
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F009E0014
+        condition: executes
+        outcome: by_strategy_name[strategy_name] = cls
+      - id: C000F009E0015
+        condition: executes
+        outcome: returns by_strategy_name
+  - id: C000F011
+    kind: callable
+    name: _ensure_dict
+    callable:
+      branches:
+      - id: C000F011E0001
+        condition: executes
+        outcome: returns dict(cfg)
+  - id: C000F012
+    kind: callable
+    name: _effective_precedence
+    callable:
+      branches:
+      - id: C000F012E0001
+        condition: '''precedence'' in cfg true'
+        outcome: continues to line 304
+      - id: C000F012E0002
+        condition: '''precedence'' in cfg false'
+        outcome: continues to line 310
+      - id: C000F012E0003
+        condition: executes
+        outcome: v = cfg['precedence']
+      - id: C000F012E0004
+        condition: not isinstance(v, int) true
+        outcome: continues to line 306
+      - id: C000F012E0005
+        condition: not isinstance(v, int) false
+        outcome: continues to line 309
+      - id: C000F012E0006
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F012E0007
+        condition: executes
+        outcome: returns v
+      - id: C000F012E0008
+        condition: executes
+        outcome: v2 = getattr(strategy_cls, 'precedence', fallback)
+      - id: C000F012E0009
+        condition: not isinstance(v2, int) true
+        outcome: continues to line 312
+      - id: C000F012E0010
+        condition: not isinstance(v2, int) false
+        outcome: continues to line 313
+      - id: C000F012E0011
+        condition: executes
+        outcome: returns fallback
+      - id: C000F012E0012
+        condition: executes
+        outcome: returns v2
+  - id: C000F013
+    kind: callable
+    name: _effective_criticality
+    callable:
+      branches:
+      - id: C000F013E0001
+        condition: '''criticality'' in cfg true'
+        outcome: continues to line 320
+      - id: C000F013E0002
+        condition: '''criticality'' in cfg false'
+        outcome: continues to line 331
+      - id: C000F013E0003
+        condition: executes
+        outcome: v = cfg['criticality']
+      - id: C000F013E0004
+        condition: isinstance(v, StrategyCriticality) true
+        outcome: continues to line 322
+      - id: C000F013E0005
+        condition: isinstance(v, StrategyCriticality) false
+        outcome: continues to line 323
+      - id: C000F013E0006
+        condition: executes
+        outcome: returns v
+      - id: C000F013E0007
+        condition: isinstance(v, str) true
+        outcome: continues to line 324
+      - id: C000F013E0008
+        condition: isinstance(v, str) false
+        outcome: continues to line 328
+      - id: C000F013E0009
+        condition: StrategyCriticality(v) succeeds
+        outcome: continues to line 325
+      - id: C000F013E0010
+        condition: StrategyCriticality(v) raises ValueError
+        outcome: enters except handler
+      - id: C000F013E0011
+        condition: executes
+        outcome: returns StrategyCriticality(v)
+      - id: C000F013E0012
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F013E0013
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F013E0014
+        condition: executes
+        outcome: v2 = getattr(strategy_cls, 'criticality', StrategyCriticality.OPTIONAL)
+      - id: C000F013E0015
+        condition: isinstance(v2, StrategyCriticality) true
+        outcome: continues to line 333
+      - id: C000F013E0016
+        condition: isinstance(v2, StrategyCriticality) false
+        outcome: continues to line 334
+      - id: C000F013E0017
+        condition: executes
+        outcome: returns v2
+      - id: C000F013E0018
+        condition: isinstance(v2, str) true
+        outcome: continues to line 335
+      - id: C000F013E0019
+        condition: isinstance(v2, str) false
+        outcome: continues to line 339
+      - id: C000F013E0020
+        condition: StrategyCriticality(v2) succeeds
+        outcome: continues to line 336
+      - id: C000F013E0021
+        condition: StrategyCriticality(v2) raises ValueError
+        outcome: continues to line 338
+      - id: C000F013E0022
+        condition: executes
+        outcome: returns StrategyCriticality(v2)
+      - id: C000F013E0023
+        condition: executes
+        outcome: returns StrategyCriticality.OPTIONAL
+      - id: C000F013E0024
+        condition: executes
+        outcome: returns StrategyCriticality.OPTIONAL
+  - id: C000F014
+    kind: callable
+    name: _scan_deps
+    callable:
+      branches:
+      - id: C000F014E0001
+        condition: isinstance(val, StrategyRef) true
+        outcome: continues to line 344
+      - id: C000F014E0002
+        condition: isinstance(val, StrategyRef) false
+        outcome: continues to line 346
+      - id: C000F014E0003
+        condition: executes
+        outcome: out.add(val.normalized_instance_id())
+      - id: C000F014E0004
+        condition: executes
+        outcome: return
+      - id: C000F014E0005
+        condition: isinstance(val, Mapping) true
+        outcome: continues to line 347
+      - id: C000F014E0006
+        condition: isinstance(val, Mapping) false
+        outcome: continues to line 350
+      - id: C000F014E0007
+        condition: val.values() empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F014E0008
+        condition: val.values() has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F014E0009
+        condition: executes
+        outcome: _scan_deps(v, out)
+      - id: C000F014E0010
+        condition: executes
+        outcome: return
+      - id: C000F014E0011
+        condition: isinstance(val, (list, tuple)) true
+        outcome: continues to line 351
+      - id: C000F014E0012
+        condition: isinstance(val, (list, tuple)) false
+        outcome: continues to line 353
+      - id: C000F014E0013
+        condition: val empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F014E0014
+        condition: val has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F014E0015
+        condition: executes
+        outcome: _scan_deps(v, out)
+      - id: C000F014E0016
+        condition: executes
+        outcome: return
+      integration:
+        interunit:
+        - id: IC000F014E0002
+          target: StrategyRef.normalized_instance_id
+          kind: call
+          signature: val.normalized_instance_id()
+          executionPaths:
+          - - C000F014E0001
+            - C000F014E0002
+        - id: IC000F014E0005
+          target: _scan_deps
+          kind: call
+          signature: _scan_deps(v, out)
+          executionPaths:
+          - - C000F014E0004
+            - C000F014E0005
+          notes: Recursive call for Mapping values
+        - id: IC000F014E0009
+          target: _scan_deps
+          kind: call
+          signature: _scan_deps(v, out)
+          executionPaths:
+          - - C000F014E0007
+            - C000F014E0008
+            - C000F014E0009
+          notes: Recursive call for list/tuple elements
+  - id: C000F015
+    kind: callable
+    name: build_strategy_plans
+    callable:
+      branches:
+      - id: C000F015E0001
+        condition: executes
+        outcome: ingested = _ingest_raw_configs(...)
+      - id: C000F015E0002
+        condition: executes
+        outcome: plans, effective_cfg_by_iid = _plan_all_strategies(...)
+      - id: C000F015E0003
+        condition: not plans true
+        outcome: continues to line 383
+      - id: C000F015E0004
+        condition: not plans false
+        outcome: continues to line 385
+      - id: C000F015E0005
+        condition: executes
+        outcome: returns []
+      - id: C000F015E0006
+        condition: executes
+        outcome: enabled_plans, crit_by_iid = _enable_plans(...)
+      - id: C000F015E0007
+        condition: not enabled_plans true
+        outcome: continues to line 389
+      - id: C000F015E0008
+        condition: not enabled_plans false
+        outcome: continues to line 391
+      - id: C000F015E0009
+        condition: executes
+        outcome: returns []
+      - id: C000F015E0010
+        condition: executes
+        outcome: _validate_enabled_dependencies_exist(enabled_plans)
+      - id: C000F015E0011
+        condition: executes
+        outcome: _enforce_imperative_closure(enabled_plans=enabled_plans, crit_by_iid=crit_by_iid)
+      - id: C000F015E0012
+        condition: executes
+        outcome: returns enabled_plans
+      integration:
+        interunit:
+        - id: IC000F015E0001
+          target: _ingest_raw_configs
+          kind: call
+          signature: _ingest_raw_configs(raw_configs_by_instance_id=raw_configs_by_instance_id, strategy_classes=strategy_classes)
+          executionPaths:
+          - - C000F015E0001
+        - id: IC000F015E0002
+          target: _plan_all_strategies
+          kind: call
+          signature: _plan_all_strategies(strategy_classes=strategy_classes, config_specs=config_specs, cfg_by_instance_id=ingested.cfg_by_instance_id,
+            bound_iids_by_strategy=ingested.bound_iids_by_strategy)
+          executionPaths:
+          - - C000F015E0001
+            - C000F015E0002
+        - id: IC000F015E0005
+          target: _enable_plans
+          kind: call
+          signature: _enable_plans(plans=plans, effective_cfg_by_iid=effective_cfg_by_iid)
+          executionPaths:
+          - - C000F015E0001
+            - C000F015E0002
+            - C000F015E0004
+            - C000F015E0005
+        - id: IC000F015E0008
+          target: _validate_enabled_dependencies_exist
+          kind: call
+          signature: _validate_enabled_dependencies_exist(enabled_plans)
+          executionPaths:
+          - - C000F015E0001
+            - C000F015E0002
+            - C000F015E0004
+            - C000F015E0005
+            - C000F015E0007
+            - C000F015E0008
+        - id: IC000F015E0009
+          target: _enforce_imperative_closure
+          kind: call
+          signature: _enforce_imperative_closure(enabled_plans=enabled_plans, crit_by_iid=crit_by_iid)
+          executionPaths:
+          - - C000F015E0001
+            - C000F015E0002
+            - C000F015E0004
+            - C000F015E0005
+            - C000F015E0007
+            - C000F015E0008
+            - C000F015E0009
+  - id: C000F016
+    kind: callable
+    name: _ingest_raw_configs
+    callable:
+      branches:
+      - id: C000F016E0001
+        condition: executes
+        outcome: raw_configs_by_instance_id = raw_configs_by_instance_id or {}
+      - id: C000F016E0002
+        condition: executes
+        outcome: cfg_by_instance_id = {}
+      - id: C000F016E0003
+        condition: executes
+        outcome: bound_iids_by_strategy = defaultdict(list)
+      - id: C000F016E0004
+        condition: raw_configs_by_instance_id.items() empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F016E0005
+        condition: raw_configs_by_instance_id.items() has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F016E0006
+        condition: executes
+        outcome: _validate_instance_id_key(iid)
+      - id: C000F016E0007
+        condition: executes
+        outcome: _validate_raw_cfg_mapping(iid, raw_cfg)
+      - id: C000F016E0008
+        condition: executes
+        outcome: cfg = _ensure_dict(raw_cfg)
+      - id: C000F016E0009
+        condition: executes
+        outcome: _validate_or_set_cfg_instance_id(iid, cfg)
+      - id: C000F016E0010
+        condition: executes
+        outcome: strategy_name = _normalize_and_validate_strategy_name(...)
+      - id: C000F016E0011
+        condition: executes
+        outcome: cfg['strategy_name'] = strategy_name
+      - id: C000F016E0012
+        condition: executes
+        outcome: cfg_by_instance_id[iid] = cfg
+      - id: C000F016E0013
+        condition: executes
+        outcome: bound_iids_by_strategy[strategy_name].append(iid)
+      - id: C000F016E0014
+        condition: executes
+        outcome: returns _IngestedConfigs(...)
+      integration:
+        interunit:
+        - id: IC000F016E0003
+          target: _validate_instance_id_key
+          kind: call
+          signature: _validate_instance_id_key(iid)
+          executionPaths:
+          - - C000F016E0001
+            - C000F016E0002
+            - C000F016E0003
+        - id: IC000F016E0004
+          target: _validate_raw_cfg_mapping
+          kind: call
+          signature: _validate_raw_cfg_mapping(iid, raw_cfg)
+          executionPaths:
+          - - C000F016E0001
+            - C000F016E0002
+            - C000F016E0003
+            - C000F016E0004
+        - id: IC000F016E0005
+          target: _ensure_dict
+          kind: call
+          signature: _ensure_dict(raw_cfg)
+          executionPaths:
+          - - C000F016E0001
+            - C000F016E0002
+            - C000F016E0003
+            - C000F016E0004
+            - C000F016E0005
+        - id: IC000F016E0006
+          target: _validate_or_set_cfg_instance_id
+          kind: call
+          signature: _validate_or_set_cfg_instance_id(iid, cfg)
+          executionPaths:
+          - - C000F016E0001
+            - C000F016E0002
+            - C000F016E0003
+            - C000F016E0004
+            - C000F016E0005
+            - C000F016E0006
+        - id: IC000F016E0007
+          target: _normalize_and_validate_strategy_name
+          kind: call
+          signature: _normalize_and_validate_strategy_name(iid=iid, cfg=cfg, strategy_classes=strategy_classes)
+          executionPaths:
+          - - C000F016E0001
+            - C000F016E0002
+            - C000F016E0003
+            - C000F016E0004
+            - C000F016E0005
+            - C000F016E0006
+            - C000F016E0007
+  - id: C000F017
+    kind: callable
+    name: _validate_instance_id_key
+    callable:
+      branches:
+      - id: C000F017E0001
+        condition: not isinstance(iid, str) or not iid true
+        outcome: continues to line 432
+      - id: C000F017E0002
+        condition: not isinstance(iid, str) or not iid false
+        outcome: continues to line 434
+      - id: C000F017E0003
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F017E0004
+        condition: executes
+        outcome: returns None (implicit)
+  - id: C000F018
+    kind: callable
+    name: _validate_raw_cfg_mapping
+    callable:
+      branches:
+      - id: C000F018E0001
+        condition: not isinstance(raw_cfg, Mapping) true
+        outcome: continues to line 439
+      - id: C000F018E0002
+        condition: not isinstance(raw_cfg, Mapping) false
+        outcome: continues to end
+      - id: C000F018E0003
+        condition: executes
+        outcome: raises StrategyConfigError
+  - id: C000F019
+    kind: callable
+    name: _validate_or_set_cfg_instance_id
+    callable:
+      branches:
+      - id: C000F019E0001
+        condition: '''instance_id'' in cfg and cfg[''instance_id''] != iid true'
+        outcome: continues to line 444
+      - id: C000F019E0002
+        condition: '''instance_id'' in cfg and cfg[''instance_id''] != iid false'
+        outcome: continues to line 447
+      - id: C000F019E0003
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F019E0004
+        condition: executes
+        outcome: cfg['instance_id'] = iid
+  - id: C000F020
+    kind: callable
+    name: _normalize_and_validate_strategy_name
+    callable:
+      branches:
+      - id: C000F020E0001
+        condition: executes
+        outcome: strategy_name = cfg.get('strategy_name')
+      - id: C000F020E0002
+        condition: strategy_name is None true
+        outcome: continues to line 455
+      - id: C000F020E0003
+        condition: strategy_name is None false
+        outcome: continues to line 457
+      - id: C000F020E0004
+        condition: executes
+        outcome: strategy_name = iid
+      - id: C000F020E0005
+        condition: not isinstance(strategy_name, str) or not strategy_name true
+        outcome: continues to line 458
+      - id: C000F020E0006
+        condition: not isinstance(strategy_name, str) or not strategy_name false
+        outcome: continues to line 462
+      - id: C000F020E0007
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F020E0008
+        condition: strategy_name not in strategy_classes true
+        outcome: continues to line 463
+      - id: C000F020E0009
+        condition: strategy_name not in strategy_classes false
+        outcome: continues to line 467
+      - id: C000F020E0010
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F020E0011
+        condition: executes
+        outcome: returns strategy_name
+  - id: C000F021
+    kind: callable
+    name: _plan_all_strategies
+    callable:
+      branches:
+      - id: C000F021E0001
+        condition: executes
+        outcome: plans = []
+      - id: C000F021E0002
+        condition: executes
+        outcome: defaults_cfg_by_iid = {}
+      - id: C000F021E0003
+        condition: executes
+        outcome: effective_cfg_by_iid = {}
+      - id: C000F021E0004
+        condition: strategy_classes.items() empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F021E0005
+        condition: strategy_classes.items() has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F021E0006
+        condition: executes
+        outcome: strategy_cls = info.strategy_cls
+      - id: C000F021E0007
+        condition: executes
+        outcome: spec_cls = config_specs.get(strategy_name, DefaultStrategyConfig)
+      - id: C000F021E0008
+        condition: executes
+        outcome: policy = getattr(strategy_cls, 'instantiation_policy', InstantiationPolicy.SINGLETON)
+      - id: C000F021E0009
+        condition: executes
+        outcome: iids = list(bound_iids_by_strategy.get(strategy_name, []))
+      - id: C000F021E0010
+        condition: executes
+        outcome: iids = _select_instance_ids_for_strategy(...)
+      - id: C000F021E0011
+        condition: executes
+        outcome: _enforce_singleton_policy(strategy_name=strategy_name, policy=policy, iids=iids)
+      - id: C000F021E0012
+        condition: iids empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F021E0013
+        condition: iids has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F021E0014
+        condition: executes
+        outcome: raw = cfg_by_instance_id.get(iid) or defaults_cfg_by_iid.get(iid)
+      - id: C000F021E0015
+        condition: raw is None true
+        outcome: continues to line 503
+      - id: C000F021E0016
+        condition: raw is None false
+        outcome: continues to line 507
+      - id: C000F021E0017
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F021E0018
+        condition: executes
+        outcome: merged = dict(spec_cls.defaults())
+      - id: C000F021E0019
+        condition: executes
+        outcome: merged.update(raw)
+      - id: C000F021E0020
+        condition: executes
+        outcome: merged['strategy_name'] = strategy_name
+      - id: C000F021E0021
+        condition: executes
+        outcome: merged['instance_id'] = iid
+      - id: C000F021E0022
+        condition: executes
+        outcome: effective_cfg_by_iid[iid] = merged
+      - id: C000F021E0023
+        condition: executes
+        outcome: planned = spec_cls.plan(strategy_cls=strategy_cls, config=merged)
+      - id: C000F021E0024
+        condition: executes
+        outcome: plans.extend(planned)
+      - id: C000F021E0025
+        condition: executes
+        outcome: returns plans, effective_cfg_by_iid
+      integration:
+        interunit:
+        - id: IC000F021E0012
+          target: _select_instance_ids_for_strategy
+          kind: call
+          signature: _select_instance_ids_for_strategy(strategy_name=strategy_name, info=info, iids=iids, spec_cls=spec_cls,
+            defaults_cfg_by_iid=defaults_cfg_by_iid)
+          executionPaths:
+          - - C000F021E0001
+            - C000F021E0002
+            - C000F021E0003
+            - C000F021E0004
+            - C000F021E0005
+            - C000F021E0006
+            - C000F021E0007
+            - C000F021E0008
+            - C000F021E0012
+        - id: IC000F021E0013
+          target: _enforce_singleton_policy
+          kind: call
+          signature: _enforce_singleton_policy(strategy_name=strategy_name, policy=policy, iids=iids)
+          executionPaths:
+          - - C000F021E0001
+            - C000F021E0002
+            - C000F021E0003
+            - C000F021E0004
+            - C000F021E0005
+            - C000F021E0006
+            - C000F021E0007
+            - C000F021E0008
+            - C000F021E0012
+            - C000F021E0013
+  - id: C000F022
+    kind: callable
+    name: _select_instance_ids_for_strategy
+    callable:
+      branches:
+      - id: C000F022E0001
+        condition: info.origin == 'entrypoint' true
+        outcome: continues to line 527
+      - id: C000F022E0002
+        condition: info.origin == 'entrypoint' false
+        outcome: continues to line 532
+      - id: C000F022E0003
+        condition: not iids true
+        outcome: continues to line 528
+      - id: C000F022E0004
+        condition: not iids false
+        outcome: continues to line 529
+      - id: C000F022E0005
+        condition: executes
+        outcome: returns []
+      - id: C000F022E0006
+        condition: executes
+        outcome: returns iids
+      - id: C000F022E0007
+        condition: not iids true
+        outcome: continues to line 533
+      - id: C000F022E0008
+        condition: not iids false
+        outcome: continues to line 539
+      - id: C000F022E0009
+        condition: executes
+        outcome: cfg = dict(spec_cls.defaults())
+      - id: C000F022E0010
+        condition: executes
+        outcome: cfg['strategy_name'] = strategy_name
+      - id: C000F022E0011
+        condition: executes
+        outcome: cfg['instance_id'] = strategy_name
+      - id: C000F022E0012
+        condition: executes
+        outcome: defaults_cfg_by_iid[strategy_name] = cfg
+      - id: C000F022E0013
+        condition: executes
+        outcome: returns [strategy_name]
+      - id: C000F022E0014
+        condition: executes
+        outcome: returns iids
+  - id: C000F023
+    kind: callable
+    name: _enforce_singleton_policy
+    callable:
+      branches:
+      - id: C000F023E0001
+        condition: policy is InstantiationPolicy.SINGLETON true
+        outcome: continues to line 546
+      - id: C000F023E0002
+        condition: policy is InstantiationPolicy.SINGLETON false
+        outcome: continues to line 553
+      - id: C000F023E0003
+        condition: len(iids) != 1 true
+        outcome: continues to line 547
+      - id: C000F023E0004
+        condition: len(iids) != 1 false
+        outcome: continues to line 550
+      - id: C000F023E0005
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F023E0006
+        condition: iids[0] != strategy_name true
+        outcome: continues to line 551
+      - id: C000F023E0007
+        condition: iids[0] != strategy_name false
+        outcome: continues to line 553
+      - id: C000F023E0008
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F023E0009
+        condition: executes
+        outcome: returns None (implicit)
+  - id: C000F024
+    kind: callable
+    name: _enable_plans
+    callable:
+      branches:
+      - id: C000F024E0001
+        condition: executes
+        outcome: seen = set()
+      - id: C000F024E0002
+        condition: executes
+        outcome: enabled_plans = []
+      - id: C000F024E0003
+        condition: executes
+        outcome: crit_by_iid = {}
+      - id: C000F024E0004
+        condition: plans empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F024E0005
+        condition: plans has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F024E0006
+        condition: plan.instance_id in seen true
+        outcome: continues to line 565
+      - id: C000F024E0007
+        condition: plan.instance_id in seen false
+        outcome: continues to line 568
+      - id: C000F024E0008
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F024E0009
+        condition: executes
+        outcome: seen.add(plan.instance_id)
+      - id: C000F024E0010
+        condition: executes
+        outcome: merged_cfg = effective_cfg_by_iid.get(plan.instance_id)
+      - id: C000F024E0011
+        condition: merged_cfg is None true
+        outcome: continues to line 572
+      - id: C000F024E0012
+        condition: merged_cfg is None false
+        outcome: continues to line 576
+      - id: C000F024E0013
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F024E0014
+        condition: executes
+        outcome: precedence = _effective_precedence(...)
+      - id: C000F024E0015
+        condition: executes
+        outcome: criticality = _effective_criticality(...)
+      - id: C000F024E0016
+        condition: criticality is StrategyCriticality.DISABLED true
+        outcome: continues to line 584
+      - id: C000F024E0017
+        condition: criticality is StrategyCriticality.DISABLED false
+        outcome: continues to line 586
+      - id: C000F024E0018
+        condition: executes
+        outcome: continue
+      - id: C000F024E0019
+        condition: executes
+        outcome: ctor_kwargs = _strip_planner_keys(plan.ctor_kwargs)
+      - id: C000F024E0020
+        condition: executes
+        outcome: deps = set(plan.depends_on)
+      - id: C000F024E0021
+        condition: executes
+        outcome: _scan_deps(ctor_kwargs, deps)
+      - id: C000F024E0022
+        condition: executes
+        outcome: crit_by_iid[plan.instance_id] = criticality
+      - id: C000F024E0023
+        condition: executes
+        outcome: enabled_plans.append(StrategyPlan(...))
+      - id: C000F024E0024
+        condition: executes
+        outcome: returns enabled_plans, crit_by_iid
+      integration:
+        interunit:
+        - id: IC000F024E0007
+          target: _effective_precedence
+          kind: call
+          signature: _effective_precedence(cfg=merged_cfg, strategy_cls=plan.strategy_cls, fallback=plan.precedence)
+          executionPaths:
+          - - C000F024E0001
+            - C000F024E0002
+            - C000F024E0003
+            - C000F024E0005
+            - C000F024E0006
+            - C000F024E0007
+        - id: IC000F024E0008
+          target: _effective_criticality
+          kind: call
+          signature: _effective_criticality(cfg=merged_cfg, strategy_cls=plan.strategy_cls)
+          executionPaths:
+          - - C000F024E0001
+            - C000F024E0002
+            - C000F024E0003
+            - C000F024E0005
+            - C000F024E0006
+            - C000F024E0007
+            - C000F024E0008
+        - id: IC000F024E0011
+          target: _strip_planner_keys
+          kind: call
+          signature: _strip_planner_keys(plan.ctor_kwargs)
+          executionPaths:
+          - - C000F024E0001
+            - C000F024E0002
+            - C000F024E0003
+            - C000F024E0005
+            - C000F024E0006
+            - C000F024E0007
+            - C000F024E0008
+            - C000F024E0010
+            - C000F024E0011
+        - id: IC000F024E0013
+          target: _scan_deps
+          kind: call
+          signature: _scan_deps(ctor_kwargs, deps)
+          executionPaths:
+          - - C000F024E0001
+            - C000F024E0002
+            - C000F024E0003
+            - C000F024E0005
+            - C000F024E0006
+            - C000F024E0007
+            - C000F024E0008
+            - C000F024E0010
+            - C000F024E0011
+            - C000F024E0012
+            - C000F024E0013
+  - id: C000F025
+    kind: callable
+    name: _strip_planner_keys
+    callable:
+      branches:
+      - id: C000F025E0001
+        condition: executes
+        outcome: out = dict(ctor_kwargs)
+      - id: C000F025E0002
+        condition: executes
+        outcome: out.pop('strategy_name', None)
+      - id: C000F025E0003
+        condition: executes
+        outcome: out.pop('instance_id', None)
+      - id: C000F025E0004
+        condition: executes
+        outcome: out.pop('precedence', None)
+      - id: C000F025E0005
+        condition: executes
+        outcome: out.pop('criticality', None)
+      - id: C000F025E0006
+        condition: executes
+        outcome: returns out
+  - id: C000F026
+    kind: callable
+    name: _validate_enabled_dependencies_exist
+    callable:
+      branches:
+      - id: C000F026E0001
+        condition: executes
+        outcome: enabled_ids = {p.instance_id for p in enabled_plans}
+      - id: C000F026E0002
+        condition: enabled_plans empty
+        outcome: outer loop body never executes (0 iterations)
+      - id: C000F026E0003
+        condition: enabled_plans has items
+        outcome: outer loop body executes (≥1 iterations)
+      - id: C000F026E0004
+        condition: p.depends_on empty
+        outcome: inner loop body never executes (0 iterations)
+      - id: C000F026E0005
+        condition: p.depends_on has items
+        outcome: inner loop body executes (≥1 iterations)
+      - id: C000F026E0006
+        condition: dep not in enabled_ids true
+        outcome: continues to line 620
+      - id: C000F026E0007
+        condition: dep not in enabled_ids false
+        outcome: continues to next iteration
+      - id: C000F026E0008
+        condition: executes
+        outcome: raises StrategyConfigError
+  - id: C000F027
+    kind: callable
+    name: _enforce_imperative_closure
+    callable:
+      branches:
+      - id: C000F027E0001
+        condition: executes
+        outcome: imperative = {iid for iid, c in crit_by_iid.items() if c is StrategyCriticality.IMPERATIVE}
+      - id: C000F027E0002
+        condition: not imperative true
+        outcome: continues to line 632
+      - id: C000F027E0003
+        condition: not imperative false
+        outcome: continues to line 634
+      - id: C000F027E0004
+        condition: executes
+        outcome: return
+      - id: C000F027E0005
+        condition: executes
+        outcome: 'deps_by_iid = {p.instance_id: set(p.depends_on) for p in enabled_plans}'
+      - id: C000F027E0006
+        condition: imperative empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F027E0007
+        condition: imperative has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F027E0008
+        condition: executes
+        outcome: stack = list(deps_by_iid[root])
+      - id: C000F027E0009
+        condition: executes
+        outcome: seen_dep = set()
+      - id: C000F027E0010
+        condition: stack empty
+        outcome: while loop body never executes (0 iterations)
+      - id: C000F027E0011
+        condition: stack has items
+        outcome: while loop body executes (≥1 iterations)
+      - id: C000F027E0012
+        condition: executes
+        outcome: dep = stack.pop()
+      - id: C000F027E0013
+        condition: dep in seen_dep true
+        outcome: continues to line 643
+      - id: C000F027E0014
+        condition: dep in seen_dep false
+        outcome: continues to line 644
+      - id: C000F027E0015
+        condition: executes
+        outcome: continue
+      - id: C000F027E0016
+        condition: executes
+        outcome: seen_dep.add(dep)
+      - id: C000F027E0017
+        condition: crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE true
+        outcome: continues to line 647
+      - id: C000F027E0018
+        condition: crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE false
+        outcome: continues to line 652
+      - id: C000F027E0019
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F027E0020
+        condition: executes
+        outcome: stack.extend(deps_by_iid.get(dep, ()))
+  - id: C000F028
+    kind: callable
+    name: topo_sort_plans
+    callable:
+      branches:
+      - id: C000F028E0001
+        condition: executes
+        outcome: 'by_id = {p.instance_id: p for p in plans}'
+      - id: C000F028E0002
+        condition: executes
+        outcome: 'out_edges = {p.instance_id: set() for p in plans}'
+      - id: C000F028E0003
+        condition: executes
+        outcome: 'in_degree = {p.instance_id: 0 for p in plans}'
+      - id: C000F028E0004
+        condition: plans empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F028E0005
+        condition: plans has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F028E0006
+        condition: p.depends_on empty
+        outcome: inner loop body never executes (0 iterations)
+      - id: C000F028E0007
+        condition: p.depends_on has items
+        outcome: inner loop body executes (≥1 iterations)
+      - id: C000F028E0008
+        condition: dep not in by_id true
+        outcome: continues to line 674
+      - id: C000F028E0009
+        condition: dep not in by_id false
+        outcome: continues to line 677
+      - id: C000F028E0010
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F028E0011
+        condition: executes
+        outcome: out_edges[dep].add(p.instance_id)
+      - id: C000F028E0012
+        condition: executes
+        outcome: in_degree[p.instance_id] += 1
+      - id: C000F028E0013
+        condition: executes
+        outcome: ready = [iid for iid, deg in in_degree.items() if deg == 0]
+      - id: C000F028E0014
+        condition: executes
+        outcome: 'ready.sort(key=lambda iid: (by_id[iid].precedence, iid))'
+      - id: C000F028E0015
+        condition: executes
+        outcome: q = deque(ready)
+      - id: C000F028E0016
+        condition: executes
+        outcome: ordered = []
+      - id: C000F028E0017
+        condition: q empty
+        outcome: while loop body never executes (0 iterations)
+      - id: C000F028E0018
+        condition: q has items
+        outcome: while loop body executes (≥1 iterations)
+      - id: C000F028E0019
+        condition: executes
+        outcome: iid = q.popleft()
+      - id: C000F028E0020
+        condition: executes
+        outcome: ordered.append(by_id[iid])
+      - id: C000F028E0021
+        condition: sorted(out_edges[iid], ...) empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F028E0022
+        condition: sorted(out_edges[iid], ...) has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F028E0023
+        condition: executes
+        outcome: in_degree[nxt] -= 1
+      - id: C000F028E0024
+        condition: in_degree[nxt] == 0 true
+        outcome: continues to line 693
+      - id: C000F028E0025
+        condition: in_degree[nxt] == 0 false
+        outcome: continues to next iteration
+      - id: C000F028E0026
+        condition: executes
+        outcome: q.append(nxt)
+      - id: C000F028E0027
+        condition: len(ordered) != len(plans) true
+        outcome: continues to line 696
+      - id: C000F028E0028
+        condition: len(ordered) != len(plans) false
+        outcome: continues to line 699
+      - id: C000F028E0029
+        condition: executes
+        outcome: remaining = [iid for iid, deg in in_degree.items() if deg > 0]
+      - id: C000F028E0030
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F028E0031
+        condition: executes
+        outcome: returns ordered
+  - id: C000F029
+    kind: callable
+    name: _validate_ctor_kwargs
+    callable:
+      branches:
+      - id: C000F029E0001
+        condition: executes
+        outcome: sig = inspect.signature(strategy_cls)
+      - id: C000F029E0002
+        condition: executes
+        outcome: params = sig.parameters.values()
+      - id: C000F029E0003
+        condition: executes
+        outcome: accepts_kwargs = any(p.kind is p.VAR_KEYWORD for p in params)
+      - id: C000F029E0004
+        condition: accepts_kwargs true
+        outcome: continues to line 723
+      - id: C000F029E0005
+        condition: accepts_kwargs false
+        outcome: continues to line 724
+      - id: C000F029E0006
+        condition: executes
+        outcome: return
+      - id: C000F029E0007
+        condition: executes
+        outcome: allowed = {p.name for p in params}
+      - id: C000F029E0008
+        condition: executes
+        outcome: extra = [k for k in ctor_kwargs.keys() if k not in allowed]
+      - id: C000F029E0009
+        condition: extra truthy
+        outcome: continues to line 727
+      - id: C000F029E0010
+        condition: extra falsy
+        outcome: continues to end
+      - id: C000F029E0011
+        condition: executes
+        outcome: raises StrategyConfigError
+  - id: C000F030
+    kind: callable
+    name: _resolve_ctor_kwargs
+    callable:
+      branches:
+      - id: C000F030E0001
+        condition: isinstance(val, StrategyRef) true
+        outcome: continues to line 734
+      - id: C000F030E0002
+        condition: isinstance(val, StrategyRef) false
+        outcome: continues to line 741
+      - id: C000F030E0003
+        condition: executes
+        outcome: iid = val.normalized_instance_id()
+      - id: C000F030E0004
+        condition: iid not in registry true
+        outcome: continues to line 736
+      - id: C000F030E0005
+        condition: iid not in registry false
+        outcome: continues to line 740
+      - id: C000F030E0006
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F030E0007
+        condition: executes
+        outcome: returns registry[iid]
+      - id: C000F030E0008
+        condition: isinstance(val, Mapping) true
+        outcome: continues to line 742
+      - id: C000F030E0009
+        condition: isinstance(val, Mapping) false
+        outcome: continues to line 743
+      - id: C000F030E0010
+        condition: executes
+        outcome: 'returns {k: _resolve(v) for k, v in val.items()}'
+      - id: C000F030E0011
+        condition: isinstance(val, list) true
+        outcome: continues to line 744
+      - id: C000F030E0012
+        condition: isinstance(val, list) false
+        outcome: continues to line 745
+      - id: C000F030E0013
+        condition: executes
+        outcome: returns [_resolve(v) for v in val]
+      - id: C000F030E0014
+        condition: isinstance(val, tuple) true
+        outcome: continues to line 746
+      - id: C000F030E0015
+        condition: isinstance(val, tuple) false
+        outcome: continues to line 747
+      - id: C000F030E0016
+        condition: executes
+        outcome: returns tuple(_resolve(v) for v in val)
+      - id: C000F030E0017
+        condition: executes
+        outcome: returns val
+      - id: C000F030E0018
+        condition: executes
+        outcome: 'returns {k: _resolve(v) for k, v in ctor_kwargs.items()}'
+      integration:
+        interunit:
+        - id: IC000F030E0002
+          target: StrategyRef.normalized_instance_id
+          kind: call
+          signature: val.normalized_instance_id()
+          executionPaths:
+          - - C000F030E0001
+            - C000F030E0002
+  - id: C000F031
+    kind: callable
+    name: _apply_plan_metadata
+    callable:
+      branches:
+      - id: C000F031E0001
+        condition: not hasattr(inst, name) true
+        outcome: continues to line 761
+      - id: C000F031E0002
+        condition: not hasattr(inst, name) false
+        outcome: continues to line 763
+      - id: C000F031E0003
+        condition: executes
+        outcome: return
+      - id: C000F031E0004
+        condition: executes
+        outcome: cur = getattr(inst, name, None)
+      - id: C000F031E0005
+        condition: cur == value true
+        outcome: continues to line 765
+      - id: C000F031E0006
+        condition: cur == value false
+        outcome: continues to line 766
+      - id: C000F031E0007
+        condition: executes
+        outcome: return
+      - id: C000F031E0008
+        condition: object.__setattr__(inst, name, value) succeeds
+        outcome: continues to end
+      - id: C000F031E0009
+        condition: object.__setattr__(inst, name, value) raises Exception
+        outcome: enters except handler
+      - id: C000F031E0010
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F031E0011
+        condition: executes
+        outcome: _set_attr('instance_id', plan.instance_id)
+      - id: C000F031E0012
+        condition: executes
+        outcome: _set_attr('precedence', plan.precedence)
+      - id: C000F031E0013
+        condition: executes
+        outcome: _set_attr('criticality', plan.criticality)
+  - id: C000F032
+    kind: callable
+    name: instantiate_plans
+    callable:
+      branches:
+      - id: C000F032E0001
+        condition: executes
+        outcome: registry = {}
+      - id: C000F032E0002
+        condition: executes
+        outcome: instances = []
+      - id: C000F032E0003
+        condition: plans empty
+        outcome: loop body never executes (0 iterations)
+      - id: C000F032E0004
+        condition: plans has items
+        outcome: loop body executes (≥1 iterations)
+      - id: C000F032E0005
+        condition: executes
+        outcome: resolved_kwargs = _resolve_ctor_kwargs(plan.ctor_kwargs, registry)
+      - id: C000F032E0006
+        condition: executes
+        outcome: ctx = f'strategy={plan.strategy_name} instance_id={plan.instance_id}'
+      - id: C000F032E0007
+        condition: executes
+        outcome: call_kwargs = dict(resolved_kwargs)
+      - id: C000F032E0008
+        condition: executes
+        outcome: call_kwargs.pop('strategy_name', None)
+      - id: C000F032E0009
+        condition: executes
+        outcome: call_kwargs.pop('instance_id', None)
+      - id: C000F032E0010
+        condition: executes
+        outcome: call_kwargs.pop('precedence', None)
+      - id: C000F032E0011
+        condition: executes
+        outcome: call_kwargs.pop('criticality', None)
+      - id: C000F032E0012
+        condition: executes
+        outcome: _validate_ctor_kwargs(strategy_cls=plan.strategy_cls, ctor_kwargs=call_kwargs, ctx=ctx)
+      - id: C000F032E0013
+        condition: executes
+        outcome: inst = plan.strategy_cls(**call_kwargs)
+      - id: C000F032E0014
+        condition: executes
+        outcome: _apply_plan_metadata(inst=inst, plan=plan, ctx=ctx)
+      - id: C000F032E0015
+        condition: getattr(inst, 'instance_id', None) != plan.instance_id true
+        outcome: continues to line 802
+      - id: C000F032E0016
+        condition: getattr(inst, 'instance_id', None) != plan.instance_id false
+        outcome: continues to line 807
+      - id: C000F032E0017
+        condition: executes
+        outcome: raises StrategyConfigError
+      - id: C000F032E0018
+        condition: executes
+        outcome: registry[plan.instance_id] = inst
+      - id: C000F032E0019
+        condition: executes
+        outcome: instances.append(inst)
+      - id: C000F032E0020
+        condition: executes
+        outcome: returns instances
+      integration:
+        interunit:
+        - id: IC000F032E0003
+          target: _resolve_ctor_kwargs
+          kind: call
+          signature: _resolve_ctor_kwargs(plan.ctor_kwargs, registry)
+          executionPaths:
+          - - C000F032E0001
+            - C000F032E0002
+            - C000F032E0003
+        - id: IC000F032E0012
+          target: _validate_ctor_kwargs
+          kind: call
+          signature: _validate_ctor_kwargs(strategy_cls=plan.strategy_cls, ctor_kwargs=call_kwargs, ctx=ctx)
+          executionPaths:
+          - - C000F032E0001
+            - C000F032E0002
+            - C000F032E0003
+            - C000F032E0004
+            - C000F032E0005
+            - C000F032E0006
+            - C000F032E0007
+            - C000F032E0008
+            - C000F032E0009
+            - C000F032E0012
+        - id: IC000F032E0014
+          target: _apply_plan_metadata
+          kind: call
+          signature: _apply_plan_metadata(inst=inst, plan=plan, ctx=ctx)
+          executionPaths:
+          - - C000F032E0001
+            - C000F032E0002
+            - C000F032E0003
+            - C000F032E0004
+            - C000F032E0005
+            - C000F032E0006
+            - C000F032E0007
+            - C000F032E0008
+            - C000F032E0009
+            - C000F032E0012
+            - C000F032E0013
+            - C000F032E0014
+  - id: C000F033
+    kind: callable
+    name: load_strategies
+    callable:
+      branches:
+      - id: C000F033E0001
+        condition: executes
+        outcome: strategy_classes = discover_strategy_classes(...)
+      - id: C000F033E0002
+        condition: builtin_config_package or config_entrypoint_group true
+        outcome: continues to line 839
+      - id: C000F033E0003
+        condition: builtin_config_package or config_entrypoint_group false
+        outcome: continues to line 844
+      - id: C000F033E0004
+        condition: executes
+        outcome: config_specs = discover_config_specs(...)
+      - id: C000F033E0005
+        condition: executes
+        outcome: config_specs = {}
+      - id: C000F033E0006
+        condition: executes
+        outcome: plans = build_strategy_plans(...)
+      - id: C000F033E0007
+        condition: executes
+        outcome: ordered = topo_sort_plans(plans)
+      - id: C000F033E0008
+        condition: executes
+        outcome: returns instantiate_plans(ordered)
+      integration:
+        interunit:
+        - id: IC000F033E0001
+          target: discover_strategy_classes
+          kind: call
+          signature: discover_strategy_classes(strategy_package=strategy_package, strategy_entrypoint_group=strategy_entrypoint_group)
+          executionPaths:
+          - - C000F033E0001
+        - id: IC000F033E0002
+          target: discover_config_specs
+          kind: call
+          signature: discover_config_specs(builtin_config_package=builtin_config_package, config_entrypoint_group=config_entrypoint_group)
+          executionPaths:
+          - - C000F033E0001
+            - C000F033E0002
+        - id: IC000F033E0005
+          target: build_strategy_plans
+          kind: call
+          signature: build_strategy_plans(strategy_classes=strategy_classes, config_specs=config_specs, raw_configs_by_instance_id=raw_configs_by_instance_id)
+          executionPaths:
+          - - C000F033E0001
+            - C000F033E0002
+            - C000F033E0004
+            - C000F033E0005
+          - - C000F033E0001
+            - C000F033E0003
+            - C000F033E0005
+        - id: IC000F033E0006
+          target: topo_sort_plans
+          kind: call
+          signature: topo_sort_plans(plans)
+          executionPaths:
+          - - C000F033E0001
+            - C000F033E0002
+            - C000F033E0004
+            - C000F033E0005
+            - C000F033E0006
+          - - C000F033E0001
+            - C000F033E0003
+            - C000F033E0005
+            - C000F033E0006
+        - id: IC000F033E0007
+          target: instantiate_plans
+          kind: call
+          signature: instantiate_plans(ordered)
+          executionPaths:
+          - - C000F033E0001
+            - C000F033E0002
+            - C000F033E0004
+            - C000F033E0005
+            - C000F033E0006
+            - C000F033E0007
+          - - C000F033E0001
+            - C000F033E0003
+            - C000F033E0005
+            - C000F033E0006
+            - C000F033E0007
+
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: strategy
+  language: python
+findings:
+- severity: info
+  category: deviation
+  message: Initial Stage 1 analysis incorrectly enumerated line 270 as a single EI. Corrected to enumerate both function call
+    operations separately per Python companion guide section 2.1.4
+  appliesTo: C000F009
+  evidence:
+    address: strategy::discover_config_specs@L270
+    lineStart: 270
+    lineEnd: 270
+    snippet: classes = _builtin_config_spec_classes(builtin_config_package) + _entrypoint_config_spec_classes(config_entrypoint_group)
+  notes: Line 270 now correctly has C000F009E0001 and C000F009E0002 for the two function call operations

@@ -266,7 +266,9 @@ _CANDIDATE_CASES: list[dict[str, object]] = [
             tag="py3-none-any",
             requires_python=">=3.10",
             satisfied_tags=frozenset({"py3-none-any", "cp311-cp311-manylinux_x86_64"}),
-            dependency_ids=frozenset({"dep-a-0.1-py3-none-any", "dep-b-2.0-py3-none-any"}),
+            dependency_ids=frozenset(
+                {"dep-a-0.1-py3-none-any", "dep-b-2.0-py3-none-any"}
+            ),
             origin_uri="https://example.invalid/my_project-1.2.3-py3-none-any.whl",
             marker='python_version >= "3.10"',
             extras=frozenset({"extra1", "extra2"}),
@@ -380,7 +382,9 @@ _REPORTER_CALL_CASES: list[_ReporterCallCase] = [
     ),
     _ReporterCallCase(
         id="rejecting_candidate",
-        call=lambda r: r.rejecting_candidate(object(), object()),  # criterion/candidate stringified
+        call=lambda r: r.rejecting_candidate(
+            object(), object()
+        ),  # criterion/candidate stringified
         expected_level=logging.DEBUG,
         expected_msg_substr="Rejecting candidate:",
         covers=["C004M007B0001"],
@@ -430,7 +434,9 @@ def test_resolver_requirement_properties_and_mapping(case: dict[str, object]) ->
     assert rr2 == rr
 
 
-@pytest.mark.parametrize("case", _CANDIDATE_CASES, ids=[c["id"] for c in _CANDIDATE_CASES])
+@pytest.mark.parametrize(
+    "case", _CANDIDATE_CASES, ids=[c["id"] for c in _CANDIDATE_CASES]
+)
 def test_resolver_candidate_properties_and_mapping(case: dict[str, object]) -> None:
     # Covers: C003M001B0001, C003M002B0001, C003M003B0001, C003M004B0001, C003M005B0001,
     #         C003M006B0001, C003M007B0001, C003M008B0001, C003M009B0001, C003M010B0001,
@@ -459,8 +465,12 @@ def test_resolver_candidate_properties_and_mapping(case: dict[str, object]) -> N
     assert cand2 == cand
 
 
-@pytest.mark.parametrize("case", _REPORTER_CALL_CASES, ids=[c.id for c in _REPORTER_CALL_CASES])
-def test_project_resolution_reporter_logging(monkeypatch, case: _ReporterCallCase) -> None:
+@pytest.mark.parametrize(
+    "case", _REPORTER_CALL_CASES, ids=[c.id for c in _REPORTER_CALL_CASES]
+)
+def test_project_resolution_reporter_logging(
+    monkeypatch, case: _ReporterCallCase
+) -> None:
     # Covers: one of C004M001B0001..C004M008B0001 (per parametrized case)
     calls = _capture_logging_calls(monkeypatch)
 

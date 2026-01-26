@@ -40,7 +40,11 @@ BASE_FROM_MAPPING_ERROR_CASES = [
 BASE_FROM_MAPPING_DISPATCH_CASES = [
     {
         "name": "dispatch index metadata",
-        "mapping": {"kind": keys.ArtifactKind.INDEX_METADATA.value, "index_base": "X", "project": "P"},
+        "mapping": {
+            "kind": keys.ArtifactKind.INDEX_METADATA.value,
+            "index_base": "X",
+            "project": "P",
+        },
         "expected_type": keys_mod.IndexMetadataKey,
         "covers": ["C001M001B0004"],
     },
@@ -58,26 +62,57 @@ BASE_FROM_MAPPING_DISPATCH_CASES = [
     },
     {
         "name": "dispatch wheel",
-        "mapping": {"kind": keys.ArtifactKind.WHEEL.value, "name": "n", "version": "1", "tag": "py3-none-any"},
+        "mapping": {
+            "kind": keys.ArtifactKind.WHEEL.value,
+            "name": "n",
+            "version": "1",
+            "tag": "py3-none-any",
+        },
         "expected_type": keys_mod.WheelKey,
         "covers": ["C001M001B0006"],
     },
 ]
 
 INDEX_FROM_MAPPING_ERROR_CASES = [
-    {"name": "missing index_base", "mapping": {"project": "P"}, "exc_sub": "index_base", "covers": ["C002M002B0002"]},
-    {"name": "missing project", "mapping": {"index_base": "X"}, "exc_sub": "project", "covers": ["C002M002B0003"]},
+    {
+        "name": "missing index_base",
+        "mapping": {"project": "P"},
+        "exc_sub": "index_base",
+        "covers": ["C002M002B0002"],
+    },
+    {
+        "name": "missing project",
+        "mapping": {"index_base": "X"},
+        "exc_sub": "project",
+        "covers": ["C002M002B0003"],
+    },
 ]
 
 CORE_FROM_MAPPING_ERROR_CASES = [
-    {"name": "missing name", "mapping": {"version": "1", "tag": "t", "file_url": "u"}, "exc_sub": "name",
-     "covers": ["C003M002B0002"]},
-    {"name": "missing version", "mapping": {"name": "n", "tag": "t", "file_url": "u"}, "exc_sub": "version",
-     "covers": ["C003M002B0003"]},
-    {"name": "missing tag", "mapping": {"name": "n", "version": "1", "file_url": "u"}, "exc_sub": "tag",
-     "covers": ["C003M002B0004"]},
-    {"name": "missing file_url", "mapping": {"name": "n", "version": "1", "tag": "t"}, "exc_sub": "file_url",
-     "covers": ["C003M002B0005"]},
+    {
+        "name": "missing name",
+        "mapping": {"version": "1", "tag": "t", "file_url": "u"},
+        "exc_sub": "name",
+        "covers": ["C003M002B0002"],
+    },
+    {
+        "name": "missing version",
+        "mapping": {"name": "n", "tag": "t", "file_url": "u"},
+        "exc_sub": "version",
+        "covers": ["C003M002B0003"],
+    },
+    {
+        "name": "missing tag",
+        "mapping": {"name": "n", "version": "1", "file_url": "u"},
+        "exc_sub": "tag",
+        "covers": ["C003M002B0004"],
+    },
+    {
+        "name": "missing file_url",
+        "mapping": {"name": "n", "version": "1", "tag": "t"},
+        "exc_sub": "file_url",
+        "covers": ["C003M002B0005"],
+    },
 ]
 
 WHEEL_VALIDATE_HASH_CASES = [
@@ -211,10 +246,24 @@ EMPTY_COLLECTION_CASES = [
 ]
 
 WHEEL_FROM_MAPPING_REQUIRED_KEY_ERROR_CASES = [
-    {"name": "missing name", "mapping": {"version": "1", "tag": "t"}, "exc_sub": "name", "covers": ["C004M017B0002"]},
-    {"name": "missing version", "mapping": {"name": "n", "tag": "t"}, "exc_sub": "version",
-     "covers": ["C004M017B0003"]},
-    {"name": "missing tag", "mapping": {"name": "n", "version": "1"}, "exc_sub": "tag", "covers": ["C004M017B0004"]},
+    {
+        "name": "missing name",
+        "mapping": {"version": "1", "tag": "t"},
+        "exc_sub": "name",
+        "covers": ["C004M017B0002"],
+    },
+    {
+        "name": "missing version",
+        "mapping": {"name": "n", "tag": "t"},
+        "exc_sub": "version",
+        "covers": ["C004M017B0003"],
+    },
+    {
+        "name": "missing tag",
+        "mapping": {"name": "n", "version": "1"},
+        "exc_sub": "tag",
+        "covers": ["C004M017B0004"],
+    },
 ]
 
 
@@ -222,8 +271,13 @@ WHEEL_FROM_MAPPING_REQUIRED_KEY_ERROR_CASES = [
 # Helpers
 # ==============================================================================
 
-def _patch_name_and_version(monkeypatch: pytest.MonkeyPatch, *, normalized_name: str = "my-project",
-                            normalized_version: str = "9.9") -> None:
+
+def _patch_name_and_version(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    normalized_name: str = "my-project",
+    normalized_version: str = "9.9",
+) -> None:
     # Mock external influences at call sites used by keys_mod.
     monkeypatch.setattr(keys_mod, "normalize_project_name", lambda s: normalized_name)
 
@@ -257,7 +311,9 @@ def test_baseartifactkey_from_mapping_errors(case):
     assert case["exc_sub"] in str(ei.value)
 
 
-@pytest.mark.parametrize("case", BASE_FROM_MAPPING_DISPATCH_CASES, ids=lambda c: c["name"])
+@pytest.mark.parametrize(
+    "case", BASE_FROM_MAPPING_DISPATCH_CASES, ids=lambda c: c["name"]
+)
 def test_baseartifactkey_from_mapping_dispatch(case, monkeypatch):
     # Covers: C001M001B0004, C001M001B0005, C001M001B0006 (and WheelKey.from_mapping path)
     # Keep WheelKey post-init deterministic.
@@ -277,7 +333,9 @@ def test_indexmetadatakey_to_mapping():
     }
 
 
-@pytest.mark.parametrize("case", INDEX_FROM_MAPPING_ERROR_CASES, ids=lambda c: c["name"])
+@pytest.mark.parametrize(
+    "case", INDEX_FROM_MAPPING_ERROR_CASES, ids=lambda c: c["name"]
+)
 def test_indexmetadatakey_from_mapping_keyerrors(case):
     # Covers: C002M002B0002, C002M002B0003
     with pytest.raises(KeyError) as ei:
@@ -315,18 +373,24 @@ def test_coremetadatakey_from_mapping_keyerrors(case):
 
 def test_coremetadatakey_from_mapping_success():
     # Covers: C003M002B0001
-    k = keys_mod.CoreMetadataKey.from_mapping({"name": "n", "version": "1", "tag": "t", "file_url": "u"})
+    k = keys_mod.CoreMetadataKey.from_mapping(
+        {"name": "n", "version": "1", "tag": "t", "file_url": "u"}
+    )
     assert (k.name, k.version, k.tag, k.file_url) == ("n", "1", "t", "u")
     assert k.kind == keys.ArtifactKind.CORE_METADATA
 
 
 def test_wheelkey_post_init_normalizes_name_and_version(monkeypatch):
     # Covers: C004M002B0001, C004M002B0002, C004M002B0004, and C004M001B0001 (early return since no hash fields)
-    _patch_name_and_version(monkeypatch, normalized_name="my-project", normalized_version="9.9")
+    _patch_name_and_version(
+        monkeypatch, normalized_name="my-project", normalized_version="9.9"
+    )
     wk = keys_mod.WheelKey(name="Whatever", version="not-used", tag="py3-none-any")
     assert wk.name == "my-project"
     assert wk.version == "9.9"
-    assert wk._hash_spec is None  # no hash_algorithm/content_hash provided -> early return path
+    assert (
+        wk._hash_spec is None
+    )  # no hash_algorithm/content_hash provided -> early return path
 
 
 def test_wheelkey_post_init_invalid_version_branch(monkeypatch):
@@ -338,7 +402,9 @@ def test_wheelkey_post_init_invalid_version_branch(monkeypatch):
 
     monkeypatch.setattr(keys_mod, "Version", _raise_invalid)
 
-    wk = keys_mod.WheelKey(name="Whatever", version="definitely-not-a-version", tag="py3-none-any")
+    wk = keys_mod.WheelKey(
+        name="Whatever", version="definitely-not-a-version", tag="py3-none-any"
+    )
     assert wk.version == "definitely-not-a-version"
 
 
@@ -393,7 +459,9 @@ def test__is_empty_collection_case_matrix(case: dict[str, Any]) -> None:
     assert got is case["expected"]
 
 
-def test_normalize_project_name_delegates_to_canonicalize_name(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_normalize_project_name_delegates_to_canonicalize_name(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Covers: C000F003B0001
     calls: list[str] = []
 
@@ -455,7 +523,9 @@ def test_wheelkey_set_content_hash_invalid_hash_raises(monkeypatch):
 def test_wheelkey_convenience_and_comparisons(monkeypatch):
     # Covers: C004M006B0001, C004M007B0001, C004M008B0001, C004M009B0001,
     #         C004M010B0001, C004M010B0002, C004M011B0001, C004M012B0001
-    _patch_name_and_version(monkeypatch, normalized_name="my-project", normalized_version="1")
+    _patch_name_and_version(
+        monkeypatch, normalized_name="my-project", normalized_version="1"
+    )
     a = keys_mod.WheelKey(name="X", version="Y", tag="a")
     b = keys_mod.WheelKey(name="X", version="Y", tag="b")
 
@@ -496,7 +566,9 @@ def test_wheelkey_requirement_str_branches(monkeypatch):
 
 def test_wheelkey_requirement_str_basic(monkeypatch):
     # Covers: C004M014B0001
-    _patch_name_and_version(monkeypatch, normalized_name="my-project", normalized_version="2")
+    _patch_name_and_version(
+        monkeypatch, normalized_name="my-project", normalized_version="2"
+    )
     wk = keys_mod.WheelKey(name="X", version="Y", tag="py3-none-any")
     assert wk.requirement_str_basic == "my-project==2"
 
@@ -536,13 +608,17 @@ def test_wheelkey_to_mapping_dependency_and_extras_branches(monkeypatch):
     assert sorted(m1["satisfied_tags"]) == ["t1", "t2"]
 
     # Covers: C004M016B0001, C004M016B0003
-    wk2 = _mk_wheel(monkeypatch, dependency_ids=frozenset({"d1"}), extras=frozenset({"x"}))
+    wk2 = _mk_wheel(
+        monkeypatch, dependency_ids=frozenset({"d1"}), extras=frozenset({"x"})
+    )
     m2 = wk2.to_mapping()
     assert m2["dependencies"] == ["d1"]
     assert m2["extras"] == ["x"]
 
 
-@pytest.mark.parametrize("case", WHEEL_FROM_MAPPING_REQUIRED_KEY_ERROR_CASES, ids=lambda c: c["name"])
+@pytest.mark.parametrize(
+    "case", WHEEL_FROM_MAPPING_REQUIRED_KEY_ERROR_CASES, ids=lambda c: c["name"]
+)
 def test_wheelkey_from_mapping_required_keyerrors(case, monkeypatch):
     # Covers: C004M017B0002..B0004
     _patch_name_and_version(monkeypatch)
@@ -574,7 +650,9 @@ def test_wheelkey_from_mapping_none_dependencies_and_extras(monkeypatch):
     # Covers: C004M017B0006, C004M017B0008, C004M017B0009
     _patch_name_and_version(monkeypatch)
 
-    wk = keys_mod.WheelKey.from_mapping({"name": "n", "version": "v", "tag": "py3-none-any"})
+    wk = keys_mod.WheelKey.from_mapping(
+        {"name": "n", "version": "v", "tag": "py3-none-any"}
+    )
     assert wk.dependency_ids is None
     assert wk.extras is None
     assert wk.satisfied_tags == frozenset()

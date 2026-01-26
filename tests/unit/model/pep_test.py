@@ -35,7 +35,12 @@ COERCE_FIELD_CASES = [
 PEP658_FROM_MAPPING_CASES = [
     # Covers: C001M002B0001, C001M002B0003, C001M002B0005
     (
-        {"name": "Pkg", "version": 1, "requires_python": ">=3.8", "requires_dist": ["a", "b"]},
+        {
+            "name": "Pkg",
+            "version": 1,
+            "requires_python": ">=3.8",
+            "requires_dist": ["a", "b"],
+        },
         ("Pkg", "1", ">=3.8", frozenset({"a", "b"})),
         ["C001M002B0001", "C001M002B0003", "C001M002B0005"],
     ),
@@ -105,7 +110,11 @@ PEP691_METADATA_TO_MAPPING_CASES = [
             )
         ],
         7,
-        {"name": "demo", "files": [{"filename": "x.whl"}], "last_serial": 7},  # partial expected (asserted below)
+        {
+            "name": "demo",
+            "files": [{"filename": "x.whl"}],
+            "last_serial": 7,
+        },  # partial expected (asserted below)
         ["C003M001B0002", "C003M001B0003"],
     ),
 ]
@@ -136,7 +145,13 @@ PEP691_METADATA_FROM_MAPPING_CASES = [
             "last_serial": "42",
         },
         ("n", 1, 42),
-        ["C003M002B0002", "C003M002B0003", "C003M002B0004", "C003M002B0005", "C003M002B0007"],
+        [
+            "C003M002B0002",
+            "C003M002B0003",
+            "C003M002B0004",
+            "C003M002B0005",
+            "C003M002B0007",
+        ],
     ),
 ]
 
@@ -144,6 +159,7 @@ PEP691_METADATA_FROM_MAPPING_CASES = [
 # ==============================================================================
 # Helpers (local to test module; no external side effects)
 # ==============================================================================
+
 
 @dataclass(frozen=True)
 class _FakeMessage:
@@ -172,6 +188,7 @@ class _FakeParser:
 # Tests
 # ==============================================================================
 
+
 @pytest.mark.parametrize("value, expected, covers", COERCE_FIELD_CASES)
 def test__coerce_field_cases(value: Any, expected: Any, covers: list[str]) -> None:
     # Covers (per-row): see COERCE_FIELD_CASES
@@ -181,9 +198,9 @@ def test__coerce_field_cases(value: Any, expected: Any, covers: list[str]) -> No
 
 @pytest.mark.parametrize("mapping, expected, covers", PEP658_FROM_MAPPING_CASES)
 def test_pep658metadata_from_mapping_cases(
-        mapping: Mapping[str, Any],
-        expected: tuple[str, str, str | None, frozenset[str]],
-        covers: list[str],
+    mapping: Mapping[str, Any],
+    expected: tuple[str, str, str | None, frozenset[str]],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see PEP658_FROM_MAPPING_CASES
     m = pep.Pep658Metadata.from_mapping(mapping)
@@ -212,13 +229,15 @@ def test_pep658metadata_to_mapping_emits_requires_dist_as_list() -> None:
     assert set(out["requires_dist"]) == {"a", "b"}
 
 
-@pytest.mark.parametrize("headers, rd_headers, expected, covers", PEP658_FROM_CORE_METADATA_TEXT_CASES)
+@pytest.mark.parametrize(
+    "headers, rd_headers, expected, covers", PEP658_FROM_CORE_METADATA_TEXT_CASES
+)
 def test_pep658metadata_from_core_metadata_text_cases(
-        monkeypatch: pytest.MonkeyPatch,
-        headers: Mapping[str, Any],
-        rd_headers: Sequence[str] | None,
-        expected: tuple[str, str, str | None, frozenset[str]],
-        covers: list[str],
+    monkeypatch: pytest.MonkeyPatch,
+    headers: Mapping[str, Any],
+    rd_headers: Sequence[str] | None,
+    expected: tuple[str, str, str | None, frozenset[str]],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see PEP658_FROM_CORE_METADATA_TEXT_CASES
     fake_msg = _FakeMessage(headers=headers, requires_dist_headers=rd_headers)
@@ -276,13 +295,15 @@ def test_pep691filemetadata_to_mapping_copies_hashes_to_plain_dict() -> None:
     assert isinstance(out["hashes"], dict)
 
 
-@pytest.mark.parametrize("name, files, last_serial, _expected, covers", PEP691_METADATA_TO_MAPPING_CASES)
+@pytest.mark.parametrize(
+    "name, files, last_serial, _expected, covers", PEP691_METADATA_TO_MAPPING_CASES
+)
 def test_pep691metadata_to_mapping_cases(
-        name: str,
-        files: Sequence[pep.Pep691FileMetadata],
-        last_serial: int | None,
-        _expected: Mapping[str, Any],
-        covers: list[str],
+    name: str,
+    files: Sequence[pep.Pep691FileMetadata],
+    last_serial: int | None,
+    _expected: Mapping[str, Any],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see PEP691_METADATA_TO_MAPPING_CASES
     m = pep.Pep691Metadata(name=name, files=files, last_serial=last_serial)
@@ -301,11 +322,13 @@ def test_pep691metadata_to_mapping_cases(
         assert out["files"][0]["filename"] == "x.whl"
 
 
-@pytest.mark.parametrize("mapping, expected, covers", PEP691_METADATA_FROM_MAPPING_CASES)
+@pytest.mark.parametrize(
+    "mapping, expected, covers", PEP691_METADATA_FROM_MAPPING_CASES
+)
 def test_pep691metadata_from_mapping_cases(
-        mapping: Mapping[str, Any],
-        expected: tuple[str, int, int | None],
-        covers: list[str],
+    mapping: Mapping[str, Any],
+    expected: tuple[str, int, int | None],
+    covers: list[str],
 ) -> None:
     # Covers (per-row): see PEP691_METADATA_FROM_MAPPING_CASES
     m = pep.Pep691Metadata.from_mapping(mapping)
@@ -320,5 +343,7 @@ def test_pep691metadata_from_mapping_cases(
         f0 = m.files[0]
         assert isinstance(f0, pep.Pep691FileMetadata)
         assert f0.filename == "a.whl"
-        assert f0.core_metadata == {"sha256": "111"}  # Mapping case -> dict preserved by _coerce_field
+        assert f0.core_metadata == {
+            "sha256": "111"
+        }  # Mapping case -> dict preserved by _coerce_field
         assert f0.data_dist_info_metadata is True

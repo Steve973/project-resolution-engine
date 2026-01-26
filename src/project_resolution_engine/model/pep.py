@@ -43,6 +43,7 @@ class Pep658Metadata(MultiformatModelMixin):
     version: str
     requires_python: str | None
     requires_dist: frozenset[str]
+    _parser: Parser = Parser()
 
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
@@ -96,8 +97,7 @@ class Pep658Metadata(MultiformatModelMixin):
             Pep658Metadata: An instance of the Pep658Metadata class populated with
             the parsed metadata.
         """
-        msg = Parser().parsestr(text)
-
+        msg = cls._parser.parsestr(text)
         name = (msg.get("Name") or "").strip()
         version = (msg.get("Version") or "").strip()
         rp_raw = msg.get("Requires-Python")

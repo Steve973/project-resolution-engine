@@ -1,0 +1,413 @@
+docKind: derived-ids
+schemaVersion: "1.0.0"
+unit:
+  name: registry
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: RepositoryRegistry
+      address: 'registry::RepositoryRegistry@L32'
+    - id: C001M001
+      kind: callable
+      name: merged
+      address: 'registry::RepositoryRegistry.merged@L43'
+    - id: C000F001
+      kind: callable
+      name: _validate_repo_factory_callable
+      address: 'registry::_validate_repo_factory_callable@L54'
+    - id: C000F002
+      kind: callable
+      name: _load_entrypoint_repo_factories
+      address: 'registry::_load_entrypoint_repo_factories@L94'
+    - id: C000F003
+      kind: callable
+      name: build_repository_registry
+      address: 'registry::build_repository_registry@L125'
+  branches:
+    - id: C001M001E0001
+      address: 'registry::RepositoryRegistry.merged@L44'
+      summary: 'executes: dupes = set(self.builtins).intersection(self.externals)'
+    - id: C001M001E0002
+      address: 'registry::RepositoryRegistry.merged@if dupes@L45'
+      summary: 'dupes truthy → raises RepositoryRegistryError'
+    - id: C001M001E0003
+      address: 'registry::RepositoryRegistry.merged@if dupes@L45'
+      summary: 'dupes falsy → continues to line 49'
+    - id: C001M001E0004
+      address: 'registry::RepositoryRegistry.merged@raise@L46'
+      summary: 'raises RepositoryRegistryError'
+    - id: C001M001E0005
+      address: 'registry::RepositoryRegistry.merged@L49'
+      summary: 'executes: merged = dict(self.builtins)'
+    - id: C001M001E0006
+      address: 'registry::RepositoryRegistry.merged@L50'
+      summary: 'executes: merged.update(self.externals)'
+    - id: C001M001E0007
+      address: 'registry::RepositoryRegistry.merged@return@L51'
+      summary: 'returns merged'
+    - id: C000F001E0001
+      address: 'registry::_validate_repo_factory_callable@if not callable@L64'
+      summary: 'not callable(factory_obj) true → raises RepositoryEntrypointError'
+    - id: C000F001E0002
+      address: 'registry::_validate_repo_factory_callable@if not callable@L64'
+      summary: 'not callable(factory_obj) false → continues to line 69'
+    - id: C000F001E0003
+      address: 'registry::_validate_repo_factory_callable@raise@L65'
+      summary: 'raises RepositoryEntrypointError'
+    - id: C000F001E0004
+      address: 'registry::_validate_repo_factory_callable@if inspect.isclass@L69'
+      summary: 'inspect.isclass(factory_obj) true → raises RepositoryEntrypointError'
+    - id: C000F001E0005
+      address: 'registry::_validate_repo_factory_callable@if inspect.isclass@L69'
+      summary: 'inspect.isclass(factory_obj) false → continues to line 74'
+    - id: C000F001E0006
+      address: 'registry::_validate_repo_factory_callable@raise@L70'
+      summary: 'raises RepositoryEntrypointError'
+    - id: C000F001E0007
+      address: 'registry::_validate_repo_factory_callable@L74'
+      summary: 'executes: sig = inspect.signature(factory_obj)'
+    - id: C000F001E0008
+      address: 'registry::_validate_repo_factory_callable@L75'
+      summary: 'executes: params = sig.parameters'
+    - id: C000F001E0009
+      address: 'registry::_validate_repo_factory_callable@if "config" not in params@L77'
+      summary: '"config" not in params true → raises RepositoryEntrypointError'
+    - id: C000F001E0010
+      address: 'registry::_validate_repo_factory_callable@if "config" not in params@L77'
+      summary: '"config" not in params false → continues to line 82'
+    - id: C000F001E0011
+      address: 'registry::_validate_repo_factory_callable@raise@L78'
+      summary: 'raises RepositoryEntrypointError'
+    - id: C000F001E0012
+      address: 'registry::_validate_repo_factory_callable@L82'
+      summary: 'executes: p = params["config"]'
+    - id: C000F001E0013
+      address: 'registry::_validate_repo_factory_callable@if p.kind not in@L83'
+      summary: 'p.kind not in tuple true → raises RepositoryEntrypointError'
+    - id: C000F001E0014
+      address: 'registry::_validate_repo_factory_callable@if p.kind not in@L83'
+      summary: 'p.kind not in tuple false → continues to line 91'
+    - id: C000F001E0015
+      address: 'registry::_validate_repo_factory_callable@raise@L87'
+      summary: 'raises RepositoryEntrypointError'
+    - id: C000F001E0016
+      address: 'registry::_validate_repo_factory_callable@return@L91'
+      summary: 'returns factory_obj'
+    - id: C000F002E0001
+      address: 'registry::_load_entrypoint_repo_factories@L103'
+      summary: 'executes: factories = {}'
+    - id: C000F002E0002
+      address: 'registry::_load_entrypoint_repo_factories@L104'
+      summary: 'executes: dupes = set()'
+    - id: C000F002E0003
+      address: 'registry::_load_entrypoint_repo_factories@for ep@L106'
+      summary: 'entry_points().select(group=group) empty → 0 iterations'
+    - id: C000F002E0004
+      address: 'registry::_load_entrypoint_repo_factories@for ep@L106'
+      summary: 'entry_points().select(group=group) has items → ≥1 iterations'
+    - id: C000F002E0005
+      address: 'registry::_load_entrypoint_repo_factories@L107'
+      summary: 'executes: repo_id = ep.name'
+    - id: C000F002E0006
+      address: 'registry::_load_entrypoint_repo_factories@L108'
+      summary: 'executes: factory_obj = ep.load()'
+    - id: C000F002E0007
+      address: 'registry::_load_entrypoint_repo_factories@L109'
+      summary: 'executes: factory = _validate_repo_factory_callable(repo_id, factory_obj)'
+    - id: C000F002E0008
+      address: 'registry::_load_entrypoint_repo_factories@if repo_id in factories@L111'
+      summary: 'repo_id in factories true → continues to line 112'
+    - id: C000F002E0009
+      address: 'registry::_load_entrypoint_repo_factories@if repo_id in factories@L111'
+      summary: 'repo_id in factories false → continues to line 115'
+    - id: C000F002E0010
+      address: 'registry::_load_entrypoint_repo_factories@L112'
+      summary: 'executes: dupes.add(repo_id)'
+    - id: C000F002E0011
+      address: 'registry::_load_entrypoint_repo_factories@continue@L113'
+      summary: 'continues to next iteration'
+    - id: C000F002E0012
+      address: 'registry::_load_entrypoint_repo_factories@L115'
+      summary: 'executes: factories[repo_id] = factory'
+    - id: C000F002E0013
+      address: 'registry::_load_entrypoint_repo_factories@if dupes@L117'
+      summary: 'dupes truthy → raises RepositoryEntrypointError'
+    - id: C000F002E0014
+      address: 'registry::_load_entrypoint_repo_factories@if dupes@L117'
+      summary: 'dupes falsy → continues to line 122'
+    - id: C000F002E0015
+      address: 'registry::_load_entrypoint_repo_factories@raise@L118'
+      summary: 'raises RepositoryEntrypointError'
+    - id: C000F002E0016
+      address: 'registry::_load_entrypoint_repo_factories@return@L122'
+      summary: 'returns factories'
+    - id: C000F003E0001
+      address: 'registry::build_repository_registry@L131'
+      summary: 'executes: externals = _load_entrypoint_repo_factories(group=REPOSITORY_ENTRYPOINT_GROUP)'
+    - id: C000F003E0002
+      address: 'registry::build_repository_registry@return@L135'
+      summary: 'returns RepositoryRegistry(builtins=BUILTIN_REPOSITORY_FACTORIES, externals=externals)'
+---
+docKind: ledger
+schemaVersion: "1.0.0"
+unit:
+  id: C000
+  kind: unit
+  name: registry
+  children:
+    - id: C001
+      kind: class
+      name: RepositoryRegistry
+      decorators:
+        - name: dataclass
+          kwargs:
+            frozen: true
+            slots: true
+      children:
+        - id: C001M001
+          kind: callable
+          name: merged
+          signature: 'merged(self) -> dict[str, RepoFactory]'
+          callable:
+            params:
+              - name: self
+                type:
+                  name: RepositoryRegistry
+            returnType:
+              name: 'dict[str, RepoFactory]'
+            branches:
+              - id: C001M001E0001
+                condition: 'executes'
+                outcome: 'dupes = set(self.builtins).intersection(self.externals)'
+              - id: C001M001E0002
+                condition: 'if dupes'
+                outcome: 'raises RepositoryRegistryError'
+              - id: C001M001E0003
+                condition: 'else'
+                outcome: 'continues to line 49'
+              - id: C001M001E0004
+                condition: 'raise'
+                outcome: 'raises RepositoryRegistryError with message about duplicate repository ids'
+              - id: C001M001E0005
+                condition: 'executes'
+                outcome: 'merged = dict(self.builtins)'
+              - id: C001M001E0006
+                condition: 'executes'
+                outcome: 'merged.update(self.externals)'
+              - id: C001M001E0007
+                condition: 'return'
+                outcome: 'returns merged'
+            integration:
+              interunit:
+                - id: IC001M001E0004
+                  target: sorted
+                  kind: call
+                  signature: 'sorted(dupes)'
+                  executionPaths:
+                    - [C001M001E0001, C001M001E0002, C001M001E0004]
+    - id: C000F001
+      kind: callable
+      name: _validate_repo_factory_callable
+      signature: '_validate_repo_factory_callable(repo_id: str, factory_obj: object) -> RepoFactory'
+      callable:
+        params:
+          - name: repo_id
+            type:
+              name: str
+          - name: factory_obj
+            type:
+              name: object
+        returnType:
+          name: RepoFactory
+        branches:
+          - id: C000F001E0001
+            condition: 'if not callable(factory_obj)'
+            outcome: 'raises RepositoryEntrypointError'
+          - id: C000F001E0002
+            condition: 'else'
+            outcome: 'continues to line 69'
+          - id: C000F001E0003
+            condition: 'raise'
+            outcome: 'raises RepositoryEntrypointError with message about callable factory requirement'
+          - id: C000F001E0004
+            condition: 'if inspect.isclass(factory_obj)'
+            outcome: 'raises RepositoryEntrypointError'
+          - id: C000F001E0005
+            condition: 'else'
+            outcome: 'continues to line 74'
+          - id: C000F001E0006
+            condition: 'raise'
+            outcome: 'raises RepositoryEntrypointError with message about class rejection'
+          - id: C000F001E0007
+            condition: 'executes'
+            outcome: 'sig = inspect.signature(factory_obj)'
+          - id: C000F001E0008
+            condition: 'executes'
+            outcome: 'params = sig.parameters'
+          - id: C000F001E0009
+            condition: 'if "config" not in params'
+            outcome: 'raises RepositoryEntrypointError'
+          - id: C000F001E0010
+            condition: 'else'
+            outcome: 'continues to line 82'
+          - id: C000F001E0011
+            condition: 'raise'
+            outcome: 'raises RepositoryEntrypointError with message about config parameter requirement'
+          - id: C000F001E0012
+            condition: 'executes'
+            outcome: 'p = params["config"]'
+          - id: C000F001E0013
+            condition: 'if p.kind not in (inspect.Parameter.KEYWORD_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD)'
+            outcome: 'raises RepositoryEntrypointError'
+          - id: C000F001E0014
+            condition: 'else'
+            outcome: 'continues to line 91'
+          - id: C000F001E0015
+            condition: 'raise'
+            outcome: 'raises RepositoryEntrypointError with message about keywordable config requirement'
+          - id: C000F001E0016
+            condition: 'return'
+            outcome: 'returns factory_obj'
+        integration:
+          interunit:
+            - id: IC000F001E0001
+              target: callable
+              kind: call
+              signature: 'callable(factory_obj)'
+              executionPaths:
+                - [C000F001E0001]
+                - [C000F001E0002]
+            - id: IC000F001E0007
+              target: inspect.signature
+              kind: call
+              signature: 'inspect.signature(factory_obj)'
+              executionPaths:
+                - [C000F001E0002, C000F001E0005, C000F001E0007]
+    - id: C000F002
+      kind: callable
+      name: _load_entrypoint_repo_factories
+      signature: '_load_entrypoint_repo_factories(*, group: str) -> dict[str, RepoFactory]'
+      callable:
+        params:
+          - name: group
+            type:
+              name: str
+        returnType:
+          name: 'dict[str, RepoFactory]'
+        branches:
+          - id: C000F002E0001
+            condition: 'executes'
+            outcome: 'factories = {}'
+          - id: C000F002E0002
+            condition: 'executes'
+            outcome: 'dupes = set()'
+          - id: C000F002E0003
+            condition: 'for ep in entry_points().select(group=group) (0 iterations)'
+            outcome: 'loop body never executes'
+          - id: C000F002E0004
+            condition: 'for ep in entry_points().select(group=group) (≥1 iterations)'
+            outcome: 'loop body executes'
+          - id: C000F002E0005
+            condition: 'executes'
+            outcome: 'repo_id = ep.name'
+          - id: C000F002E0006
+            condition: 'executes'
+            outcome: 'factory_obj = ep.load()'
+          - id: C000F002E0007
+            condition: 'executes'
+            outcome: 'factory = _validate_repo_factory_callable(repo_id, factory_obj)'
+          - id: C000F002E0008
+            condition: 'if repo_id in factories'
+            outcome: 'continues to line 112'
+          - id: C000F002E0009
+            condition: 'else'
+            outcome: 'continues to line 115'
+          - id: C000F002E0010
+            condition: 'executes'
+            outcome: 'dupes.add(repo_id)'
+          - id: C000F002E0011
+            condition: 'continue'
+            outcome: 'continues to next loop iteration'
+          - id: C000F002E0012
+            condition: 'executes'
+            outcome: 'factories[repo_id] = factory'
+          - id: C000F002E0013
+            condition: 'if dupes'
+            outcome: 'raises RepositoryEntrypointError'
+          - id: C000F002E0014
+            condition: 'else'
+            outcome: 'continues to line 122'
+          - id: C000F002E0015
+            condition: 'raise'
+            outcome: 'raises RepositoryEntrypointError with message about duplicate repository ids'
+          - id: C000F002E0016
+            condition: 'return'
+            outcome: 'returns factories'
+        integration:
+          interunit:
+            - id: IC000F002E0004
+              target: entry_points().select
+              kind: call
+              signature: 'entry_points().select(group=group)'
+              executionPaths:
+                - [C000F002E0001, C000F002E0002, C000F002E0003]
+                - [C000F002E0001, C000F002E0002, C000F002E0004]
+            - id: IC000F002E0007
+              target: _validate_repo_factory_callable
+              kind: call
+              signature: '_validate_repo_factory_callable(repo_id, factory_obj)'
+              executionPaths:
+                - [C000F002E0001, C000F002E0002, C000F002E0004, C000F002E0005, C000F002E0006, C000F002E0007]
+            - id: IC000F002E0015
+              target: sorted
+              kind: call
+              signature: 'sorted(dupes)'
+              executionPaths:
+                - [C000F002E0001, C000F002E0002, C000F002E0003, C000F002E0013, C000F002E0015]
+                - [C000F002E0001, C000F002E0002, C000F002E0004, C000F002E0005, C000F002E0006, C000F002E0007, C000F002E0008, C000F002E0010, C000F002E0011, C000F002E0013, C000F002E0015]
+                - [C000F002E0001, C000F002E0002, C000F002E0004, C000F002E0005, C000F002E0006, C000F002E0007, C000F002E0009, C000F002E0012, C000F002E0013, C000F002E0015]
+    - id: C000F003
+      kind: callable
+      name: build_repository_registry
+      signature: 'build_repository_registry() -> RepositoryRegistry'
+      callable:
+        params: []
+        returnType:
+          name: RepositoryRegistry
+        branches:
+          - id: C000F003E0001
+            condition: 'executes'
+            outcome: 'externals = _load_entrypoint_repo_factories(group=REPOSITORY_ENTRYPOINT_GROUP)'
+          - id: C000F003E0002
+            condition: 'return'
+            outcome: 'returns RepositoryRegistry(builtins=BUILTIN_REPOSITORY_FACTORIES, externals=externals)'
+        integration:
+          interunit:
+            - id: IC000F003E0001
+              target: _load_entrypoint_repo_factories
+              kind: call
+              signature: '_load_entrypoint_repo_factories(group=REPOSITORY_ENTRYPOINT_GROUP)'
+              executionPaths:
+                - [C000F003E0001]
+            - id: IC000F003E0002
+              target: RepositoryRegistry
+              kind: construct
+              signature: 'RepositoryRegistry(builtins=BUILTIN_REPOSITORY_FACTORIES, externals=externals)'
+              executionPaths:
+                - [C000F003E0001, C000F003E0002]
+---
+docKind: ledger-generation-review
+schemaVersion: "1.0.0"
+unit:
+  name: registry
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Protocol class RepoFactory at line 17 is not analyzed as a callable since it defines a protocol, not implementation'
+  - severity: info
+    category: assumption
+    message: 'Exception classes RepositoryRegistryError and RepositoryEntrypointError are not analyzed as they contain no executable logic'

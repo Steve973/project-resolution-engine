@@ -1,0 +1,759 @@
+docKind: derived-ids
+schemaVersion: "1"
+unit:
+  name: "project_resolution_engine.internal.builtin_strategy_configs"
+  language: "python"
+  unitId: "C000"
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: StrategyConfigError
+      address: "C000::StrategyConfigError@L25"
+    - id: C000F001
+      kind: callable
+      name: _unknown_keys
+      address: "C000::_unknown_keys@L32"
+    - id: C000F002
+      kind: callable
+      name: _opt_str
+      address: "C000::_opt_str@L38"
+    - id: C000F003
+      kind: callable
+      name: _opt_int
+      address: "C000::_opt_int@L47"
+    - id: C000F004
+      kind: callable
+      name: _opt_float
+      address: "C000::_opt_float@L56"
+    - id: C000F005
+      kind: callable
+      name: _plan_single
+      address: "C000::_plan_single@L67"
+
+    - id: C002
+      kind: class
+      name: Pep691IndexMetadataHttpStrategyConfig
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig@L100"
+    - id: C002M001
+      kind: callable
+      name: defaults
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.defaults@L104"
+    - id: C002M002
+      kind: callable
+      name: plan
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.plan@L113"
+
+    - id: C003
+      kind: class
+      name: HttpWheelFileStrategyConfig
+      address: "C000::HttpWheelFileStrategyConfig@L133"
+    - id: C003M001
+      kind: callable
+      name: defaults
+      address: "C000::HttpWheelFileStrategyConfig.defaults@L137"
+    - id: C003M002
+      kind: callable
+      name: plan
+      address: "C000::HttpWheelFileStrategyConfig.plan@L146"
+
+    - id: C004
+      kind: class
+      name: Pep658CoreMetadataHttpStrategyConfig
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig@L168"
+    - id: C004M001
+      kind: callable
+      name: defaults
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.defaults@L172"
+    - id: C004M002
+      kind: callable
+      name: plan
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.plan@L180"
+
+    - id: C005
+      kind: class
+      name: WheelExtractedCoreMetadataStrategyConfig
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig@L200"
+    - id: C005M001
+      kind: callable
+      name: defaults
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.defaults@L206"
+    - id: C005M002
+      kind: callable
+      name: plan
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.plan@L215"
+
+    - id: C006
+      kind: class
+      name: DirectUriWheelFileStrategyConfig
+      address: "C000::DirectUriWheelFileStrategyConfig@L241"
+    - id: C006M001
+      kind: callable
+      name: defaults
+      address: "C000::DirectUriWheelFileStrategyConfig.defaults@L245"
+    - id: C006M002
+      kind: callable
+      name: plan
+      address: "C000::DirectUriWheelFileStrategyConfig.plan@L252"
+
+    - id: C007
+      kind: class
+      name: DirectUriCoreMetadataStrategyConfig
+      address: "C000::DirectUriCoreMetadataStrategyConfig@L270"
+    - id: C007M001
+      kind: callable
+      name: defaults
+      address: "C000::DirectUriCoreMetadataStrategyConfig.defaults@L287"
+    - id: C007M002
+      kind: callable
+      name: plan
+      address: "C000::DirectUriCoreMetadataStrategyConfig.plan@L293"
+
+  branches:
+    - id: C000F001B0001
+      parent: C000F001
+      address: "C000::_unknown_keys@if extra@L34"
+      summary: "extra keys present"
+    - id: C000F001B0002
+      parent: C000F001
+      address: "C000::_unknown_keys@L34"
+      summary: "no extra keys"
+
+    - id: C000F002B0001
+      parent: C000F002
+      address: "C000::_opt_str@if key not in cfg@L39"
+      summary: "key missing"
+    - id: C000F002B0002
+      parent: C000F002
+      address: "C000::_opt_str@if not isinstance(v, str)@L42"
+      summary: "wrong type"
+    - id: C000F002B0003
+      parent: C000F002
+      address: "C000::_opt_str@L42"
+      summary: "value is str"
+
+    - id: C000F003B0001
+      parent: C000F003
+      address: "C000::_opt_int@if key not in cfg@L48"
+      summary: "key missing"
+    - id: C000F003B0002
+      parent: C000F003
+      address: "C000::_opt_int@if not isinstance(v, int)@L51"
+      summary: "wrong type"
+    - id: C000F003B0003
+      parent: C000F003
+      address: "C000::_opt_int@L51"
+      summary: "value is int"
+
+    - id: C000F004B0001
+      parent: C000F004
+      address: "C000::_opt_float@if key not in cfg@L57"
+      summary: "key missing"
+    - id: C000F004B0002
+      parent: C000F004
+      address: "C000::_opt_float@if isinstance(v, int)@L60"
+      summary: "int coerced to float"
+    - id: C000F004B0003
+      parent: C000F004
+      address: "C000::_opt_float@if not isinstance(v, float)@L62"
+      summary: "wrong type"
+    - id: C000F004B0004
+      parent: C000F004
+      address: "C000::_opt_float@L62"
+      summary: "value is float"
+
+    - id: C000F005B0001
+      parent: C000F005
+      address: "C000::_plan_single@L84"
+      summary: "construct StrategyPlan and return list"
+
+    - id: C002M001B0001
+      parent: C002M001
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.defaults@L106"
+      summary: "returns defaults dict"
+
+    - id: C002M002B0001
+      parent: C002M002
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.plan@if timeout_s@L120"
+      summary: "timeout_s provided"
+    - id: C002M002B0002
+      parent: C002M002
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.plan@L120"
+      summary: "timeout_s not provided"
+    - id: C002M002B0003
+      parent: C002M002
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.plan@if user_agent@L122"
+      summary: "user_agent provided"
+    - id: C002M002B0004
+      parent: C002M002
+      address: "C000::Pep691IndexMetadataHttpStrategyConfig.plan@L122"
+      summary: "user_agent not provided"
+
+    - id: C003M001B0001
+      parent: C003M001
+      address: "C000::HttpWheelFileStrategyConfig.defaults@L138"
+      summary: "returns defaults dict"
+
+    - id: C003M002B0001
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@if timeout_s@L153"
+      summary: "timeout_s provided"
+    - id: C003M002B0002
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@L153"
+      summary: "timeout_s not provided"
+    - id: C003M002B0003
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@if user_agent@L155"
+      summary: "user_agent provided"
+    - id: C003M002B0004
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@L155"
+      summary: "user_agent not provided"
+    - id: C003M002B0005
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@if chunk_bytes@L157"
+      summary: "chunk_bytes provided"
+    - id: C003M002B0006
+      parent: C003M002
+      address: "C000::HttpWheelFileStrategyConfig.plan@L157"
+      summary: "chunk_bytes not provided"
+
+    - id: C004M001B0001
+      parent: C004M001
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.defaults@L173"
+      summary: "returns defaults dict"
+
+    - id: C004M002B0001
+      parent: C004M002
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.plan@if timeout_s@L187"
+      summary: "timeout_s provided"
+    - id: C004M002B0002
+      parent: C004M002
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.plan@L187"
+      summary: "timeout_s not provided"
+    - id: C004M002B0003
+      parent: C004M002
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.plan@if user_agent@L189"
+      summary: "user_agent provided"
+    - id: C004M002B0004
+      parent: C004M002
+      address: "C000::Pep658CoreMetadataHttpStrategyConfig.plan@L189"
+      summary: "user_agent not provided"
+
+    - id: C005M001B0001
+      parent: C005M001
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.defaults@L208"
+      summary: "returns defaults dict"
+
+    - id: C005M002B0001
+      parent: C005M002
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.plan@L224"
+      summary: "construct StrategyRef"
+    - id: C005M002B0002
+      parent: C005M002
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.plan@if wheel_timeout_s@L229"
+      summary: "wheel_timeout_s provided"
+    - id: C005M002B0003
+      parent: C005M002
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.plan@L229"
+      summary: "wheel_timeout_s not provided"
+    - id: C005M002B0004
+      parent: C005M002
+      address: "C000::WheelExtractedCoreMetadataStrategyConfig.plan@L237"
+      summary: "call normalized_instance_id"
+
+    - id: C006M001B0001
+      parent: C006M001
+      address: "C000::DirectUriWheelFileStrategyConfig.defaults@L246"
+      summary: "returns defaults dict"
+
+    - id: C006M002B0001
+      parent: C006M002
+      address: "C000::DirectUriWheelFileStrategyConfig.plan@if chunk_bytes@L259"
+      summary: "chunk_bytes provided"
+    - id: C006M002B0002
+      parent: C006M002
+      address: "C000::DirectUriWheelFileStrategyConfig.plan@L259"
+      summary: "chunk_bytes not provided"
+
+    - id: C007M001B0001
+      parent: C007M001
+      address: "C000::DirectUriCoreMetadataStrategyConfig.defaults@L288"
+      summary: "returns defaults dict"
+
+    - id: C007M002B0001
+      parent: C007M002
+      address: "C000::DirectUriCoreMetadataStrategyConfig.plan@L299"
+      summary: "returns _plan_single result"
+---
+docKind: ledger
+schemaVersion: "1"
+unit:
+  id: C000
+  kind: unit
+  name: "project_resolution_engine.internal.builtin_strategy_configs"
+  children:
+    - id: C001
+      kind: class
+      name: StrategyConfigError
+
+    - id: C000F001
+      kind: callable
+      name: _unknown_keys
+      signature: "_unknown_keys(cfg: Mapping[str, Any], allowed: set[str], *, ctx: str) -> None"
+      callable:
+        params:
+          - name: cfg
+            type:
+              name: "Mapping[str, Any]"
+          - name: allowed
+            type:
+              name: "set[str]"
+          - name: ctx
+            type:
+              name: str
+        returnType:
+          name: None
+        branches:
+          - id: C000F001B0001
+            condition: "if extra"
+            outcome: "raises StrategyConfigError with message containing 'unknown config keys'"
+          - id: C000F001B0002
+            condition: "else (extra is empty)"
+            outcome: "returns None"
+
+    - id: C000F002
+      kind: callable
+      name: _opt_str
+      signature: "_opt_str(cfg: Mapping[str, Any], key: str) -> str | None"
+      callable:
+        params:
+          - name: cfg
+            type:
+              name: "Mapping[str, Any]"
+          - name: key
+            type:
+              name: str
+        returnType:
+          name: "str | None"
+        branches:
+          - id: C000F002B0001
+            condition: "if key not in cfg"
+            outcome: "returns None"
+          - id: C000F002B0002
+            condition: "if not isinstance(v, str)"
+            outcome: "raises StrategyConfigError with message containing 'expected str'"
+          - id: C000F002B0003
+            condition: "else (v is str)"
+            outcome: "returns v"
+
+    - id: C000F003
+      kind: callable
+      name: _opt_int
+      signature: "_opt_int(cfg: Mapping[str, Any], key: str) -> int | None"
+      callable:
+        params:
+          - name: cfg
+            type:
+              name: "Mapping[str, Any]"
+          - name: key
+            type:
+              name: str
+        returnType:
+          name: "int | None"
+        branches:
+          - id: C000F003B0001
+            condition: "if key not in cfg"
+            outcome: "returns None"
+          - id: C000F003B0002
+            condition: "if not isinstance(v, int)"
+            outcome: "raises StrategyConfigError with message containing 'expected int'"
+          - id: C000F003B0003
+            condition: "else (v is int)"
+            outcome: "returns v"
+
+    - id: C000F004
+      kind: callable
+      name: _opt_float
+      signature: "_opt_float(cfg: Mapping[str, Any], key: str) -> float | None"
+      callable:
+        params:
+          - name: cfg
+            type:
+              name: "Mapping[str, Any]"
+          - name: key
+            type:
+              name: str
+        returnType:
+          name: "float | None"
+        branches:
+          - id: C000F004B0001
+            condition: "if key not in cfg"
+            outcome: "returns None"
+          - id: C000F004B0002
+            condition: "if isinstance(v, int)"
+            outcome: "returns float(v)"
+          - id: C000F004B0003
+            condition: "if not isinstance(v, float)"
+            outcome: "raises StrategyConfigError with message containing 'expected float'"
+          - id: C000F004B0004
+            condition: "else (v is float)"
+            outcome: "returns v"
+
+    - id: C000F005
+      kind: callable
+      name: _plan_single
+      signature: "_plan_single(*, strategy_name: str, strategy_cls: type, config: Mapping[str, Any], ctor_kwargs: Mapping[str, Any], depends_on: tuple[str, ...] = ()) -> list[StrategyPlan]"
+      callable:
+        params:
+          - name: strategy_name
+            type:
+              name: str
+          - name: strategy_cls
+            type:
+              name: type
+          - name: config
+            type:
+              name: "Mapping[str, Any]"
+          - name: ctor_kwargs
+            type:
+              name: "Mapping[str, Any]"
+          - name: depends_on
+            type:
+              name: "tuple[str, ...]"
+        returnType:
+          name: "list[StrategyPlan]"
+        branches:
+          - id: C000F005B0001
+            condition: "call StrategyPlan(...)"
+            outcome: "returns a single-item list containing StrategyPlan"
+        integration:
+          interunit:
+            - id: IC000F005B0001
+              kind: construct
+              target: "project_resolution_engine.internal.util.strategy.StrategyPlan"
+              signature: "StrategyPlan(strategy_name=..., instance_id=..., strategy_cls=..., ctor_kwargs=..., depends_on=..., precedence=...)"
+              executionPaths:
+                - [C000F005B0001]
+
+    - id: C002
+      kind: class
+      name: Pep691IndexMetadataHttpStrategyConfig
+      children:
+        - id: C002M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C002M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C002M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C002M002B0001
+                condition: "if (v_timeout := _opt_float(config, 'timeout_s')) is not None"
+                outcome: "includes 'timeout_s' in ctor_kwargs"
+              - id: C002M002B0002
+                condition: "else (timeout_s not provided)"
+                outcome: "omits 'timeout_s' from ctor_kwargs"
+              - id: C002M002B0003
+                condition: "if (v_agent := _opt_str(config, 'user_agent')) is not None"
+                outcome: "includes 'user_agent' in ctor_kwargs"
+              - id: C002M002B0004
+                condition: "else (user_agent not provided)"
+                outcome: "omits 'user_agent' from ctor_kwargs"
+
+    - id: C003
+      kind: class
+      name: HttpWheelFileStrategyConfig
+      children:
+        - id: C003M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C003M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C003M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C003M002B0001
+                condition: "if (v_timeout := _opt_float(config, 'timeout_s')) is not None"
+                outcome: "includes 'timeout_s' in ctor_kwargs"
+              - id: C003M002B0002
+                condition: "else (timeout_s not provided)"
+                outcome: "omits 'timeout_s' from ctor_kwargs"
+              - id: C003M002B0003
+                condition: "if (v_agent := _opt_str(config, 'user_agent')) is not None"
+                outcome: "includes 'user_agent' in ctor_kwargs"
+              - id: C003M002B0004
+                condition: "else (user_agent not provided)"
+                outcome: "omits 'user_agent' from ctor_kwargs"
+              - id: C003M002B0005
+                condition: "if (v_chunk_bytes := _opt_int(config, 'chunk_bytes')) is not None"
+                outcome: "includes 'chunk_bytes' in ctor_kwargs"
+              - id: C003M002B0006
+                condition: "else (chunk_bytes not provided)"
+                outcome: "omits 'chunk_bytes' from ctor_kwargs"
+
+    - id: C004
+      kind: class
+      name: Pep658CoreMetadataHttpStrategyConfig
+      children:
+        - id: C004M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C004M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C004M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C004M002B0001
+                condition: "if (v_timeout := _opt_float(config, 'timeout_s')) is not None"
+                outcome: "includes 'timeout_s' in ctor_kwargs"
+              - id: C004M002B0002
+                condition: "else (timeout_s not provided)"
+                outcome: "omits 'timeout_s' from ctor_kwargs"
+              - id: C004M002B0003
+                condition: "if (v_agent := _opt_str(config, 'user_agent')) is not None"
+                outcome: "includes 'user_agent' in ctor_kwargs"
+              - id: C004M002B0004
+                condition: "else (user_agent not provided)"
+                outcome: "omits 'user_agent' from ctor_kwargs"
+
+    - id: C005
+      kind: class
+      name: WheelExtractedCoreMetadataStrategyConfig
+      children:
+        - id: C005M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C005M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C005M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C005M002B0001
+                condition: "call StrategyRef(strategy_name=wheel_sid, instance_id=wheel_sid)"
+                outcome: "creates wheel_ref"
+              - id: C005M002B0002
+                condition: "if (v := _opt_float(config, 'wheel_timeout_s')) is not None"
+                outcome: "includes 'wheel_timeout_s' in ctor_kwargs"
+              - id: C005M002B0003
+                condition: "else (wheel_timeout_s not provided)"
+                outcome: "omits 'wheel_timeout_s' from ctor_kwargs"
+              - id: C005M002B0004
+                condition: "call wheel_ref.normalized_instance_id()"
+                outcome: "depends_on tuple contains normalized instance id"
+            integration:
+              interunit:
+                - id: IC005M002B0001
+                  kind: construct
+                  target: "project_resolution_engine.internal.util.strategy.StrategyRef"
+                  signature: "StrategyRef(strategy_name=wheel_sid, instance_id=wheel_sid)"
+                  executionPaths:
+                    - [C005M002B0001]
+                - id: IC005M002B0004
+                  kind: call
+                  target: "project_resolution_engine.internal.util.strategy.StrategyRef.normalized_instance_id"
+                  signature: "wheel_ref.normalized_instance_id()"
+                  executionPaths:
+                    - [C005M002B0004]
+
+    - id: C006
+      kind: class
+      name: DirectUriWheelFileStrategyConfig
+      children:
+        - id: C006M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C006M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C006M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C006M002B0001
+                condition: "if (v := _opt_int(config, 'chunk_bytes')) is not None"
+                outcome: "includes 'chunk_bytes' in ctor_kwargs"
+              - id: C006M002B0002
+                condition: "else (chunk_bytes not provided)"
+                outcome: "omits 'chunk_bytes' from ctor_kwargs"
+
+    - id: C007
+      kind: class
+      name: DirectUriCoreMetadataStrategyConfig
+      children:
+        - id: C007M001
+          kind: callable
+          name: defaults
+          signature: "defaults(cls) -> Mapping[str, Any]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+            returnType:
+              name: "Mapping[str, Any]"
+            branches:
+              - id: C007M001B0001
+                condition: "always"
+                outcome: "returns defaults dict"
+
+        - id: C007M002
+          kind: callable
+          name: plan
+          signature: "plan(cls, *, strategy_cls: type, config: Mapping[str, Any]) -> list[StrategyPlan]"
+          decorators:
+            - name: classmethod
+          callable:
+            params:
+              - name: cls
+              - name: strategy_cls
+                type:
+                  name: type
+              - name: config
+                type:
+                  name: "Mapping[str, Any]"
+            returnType:
+              name: "list[StrategyPlan]"
+            branches:
+              - id: C007M002B0001
+                condition: "always"
+                outcome: "returns _plan_single(...) result"
+---
+docKind: ledger-generation-review
+schemaVersion: "1"
+unit:
+  name: "project_resolution_engine.internal.builtin_strategy_configs"
+  language: "python"
+findings:
+  - severity: info
+    category: assumption
+    message: "No notable findings"

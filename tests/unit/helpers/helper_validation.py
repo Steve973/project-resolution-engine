@@ -24,7 +24,8 @@ class MirrorReport:
             f"  extra_in_fake={list(self.extra_in_fake)},\n"
             f"  ignored={list(self.ignored)},\n"
             f"  aliases={dict(self.aliases)},\n"
-            ")")
+            ")"
+        )
 
 
 class MirrorValidatableFake(ABC):
@@ -35,6 +36,7 @@ class MirrorValidatableFake(ABC):
       - dataclass field names
       - @property names
     """
+
     MIRROR_IGNORE: ClassVar[frozenset[str]] = frozenset()
     MIRROR_ALLOW_EXTRA: ClassVar[frozenset[str]] = frozenset()
     MIRROR_ALIASES: ClassVar[dict[str, str]] = {}  # real_name -> fake_name
@@ -58,7 +60,8 @@ class MirrorValidatableFake(ABC):
             missing_in_fake=tuple(missing),
             extra_in_fake=tuple(extra),
             ignored=tuple(sorted(ignore)),
-            aliases=tuple(sorted(aliases.items())))
+            aliases=tuple(sorted(aliases.items())),
+        )
 
     @classmethod
     def _surface_names(cls, target: type) -> set[str]:

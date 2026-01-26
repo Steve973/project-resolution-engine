@@ -17,11 +17,16 @@ from project_resolution_engine.model.resolution import (
     RequiresDistUrlPolicy,
     YankedWheelPolicy,
     PreReleasePolicy,
-    InvalidRequiresDistPolicy
+    InvalidRequiresDistPolicy,
 )
 from project_resolution_engine.repository import ArtifactSource, ArtifactRepository
-from project_resolution_engine.strategies import StrategyCriticality, IndexMetadataStrategy, CoreMetadataStrategy, \
-    WheelFileStrategy, BaseArtifactResolutionStrategy
+from project_resolution_engine.strategies import (
+    StrategyCriticality,
+    IndexMetadataStrategy,
+    CoreMetadataStrategy,
+    WheelFileStrategy,
+    BaseArtifactResolutionStrategy,
+)
 from unit.helpers.helper_validation import MirrorValidatableFake
 
 
@@ -44,7 +49,9 @@ def _is_empty_collection(val: Any) -> bool:
     return isinstance(val, (set, frozenset, list, tuple, dict)) and len(val) == 0
 
 
-_REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {"csv": lambda v: ",".join(sorted(v))}
+_REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {
+    "csv": lambda v: ",".join(sorted(v))
+}
 
 
 def _reqtxt_comment_lines(obj: Any) -> list[str]:
@@ -76,21 +83,27 @@ def _coerce_field(value: Any) -> bool | Mapping[str, str]:
 
 
 def validate_typed_dict(
-        desc: str,
-        mapping: Mapping[str, Any],
-        validation_type: type,
-        value_type: type | tuple[type, ...]) -> None:
+    desc: str,
+    mapping: Mapping[str, Any],
+    validation_type: type,
+    value_type: type | tuple[type, ...],
+) -> None:
     allowed_env_keys = set(validation_type.__annotations__.keys())
     bad_keys = set(mapping.keys()) - allowed_env_keys
     if bad_keys:
         raise ValueError(f"Invalid {desc} keys: {bad_keys}")
-    bad_vals = [(k, type(v).__name__) for k, v in mapping.items() if not isinstance(v, value_type)]
+    bad_vals = [
+        (k, type(v).__name__)
+        for k, v in mapping.items()
+        if not isinstance(v, value_type)
+    ]
     if bad_vals:
         details = ", ".join(f"{k} (got {t})" for k, t in bad_vals)
         expected = (
             value_type.__name__
             if isinstance(value_type, type)
-            else " | ".join(t.__name__ for t in value_type))
+            else " | ".join(t.__name__ for t in value_type)
+        )
         raise ValueError(f"Invalid {desc} values: expected {expected}; {details}")
 
 
@@ -104,8 +117,9 @@ class FakeBaseArtifactKey(MirrorValidatableFake, ABC):
     kind: ArtifactKind
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any],
-                     **_: Any) -> FakeWheelKey | FakeIndexMetadataKey | FakeCoreMetadataKey:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], **_: Any
+    ) -> FakeWheelKey | FakeIndexMetadataKey | FakeCoreMetadataKey:
         kind_mapping = mapping.get("kind", "none")
         kind = ArtifactKind(kind_mapping)
         match kind:
@@ -125,22 +139,38 @@ class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
     name: str = field(metadata=_reqtxt_meta())
     version: str = field(metadata=_reqtxt_meta())
     tag: str = field(metadata=_reqtxt_meta())
-    requires_python: str | None = field(default=None, compare=False, metadata=_reqtxt_meta())
-    satisfied_tags: frozenset[str] = field(default_factory=frozenset, compare=False, metadata=_reqtxt_meta(fmt="csv"))
-    dependency_ids: frozenset[str] | None = field(default=None, compare=False,
-                                                  metadata=_reqtxt_meta(key="dependencies", fmt="csv"))
+    requires_python: str | None = field(
+        default=None, compare=False, metadata=_reqtxt_meta()
+    )
+    satisfied_tags: frozenset[str] = field(
+        default_factory=frozenset, compare=False, metadata=_reqtxt_meta(fmt="csv")
+    )
+    dependency_ids: frozenset[str] | None = field(
+        default=None,
+        compare=False,
+        metadata=_reqtxt_meta(key="dependencies", fmt="csv"),
+    )
     origin_uri: str | None = field(default=None, compare=False, metadata=_reqtxt_meta())
     content_hash: str | None = field(default=None, compare=False)
     hash_algorithm: str | None = field(default=None, compare=False)
     marker: str | None = field(default=None, compare=False, metadata=_reqtxt_meta())
-    extras: frozenset[str] | None = field(default=None, compare=False, metadata=_reqtxt_meta(fmt="csv"))
+    extras: frozenset[str] | None = field(
+        default=None, compare=False, metadata=_reqtxt_meta(fmt="csv")
+    )
     kind: ArtifactKind = field(default=ArtifactKind.WHEEL, init=False, compare=False)
-    _hash_spec: str | None = field(default=None, init=False, repr=False, compare=False,
-                                   metadata=_reqtxt_meta(key="hash"))
+    _hash_spec: str | None = field(
+        default=None,
+        init=False,
+        repr=False,
+        compare=False,
+        metadata=_reqtxt_meta(key="hash"),
+    )
 
     # ---- mirroring configuration ----
     # If you truly mirror everything, this can stay empty.
-    MIRROR_IGNORE = frozenset()  # or {"kind"} if your real kind is an enum and you don't want to mirror its type
+    MIRROR_IGNORE = (
+        frozenset()
+    )  # or {"kind"} if your real kind is an enum and you don't want to mirror its type
     MIRROR_INCLUDE_PRIVATE = True  # ensures _hash_spec is included in the check
 
     # ---- behavior ----
@@ -167,14 +197,22 @@ class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
             raise ValueError("content hash is already set")
         object.__setattr__(self, "hash_algorithm", hash_algorithm)
         object.__setattr__(self, "content_hash", content_hash)
-        object.__setattr__(self, "_hash_spec", f"{hash_algorithm.strip().lower()}:{content_hash.strip()}")
+        object.__setattr__(
+            self,
+            "_hash_spec",
+            f"{hash_algorithm.strip().lower()}:{content_hash.strip()}",
+        )
 
     @property
     def requirement_str(self) -> str:
         if self.origin_uri is None:
-            raise ValueError(f"{self.identifier}: origin_uri is required to render a requirement string")
+            raise ValueError(
+                f"{self.identifier}: origin_uri is required to render a requirement string"
+            )
         if self._hash_spec is None:
-            raise ValueError(f"{self.identifier}: _hash_spec is required to render a requirement string")
+            raise ValueError(
+                f"{self.identifier}: _hash_spec is required to render a requirement string"
+            )
         return f"{self.name} @ {self.origin_uri} --hash={self._hash_spec}"
 
     @property
@@ -184,9 +222,13 @@ class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
     @property
     def req_txt_block(self) -> str:
         if self.origin_uri is None:
-            raise ValueError(f"{self.identifier}: origin_uri is required to render requirements")
+            raise ValueError(
+                f"{self.identifier}: origin_uri is required to render requirements"
+            )
         if self._hash_spec is None:
-            raise ValueError(f"{self.identifier}: _hash_spec is required to render requirements")
+            raise ValueError(
+                f"{self.identifier}: _hash_spec is required to render requirements"
+            )
         meta_lines = _reqtxt_comment_lines(self)
         return "\n".join([*meta_lines, self.requirement_str])
 
@@ -198,7 +240,9 @@ class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
             "tag": self.tag,
             "requires_python": self.requires_python,
             "satisfied_tags": list(self.satisfied_tags),
-            "dependencies": list(self.dependency_ids) if self.dependency_ids is not None else None,
+            "dependencies": (
+                list(self.dependency_ids) if self.dependency_ids is not None else None
+            ),
             "origin_uri": self.origin_uri,
             "content_hash": self.content_hash,
             "hash_algorithm": self.hash_algorithm,
@@ -221,7 +265,8 @@ class FakeWheelKey(FakeBaseArtifactKey, MirrorValidatableFake):
             content_hash=mapping.get("content_hash"),
             hash_algorithm=mapping.get("hash_algorithm"),
             marker=mapping.get("marker"),
-            extras=frozenset(extras) if extras is not None else None)
+            extras=frozenset(extras) if extras is not None else None,
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -255,13 +300,20 @@ class FakeWheelSpec(MirrorValidatableFake):
         }
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *_: Any, **__: Any) -> FakeWheelSpec:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], *_: Any, **__: Any
+    ) -> FakeWheelSpec:
         return cls(
             name=mapping["name"],
-            version=SpecifierSet(mapping["version"]) if mapping["version"] is not None else None,
+            version=(
+                SpecifierSet(mapping["version"])
+                if mapping["version"] is not None
+                else None
+            ),
             extras=frozenset(mapping["extras"]),
             marker=Marker(mapping["marker"]) if mapping["marker"] is not None else None,
-            uri=mapping["uri"])
+            uri=mapping["uri"],
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -274,14 +326,12 @@ class FakeIndexMetadataKey(FakeBaseArtifactKey, MirrorValidatableFake):
         return {
             "kind": self.kind.value,
             "index_base": self.index_base,
-            "project": self.project
+            "project": self.project,
         }
 
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakeIndexMetadataKey:
-        return cls(
-            index_base=mapping["index_base"],
-            project=mapping["project"])
+        return cls(index_base=mapping["index_base"], project=mapping["project"])
 
 
 @dataclass(frozen=True, slots=True)
@@ -307,7 +357,8 @@ class FakeCoreMetadataKey(FakeBaseArtifactKey, MirrorValidatableFake):
             name=mapping["name"],
             version=mapping["version"],
             tag=mapping["tag"],
-            file_url=mapping["file_url"])
+            file_url=mapping["file_url"],
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -355,14 +406,11 @@ class FakeResolvedNode(MirrorValidatableFake):
         return self.wheel_key
 
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
-        return {
-            "wheel_key": self.wheel_key.to_mapping()
-        }
+        return {"wheel_key": self.wheel_key.to_mapping()}
 
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakeResolvedNode:
-        return cls(
-            wheel_key=FakeWheelKey.from_mapping(mapping["wheel_key"]))
+        return cls(wheel_key=FakeWheelKey.from_mapping(mapping["wheel_key"]))
 
 
 @dataclass(slots=True)
@@ -413,7 +461,9 @@ class FakeResolvedGraph(MirrorValidatableFake):
         for _, node_mapping in raw_nodes.items():
             node = FakeResolvedNode.from_mapping(node_mapping)
             nodes[node.key] = node
-        return cls(supported_python_band=supported_python_band, _roots=roots, nodes=nodes)
+        return cls(
+            supported_python_band=supported_python_band, _roots=roots, nodes=nodes
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -437,7 +487,8 @@ class FakePep658Metadata(MirrorValidatableFake):
             name=str(mapping["name"]),
             version=str(mapping["version"]),
             requires_python=(mapping.get("requires_python") or None),
-            requires_dist=frozenset(mapping.get("requires_dist") or []))
+            requires_dist=frozenset(mapping.get("requires_dist") or []),
+        )
 
     @classmethod
     def from_core_metadata_text(cls, text: str) -> FakePep658Metadata:
@@ -450,12 +501,14 @@ class FakePep658Metadata(MirrorValidatableFake):
         rd_headers = msg.get_all("Requires-Dist") or []
         requires_dist = [h.strip() for h in rd_headers if h.strip()]
 
-        return cls.from_mapping({
-            "name": name,
-            "version": version,
-            "requires_python": requires_python,
-            "requires_dist": requires_dist,
-        })
+        return cls.from_mapping(
+            {
+                "name": name,
+                "version": version,
+                "requires_python": requires_python,
+                "requires_dist": requires_dist,
+            }
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -480,9 +533,15 @@ class FakePep691FileMetadata(MirrorValidatableFake):
         }
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakePep691FileMetadata:
-        core_metadata: bool | Mapping[str, str] = _coerce_field(mapping.get("core-metadata"))
-        data_dist_info_metadata: bool | Mapping[str, str] = _coerce_field(mapping.get("data-dist-info-metadata"))
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], **_: Any
+    ) -> FakePep691FileMetadata:
+        core_metadata: bool | Mapping[str, str] = _coerce_field(
+            mapping.get("core-metadata")
+        )
+        data_dist_info_metadata: bool | Mapping[str, str] = _coerce_field(
+            mapping.get("data-dist-info-metadata")
+        )
         return cls(
             filename=mapping["filename"],
             url=mapping["url"],
@@ -490,7 +549,8 @@ class FakePep691FileMetadata(MirrorValidatableFake):
             requires_python=mapping.get("requires_python"),
             yanked=mapping["yanked"],
             core_metadata=core_metadata,
-            data_dist_info_metadata=data_dist_info_metadata)
+            data_dist_info_metadata=data_dist_info_metadata,
+        )
 
 
 @dataclass(slots=True, frozen=True)
@@ -503,7 +563,7 @@ class FakePep691Metadata(MirrorValidatableFake):
         return {
             "name": self.name,
             "files": [f.to_mapping() for f in self.files],
-            "last_serial": self.last_serial
+            "last_serial": self.last_serial,
         }
 
     @classmethod
@@ -517,7 +577,8 @@ class FakePep691Metadata(MirrorValidatableFake):
         return cls(
             name=mapping["name"],
             files=files,
-            last_serial=int(last_serial) if last_serial is not None else None)
+            last_serial=int(last_serial) if last_serial is not None else None,
+        )
 
 
 class FakeResolutionStrategyConfig(TypedDict, total=False):
@@ -533,7 +594,9 @@ class FakeResolutionPolicy(MirrorValidatableFake):
     allowed_requires_dist_url_schemes: frozenset[str] | None = None
     yanked_wheel_policy: YankedWheelPolicy = YankedWheelPolicy.SKIP
     prerelease_policy: PreReleasePolicy = PreReleasePolicy.DEFAULT
-    invalid_requires_dist_policy: InvalidRequiresDistPolicy = InvalidRequiresDistPolicy.SKIP
+    invalid_requires_dist_policy: InvalidRequiresDistPolicy = (
+        InvalidRequiresDistPolicy.SKIP
+    )
 
     def to_mapping(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         return {
@@ -541,26 +604,42 @@ class FakeResolutionPolicy(MirrorValidatableFake):
             "allowed_requires_dist_url_schemes": (
                 sorted(self.allowed_requires_dist_url_schemes)
                 if self.allowed_requires_dist_url_schemes is not None
-                else None),
+                else None
+            ),
             "yanked_wheel_policy": self.yanked_wheel_policy.value,
             "prerelease_policy": self.prerelease_policy.value,
             "invalid_requires_dist_policy": self.invalid_requires_dist_policy.value,
         }
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any) -> FakeResolutionPolicy:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any
+    ) -> FakeResolutionPolicy:
         schemes = mapping.get("allowed_requires_dist_url_schemes")
-        allowed_schemes = None if schemes is None else frozenset(cast(str, s) for s in schemes)
-        req_dist_url_policy = mapping.get("requires_dist_url_policy", RequiresDistUrlPolicy.IGNORE.value)
-        yanked_wheel_policy = mapping.get("yanked_wheel_policy", YankedWheelPolicy.SKIP.value)
-        prerelease_policy = mapping.get("prerelease_policy", PreReleasePolicy.DEFAULT.value)
-        invalid_requires_dist_policy = mapping.get("invalid_requires_dist_policy", InvalidRequiresDistPolicy.SKIP.value)
+        allowed_schemes = (
+            None if schemes is None else frozenset(cast(str, s) for s in schemes)
+        )
+        req_dist_url_policy = mapping.get(
+            "requires_dist_url_policy", RequiresDistUrlPolicy.IGNORE.value
+        )
+        yanked_wheel_policy = mapping.get(
+            "yanked_wheel_policy", YankedWheelPolicy.SKIP.value
+        )
+        prerelease_policy = mapping.get(
+            "prerelease_policy", PreReleasePolicy.DEFAULT.value
+        )
+        invalid_requires_dist_policy = mapping.get(
+            "invalid_requires_dist_policy", InvalidRequiresDistPolicy.SKIP.value
+        )
         return cls(
             requires_dist_url_policy=RequiresDistUrlPolicy(req_dist_url_policy),
             allowed_requires_dist_url_schemes=allowed_schemes,
             yanked_wheel_policy=YankedWheelPolicy(yanked_wheel_policy),
             prerelease_policy=PreReleasePolicy(prerelease_policy),
-            invalid_requires_dist_policy=InvalidRequiresDistPolicy(invalid_requires_dist_policy))
+            invalid_requires_dist_policy=InvalidRequiresDistPolicy(
+                invalid_requires_dist_policy
+            ),
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -579,16 +658,21 @@ class FakeResolutionEnv(MirrorValidatableFake):
         }
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> FakeResolutionEnv:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], *args, **kwargs
+    ) -> FakeResolutionEnv:
         env_map: dict[str, str] = mapping.get("marker_environment", {})
         validate_typed_dict("marker_environment", env_map, Environment, str)
         mrk_env = cast(Environment, cast(object, env_map))
-        policy_map: dict[str, Any] = mapping.get("policy", FakeResolutionPolicy().to_mapping())
+        policy_map: dict[str, Any] = mapping.get(
+            "policy", FakeResolutionPolicy().to_mapping()
+        )
         return cls(
             identifier=mapping["identifier"],
             supported_tags=frozenset(mapping["supported_tags"]),
             marker_environment=mrk_env,
-            policy=FakeResolutionPolicy.from_mapping(policy_map))
+            policy=FakeResolutionPolicy.from_mapping(policy_map),
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -598,7 +682,9 @@ class FakeResolutionParams(MirrorValidatableFake):
     resolution_mode: ResolutionMode = field(default=ResolutionMode.REQUIREMENTS_TXT)
     repo_id: str | None = None
     repo_config: Mapping[str, Any] | None = None
-    strategy_configs: Iterable[FakeResolutionStrategyConfig] | None = field(default=None)
+    strategy_configs: Iterable[FakeResolutionStrategyConfig] | None = field(
+        default=None
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -635,7 +721,9 @@ class FakeResolverRequirement(MirrorValidatableFake):
         return {"wheel_spec": self.wheel_spec.to_mapping()}
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakeResolverRequirement:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], **_: Any
+    ) -> FakeResolverRequirement:
         return cls(wheel_spec=FakeWheelSpec.from_mapping(mapping["wheel_spec"]))
 
 
@@ -683,7 +771,9 @@ class FakeResolverCandidate(MirrorValidatableFake):
         return {"wheel_key": self.wheel_key.to_mapping()}
 
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> FakeResolverCandidate:
+    def from_mapping(
+        cls, mapping: Mapping[str, Any], **_: Any
+    ) -> FakeResolverCandidate:
         return cls(wheel_key=FakeWheelKey.from_mapping(mapping["wheel_key"]))
 
 
@@ -706,7 +796,7 @@ class FakeArtifactRecord(MirrorValidatableFake):
             "source": self.source.value,
             "content_sha256": self.content_sha256,
             "size": self.size,
-            "created_at_epoch_s": self.created_at_epoch_s
+            "created_at_epoch_s": self.created_at_epoch_s,
         }
         if self.content_hashes:
             mapping.update({"content_hashes": self.content_hashes})
@@ -723,7 +813,8 @@ class FakeArtifactRecord(MirrorValidatableFake):
             content_sha256=mapping.get("content_sha256"),
             size=mapping.get("size"),
             created_at_epoch_s=mapping.get("created_at_epoch_s"),
-            content_hashes=dict(incoming_hashes))
+            content_hashes=dict(incoming_hashes),
+        )
 
 
 ArtifactKeyType = TypeVar("ArtifactKeyType", bound=FakeBaseArtifactKey)
@@ -733,39 +824,56 @@ ArtifactKeyType = TypeVar("ArtifactKeyType", bound=FakeBaseArtifactKey)
 # Strategy fakes (MUST subclass the real base classes so isinstance(...) works)
 # ---------------------------------------------------------------------------
 
+
 @dataclass(frozen=True, slots=True)
 class ConcreteFakeBaseArtifactResolutionStrategy(BaseArtifactResolutionStrategy):
     def resolve(self, *, key: Any, destination_uri: str) -> FakeArtifactRecord | None:
-        return BaseArtifactResolutionStrategy.resolve(self, key=key, destination_uri=destination_uri)
+        return BaseArtifactResolutionStrategy.resolve(
+            self, key=key, destination_uri=destination_uri
+        )
 
 
 @dataclass(frozen=True, slots=True)
 class FakeIndexMetadataStrategy(IndexMetadataStrategy):
-    def resolve(self, *, key: FakeIndexMetadataKey, destination_uri: str) -> FakeArtifactRecord | None:
-        raise NotImplementedError("FakeIndexMetadataStrategy.resolve is not used by services.py tests")
+    def resolve(
+        self, *, key: FakeIndexMetadataKey, destination_uri: str
+    ) -> FakeArtifactRecord | None:
+        raise NotImplementedError(
+            "FakeIndexMetadataStrategy.resolve is not used by services.py tests"
+        )
 
 
 @dataclass(frozen=True, slots=True)
 class FakeCoreMetadataStrategy(CoreMetadataStrategy):
-    def resolve(self, *, key: FakeCoreMetadataKey, destination_uri: str) -> FakeArtifactRecord | None:
-        raise NotImplementedError("FakeCoreMetadataStrategy.resolve is not used by services.py tests")
+    def resolve(
+        self, *, key: FakeCoreMetadataKey, destination_uri: str
+    ) -> FakeArtifactRecord | None:
+        raise NotImplementedError(
+            "FakeCoreMetadataStrategy.resolve is not used by services.py tests"
+        )
 
 
 @dataclass(frozen=True, slots=True)
 class FakeWheelFileStrategy(WheelFileStrategy):
-    def resolve(self, *, key: FakeWheelKey, destination_uri: str) -> FakeArtifactRecord | None:
-        raise NotImplementedError("FakeWheelFileStrategy.resolve is not used by services.py tests")
+    def resolve(
+        self, *, key: FakeWheelKey, destination_uri: str
+    ) -> FakeArtifactRecord | None:
+        raise NotImplementedError(
+            "FakeWheelFileStrategy.resolve is not used by services.py tests"
+        )
 
 
 # ---------------------------------------------------------------------------
 # Capturing stub for services.load_strategies (patch services.load_strategies)
 # ---------------------------------------------------------------------------
 
+
 @dataclass(slots=True)
 class CapturingLoadStrategies:
     """
     Callable stub for services.load_strategies that records calls and returns a preset list.
     """
+
     return_value: Sequence[BaseArtifactResolutionStrategy[Any]]
     calls: list[dict[str, Any]] = field(default_factory=list)
 
@@ -778,11 +886,13 @@ class CapturingLoadStrategies:
 # In-memory repository fake (generally useful; also good for coordinator tests)
 # ---------------------------------------------------------------------------
 
+
 @dataclass(slots=True)
 class InMemoryArtifactRepository(ArtifactRepository):
     """
     Minimal ArtifactRepository implementation backed by an in-memory dict.
     """
+
     records: dict[FakeBaseArtifactKey, FakeArtifactRecord] = field(default_factory=dict)
 
     get_calls: list[FakeBaseArtifactKey] = field(default_factory=list)
@@ -813,14 +923,16 @@ class InMemoryArtifactRepository(ArtifactRepository):
 # BUILDERS (fakes + mapping shapes that your real models expect)
 # =============================================================================
 
+
 def wk(
-        name: str = "demo-pkg",
-        version: str = "1.2.3",
-        tag: str = "py3-none-any",
-        *,
-        deps: Sequence[FakeWheelKey] | None = None,
-        dependency_ids: Iterable[str] | None = None,
-        **kw: Any) -> FakeWheelKey:
+    name: str = "demo-pkg",
+    version: str = "1.2.3",
+    tag: str = "py3-none-any",
+    *,
+    deps: Sequence[FakeWheelKey] | None = None,
+    dependency_ids: Iterable[str] | None = None,
+    **kw: Any,
+) -> FakeWheelKey:
     if deps is not None and dependency_ids is not None:
         raise ValueError("Specify only one of deps or dependency_ids")
 
@@ -832,22 +944,20 @@ def wk(
         dep_ids = None
 
     return FakeWheelKey(
-        name=name,
-        version=version,
-        tag=tag,
-        dependency_ids=dep_ids,
-        **kw)
+        name=name, version=version, tag=tag, dependency_ids=dep_ids, **kw
+    )
 
 
 def wk_reqtxt(
-        name: str = "demo-pkg",
-        version: str = "1.2.3",
-        tag: str = "py3-none-any",
-        *,
-        origin_uri: str = "https://example.invalid/demo-pkg-1.2.3-py3-none-any.whl",
-        hash_algorithm: str = "sha256",
-        content_hash: str = "0" * 64,
-        **kw: Any) -> FakeWheelKey:
+    name: str = "demo-pkg",
+    version: str = "1.2.3",
+    tag: str = "py3-none-any",
+    *,
+    origin_uri: str = "https://example.invalid/demo-pkg-1.2.3-py3-none-any.whl",
+    hash_algorithm: str = "sha256",
+    content_hash: str = "0" * 64,
+    **kw: Any,
+) -> FakeWheelKey:
     k = wk(name=name, version=version, tag=tag, **kw)
     k.set_origin_uri(origin_uri)
     k.set_content_hash(hash_algorithm=hash_algorithm, content_hash=content_hash)
@@ -855,20 +965,22 @@ def wk_reqtxt(
 
 
 def ws(
-        *,
-        name: str = "demo-pkg",
-        version: str | SpecifierSet | None = "==1.2.3",
-        extras: Iterable[str] = (),
-        marker: str | Marker | None = None,
-        uri: str | None = None) -> FakeWheelSpec:
-    v = version if isinstance(version, SpecifierSet) or version is None else SpecifierSet(version)
+    *,
+    name: str = "demo-pkg",
+    version: str | SpecifierSet | None = "==1.2.3",
+    extras: Iterable[str] = (),
+    marker: str | Marker | None = None,
+    uri: str | None = None,
+) -> FakeWheelSpec:
+    v = (
+        version
+        if isinstance(version, SpecifierSet) or version is None
+        else SpecifierSet(version)
+    )
     m = marker if isinstance(marker, Marker) or marker is None else Marker(marker)
     return FakeWheelSpec(
-        name=name,
-        version=v,
-        extras=frozenset(extras),
-        marker=m,
-        uri=uri)
+        name=name, version=v, extras=frozenset(extras), marker=m, uri=uri
+    )
 
 
 def resolved_node_mapping(*, wheel_key: FakeWheelKey) -> dict[str, Any]:
@@ -876,10 +988,11 @@ def resolved_node_mapping(*, wheel_key: FakeWheelKey) -> dict[str, Any]:
 
 
 def resolved_graph_mapping(
-        *,
-        supported_python_band: str = ">=3.10",
-        roots: Sequence[FakeWheelKey],
-        nodes: Sequence[FakeWheelKey]) -> dict[str, Any]:
+    *,
+    supported_python_band: str = ">=3.10",
+    roots: Sequence[FakeWheelKey],
+    nodes: Sequence[FakeWheelKey],
+) -> dict[str, Any]:
     """
     Shape expected by ResolvedGraph.from_mapping:
       - supported_python_band: str
@@ -895,13 +1008,14 @@ def resolved_graph_mapping(
 
 # noinspection PyTypeChecker
 def make_fake_strategy(
-        kind: Literal["index", "core", "wheel"],
-        *,
-        name: str,
-        instance_id: str = "",
-        precedence: int = 100,
-        criticality: StrategyCriticality = StrategyCriticality.OPTIONAL,
-        source: ArtifactSource = ArtifactSource.OTHER) -> BaseArtifactResolutionStrategy[Any]:
+    kind: Literal["index", "core", "wheel"],
+    *,
+    name: str,
+    instance_id: str = "",
+    precedence: int = 100,
+    criticality: StrategyCriticality = StrategyCriticality.OPTIONAL,
+    source: ArtifactSource = ArtifactSource.OTHER,
+) -> BaseArtifactResolutionStrategy[Any]:
     """
     Factory for creating strategy instances for services.py tests.
 
@@ -914,21 +1028,24 @@ def make_fake_strategy(
                 instance_id=instance_id,
                 precedence=precedence,
                 criticality=criticality,
-                source=source)
+                source=source,
+            )
         case "core":
             return FakeCoreMetadataStrategy(
                 name=name,
                 instance_id=instance_id,
                 precedence=precedence,
                 criticality=criticality,
-                source=source)
+                source=source,
+            )
         case "wheel":
             return FakeWheelFileStrategy(
                 name=name,
                 instance_id=instance_id,
                 precedence=precedence,
                 criticality=criticality,
-                source=source)
+                source=source,
+            )
         case _:
             raise ValueError(f"Unknown kind: {kind!r}")
 
@@ -936,6 +1053,7 @@ def make_fake_strategy(
 # =============================================================================
 # PATCH UTILITIES (opt-in)
 # =============================================================================
+
 
 def patch_wheel_key_refs(monkeypatch: pytest.MonkeyPatch, *modules: Any) -> None:
     """
@@ -960,6 +1078,7 @@ def patch_models_wheelkey(monkeypatch: pytest.MonkeyPatch) -> type[FakeWheelKey]
     Opt-in fixture: patch model modules so graph deserialization uses FakeWheelKey.
     """
     from project_resolution_engine.model import graph as model_graph
+
     patch_wheel_key_refs(monkeypatch, model_graph)
     return FakeWheelKey
 
@@ -970,14 +1089,16 @@ def patch_models_wheelspec(monkeypatch: pytest.MonkeyPatch) -> type[FakeWheelSpe
     Opt-in fixture: patch model modules so resolution deserialization uses FakeWheelSpec.
     """
     from project_resolution_engine.model import resolution as model_resolution
+
     patch_wheel_spec_refs(monkeypatch, model_resolution)
     return FakeWheelSpec
 
 
 def patch_services_load_strategies(
-        monkeypatch: pytest.MonkeyPatch,
-        *,
-        return_value: Sequence[BaseArtifactResolutionStrategy[Any]]) -> CapturingLoadStrategies:
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    return_value: Sequence[BaseArtifactResolutionStrategy[Any]],
+) -> CapturingLoadStrategies:
     """
     Patch the imported name inside services.py and return the capturing stub.
     """

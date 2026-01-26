@@ -183,19 +183,34 @@ SHA256_FILE_CASES = [
 
 SIMPLE_PROJECT_JSON_URL_CASES = [
     # covers: C000F007B0001
-    ("https://pypi.org/simple", "requests", "https://pypi.org/simple/requests/", ["C000F007B0001"]),
-    ("https://pypi.org/simple/", "/requests/", "https://pypi.org/simple/requests/", ["C000F007B0001"]),
+    (
+        "https://pypi.org/simple",
+        "requests",
+        "https://pypi.org/simple/requests/",
+        ["C000F007B0001"],
+    ),
+    (
+        "https://pypi.org/simple/",
+        "/requests/",
+        "https://pypi.org/simple/requests/",
+        ["C000F007B0001"],
+    ),
 ]
 
 PEP658_URL_CASES = [
     # covers: C000F009B0001
-    ("https://files.pythonhosted.org/x.whl", "https://files.pythonhosted.org/x.whl.metadata", ["C000F009B0001"]),
+    (
+        "https://files.pythonhosted.org/x.whl",
+        "https://files.pythonhosted.org/x.whl.metadata",
+        ["C000F009B0001"],
+    ),
 ]
 
 
 # ==============================================================================
 # Minimal local fakes for isolation (tests monkeypatch the module-under-test types)
 # ==============================================================================
+
 
 @dataclass(frozen=True, slots=True)
 class _FakeIndexMetadataKey:
@@ -259,6 +274,7 @@ class _FakeZipFile:
     """
     Mock zipfile.ZipFile used by strategies; avoids real zip I/O (contract).
     """
+
     def __init__(self, *_: Any, **__: Any) -> None:
         self._names: list[str] = []
         self._blobs: dict[str, bytes] = {}
@@ -284,6 +300,7 @@ class _FakeZipFile:
 # Helper function tests
 # ==============================================================================
 
+
 @pytest.mark.parametrize("value, expected, covers", SAFE_SEGMENT_CASES)
 def test_safe_segment(value: str, expected: str, covers: list[str]) -> None:
     # covers: C000F001B0001 / C000F001B0002 (via matrix)
@@ -298,7 +315,9 @@ def test_short_hash_is_first_16_of_sha256_hex() -> None:
 
 
 @pytest.mark.parametrize("url, expected, covers", URL_BASENAME_CASES)
-def test_url_basename_normal_cases(url: str, expected: str | None, covers: list[str]) -> None:
+def test_url_basename_normal_cases(
+    url: str, expected: str | None, covers: list[str]
+) -> None:
     # covers: C000F003B0001 / C000F003B0002 / C000F003B0003 (via matrix)
     assert mod._url_basename(url) == expected
 
@@ -312,8 +331,13 @@ def test_url_basename_exception_returns_none(monkeypatch: pytest.MonkeyPatch) ->
     assert mod._url_basename("https://example.com/x") is None
 
 
-@pytest.mark.parametrize("destination_uri, expected_or_exc, msg_substr, covers", REQUIRE_FILE_DESTINATION_CASES)
-def test_require_file_destination(destination_uri: str, expected_or_exc, msg_substr: str | None, covers: list[str]) -> None:
+@pytest.mark.parametrize(
+    "destination_uri, expected_or_exc, msg_substr, covers",
+    REQUIRE_FILE_DESTINATION_CASES,
+)
+def test_require_file_destination(
+    destination_uri: str, expected_or_exc, msg_substr: str | None, covers: list[str]
+) -> None:
     # covers: C000F004B0001 / C000F004B0002 (via matrix)
     if expected_or_exc is ValueError:
         with pytest.raises(ValueError) as ei:
@@ -335,15 +359,21 @@ def test_ensure_parent_dir_creates_parent(tmp_path: Path) -> None:
 
 
 @pytest.mark.parametrize("payload_bytes, expected_hex, covers", SHA256_FILE_CASES)
-def test_sha256_file(tmp_path: Path, payload_bytes: bytes, expected_hex: str, covers: list[str]) -> None:
+def test_sha256_file(
+    tmp_path: Path, payload_bytes: bytes, expected_hex: str, covers: list[str]
+) -> None:
     # covers: C000F006B0001 / C000F006B0002 (via matrix)
     p = tmp_path / "x.bin"
     p.write_bytes(payload_bytes)
     assert mod._sha256_file(p) == expected_hex
 
 
-@pytest.mark.parametrize("index_base, project, expected, covers", SIMPLE_PROJECT_JSON_URL_CASES)
-def test_simple_project_json_url(index_base: str, project: str, expected: str, covers: list[str]) -> None:
+@pytest.mark.parametrize(
+    "index_base, project, expected, covers", SIMPLE_PROJECT_JSON_URL_CASES
+)
+def test_simple_project_json_url(
+    index_base: str, project: str, expected: str, covers: list[str]
+) -> None:
     # covers: C000F007B0001
     assert mod._simple_project_json_url(index_base, project) == expected
 
@@ -353,7 +383,10 @@ def test_write_canonical_json_is_deterministic(tmp_path: Path) -> None:
     p = tmp_path / "out.json"
     payload = {"b": 2, "a": 1}
     mod._write_canonical_json(p, payload)
-    assert p.read_text(encoding="utf-8") == json.dumps(payload, indent=2, sort_keys=True) + "\n"
+    assert (
+        p.read_text(encoding="utf-8")
+        == json.dumps(payload, indent=2, sort_keys=True) + "\n"
+    )
 
 
 @pytest.mark.parametrize("file_url, expected, covers", PEP658_URL_CASES)
@@ -389,7 +422,10 @@ def test_find_dist_info_metadata_path_returns_sorted_first() -> None:
 # Strategy tests (mock external influences at call sites)
 # ==============================================================================
 
-def test_pep691_resolve_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+
+def test_pep691_resolve_not_applicable(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C001M001B0001
     strat = mod.Pep691IndexMetadataHttpStrategy()
     dest = (tmp_path / "x.json").as_uri()
@@ -398,7 +434,9 @@ def test_pep691_resolve_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_path
         strat.resolve(key=object(), destination_uri=dest)  # type: ignore[arg-type]
 
 
-def test_pep691_resolve_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_pep691_resolve_success(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C001M001B0002
     monkeypatch.setattr(mod, "IndexMetadataKey", _FakeIndexMetadataKey)
 
@@ -413,7 +451,9 @@ def test_pep691_resolve_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path)
     monkeypatch.setattr(mod.requests, "get", fake_get)
 
     dest_path = tmp_path / "out" / "index.json"
-    key = _FakeIndexMetadataKey(project="requests", index_base="https://pypi.org/simple/")
+    key = _FakeIndexMetadataKey(
+        project="requests", index_base="https://pypi.org/simple/"
+    )
 
     strat = mod.Pep691IndexMetadataHttpStrategy(user_agent="ua-test", timeout_s=1.25)
     rec = strat.resolve(key=key, destination_uri=dest_path.as_uri())
@@ -443,7 +483,9 @@ def test_http_wheel_resolve_not_applicable(tmp_path: Path) -> None:
         strat.resolve(key=object(), destination_uri=(tmp_path / "x.whl").as_uri())  # type: ignore[arg-type]
 
 
-def test_http_wheel_resolve_origin_uri_required(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_http_wheel_resolve_origin_uri_required(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C002M001B0002
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
     strat = mod.HttpWheelFileStrategy()
@@ -457,12 +499,20 @@ def test_http_wheel_resolve_origin_uri_required(monkeypatch: pytest.MonkeyPatch,
 @pytest.mark.parametrize(
     "iter_chunks, covers",
     [
-        ([], ["C002M001B0003"]),                 # loop 0 iterations
-        ([b"abc"], ["C002M001B0004"]),           # loop >=1, chunk truthy
-        ([b"", b"abc"], ["C002M001B0004", "C002M001B0005"]),  # includes falsy chunk and a truthy chunk
+        ([], ["C002M001B0003"]),  # loop 0 iterations
+        ([b"abc"], ["C002M001B0004"]),  # loop >=1, chunk truthy
+        (
+            [b"", b"abc"],
+            ["C002M001B0004", "C002M001B0005"],
+        ),  # includes falsy chunk and a truthy chunk
     ],
 )
-def test_http_wheel_resolve_streaming(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, iter_chunks: list[bytes], covers: list[str]) -> None:
+def test_http_wheel_resolve_streaming(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    iter_chunks: list[bytes],
+    covers: list[str],
+) -> None:
     # covers: C002M001B0003 / C002M001B0004 / C002M001B0005 (via matrix rows)
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
 
@@ -477,8 +527,15 @@ def test_http_wheel_resolve_streaming(monkeypatch: pytest.MonkeyPatch, tmp_path:
 
     monkeypatch.setattr(mod.requests, "get", fake_get)
 
-    strat = mod.HttpWheelFileStrategy(user_agent="ua-wheel", timeout_s=9.0, chunk_bytes=3)
-    key = _FakeWheelKey(name="pkg", version="1.0", tag="py3-none-any", origin_uri="https://example.com/pkg.whl")
+    strat = mod.HttpWheelFileStrategy(
+        user_agent="ua-wheel", timeout_s=9.0, chunk_bytes=3
+    )
+    key = _FakeWheelKey(
+        name="pkg",
+        version="1.0",
+        tag="py3-none-any",
+        origin_uri="https://example.com/pkg.whl",
+    )
     dest_path = tmp_path / "d" / "pkg.whl"
 
     rec = strat.resolve(key=key, destination_uri=dest_path.as_uri())
@@ -504,7 +561,9 @@ def test_pep658_resolve_not_applicable_wrong_type(tmp_path: Path) -> None:
         strat.resolve(key=object(), destination_uri=(tmp_path / "m").as_uri())  # type: ignore[arg-type]
 
 
-def test_pep658_resolve_404_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_pep658_resolve_404_not_applicable(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C003M001B0002
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
 
@@ -514,13 +573,17 @@ def test_pep658_resolve_404_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_
     monkeypatch.setattr(mod.requests, "get", fake_get)
 
     strat = mod.Pep658CoreMetadataHttpStrategy()
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/x.whl")
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/x.whl"
+    )
 
     with pytest.raises(mod.StrategyNotApplicable):
         strat.resolve(key=key, destination_uri=(tmp_path / "meta.txt").as_uri())
 
 
-def test_pep658_resolve_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_pep658_resolve_success(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C003M001B0003
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
 
@@ -532,7 +595,9 @@ def test_pep658_resolve_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path)
     monkeypatch.setattr(mod.requests, "get", fake_get)
 
     strat = mod.Pep658CoreMetadataHttpStrategy()
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/x.whl")
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/x.whl"
+    )
     dest_path = tmp_path / "meta" / "METADATA"
 
     rec = strat.resolve(key=key, destination_uri=dest_path.as_uri())
@@ -558,7 +623,9 @@ def test_wheel_extracted_metadata_not_applicable_wrong_type(tmp_path: Path) -> N
         strat.resolve(key=object(), destination_uri=(tmp_path / "m").as_uri())  # type: ignore[arg-type]
 
 
-def test_wheel_extracted_metadata_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_wheel_extracted_metadata_success(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C004M001B0002
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
@@ -598,7 +665,9 @@ def test_wheel_extracted_metadata_success(monkeypatch: pytest.MonkeyPatch, tmp_p
     monkeypatch.setattr(mod.zipfile, "ZipFile", fake_zipfile_ctor)
 
     strat = mod.WheelExtractedCoreMetadataStrategy(wheel_strategy=DummyWheelStrategy())
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/pkg.whl")
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="py3-none-any", file_url="https://files/pkg.whl"
+    )
     dest_path = tmp_path / "out" / "METADATA"
 
     rec = strat.resolve(key=key, destination_uri=dest_path.as_uri())
@@ -619,7 +688,9 @@ def test_direct_uri_wheel_not_applicable_wrong_type(tmp_path: Path) -> None:
         strat.resolve(key=object(), destination_uri=(tmp_path / "x.whl").as_uri())  # type: ignore[arg-type]
 
 
-def test_direct_uri_wheel_origin_uri_required(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_wheel_origin_uri_required(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C005M001B0002
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
     strat = mod.DirectUriWheelFileStrategy()
@@ -629,20 +700,34 @@ def test_direct_uri_wheel_origin_uri_required(monkeypatch: pytest.MonkeyPatch, t
     assert "origin_uri" in str(ei.value)
 
 
-def test_direct_uri_wheel_scheme_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_wheel_scheme_not_applicable(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C005M001B0003
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
     strat = mod.DirectUriWheelFileStrategy()
-    key = _FakeWheelKey(name="pkg", version="1.0", tag="py3-none-any", origin_uri="https://example.com/x.whl")
+    key = _FakeWheelKey(
+        name="pkg",
+        version="1.0",
+        tag="py3-none-any",
+        origin_uri="https://example.com/x.whl",
+    )
     with pytest.raises(mod.StrategyNotApplicable):
         strat.resolve(key=key, destination_uri=(tmp_path / "x.whl").as_uri())
 
 
-def test_direct_uri_wheel_missing_source_raises(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_wheel_missing_source_raises(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C005M001B0004
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
     strat = mod.DirectUriWheelFileStrategy()
-    key = _FakeWheelKey(name="pkg", version="1.0", tag="py3-none-any", origin_uri=str(tmp_path / "nope.whl"))
+    key = _FakeWheelKey(
+        name="pkg",
+        version="1.0",
+        tag="py3-none-any",
+        origin_uri=str(tmp_path / "nope.whl"),
+    )
 
     with pytest.raises(FileNotFoundError) as ei:
         strat.resolve(key=key, destination_uri=(tmp_path / "dest.whl").as_uri())
@@ -652,11 +737,13 @@ def test_direct_uri_wheel_missing_source_raises(monkeypatch: pytest.MonkeyPatch,
 @pytest.mark.parametrize(
     "src_bytes, covers",
     [
-        (b"", ["C005M001B0005"]),     # loop 0 iterations (empty file)
+        (b"", ["C005M001B0005"]),  # loop 0 iterations (empty file)
         (b"abc", ["C005M001B0006"]),  # loop >=1 iteration
     ],
 )
-def test_direct_uri_wheel_copy(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, src_bytes: bytes, covers: list[str]) -> None:
+def test_direct_uri_wheel_copy(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, src_bytes: bytes, covers: list[str]
+) -> None:
     # covers: C005M001B0005 / C005M001B0006 (via matrix rows)
     monkeypatch.setattr(mod, "WheelKey", _FakeWheelKey)
 
@@ -664,7 +751,9 @@ def test_direct_uri_wheel_copy(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, 
     src.write_bytes(src_bytes)
 
     strat = mod.DirectUriWheelFileStrategy(chunk_bytes=2)
-    key = _FakeWheelKey(name="pkg", version="1.0", tag="py3-none-any", origin_uri=str(src))
+    key = _FakeWheelKey(
+        name="pkg", version="1.0", tag="py3-none-any", origin_uri=str(src)
+    )
     dest = tmp_path / "out" / "dest.whl"
 
     rec = strat.resolve(key=key, destination_uri=dest.as_uri())
@@ -684,29 +773,39 @@ def test_direct_uri_core_metadata_wrong_type_not_applicable(tmp_path: Path) -> N
         strat.resolve(key=object(), destination_uri=(tmp_path / "m").as_uri())  # type: ignore[arg-type]
 
 
-def test_direct_uri_core_metadata_scheme_not_applicable(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_core_metadata_scheme_not_applicable(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C006M001B0002
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
     strat = mod.DirectUriCoreMetadataStrategy()
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="t", file_url="https://example.com/pkg.whl")
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="t", file_url="https://example.com/pkg.whl"
+    )
 
     with pytest.raises(mod.StrategyNotApplicable):
         strat.resolve(key=key, destination_uri=(tmp_path / "m").as_uri())
 
 
-def test_direct_uri_core_metadata_missing_wheel_raises(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_core_metadata_missing_wheel_raises(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C006M001B0003
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
     strat = mod.DirectUriCoreMetadataStrategy()
     missing = tmp_path / "nope.whl"
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="t", file_url=str(missing))
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="t", file_url=str(missing)
+    )
 
     with pytest.raises(FileNotFoundError) as ei:
         strat.resolve(key=key, destination_uri=(tmp_path / "m").as_uri())
     assert "nope.whl" in str(ei.value)
 
 
-def test_direct_uri_core_metadata_not_a_file_raises(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_core_metadata_not_a_file_raises(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C006M001B0004
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
     strat = mod.DirectUriCoreMetadataStrategy()
@@ -719,7 +818,9 @@ def test_direct_uri_core_metadata_not_a_file_raises(monkeypatch: pytest.MonkeyPa
     assert "not a file" in str(ei.value)
 
 
-def test_direct_uri_core_metadata_success(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_direct_uri_core_metadata_success(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     # covers: C006M001B0005
     monkeypatch.setattr(mod, "CoreMetadataKey", _FakeCoreMetadataKey)
 
@@ -742,7 +843,9 @@ def test_direct_uri_core_metadata_success(monkeypatch: pytest.MonkeyPatch, tmp_p
     monkeypatch.setattr(mod.zipfile, "ZipFile", fake_zipfile_ctor)
 
     strat = mod.DirectUriCoreMetadataStrategy()
-    key = _FakeCoreMetadataKey(name="pkg", version="1.0", tag="t", file_url=str(wheel_path))
+    key = _FakeCoreMetadataKey(
+        name="pkg", version="1.0", tag="t", file_url=str(wheel_path)
+    )
     dest_path = tmp_path / "out" / "METADATA"
 
     rec = strat.resolve(key=key, destination_uri=dest_path.as_uri())

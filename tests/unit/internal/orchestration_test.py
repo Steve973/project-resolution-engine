@@ -1,4 +1,22 @@
 from __future__ import annotations
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Callable
+from unittest.mock import Mock
+
+import pytest
+
+from project_resolution_engine.internal.orchestration import (
+    StrategyChainArtifactResolver,
+    ArtifactCoordinator,
+)
+from project_resolution_engine.model.resolution import ArtifactResolutionError
+from project_resolution_engine.strategies import (
+    StrategyCriticality,
+    StrategyNotApplicable,
+)
+from unit.helpers.models_helper import FakeArtifactRecord, FakeWheelKey
 
 # ==============================================================================
 # BRANCH LEDGER: orchestration.py
@@ -48,23 +66,10 @@ from __future__ import annotations
 #   [x] all `break` / `continue` paths captured
 # ==============================================================================
 
-from __future__ import annotations
-
-from dataclasses import dataclass
-from typing import Callable, Iterable
-from unittest.mock import Mock
-
-import pytest
-
-from project_resolution_engine.internal.orchestration import StrategyChainArtifactResolver, ArtifactCoordinator
-from project_resolution_engine.model.resolution import ArtifactResolutionError
-from project_resolution_engine.strategies import StrategyCriticality, StrategyNotApplicable
-from unit.helpers.models_helper import FakeArtifactRecord, FakeWheelKey
-
-
 # ==============================================================================
 # Case matrix (per TESTING_CONTRACT.md)
 # ==============================================================================
+
 
 @dataclass(slots=True)
 class _FakeStrategy:
@@ -74,6 +79,7 @@ class _FakeStrategy:
     We intentionally do NOT inherit BaseArtifactResolutionStrategy here to keep the
     unit boundary strict: orchestration.py should only depend on attributes + resolve().
     """
+
     name: str
     criticality: StrategyCriticality
     _action: Callable[[object, str], FakeArtifactRecord | None]
@@ -81,7 +87,9 @@ class _FakeStrategy:
     last_key: object | None = None
     last_destination_uri: str | None = None
 
-    def resolve(self, *, key: object, destination_uri: str) -> FakeArtifactRecord | None:
+    def resolve(
+        self, *, key: object, destination_uri: str
+    ) -> FakeArtifactRecord | None:
         self.calls += 1
         self.last_key = key
         self.last_destination_uri = destination_uri
@@ -93,37 +101,51 @@ def _mk_key() -> FakeWheelKey:
     return FakeWheelKey(name="my-project", version="1.0", tag="py3-none-any")
 
 
-def _mk_record(key: FakeWheelKey, *, dest: str = "file:///dest.whl", origin: str = "https://example/wheel.whl") -> FakeArtifactRecord:
+def _mk_record(
+    key: FakeWheelKey,
+    *,
+    dest: str = "file:///dest.whl",
+    origin: str = "https://example/wheel.whl",
+) -> FakeArtifactRecord:
     return FakeArtifactRecord(key=key, destination_uri=dest, origin_uri=origin)
 
 
-def _act_return(record: FakeArtifactRecord) -> Callable[[object, str], FakeArtifactRecord]:
+def _act_return(
+    record: FakeArtifactRecord,
+) -> Callable[[object, str], FakeArtifactRecord]:
     def _inner(_key: object, _dest: str) -> FakeArtifactRecord:
         return record
+
     return _inner
 
 
 def _act_return_none() -> Callable[[object, str], None]:
     def _inner(_key: object, _dest: str) -> None:
         return None
+
     return _inner
 
 
 def _act_raise_not_applicable() -> Callable[[object, str], FakeArtifactRecord | None]:
     def _inner(_key: object, _dest: str) -> FakeArtifactRecord | None:
         raise StrategyNotApplicable("nope")
+
     return _inner
 
 
-def _act_raise(exc: BaseException) -> Callable[[object, str], FakeArtifactRecord | None]:
+def _act_raise(
+    exc: BaseException,
+) -> Callable[[object, str], FakeArtifactRecord | None]:
     def _inner(_key: object, _dest: str) -> FakeArtifactRecord | None:
         raise exc
+
     return _inner
 
 
 def _act_fail_if_called() -> Callable[[object, str], FakeArtifactRecord | None]:
     def _inner(_key: object, _dest: str) -> FakeArtifactRecord | None:
         raise AssertionError("disabled strategy should not be called")
+
     return _inner
 
 
@@ -146,7 +168,9 @@ RESOLVER_CASES: list[dict[str, object]] = [
     {
         "id": "imperative_only_allows_run_and_returns_record",
         "strategies": lambda: [
-            _FakeStrategy("s1", StrategyCriticality.IMPERATIVE, _act_return(_mk_record(_mk_key()))),
+            _FakeStrategy(
+                "s1", StrategyCriticality.IMPERATIVE, _act_return(_mk_record(_mk_key()))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -172,8 +196,12 @@ RESOLVER_CASES: list[dict[str, object]] = [
     {
         "id": "disabled_strategy_is_skipped_then_next_returns_record",
         "strategies": lambda: [
-            _FakeStrategy("disabled", StrategyCriticality.DISABLED, _act_fail_if_called()),
-            _FakeStrategy("ok", StrategyCriticality.REQUIRED, _act_return(_mk_record(_mk_key()))),
+            _FakeStrategy(
+                "disabled", StrategyCriticality.DISABLED, _act_fail_if_called()
+            ),
+            _FakeStrategy(
+                "ok", StrategyCriticality.REQUIRED, _act_return(_mk_record(_mk_key()))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -184,13 +212,21 @@ RESOLVER_CASES: list[dict[str, object]] = [
             # disabled was not called; next was called exactly once
             (strategies[0].calls, strategies[1].calls)
         ),
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0007", "C001M001B0008"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0007",
+            "C001M001B0008",
+        ],
     },
     {
         "id": "strategy_returns_none_then_next_returns_record",
         "strategies": lambda: [
             _FakeStrategy("none", StrategyCriticality.OPTIONAL, _act_return_none()),
-            _FakeStrategy("ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))),
+            _FakeStrategy(
+                "ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -198,13 +234,23 @@ RESOLVER_CASES: list[dict[str, object]] = [
         "expect_msg": None,
         "expect_record": "non_none",
         "post_assert": None,
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0009", "C001M001B0008"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0009",
+            "C001M001B0008",
+        ],
     },
     {
         "id": "strategy_raises_not_applicable_then_next_returns_record",
         "strategies": lambda: [
-            _FakeStrategy("na", StrategyCriticality.OPTIONAL, _act_raise_not_applicable()),
-            _FakeStrategy("ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))),
+            _FakeStrategy(
+                "na", StrategyCriticality.OPTIONAL, _act_raise_not_applicable()
+            ),
+            _FakeStrategy(
+                "ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -212,13 +258,23 @@ RESOLVER_CASES: list[dict[str, object]] = [
         "expect_msg": None,
         "expect_record": "non_none",
         "post_assert": None,
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0010", "C001M001B0008"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0010",
+            "C001M001B0008",
+        ],
     },
     {
         "id": "strategy_raises_other_exception_then_next_returns_record_and_error_is_collected_but_not_raised",
         "strategies": lambda: [
-            _FakeStrategy("boom", StrategyCriticality.OPTIONAL, _act_raise(ValueError("boom"))),
-            _FakeStrategy("ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))),
+            _FakeStrategy(
+                "boom", StrategyCriticality.OPTIONAL, _act_raise(ValueError("boom"))
+            ),
+            _FakeStrategy(
+                "ok", StrategyCriticality.OPTIONAL, _act_return(_mk_record(_mk_key()))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -226,13 +282,21 @@ RESOLVER_CASES: list[dict[str, object]] = [
         "expect_msg": None,
         "expect_record": "non_none",
         "post_assert": None,
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0011", "C001M001B0008"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0011",
+            "C001M001B0008",
+        ],
     },
     {
         "id": "loop_exhausted_with_empty_causes_raises",
         "strategies": lambda: [
             _FakeStrategy("none", StrategyCriticality.OPTIONAL, _act_return_none()),
-            _FakeStrategy("na", StrategyCriticality.OPTIONAL, _act_raise_not_applicable()),
+            _FakeStrategy(
+                "na", StrategyCriticality.OPTIONAL, _act_raise_not_applicable()
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -240,13 +304,24 @@ RESOLVER_CASES: list[dict[str, object]] = [
         "expect_msg": "No strategy was able to resolve the requested artifact",
         "expect_record": None,
         "post_assert": None,
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0009", "C001M001B0010", "C001M001B0012"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0009",
+            "C001M001B0010",
+            "C001M001B0012",
+        ],
     },
     {
         "id": "loop_exhausted_with_non_empty_causes_raises_and_causes_are_preserved",
         "strategies": lambda: [
-            _FakeStrategy("boom1", StrategyCriticality.OPTIONAL, _act_raise(ValueError("boom1"))),
-            _FakeStrategy("boom2", StrategyCriticality.OPTIONAL, _act_raise(RuntimeError("boom2"))),
+            _FakeStrategy(
+                "boom1", StrategyCriticality.OPTIONAL, _act_raise(ValueError("boom1"))
+            ),
+            _FakeStrategy(
+                "boom2", StrategyCriticality.OPTIONAL, _act_raise(RuntimeError("boom2"))
+            ),
         ],
         "key": _mk_key(),
         "dest_uri": "file:///dest.whl",
@@ -254,7 +329,13 @@ RESOLVER_CASES: list[dict[str, object]] = [
         "expect_msg": "No strategy was able to resolve the requested artifact",
         "expect_record": None,
         "post_assert": None,
-        "covers": ["C001M001B0001", "C001M001B0002", "C001M001B0006", "C001M001B0011", "C001M001B0013"],
+        "covers": [
+            "C001M001B0001",
+            "C001M001B0002",
+            "C001M001B0006",
+            "C001M001B0011",
+            "C001M001B0013",
+        ],
     },
 ]
 
@@ -276,6 +357,7 @@ COORDINATOR_CASES: list[dict[str, object]] = [
 # ==============================================================================
 # Tests
 # ==============================================================================
+
 
 @pytest.mark.parametrize("case", RESOLVER_CASES, ids=lambda c: str(c["id"]))
 def test_strategy_chain_artifact_resolver_resolve(case: dict[str, object]) -> None:
@@ -329,7 +411,10 @@ def test_strategy_chain_artifact_resolver_resolve(case: dict[str, object]) -> No
                 # Covers: C001M001B0012 (loop >=1, causes empty)
                 assert err.causes == ()
 
-            if case["id"] == "loop_exhausted_with_non_empty_causes_raises_and_causes_are_preserved":
+            if (
+                case["id"]
+                == "loop_exhausted_with_non_empty_causes_raises_and_causes_are_preserved"
+            ):
                 # Covers: C001M001B0013
                 assert len(err.causes) == 2
                 assert isinstance(err.causes[0], ValueError)
@@ -373,5 +458,7 @@ def test_artifact_coordinator_resolve(case: dict[str, object]) -> None:
         assert out is record
         repo.get.assert_called_once_with(key)
         repo.allocate_destination_uri.assert_called_once_with(key)
-        resolver.resolve.assert_called_once_with(key=key, destination_uri="file:///dest.whl")
+        resolver.resolve.assert_called_once_with(
+            key=key, destination_uri="file:///dest.whl"
+        )
         repo.put.assert_called_once_with(record)

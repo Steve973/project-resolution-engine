@@ -1,0 +1,1493 @@
+docKind: derived-ids
+schemaVersion: "1.0.0"
+unit:
+  name: compatibility
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C000F001
+      kind: callable
+      name: validate_typed_dict
+      address: 'compatibility::validate_typed_dict'
+    - id: C003M001
+      kind: callable
+      name: MarkerEnvConfig.to_mapping
+      address: 'compatibility::MarkerEnvConfig.to_mapping'
+    - id: C003M002
+      kind: callable
+      name: MarkerEnvConfig.from_mapping
+      address: 'compatibility::MarkerEnvConfig.from_mapping'
+    - id: C004M001
+      kind: callable
+      name: Filter.to_mapping
+      address: 'compatibility::Filter.to_mapping'
+    - id: C004M002
+      kind: callable
+      name: Filter.from_mapping
+      address: 'compatibility::Filter.from_mapping'
+    - id: C005M001
+      kind: callable
+      name: VersionSpec.to_mapping
+      address: 'compatibility::VersionSpec.to_mapping'
+    - id: C005M002
+      kind: callable
+      name: VersionSpec.from_mapping
+      address: 'compatibility::VersionSpec.from_mapping'
+    - id: C006M001
+      kind: callable
+      name: InterpreterConfig.to_mapping
+      address: 'compatibility::InterpreterConfig.to_mapping'
+    - id: C006M002
+      kind: callable
+      name: InterpreterConfig.from_mapping
+      address: 'compatibility::InterpreterConfig.from_mapping'
+    - id: C007M001
+      kind: callable
+      name: AbiConfig.to_mapping
+      address: 'compatibility::AbiConfig.to_mapping'
+    - id: C007M002
+      kind: callable
+      name: AbiConfig.from_mapping
+      address: 'compatibility::AbiConfig.from_mapping'
+    - id: C008M001
+      kind: callable
+      name: PlatformVariant.to_mapping
+      address: 'compatibility::PlatformVariant.to_mapping'
+    - id: C008M002
+      kind: callable
+      name: PlatformVariant.from_mapping
+      address: 'compatibility::PlatformVariant.from_mapping'
+    - id: C009M001
+      kind: callable
+      name: PlatformConfig.to_mapping
+      address: 'compatibility::PlatformConfig.to_mapping'
+    - id: C009M002
+      kind: callable
+      name: PlatformConfig.from_mapping
+      address: 'compatibility::PlatformConfig.from_mapping'
+    - id: C010M001
+      kind: callable
+      name: PlatformContext.to_mapping
+      address: 'compatibility::PlatformContext.to_mapping'
+    - id: C010M002
+      kind: callable
+      name: PlatformContext.from_mapping
+      address: 'compatibility::PlatformContext.from_mapping'
+    - id: C012M001
+      kind: callable
+      name: ResolutionContext.to_mapping
+      address: 'compatibility::ResolutionContext.to_mapping'
+    - id: C012M002
+      kind: callable
+      name: ResolutionContext.from_mapping
+      address: 'compatibility::ResolutionContext.from_mapping'
+  branches:
+    - id: C000F001E0001
+      parent: C000F001
+      address: 'compatibility@L36'
+      summary: 'executes: allowed_env_keys = set(validation_type.__annotatio...'
+    - id: C000F001E0002
+      parent: C000F001
+      address: 'compatibility@L37'
+      summary: 'executes: bad_keys = set(mapping.keys()) - allowed_env_keys'
+    - id: C000F001E0003
+      parent: C000F001
+      address: 'compatibility@L38'
+      summary: 'bad_keys truthy → raises ValueError'
+    - id: C000F001E0004
+      parent: C000F001
+      address: 'compatibility@L38'
+      summary: 'bad_keys falsy → continues to line 40'
+    - id: C000F001E0005
+      parent: C000F001
+      address: 'compatibility@L40'
+      summary: 'mapping.items() empty → bad_vals = []'
+    - id: C000F001E0006
+      parent: C000F001
+      address: 'compatibility@L40'
+      summary: 'mapping has items, all isinstance checks pass → bad_vals = [...'
+    - id: C000F001E0007
+      parent: C000F001
+      address: 'compatibility@L40'
+      summary: 'mapping has items, some isinstance checks fail → bad_vals po...'
+    - id: C000F001E0008
+      parent: C000F001
+      address: 'compatibility@L45'
+      summary: 'bad_vals truthy → continues to line 46'
+    - id: C000F001E0009
+      parent: C000F001
+      address: 'compatibility@L45'
+      summary: 'bad_vals falsy → function returns (implicit None)'
+    - id: C000F001E0010
+      parent: C000F001
+      address: 'compatibility@L46'
+      summary: 'executes: details = '', ''.join(f''{k} (got {t})'' for k, t in b...'
+    - id: C000F001E0011
+      parent: C000F001
+      address: 'compatibility@L47'
+      summary: 'isinstance(value_type, type) true → continues to line 48'
+    - id: C000F001E0012
+      parent: C000F001
+      address: 'compatibility@L47'
+      summary: 'isinstance(value_type, type) false → continues to line 50'
+    - id: C000F001E0013
+      parent: C000F001
+      address: 'compatibility@L48'
+      summary: 'executes: expected = value_type.__name__'
+    - id: C000F001E0014
+      parent: C000F001
+      address: 'compatibility@L50'
+      summary: 'executes: expected = '' | ''.join(t.__name__ for t in value_ty...'
+    - id: C000F001E0015
+      parent: C000F001
+      address: 'compatibility@L52'
+      summary: 'executes: raises ValueError'
+    - id: C003M001E0001
+      parent: C003M001
+      address: 'compatibility@L111'
+      summary: 'executes: returns dict({''overrides'': self.overrides, ''mode'':...'
+    - id: C003M002E0001
+      parent: C003M002
+      address: 'compatibility@L118'
+      summary: 'executes: overrides = mapping.get(''overrides'', {})'
+    - id: C003M002E0002
+      parent: C003M002
+      address: 'compatibility@L119'
+      summary: 'isinstance(overrides, dict) true → continues to line 123'
+    - id: C003M002E0003
+      parent: C003M002
+      address: 'compatibility@L119'
+      summary: 'isinstance(overrides, dict) false → continues to line 120'
+    - id: C003M002E0004
+      parent: C003M002
+      address: 'compatibility@L120'
+      summary: 'executes: raises ValueError'
+    - id: C003M002E0005
+      parent: C003M002
+      address: 'compatibility@L123'
+      summary: 'executes: overrides_map = overrides'
+    - id: C003M002E0006
+      parent: C003M002
+      address: 'compatibility@L124'
+      summary: 'executes: calls validate_typed_dict(...)'
+    - id: C003M002E0007
+      parent: C003M002
+      address: 'compatibility@L127'
+      summary: 'executes: env_overrides = cast(EnvironmentOverrides, cast(ob...'
+    - id: C003M002E0008
+      parent: C003M002
+      address: 'compatibility@L129'
+      summary: 'executes: returns cls(...)'
+    - id: C004M001E0001
+      parent: C004M001
+      address: 'compatibility@L159'
+      summary: 'executes: returns dict({''include'': self.include, ''exclude'': ...'
+    - id: C004M002E0001
+      parent: C004M002
+      address: 'compatibility@L167'
+      summary: 'executes: returns cls(...)'
+    - id: C005M001E0001
+      parent: C005M001
+      address: 'compatibility@L196'
+      summary: 'executes: result = {}'
+    - id: C005M001E0002
+      parent: C005M001
+      address: 'compatibility@L197'
+      summary: 'self.range is not None true → continues to line 198'
+    - id: C005M001E0003
+      parent: C005M001
+      address: 'compatibility@L197'
+      summary: 'self.range is not None false → continues to line 199'
+    - id: C005M001E0004
+      parent: C005M001
+      address: 'compatibility@L198'
+      summary: 'executes: result[''range''] = self.range'
+    - id: C005M001E0005
+      parent: C005M001
+      address: 'compatibility@L199'
+      summary: 'self.filters is not None true → continues to line 200'
+    - id: C005M001E0006
+      parent: C005M001
+      address: 'compatibility@L199'
+      summary: 'self.filters is not None false → continues to line 201'
+    - id: C005M001E0007
+      parent: C005M001
+      address: 'compatibility@L200'
+      summary: 'executes: result[''filters''] = self.filters.to_mapping()'
+    - id: C005M001E0008
+      parent: C005M001
+      address: 'compatibility@L201'
+      summary: 'executes: returns result'
+    - id: C005M002E0001
+      parent: C005M002
+      address: 'compatibility@L205'
+      summary: 'executes: filters_data = mapping.get(''filters'')'
+    - id: C005M002E0002
+      parent: C005M002
+      address: 'compatibility@L206'
+      summary: 'filters_data truthy → filters = Filter.from_mapping(filters_...'
+    - id: C005M002E0003
+      parent: C005M002
+      address: 'compatibility@L206'
+      summary: 'filters_data falsy → filters = None'
+    - id: C005M002E0004
+      parent: C005M002
+      address: 'compatibility@L208'
+      summary: 'executes: returns cls(range=mapping.get(''range''), filters=fi...'
+    - id: C006M001E0001
+      parent: C006M001
+      address: 'compatibility@L235'
+      summary: 'executes: result = dict(...)'
+    - id: C006M001E0002
+      parent: C006M001
+      address: 'compatibility@L240'
+      summary: 'self.filters is not None true → continues to line 241'
+    - id: C006M001E0003
+      parent: C006M001
+      address: 'compatibility@L240'
+      summary: 'self.filters is not None false → continues to line 242'
+    - id: C006M001E0004
+      parent: C006M001
+      address: 'compatibility@L241'
+      summary: 'executes: result[''filters''] = self.filters.to_mapping()'
+    - id: C006M001E0005
+      parent: C006M001
+      address: 'compatibility@L242'
+      summary: 'executes: returns result'
+    - id: C006M002E0001
+      parent: C006M002
+      address: 'compatibility@L246'
+      summary: 'executes: filters_data = mapping.get(''filters'')'
+    - id: C006M002E0002
+      parent: C006M002
+      address: 'compatibility@L247'
+      summary: 'filters_data truthy → filters = Filter.from_mapping(filters_...'
+    - id: C006M002E0003
+      parent: C006M002
+      address: 'compatibility@L247'
+      summary: 'filters_data falsy → filters = None'
+    - id: C006M002E0004
+      parent: C006M002
+      address: 'compatibility@L249'
+      summary: 'executes: returns cls(...)'
+    - id: C007M001E0001
+      parent: C007M001
+      address: 'compatibility@L283'
+      summary: 'executes: result = dict(...)'
+    - id: C007M001E0002
+      parent: C007M001
+      address: 'compatibility@L287'
+      summary: 'self.filters is not None true → continues to line 288'
+    - id: C007M001E0003
+      parent: C007M001
+      address: 'compatibility@L287'
+      summary: 'self.filters is not None false → continues to line 289'
+    - id: C007M001E0004
+      parent: C007M001
+      address: 'compatibility@L288'
+      summary: 'executes: result[''filters''] = self.filters.to_mapping()'
+    - id: C007M001E0005
+      parent: C007M001
+      address: 'compatibility@L289'
+      summary: 'executes: returns result'
+    - id: C007M002E0001
+      parent: C007M002
+      address: 'compatibility@L293'
+      summary: 'executes: filters_data = mapping.get(''filters'')'
+    - id: C007M002E0002
+      parent: C007M002
+      address: 'compatibility@L294'
+      summary: 'filters_data truthy → filters = Filter.from_mapping(filters_...'
+    - id: C007M002E0003
+      parent: C007M002
+      address: 'compatibility@L294'
+      summary: 'filters_data falsy → filters = None'
+    - id: C007M002E0004
+      parent: C007M002
+      address: 'compatibility@L296'
+      summary: 'executes: returns cls(...)'
+    - id: C008M001E0001
+      parent: C008M001
+      address: 'compatibility@L323'
+      summary: 'executes: result = {''enabled'': self.enabled}'
+    - id: C008M001E0002
+      parent: C008M001
+      address: 'compatibility@L326'
+      summary: 'self.version is not None true → continues to line 327'
+    - id: C008M001E0003
+      parent: C008M001
+      address: 'compatibility@L326'
+      summary: 'self.version is not None false → continues to line 328'
+    - id: C008M001E0004
+      parent: C008M001
+      address: 'compatibility@L327'
+      summary: 'executes: result[''version''] = self.version.to_mapping()'
+    - id: C008M001E0005
+      parent: C008M001
+      address: 'compatibility@L328'
+      summary: 'executes: returns result'
+    - id: C008M002E0001
+      parent: C008M002
+      address: 'compatibility@L332'
+      summary: 'executes: version_data = mapping.get(''version'')'
+    - id: C008M002E0002
+      parent: C008M002
+      address: 'compatibility@L333'
+      summary: 'version_data truthy → version = VersionSpec.from_mapping(ver...'
+    - id: C008M002E0003
+      parent: C008M002
+      address: 'compatibility@L333'
+      summary: 'version_data falsy → version = None'
+    - id: C008M002E0004
+      parent: C008M002
+      address: 'compatibility@L335'
+      summary: 'executes: returns cls(enabled=mapping.get(''enabled'', True), ...'
+    - id: C009M001E0001
+      parent: C009M001
+      address: 'compatibility@L367'
+      summary: 'executes: result = dict(...)'
+    - id: C009M001E0002
+      parent: C009M001
+      address: 'compatibility@L374'
+      summary: 'self.filters is not None true → continues to line 375'
+    - id: C009M001E0003
+      parent: C009M001
+      address: 'compatibility@L374'
+      summary: 'self.filters is not None false → continues to line 376'
+    - id: C009M001E0004
+      parent: C009M001
+      address: 'compatibility@L375'
+      summary: 'executes: result[''filters''] = self.filters.to_mapping()'
+    - id: C009M001E0005
+      parent: C009M001
+      address: 'compatibility@L376'
+      summary: 'executes: returns result'
+    - id: C009M002E0001
+      parent: C009M002
+      address: 'compatibility@L380'
+      summary: 'executes: filters_data = mapping.get(''filters'')'
+    - id: C009M002E0002
+      parent: C009M002
+      address: 'compatibility@L381'
+      summary: 'filters_data truthy → filters = Filter.from_mapping(filters_...'
+    - id: C009M002E0003
+      parent: C009M002
+      address: 'compatibility@L381'
+      summary: 'filters_data falsy → filters = None'
+    - id: C009M002E0004
+      parent: C009M002
+      address: 'compatibility@L382'
+      summary: 'executes: variants_data = mapping.get(''variants'', {})'
+    - id: C009M002E0005
+      parent: C009M002
+      address: 'compatibility@L383'
+      summary: 'executes: variants = dict comprehension'
+    - id: C009M002E0006
+      parent: C009M002
+      address: 'compatibility@L388'
+      summary: 'executes: returns cls(...)'
+    - id: C010M001E0001
+      parent: C010M001
+      address: 'compatibility@L422'
+      summary: 'executes: result = {}'
+    - id: C010M001E0002
+      parent: C010M001
+      address: 'compatibility@L423'
+      summary: 'self.interpreter is not None true → continues to line 424'
+    - id: C010M001E0003
+      parent: C010M001
+      address: 'compatibility@L423'
+      summary: 'self.interpreter is not None false → continues to line 425'
+    - id: C010M001E0004
+      parent: C010M001
+      address: 'compatibility@L424'
+      summary: 'executes: result[''interpreter''] = self.interpreter.to_mappin...'
+    - id: C010M001E0005
+      parent: C010M001
+      address: 'compatibility@L425'
+      summary: 'self.abi is not None true → continues to line 426'
+    - id: C010M001E0006
+      parent: C010M001
+      address: 'compatibility@L425'
+      summary: 'self.abi is not None false → continues to line 427'
+    - id: C010M001E0007
+      parent: C010M001
+      address: 'compatibility@L426'
+      summary: 'executes: result[''abi''] = self.abi.to_mapping()'
+    - id: C010M001E0008
+      parent: C010M001
+      address: 'compatibility@L427'
+      summary: 'self.platform is not None true → continues to line 428'
+    - id: C010M001E0009
+      parent: C010M001
+      address: 'compatibility@L427'
+      summary: 'self.platform is not None false → continues to line 429'
+    - id: C010M001E0010
+      parent: C010M001
+      address: 'compatibility@L428'
+      summary: 'executes: result[''platform''] = self.platform.to_mapping()'
+    - id: C010M001E0011
+      parent: C010M001
+      address: 'compatibility@L429'
+      summary: 'self.compatibility_tags is not None true → continues to line...'
+    - id: C010M001E0012
+      parent: C010M001
+      address: 'compatibility@L429'
+      summary: 'self.compatibility_tags is not None false → continues to lin...'
+    - id: C010M001E0013
+      parent: C010M001
+      address: 'compatibility@L430'
+      summary: 'executes: result[''compatibility_tags''] = self.compatibility_...'
+    - id: C010M001E0014
+      parent: C010M001
+      address: 'compatibility@L431'
+      summary: 'self.marker_env is not None true → continues to line 432'
+    - id: C010M001E0015
+      parent: C010M001
+      address: 'compatibility@L431'
+      summary: 'self.marker_env is not None false → continues to line 433'
+    - id: C010M001E0016
+      parent: C010M001
+      address: 'compatibility@L432'
+      summary: 'executes: result[''marker_env''] = self.marker_env.to_mapping(...'
+    - id: C010M001E0017
+      parent: C010M001
+      address: 'compatibility@L433'
+      summary: 'executes: returns result'
+    - id: C010M002E0001
+      parent: C010M002
+      address: 'compatibility@L437'
+      summary: 'executes: interpreter_data = mapping.get(''interpreter'')'
+    - id: C010M002E0002
+      parent: C010M002
+      address: 'compatibility@L438'
+      summary: 'interpreter_data truthy → interpreter = InterpreterConfig.fr...'
+    - id: C010M002E0003
+      parent: C010M002
+      address: 'compatibility@L438'
+      summary: 'interpreter_data falsy → continues to line 441'
+    - id: C010M002E0004
+      parent: C010M002
+      address: 'compatibility@L441'
+      summary: 'executes: interpreter = None (from else)'
+    - id: C010M002E0005
+      parent: C010M002
+      address: 'compatibility@L443'
+      summary: 'executes: abi_data = mapping.get(''abi'')'
+    - id: C010M002E0006
+      parent: C010M002
+      address: 'compatibility@L444'
+      summary: 'abi_data truthy → abi = AbiConfig.from_mapping(abi_data)'
+    - id: C010M002E0007
+      parent: C010M002
+      address: 'compatibility@L444'
+      summary: 'abi_data falsy → abi = None'
+    - id: C010M002E0008
+      parent: C010M002
+      address: 'compatibility@L445'
+      summary: 'executes: platform_data = mapping.get(''platform'')'
+    - id: C010M002E0009
+      parent: C010M002
+      address: 'compatibility@L446'
+      summary: 'platform_data truthy → platform = PlatformConfig.from_mappin...'
+    - id: C010M002E0010
+      parent: C010M002
+      address: 'compatibility@L446'
+      summary: 'platform_data falsy → platform = None'
+    - id: C010M002E0011
+      parent: C010M002
+      address: 'compatibility@L447'
+      summary: 'executes: tags_data = mapping.get(''compatibility_tags'')'
+    - id: C010M002E0012
+      parent: C010M002
+      address: 'compatibility@L448'
+      summary: 'tags_data truthy → compatibility_tags = Filter.from_mapping(...'
+    - id: C010M002E0013
+      parent: C010M002
+      address: 'compatibility@L448'
+      summary: 'tags_data falsy → compatibility_tags = None'
+    - id: C010M002E0014
+      parent: C010M002
+      address: 'compatibility@L449'
+      summary: 'executes: marker_env_data = mapping.get(''marker_env'')'
+    - id: C010M002E0015
+      parent: C010M002
+      address: 'compatibility@L450'
+      summary: 'marker_env_data truthy → marker_env = MarkerEnvConfig.from_m...'
+    - id: C010M002E0016
+      parent: C010M002
+      address: 'compatibility@L450'
+      summary: 'marker_env_data falsy → continues to line 452'
+    - id: C010M002E0017
+      parent: C010M002
+      address: 'compatibility@L452'
+      summary: 'executes: marker_env = None (from else)'
+    - id: C010M002E0018
+      parent: C010M002
+      address: 'compatibility@L454'
+      summary: 'executes: returns cls(...)'
+    - id: C012M001E0001
+      parent: C012M001
+      address: 'compatibility@L517'
+      summary: 'executes: out = dict(...)'
+    - id: C012M001E0002
+      parent: C012M001
+      address: 'compatibility@L521'
+      summary: 'self.platform_overrides truthy → continues to line 522'
+    - id: C012M001E0003
+      parent: C012M001
+      address: 'compatibility@L521'
+      summary: 'self.platform_overrides falsy → continues to line 528'
+    - id: C012M001E0004
+      parent: C012M001
+      address: 'compatibility@L522'
+      summary: 'executes: out.update(platform_overrides=dict comprehension)'
+    - id: C012M001E0005
+      parent: C012M001
+      address: 'compatibility@L528'
+      summary: 'executes: returns out'
+    - id: C012M002E0001
+      parent: C012M002
+      address: 'compatibility@L532'
+      summary: 'executes: raw = mapping.get(''platform_overrides'', {})'
+    - id: C012M002E0002
+      parent: C012M002
+      address: 'compatibility@L533'
+      summary: 'isinstance(raw, Mapping) true → continues to line 536'
+    - id: C012M002E0003
+      parent: C012M002
+      address: 'compatibility@L533'
+      summary: 'isinstance(raw, Mapping) false → continues to line 534'
+    - id: C012M002E0004
+      parent: C012M002
+      address: 'compatibility@L534'
+      summary: 'executes: raises ValueError'
+    - id: C012M002E0005
+      parent: C012M002
+      address: 'compatibility@L536'
+      summary: 'executes: parsed = {}'
+    - id: C012M002E0006
+      parent: C012M002
+      address: 'compatibility@L537'
+      summary: 'raw.items() empty → continues to line 546'
+    - id: C012M002E0007
+      parent: C012M002
+      address: 'compatibility@L537'
+      summary: 'raw.items() has items → enters loop line 538'
+    - id: C012M002E0008
+      parent: C012M002
+      address: 'compatibility@L538'
+      summary: 'value is None true → continues to next iteration (continue)'
+    - id: C012M002E0009
+      parent: C012M002
+      address: 'compatibility@L538'
+      summary: 'value is None false → continues to line 540'
+    - id: C012M002E0010
+      parent: C012M002
+      address: 'compatibility@L540'
+      summary: 'isinstance(value, Mapping) true → continues to line 544'
+    - id: C012M002E0011
+      parent: C012M002
+      address: 'compatibility@L540'
+      summary: 'isinstance(value, Mapping) false → continues to line 541'
+    - id: C012M002E0012
+      parent: C012M002
+      address: 'compatibility@L541'
+      summary: 'executes: raises ValueError'
+    - id: C012M002E0013
+      parent: C012M002
+      address: 'compatibility@L544'
+      summary: 'executes: parsed[platform_name] = PlatformContext.from_mappi...'
+    - id: C012M002E0014
+      parent: C012M002
+      address: 'compatibility@L546'
+      summary: 'executes: calls validate_typed_dict(...)'
+    - id: C012M002E0015
+      parent: C012M002
+      address: 'compatibility@L550'
+      summary: 'executes: returns cls(...)'
+---
+docKind: ledger
+schemaVersion: "1.0.0"
+unit:
+  id: C000
+  kind: unit
+  name: compatibility
+  children:
+    - id: C000F001
+      kind: callable
+      name: validate_typed_dict
+      signature: 'validate_typed_dict(...)'
+      callable:
+        params: []
+        returnType:
+          name: None
+        branches:
+          - id: C000F001E0001
+            condition: 'executes'
+            outcome: 'allowed_env_keys = set(validation_type.__annotations__.keys())'
+          - id: C000F001E0002
+            condition: 'executes'
+            outcome: 'bad_keys = set(mapping.keys()) - allowed_env_keys'
+          - id: C000F001E0003
+            condition: 'bad_keys truthy'
+            outcome: 'raises ValueError'
+          - id: C000F001E0004
+            condition: 'bad_keys falsy'
+            outcome: 'continues to line 40'
+          - id: C000F001E0005
+            condition: 'mapping.items() empty'
+            outcome: 'bad_vals = []'
+          - id: C000F001E0006
+            condition: 'mapping has items, all isinstance checks pass'
+            outcome: 'bad_vals = []'
+          - id: C000F001E0007
+            condition: 'mapping has items, some isinstance checks fail'
+            outcome: 'bad_vals populated'
+          - id: C000F001E0008
+            condition: 'bad_vals truthy'
+            outcome: 'continues to line 46'
+          - id: C000F001E0009
+            condition: 'bad_vals falsy'
+            outcome: 'function returns (implicit None)'
+          - id: C000F001E0010
+            condition: 'executes'
+            outcome: 'details = '', ''.join(f''{k} (got {t})'' for k, t in bad_vals)'
+          - id: C000F001E0011
+            condition: 'isinstance(value_type, type) true'
+            outcome: 'continues to line 48'
+          - id: C000F001E0012
+            condition: 'isinstance(value_type, type) false'
+            outcome: 'continues to line 50'
+          - id: C000F001E0013
+            condition: 'executes'
+            outcome: 'expected = value_type.__name__'
+          - id: C000F001E0014
+            condition: 'executes'
+            outcome: 'expected = '' | ''.join(t.__name__ for t in value_type)'
+          - id: C000F001E0015
+            condition: 'executes'
+            outcome: 'raises ValueError'
+    - id: C003
+      kind: class
+      name: MarkerEnvConfig
+      children:
+        - id: C003M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C003M001E0001
+                condition: 'executes'
+                outcome: 'returns dict({''overrides'': self.overrides, ''mode'': self.mode.value})'
+        - id: C003M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C003M002E0001
+                condition: 'executes'
+                outcome: 'overrides = mapping.get(''overrides'', {})'
+              - id: C003M002E0002
+                condition: 'isinstance(overrides, dict) true'
+                outcome: 'continues to line 123'
+              - id: C003M002E0003
+                condition: 'isinstance(overrides, dict) false'
+                outcome: 'continues to line 120'
+              - id: C003M002E0004
+                condition: 'executes'
+                outcome: 'raises ValueError'
+              - id: C003M002E0005
+                condition: 'executes'
+                outcome: 'overrides_map = overrides'
+              - id: C003M002E0006
+                condition: 'executes'
+                outcome: 'calls validate_typed_dict(...)'
+              - id: C003M002E0007
+                condition: 'executes'
+                outcome: 'env_overrides = cast(EnvironmentOverrides, cast(object, overrides_map))'
+              - id: C003M002E0008
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC003M002E0005
+                  target: validate_typed_dict
+                  kind: call
+                  signature: 'validate_typed_dict(''marker_env overrides'', overrides_map, EnvironmentOverrides, str)'
+                  executionPaths:
+                    - [C003M002E0002, C003M002E0004, C003M002E0005]
+                  notes: 'Validates overrides dict against EnvironmentOverrides TypedDict'
+    - id: C004
+      kind: class
+      name: Filter
+      children:
+        - id: C004M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C004M001E0001
+                condition: 'executes'
+                outcome: 'returns dict({''include'': self.include, ''exclude'': self.exclude, ''specific_only'': self.specific_only})'
+        - id: C004M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C004M002E0001
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+    - id: C005
+      kind: class
+      name: VersionSpec
+      children:
+        - id: C005M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C005M001E0001
+                condition: 'executes'
+                outcome: 'result = {}'
+              - id: C005M001E0002
+                condition: 'self.range is not None true'
+                outcome: 'continues to line 198'
+              - id: C005M001E0003
+                condition: 'self.range is not None false'
+                outcome: 'continues to line 199'
+              - id: C005M001E0004
+                condition: 'executes'
+                outcome: 'result[''range''] = self.range'
+              - id: C005M001E0005
+                condition: 'self.filters is not None true'
+                outcome: 'continues to line 200'
+              - id: C005M001E0006
+                condition: 'self.filters is not None false'
+                outcome: 'continues to line 201'
+              - id: C005M001E0007
+                condition: 'executes'
+                outcome: 'result[''filters''] = self.filters.to_mapping()'
+              - id: C005M001E0008
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC005M001E0006
+                  target: Filter.to_mapping
+                  kind: call
+                  signature: 'self.filters.to_mapping()'
+                  executionPaths:
+                    - [C005M001E0001, C005M001E0004, C005M001E0006]
+                  notes: 'Calls Filter.to_mapping when filters is not None'
+        - id: C005M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C005M002E0001
+                condition: 'executes'
+                outcome: 'filters_data = mapping.get(''filters'')'
+              - id: C005M002E0002
+                condition: 'filters_data truthy'
+                outcome: 'filters = Filter.from_mapping(filters_data)'
+              - id: C005M002E0003
+                condition: 'filters_data falsy'
+                outcome: 'filters = None'
+              - id: C005M002E0004
+                condition: 'executes'
+                outcome: 'returns cls(range=mapping.get(''range''), filters=filters)'
+            integration:
+              interunit:
+                - id: IC005M002E0002
+                  target: Filter.from_mapping
+                  kind: call
+                  signature: 'Filter.from_mapping(filters_data)'
+                  executionPaths:
+                    - [C005M002E0001, C005M002E0002]
+                  condition: 'filters_data is truthy'
+                  notes: 'Calls Filter.from_mapping if filters_data exists'
+    - id: C006
+      kind: class
+      name: InterpreterConfig
+      children:
+        - id: C006M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C006M001E0001
+                condition: 'executes'
+                outcome: 'result = dict(...)'
+              - id: C006M001E0002
+                condition: 'self.filters is not None true'
+                outcome: 'continues to line 241'
+              - id: C006M001E0003
+                condition: 'self.filters is not None false'
+                outcome: 'continues to line 242'
+              - id: C006M001E0004
+                condition: 'executes'
+                outcome: 'result[''filters''] = self.filters.to_mapping()'
+              - id: C006M001E0005
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC006M001E0001
+                  target: VersionSpec.to_mapping
+                  kind: call
+                  signature: 'self.python_version.to_mapping()'
+                  executionPaths:
+                    - [C006M001E0001]
+                  notes: 'Always called during dict construction'
+                - id: IC006M001E0003
+                  target: Filter.to_mapping
+                  kind: call
+                  signature: 'self.filters.to_mapping()'
+                  executionPaths:
+                    - [C006M001E0001, C006M001E0002, C006M001E0003]
+                  condition: 'self.filters is not None'
+                  notes: 'Calls Filter.to_mapping when filters is not None'
+        - id: C006M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C006M002E0001
+                condition: 'executes'
+                outcome: 'filters_data = mapping.get(''filters'')'
+              - id: C006M002E0002
+                condition: 'filters_data truthy'
+                outcome: 'filters = Filter.from_mapping(filters_data)'
+              - id: C006M002E0003
+                condition: 'filters_data falsy'
+                outcome: 'filters = None'
+              - id: C006M002E0004
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC006M002E0002
+                  target: Filter.from_mapping
+                  kind: call
+                  signature: 'Filter.from_mapping(filters_data)'
+                  executionPaths:
+                    - [C006M002E0001, C006M002E0002]
+                  condition: 'filters_data is truthy'
+                - id: IC006M002E0004
+                  target: VersionSpec.from_mapping
+                  kind: call
+                  signature: 'VersionSpec.from_mapping(mapping[''python_version''])'
+                  executionPaths:
+                    - [C006M002E0001, C006M002E0002, C006M002E0004]
+                    - [C006M002E0001, C006M002E0003, C006M002E0004]
+                  notes: 'Always called during cls construction'
+    - id: C007
+      kind: class
+      name: AbiConfig
+      children:
+        - id: C007M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C007M001E0001
+                condition: 'executes'
+                outcome: 'result = dict(...)'
+              - id: C007M001E0002
+                condition: 'self.filters is not None true'
+                outcome: 'continues to line 288'
+              - id: C007M001E0003
+                condition: 'self.filters is not None false'
+                outcome: 'continues to line 289'
+              - id: C007M001E0004
+                condition: 'executes'
+                outcome: 'result[''filters''] = self.filters.to_mapping()'
+              - id: C007M001E0005
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC007M001E0003
+                  target: Filter.to_mapping
+                  kind: call
+                  signature: 'self.filters.to_mapping()'
+                  executionPaths:
+                    - [C007M001E0001, C007M001E0002, C007M001E0003]
+                  condition: 'self.filters is not None'
+        - id: C007M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C007M002E0001
+                condition: 'executes'
+                outcome: 'filters_data = mapping.get(''filters'')'
+              - id: C007M002E0002
+                condition: 'filters_data truthy'
+                outcome: 'filters = Filter.from_mapping(filters_data)'
+              - id: C007M002E0003
+                condition: 'filters_data falsy'
+                outcome: 'filters = None'
+              - id: C007M002E0004
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC007M002E0002
+                  target: Filter.from_mapping
+                  kind: call
+                  signature: 'Filter.from_mapping(filters_data)'
+                  executionPaths:
+                    - [C007M002E0001, C007M002E0002]
+                  condition: 'filters_data is truthy'
+    - id: C008
+      kind: class
+      name: PlatformVariant
+      children:
+        - id: C008M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C008M001E0001
+                condition: 'executes'
+                outcome: 'result = {''enabled'': self.enabled}'
+              - id: C008M001E0002
+                condition: 'self.version is not None true'
+                outcome: 'continues to line 327'
+              - id: C008M001E0003
+                condition: 'self.version is not None false'
+                outcome: 'continues to line 328'
+              - id: C008M001E0004
+                condition: 'executes'
+                outcome: 'result[''version''] = self.version.to_mapping()'
+              - id: C008M001E0005
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC008M001E0003
+                  target: VersionSpec.to_mapping
+                  kind: call
+                  signature: 'self.version.to_mapping()'
+                  executionPaths:
+                    - [C008M001E0001, C008M001E0002, C008M001E0003]
+                  condition: 'self.version is not None'
+        - id: C008M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C008M002E0001
+                condition: 'executes'
+                outcome: 'version_data = mapping.get(''version'')'
+              - id: C008M002E0002
+                condition: 'version_data truthy'
+                outcome: 'version = VersionSpec.from_mapping(version_data)'
+              - id: C008M002E0003
+                condition: 'version_data falsy'
+                outcome: 'version = None'
+              - id: C008M002E0004
+                condition: 'executes'
+                outcome: 'returns cls(enabled=mapping.get(''enabled'', True), version=version)'
+            integration:
+              interunit:
+                - id: IC008M002E0002
+                  target: VersionSpec.from_mapping
+                  kind: call
+                  signature: 'VersionSpec.from_mapping(version_data)'
+                  executionPaths:
+                    - [C008M002E0001, C008M002E0002]
+                  condition: 'version_data is truthy'
+    - id: C009
+      kind: class
+      name: PlatformConfig
+      children:
+        - id: C009M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C009M001E0001
+                condition: 'executes'
+                outcome: 'result = dict(...)'
+              - id: C009M001E0002
+                condition: 'self.filters is not None true'
+                outcome: 'continues to line 375'
+              - id: C009M001E0003
+                condition: 'self.filters is not None false'
+                outcome: 'continues to line 376'
+              - id: C009M001E0004
+                condition: 'executes'
+                outcome: 'result[''filters''] = self.filters.to_mapping()'
+              - id: C009M001E0005
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC009M001E0003
+                  target: Filter.to_mapping
+                  kind: call
+                  signature: 'self.filters.to_mapping()'
+                  executionPaths:
+                    - [C009M001E0001, C009M001E0002, C009M001E0003]
+                  condition: 'self.filters is not None'
+        - id: C009M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C009M002E0001
+                condition: 'executes'
+                outcome: 'filters_data = mapping.get(''filters'')'
+              - id: C009M002E0002
+                condition: 'filters_data truthy'
+                outcome: 'filters = Filter.from_mapping(filters_data)'
+              - id: C009M002E0003
+                condition: 'filters_data falsy'
+                outcome: 'filters = None'
+              - id: C009M002E0004
+                condition: 'executes'
+                outcome: 'variants_data = mapping.get(''variants'', {})'
+              - id: C009M002E0005
+                condition: 'executes'
+                outcome: 'variants = dict comprehension'
+              - id: C009M002E0006
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC009M002E0002
+                  target: Filter.from_mapping
+                  kind: call
+                  signature: 'Filter.from_mapping(filters_data)'
+                  executionPaths:
+                    - [C009M002E0001, C009M002E0002]
+                  condition: 'filters_data is truthy'
+                - id: IC009M002E0004
+                  target: PlatformVariant.from_mapping
+                  kind: call
+                  signature: 'PlatformVariant.from_mapping(variant_data)'
+                  executionPaths:
+                    - [C009M002E0001, C009M002E0002, C009M002E0003, C009M002E0004]
+                    - [C009M002E0001, C009M002E0003, C009M002E0004]
+                  notes: 'Called in dict comprehension for each variant'
+    - id: C010
+      kind: class
+      name: PlatformContext
+      children:
+        - id: C010M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C010M001E0001
+                condition: 'executes'
+                outcome: 'result = {}'
+              - id: C010M001E0002
+                condition: 'self.interpreter is not None true'
+                outcome: 'continues to line 424'
+              - id: C010M001E0003
+                condition: 'self.interpreter is not None false'
+                outcome: 'continues to line 425'
+              - id: C010M001E0004
+                condition: 'executes'
+                outcome: 'result[''interpreter''] = self.interpreter.to_mapping()'
+              - id: C010M001E0005
+                condition: 'self.abi is not None true'
+                outcome: 'continues to line 426'
+              - id: C010M001E0006
+                condition: 'self.abi is not None false'
+                outcome: 'continues to line 427'
+              - id: C010M001E0007
+                condition: 'executes'
+                outcome: 'result[''abi''] = self.abi.to_mapping()'
+              - id: C010M001E0008
+                condition: 'self.platform is not None true'
+                outcome: 'continues to line 428'
+              - id: C010M001E0009
+                condition: 'self.platform is not None false'
+                outcome: 'continues to line 429'
+              - id: C010M001E0010
+                condition: 'executes'
+                outcome: 'result[''platform''] = self.platform.to_mapping()'
+              - id: C010M001E0011
+                condition: 'self.compatibility_tags is not None true'
+                outcome: 'continues to line 430'
+              - id: C010M001E0012
+                condition: 'self.compatibility_tags is not None false'
+                outcome: 'continues to line 431'
+              - id: C010M001E0013
+                condition: 'executes'
+                outcome: 'result[''compatibility_tags''] = self.compatibility_tags.to_mapping()'
+              - id: C010M001E0014
+                condition: 'self.marker_env is not None true'
+                outcome: 'continues to line 432'
+              - id: C010M001E0015
+                condition: 'self.marker_env is not None false'
+                outcome: 'continues to line 433'
+              - id: C010M001E0016
+                condition: 'executes'
+                outcome: 'result[''marker_env''] = self.marker_env.to_mapping()'
+              - id: C010M001E0017
+                condition: 'executes'
+                outcome: 'returns result'
+            integration:
+              interunit:
+                - id: IC010M001E0003
+                  target: InterpreterConfig.to_mapping
+                  kind: call
+                  signature: 'self.interpreter.to_mapping()'
+                  executionPaths:
+                    - [C010M001E0001, C010M001E0002, C010M001E0003]
+                  condition: 'self.interpreter is not None'
+                - id: IC010M001E0006
+                  target: AbiConfig.to_mapping
+                  kind: call
+                  signature: 'self.abi.to_mapping()'
+                  executionPaths:
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0005, C010M001E0006]
+                    - [C010M001E0001, C010M001E0004, C010M001E0005, C010M001E0006]
+                    - [C010M001E0001, C010M001E0005, C010M001E0006]
+                  condition: 'self.abi is not None'
+                - id: IC010M001E0009
+                  target: PlatformConfig.to_mapping
+                  kind: call
+                  signature: 'self.platform.to_mapping()'
+                  executionPaths:
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0008, C010M001E0009]
+                  condition: 'self.platform is not None'
+                  notes: 'Multiple paths possible depending on prior conditionals'
+                - id: IC010M001E0012
+                  target: Filter.to_mapping
+                  kind: call
+                  signature: 'self.compatibility_tags.to_mapping()'
+                  executionPaths:
+                    - [C010M001E0001, C010M001E0010, C010M001E0011, C010M001E0012]
+                  condition: 'self.compatibility_tags is not None'
+                  notes: 'Simplified - one representative path shown'
+                - id: IC010M001E0015
+                  target: MarkerEnvConfig.to_mapping
+                  kind: call
+                  signature: 'self.marker_env.to_mapping()'
+                  executionPaths:
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0007, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0002, C010M001E0003, C010M001E0004, C010M001E0007, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0005, C010M001E0006, C010M001E0007, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0007, C010M001E0008, C010M001E0009, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0007, C010M001E0010, C010M001E0011, C010M001E0012, C010M001E0013, C010M001E0014, C010M001E0015]
+                    - [C010M001E0001, C010M001E0004, C010M001E0007, C010M001E0010, C010M001E0013, C010M001E0014, C010M001E0015]
+                  condition: 'self.marker_env is not None'
+                  notes: 'Simplified - one representative path shown'
+        - id: C010M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C010M002E0001
+                condition: 'executes'
+                outcome: 'interpreter_data = mapping.get(''interpreter'')'
+              - id: C010M002E0002
+                condition: 'interpreter_data truthy'
+                outcome: 'interpreter = InterpreterConfig.from_mapping(interpreter_data)'
+              - id: C010M002E0003
+                condition: 'interpreter_data falsy'
+                outcome: 'continues to line 441'
+              - id: C010M002E0004
+                condition: 'executes'
+                outcome: 'interpreter = None (from else)'
+              - id: C010M002E0005
+                condition: 'executes'
+                outcome: 'abi_data = mapping.get(''abi'')'
+              - id: C010M002E0006
+                condition: 'abi_data truthy'
+                outcome: 'abi = AbiConfig.from_mapping(abi_data)'
+              - id: C010M002E0007
+                condition: 'abi_data falsy'
+                outcome: 'abi = None'
+              - id: C010M002E0008
+                condition: 'executes'
+                outcome: 'platform_data = mapping.get(''platform'')'
+              - id: C010M002E0009
+                condition: 'platform_data truthy'
+                outcome: 'platform = PlatformConfig.from_mapping(platform_data)'
+              - id: C010M002E0010
+                condition: 'platform_data falsy'
+                outcome: 'platform = None'
+              - id: C010M002E0011
+                condition: 'executes'
+                outcome: 'tags_data = mapping.get(''compatibility_tags'')'
+              - id: C010M002E0012
+                condition: 'tags_data truthy'
+                outcome: 'compatibility_tags = Filter.from_mapping(tags_data)'
+              - id: C010M002E0013
+                condition: 'tags_data falsy'
+                outcome: 'compatibility_tags = None'
+              - id: C010M002E0014
+                condition: 'executes'
+                outcome: 'marker_env_data = mapping.get(''marker_env'')'
+              - id: C010M002E0015
+                condition: 'marker_env_data truthy'
+                outcome: 'marker_env = MarkerEnvConfig.from_mapping(marker_env_data)'
+              - id: C010M002E0016
+                condition: 'marker_env_data falsy'
+                outcome: 'continues to line 452'
+              - id: C010M002E0017
+                condition: 'executes'
+                outcome: 'marker_env = None (from else)'
+              - id: C010M002E0018
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC010M002E0002
+                  target: InterpreterConfig.from_mapping
+                  kind: call
+                  signature: 'InterpreterConfig.from_mapping(interpreter_data)'
+                  executionPaths:
+                    - [C010M002E0001, C010M002E0002]
+                  condition: 'interpreter_data is truthy'
+                - id: IC010M002E0005
+                  target: AbiConfig.from_mapping
+                  kind: call
+                  signature: 'AbiConfig.from_mapping(abi_data)'
+                  executionPaths:
+                    - [C010M002E0001, C010M002E0002, C010M002E0004, C010M002E0005]
+                    - [C010M002E0001, C010M002E0003, C010M002E0004, C010M002E0005]
+                  condition: 'abi_data is truthy'
+                - id: IC010M002E0008
+                  target: PlatformConfig.from_mapping
+                  kind: call
+                  signature: 'PlatformConfig.from_mapping(platform_data)'
+                  executionPaths:
+                    - [C010M002E0001, C010M002E0006, C010M002E0007, C010M002E0008]
+                  condition: 'platform_data is truthy'
+                  notes: 'Simplified - one representative path'
+                - id: IC010M002E0011
+                  target: Filter.from_mapping
+                  kind: call
+                  signature: 'Filter.from_mapping(tags_data)'
+                  executionPaths:
+                    - [C010M002E0001, C010M002E0009, C010M002E0010, C010M002E0011]
+                  condition: 'tags_data is truthy'
+                  notes: 'Simplified - one representative path'
+                - id: IC010M002E0014
+                  target: MarkerEnvConfig.from_mapping
+                  kind: call
+                  signature: 'MarkerEnvConfig.from_mapping(marker_env_data)'
+                  executionPaths:
+                    - [C010M002E0001, C010M002E0012, C010M002E0013, C010M002E0014]
+                  condition: 'marker_env_data is truthy'
+                  notes: 'Simplified - one representative path'
+    - id: C012
+      kind: class
+      name: ResolutionContext
+      children:
+        - id: C012M001
+          kind: callable
+          name: to_mapping
+          signature: 'to_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C012M001E0001
+                condition: 'executes'
+                outcome: 'out = dict(...)'
+              - id: C012M001E0002
+                condition: 'self.platform_overrides truthy'
+                outcome: 'continues to line 522'
+              - id: C012M001E0003
+                condition: 'self.platform_overrides falsy'
+                outcome: 'continues to line 528'
+              - id: C012M001E0004
+                condition: 'executes'
+                outcome: 'out.update(platform_overrides=dict comprehension)'
+              - id: C012M001E0005
+                condition: 'executes'
+                outcome: 'returns out'
+            integration:
+              interunit:
+                - id: IC012M001E0001
+                  target: PlatformContext.to_mapping
+                  kind: call
+                  signature: 'self.universal.to_mapping()'
+                  executionPaths:
+                    - [C012M001E0001]
+                  notes: 'Always called during dict construction'
+                - id: IC012M001E0003
+                  target: PlatformContext.to_mapping
+                  kind: call
+                  signature: 'cast(PlatformContext, v).to_mapping()'
+                  executionPaths:
+                    - [C012M001E0001, C012M001E0002, C012M001E0003]
+                  condition: 'self.platform_overrides is truthy'
+                  notes: 'Called in dict comprehension for each platform override'
+        - id: C012M002
+          kind: callable
+          name: from_mapping
+          signature: 'from_mapping(...)'
+          callable:
+            params: []
+            returnType:
+              name: Any
+            branches:
+              - id: C012M002E0001
+                condition: 'executes'
+                outcome: 'raw = mapping.get(''platform_overrides'', {})'
+              - id: C012M002E0002
+                condition: 'isinstance(raw, Mapping) true'
+                outcome: 'continues to line 536'
+              - id: C012M002E0003
+                condition: 'isinstance(raw, Mapping) false'
+                outcome: 'continues to line 534'
+              - id: C012M002E0004
+                condition: 'executes'
+                outcome: 'raises ValueError'
+              - id: C012M002E0005
+                condition: 'executes'
+                outcome: 'parsed = {}'
+              - id: C012M002E0006
+                condition: 'raw.items() empty'
+                outcome: 'continues to line 546'
+              - id: C012M002E0007
+                condition: 'raw.items() has items'
+                outcome: 'enters loop line 538'
+              - id: C012M002E0008
+                condition: 'value is None true'
+                outcome: 'continues to next iteration (continue)'
+              - id: C012M002E0009
+                condition: 'value is None false'
+                outcome: 'continues to line 540'
+              - id: C012M002E0010
+                condition: 'isinstance(value, Mapping) true'
+                outcome: 'continues to line 544'
+              - id: C012M002E0011
+                condition: 'isinstance(value, Mapping) false'
+                outcome: 'continues to line 541'
+              - id: C012M002E0012
+                condition: 'executes'
+                outcome: 'raises ValueError'
+              - id: C012M002E0013
+                condition: 'executes'
+                outcome: 'parsed[platform_name] = PlatformContext.from_mapping(value)'
+              - id: C012M002E0014
+                condition: 'executes'
+                outcome: 'calls validate_typed_dict(...)'
+              - id: C012M002E0015
+                condition: 'executes'
+                outcome: 'returns cls(...)'
+            integration:
+              interunit:
+                - id: IC012M002E0009
+                  target: PlatformContext.from_mapping
+                  kind: call
+                  signature: 'PlatformContext.from_mapping(value)'
+                  executionPaths:
+                    - [C012M002E0002, C012M002E0004, C012M002E0006, C012M002E0008, C012M002E0009]
+                  condition: 'value is not None and isinstance(value, Mapping)'
+                  notes: 'Called in loop for each platform override'
+                - id: IC012M002E0011
+                  target: validate_typed_dict
+                  kind: call
+                  signature: 'validate_typed_dict(''platform overrides'', parsed, PlatformOverrides, PlatformContext)'
+                  executionPaths:
+                    - [C012M002E0002, C012M002E0004, C012M002E0010, C012M002E0011]
+                    - [C012M002E0002, C012M002E0005, C012M002E0010, C012M002E0011]
+                  notes: 'Always called after loop completes'
+                - id: IC012M002E0013
+                  target: PlatformContext.from_mapping
+                  kind: call
+                  signature: 'PlatformContext.from_mapping(mapping[''universal''])'
+                  executionPaths:
+                    - [C012M002E0002, C012M002E0004, C012M002E0010, C012M002E0011, C012M002E0012, C012M002E0013]
+                    - [C012M002E0002, C012M002E0005, C012M002E0010, C012M002E0011, C012M002E0012, C012M002E0013]
+                  notes: 'Always called during cls construction'
+---
+docKind: ledger-generation-review
+schemaVersion: "1.0.0"
+unit:
+  name: compatibility
+  language: python
+findings:
+  - severity: info
+    category: generation
+    message: 'Ledger generation completed successfully'

@@ -5,7 +5,6 @@ from typing import Callable
 
 import pytest
 
-
 try:
     # Preferred import path in-repo.
     from project_resolution_engine.internal.repositories import registry as uut
@@ -163,7 +162,9 @@ def test_repofactory_call_body_is_ellipsis_and_returns_none() -> None:
     assert uut.RepoFactory.__call__(object(), config=None) is None
 
 
-@pytest.mark.parametrize("case", _MERGED_CASES, ids=[c["covers"][0] for c in _MERGED_CASES])
+@pytest.mark.parametrize(
+    "case", _MERGED_CASES, ids=[c["covers"][0] for c in _MERGED_CASES]
+)
 def test_repository_registry_merged(case: dict) -> None:
     reg = uut.RepositoryRegistry(builtins=case["builtins"], externals=case["externals"])
 
@@ -180,7 +181,9 @@ def test_repository_registry_merged(case: dict) -> None:
     assert merged["b"]() == "external"
 
 
-@pytest.mark.parametrize("case", _VALIDATE_CASES, ids=[c["covers"][0] for c in _VALIDATE_CASES])
+@pytest.mark.parametrize(
+    "case", _VALIDATE_CASES, ids=[c["covers"][0] for c in _VALIDATE_CASES]
+)
 def test_validate_repo_factory_callable(case: dict) -> None:
     # Covers: C000F001B0001..C000F001B0005
     if case["exp_exc_substr"] is not None:
@@ -193,8 +196,12 @@ def test_validate_repo_factory_callable(case: dict) -> None:
     assert factory is case["factory_obj"]
 
 
-@pytest.mark.parametrize("case", _LOAD_ENTRYPOINT_CASES, ids=[c["name"] for c in _LOAD_ENTRYPOINT_CASES])
-def test_load_entrypoint_repo_factories(monkeypatch: pytest.MonkeyPatch, case: dict) -> None:
+@pytest.mark.parametrize(
+    "case", _LOAD_ENTRYPOINT_CASES, ids=[c["name"] for c in _LOAD_ENTRYPOINT_CASES]
+)
+def test_load_entrypoint_repo_factories(
+    monkeypatch: pytest.MonkeyPatch, case: dict
+) -> None:
     fake_eps = [
         _FakeEntryPoint(name=n, _loader=(lambda obj=o: obj))  # returns factory_obj
         for (n, o) in case["eps"]
@@ -224,10 +231,14 @@ def test_load_entrypoint_repo_factories(monkeypatch: pytest.MonkeyPatch, case: d
     assert factories[repo_id]() == exp_value
 
 
-@pytest.mark.parametrize("case", _BUILD_REGISTRY_CASES, ids=[c["name"] for c in _BUILD_REGISTRY_CASES])
+@pytest.mark.parametrize(
+    "case", _BUILD_REGISTRY_CASES, ids=[c["name"] for c in _BUILD_REGISTRY_CASES]
+)
 def test_build_repository_registry(monkeypatch: pytest.MonkeyPatch, case: dict) -> None:
     # Mock external influences at call sites.
-    monkeypatch.setattr(uut, "BUILTIN_REPOSITORY_FACTORIES", {"builtin": _make_factory("B")})
+    monkeypatch.setattr(
+        uut, "BUILTIN_REPOSITORY_FACTORIES", {"builtin": _make_factory("B")}
+    )
     monkeypatch.setattr(uut, "REPOSITORY_ENTRYPOINT_GROUP", "the.group")
 
     if case["load_raises"] is not None:

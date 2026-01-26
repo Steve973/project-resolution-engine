@@ -1,0 +1,609 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: resolution
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C001M001
+    kind: callable
+    name: to_mapping
+    address: resolution::ResolutionPolicy.to_mapping
+  - id: C001M002
+    kind: callable
+    name: from_mapping
+    address: resolution::ResolutionPolicy.from_mapping
+  - id: C002M001
+    kind: callable
+    name: to_mapping
+    address: resolution::ResolutionEnv.to_mapping
+  - id: C002M002
+    kind: callable
+    name: from_mapping
+    address: resolution::ResolutionEnv.from_mapping
+  - id: C003M001
+    kind: callable
+    name: __post_init__
+    address: resolution::WheelSpec.__post_init__
+  - id: C003M002
+    kind: callable
+    name: identifier
+    address: resolution::WheelSpec.identifier
+  - id: C003M003
+    kind: callable
+    name: __str__
+    address: resolution::WheelSpec.__str__
+  - id: C003M004
+    kind: callable
+    name: to_mapping
+    address: resolution::WheelSpec.to_mapping
+  - id: C003M005
+    kind: callable
+    name: from_mapping
+    address: resolution::WheelSpec.from_mapping
+  - id: C004M001
+    kind: callable
+    name: __init__
+    address: resolution::ArtifactResolutionError.__init__
+  branches:
+  - id: C001M001E0001
+    address: resolution::ResolutionPolicy.to_mapping@L78
+    summary: 'executes: returns dict with policy data'
+  - id: C001M001E0002
+    address: resolution::ResolutionPolicy.to_mapping@L79
+    summary: 'executes: ''requires_dist_url_policy'': self.requires_dist_url_policy.value'
+  - id: C001M001E0003
+    address: resolution::ResolutionPolicy.to_mapping@L80
+    summary: 'executes: start ternary for allowed_requires_dist_url_schemes'
+  - id: C001M001E0004
+    address: resolution::ResolutionPolicy.to_mapping@L81
+    summary: 'executes: sorted(self.allowed_requires_dist_url_schemes)'
+  - id: C001M001E0005
+    address: resolution::ResolutionPolicy.to_mapping@L82
+    summary: self.allowed_requires_dist_url_schemes is not None true → sorted(...)
+  - id: C001M001E0006
+    address: resolution::ResolutionPolicy.to_mapping@L82
+    summary: self.allowed_requires_dist_url_schemes is not None false → None
+  - id: C001M001E0007
+    address: resolution::ResolutionPolicy.to_mapping@L85
+    summary: 'executes: ''yanked_wheel_policy'': self.yanked_wheel_policy.value'
+  - id: C001M001E0008
+    address: resolution::ResolutionPolicy.to_mapping@L86
+    summary: 'executes: ''prerelease_policy'': self.prerelease_policy.value'
+  - id: C001M001E0009
+    address: resolution::ResolutionPolicy.to_mapping@L87
+    summary: 'executes: ''invalid_requires_dist_policy'': self.invalid_requires_dist_policy.value'
+  - id: C001M002E0001
+    address: resolution::ResolutionPolicy.from_mapping@L94
+    summary: 'executes: schemes = mapping.get(''allowed_requires_dist_url_schemes'')'
+  - id: C001M002E0002
+    address: resolution::ResolutionPolicy.from_mapping@L95
+    summary: 'executes: start ternary for allowed_schemes'
+  - id: C001M002E0003
+    address: resolution::ResolutionPolicy.from_mapping@L96
+    summary: schemes is None → None
+  - id: C001M002E0004
+    address: resolution::ResolutionPolicy.from_mapping@L96
+    summary: schemes is not None, schemes empty → frozenset()
+  - id: C001M002E0005
+    address: resolution::ResolutionPolicy.from_mapping@L96
+    summary: schemes is not None, schemes has items → frozenset with items
+  - id: C001M002E0006
+    address: resolution::ResolutionPolicy.from_mapping@L98
+    summary: 'executes: req_dist_url_policy = mapping.get(...)'
+  - id: C001M002E0007
+    address: resolution::ResolutionPolicy.from_mapping@L101
+    summary: 'executes: yanked_wheel_policy = mapping.get(...)'
+  - id: C001M002E0008
+    address: resolution::ResolutionPolicy.from_mapping@L104
+    summary: 'executes: prerelease_policy = mapping.get(...)'
+  - id: C001M002E0009
+    address: resolution::ResolutionPolicy.from_mapping@L107
+    summary: 'executes: invalid_requires_dist_policy = mapping.get(...)'
+  - id: C001M002E0010
+    address: resolution::ResolutionPolicy.from_mapping@L110
+    summary: 'executes: return cls(...)'
+  - id: C001M002E0011
+    address: resolution::ResolutionPolicy.from_mapping@L111
+    summary: RequiresDistUrlPolicy(req_dist_url_policy) succeeds
+  - id: C001M002E0012
+    address: resolution::ResolutionPolicy.from_mapping@L111
+    summary: RequiresDistUrlPolicy(req_dist_url_policy) raises ValueError
+  - id: C001M002E0013
+    address: resolution::ResolutionPolicy.from_mapping@L113
+    summary: YankedWheelPolicy(yanked_wheel_policy) succeeds
+  - id: C001M002E0014
+    address: resolution::ResolutionPolicy.from_mapping@L113
+    summary: YankedWheelPolicy(yanked_wheel_policy) raises ValueError
+  - id: C001M002E0015
+    address: resolution::ResolutionPolicy.from_mapping@L114
+    summary: PreReleasePolicy(prerelease_policy) succeeds
+  - id: C001M002E0016
+    address: resolution::ResolutionPolicy.from_mapping@L114
+    summary: PreReleasePolicy(prerelease_policy) raises ValueError
+  - id: C001M002E0017
+    address: resolution::ResolutionPolicy.from_mapping@L115
+    summary: InvalidRequiresDistPolicy(invalid_requires_dist_policy) succeeds
+  - id: C001M002E0018
+    address: resolution::ResolutionPolicy.from_mapping@L115
+    summary: InvalidRequiresDistPolicy(invalid_requires_dist_policy) raises ValueError
+  - id: C002M001E0001
+    address: resolution::ResolutionEnv.to_mapping@L129
+    summary: 'executes: returns dict with environment data'
+  - id: C002M001E0002
+    address: resolution::ResolutionEnv.to_mapping@L130
+    summary: 'executes: ''identifier'': self.identifier'
+  - id: C002M001E0003
+    address: resolution::ResolutionEnv.to_mapping@L131
+    summary: 'executes: ''supported_tags'': list(self.supported_tags)'
+  - id: C002M001E0004
+    address: resolution::ResolutionEnv.to_mapping@L132
+    summary: 'executes: ''marker_environment'': self.marker_environment'
+  - id: C002M001E0005
+    address: resolution::ResolutionEnv.to_mapping@L133
+    summary: 'executes: ''policy'': self.policy.to_mapping()'
+  - id: C002M002E0001
+    address: resolution::ResolutionEnv.from_mapping@L138
+    summary: 'executes: env_map: dict[str, str] = mapping.get(''marker_environment'',
+      {})'
+  - id: C002M002E0002
+    address: resolution::ResolutionEnv.from_mapping@L139
+    summary: 'executes: validate_typed_dict(''marker_environment'', env_map, Environment,
+      str)'
+  - id: C002M002E0003
+    address: resolution::ResolutionEnv.from_mapping@L140
+    summary: 'executes: mrk_env = cast(Environment, cast(object, env_map))'
+  - id: C002M002E0004
+    address: resolution::ResolutionEnv.from_mapping@L141
+    summary: 'executes: policy_map: dict[str, Any] = mapping.get(...)'
+  - id: C002M002E0005
+    address: resolution::ResolutionEnv.from_mapping@L144
+    summary: 'executes: return cls(...)'
+  - id: C003M001E0001
+    address: resolution::WheelSpec.__post_init__@L184
+    summary: self.uri is not None true → (self.uri.strip() or None)
+  - id: C003M001E0002
+    address: resolution::WheelSpec.__post_init__@L184
+    summary: self.uri is not None false → None
+  - id: C003M001E0003
+    address: resolution::WheelSpec.__post_init__@L185
+    summary: 'executes: object.__setattr__(self, ''uri'', u)'
+  - id: C003M001E0004
+    address: resolution::WheelSpec.__post_init__@L186
+    summary: self.uri is None and self.version is None true → raise ValueError
+  - id: C003M001E0005
+    address: resolution::WheelSpec.__post_init__@L186
+    summary: self.uri is None and self.version is None false → method completes
+  - id: C003M002E0001
+    address: resolution::WheelSpec.identifier@L191
+    summary: 'executes: returns f''{self.name}-{self.version}'''
+  - id: C003M003E0001
+    address: resolution::WheelSpec.__str__@L194
+    summary: 'executes: returns self.identifier'
+  - id: C003M004E0001
+    address: resolution::WheelSpec.to_mapping@L197
+    summary: 'executes: returns dict with wheel spec data'
+  - id: C003M004E0002
+    address: resolution::WheelSpec.to_mapping@L198
+    summary: 'executes: ''name'': self.name'
+  - id: C003M004E0003
+    address: resolution::WheelSpec.to_mapping@L199
+    summary: self.version is not None true → str(self.version)
+  - id: C003M004E0004
+    address: resolution::WheelSpec.to_mapping@L199
+    summary: self.version is not None false → None
+  - id: C003M004E0005
+    address: resolution::WheelSpec.to_mapping@L200
+    summary: 'executes: ''extras'': list(self.extras)'
+  - id: C003M004E0006
+    address: resolution::WheelSpec.to_mapping@L201
+    summary: self.marker is not None true → str(self.marker)
+  - id: C003M004E0007
+    address: resolution::WheelSpec.to_mapping@L201
+    summary: self.marker is not None false → None
+  - id: C003M004E0008
+    address: resolution::WheelSpec.to_mapping@L202
+    summary: 'executes: ''uri'': self.uri'
+  - id: C003M005E0001
+    address: resolution::WheelSpec.from_mapping@L207
+    summary: 'executes: return cls(...)'
+  - id: C003M005E0002
+    address: resolution::WheelSpec.from_mapping@L208
+    summary: 'executes: name=mapping[''name'']'
+  - id: C003M005E0003
+    address: resolution::WheelSpec.from_mapping@L209
+    summary: 'executes: start ternary for version'
+  - id: C003M005E0004
+    address: resolution::WheelSpec.from_mapping@L210
+    summary: mapping['version'] is not None true → SpecifierSet(mapping['version'])
+  - id: C003M005E0005
+    address: resolution::WheelSpec.from_mapping@L210
+    summary: mapping['version'] is not None false → None
+  - id: C003M005E0006
+    address: resolution::WheelSpec.from_mapping@L211
+    summary: SpecifierSet(mapping['version']) succeeds
+  - id: C003M005E0007
+    address: resolution::WheelSpec.from_mapping@L211
+    summary: SpecifierSet(mapping['version']) raises exception
+  - id: C003M005E0008
+    address: resolution::WheelSpec.from_mapping@L214
+    summary: 'executes: extras=frozenset(mapping[''extras''])'
+  - id: C003M005E0009
+    address: resolution::WheelSpec.from_mapping@L215
+    summary: mapping['marker'] is not None true → Marker(mapping['marker'])
+  - id: C003M005E0010
+    address: resolution::WheelSpec.from_mapping@L215
+    summary: mapping['marker'] is not None false → None
+  - id: C003M005E0011
+    address: resolution::WheelSpec.from_mapping@L216
+    summary: Marker(mapping['marker']) succeeds
+  - id: C003M005E0012
+    address: resolution::WheelSpec.from_mapping@L216
+    summary: Marker(mapping['marker']) raises exception
+  - id: C003M005E0013
+    address: resolution::WheelSpec.from_mapping@L217
+    summary: 'executes: uri=mapping[''uri'']'
+  - id: C004M001E0001
+    address: resolution::ArtifactResolutionError.__init__@L273
+    summary: 'executes: super().__init__(message)'
+  - id: C004M001E0002
+    address: resolution::ArtifactResolutionError.__init__@L274
+    summary: 'executes: self.key = key'
+  - id: C004M001E0003
+    address: resolution::ArtifactResolutionError.__init__@L275
+    summary: 'executes: self.causes = tuple(causes)'
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: resolution
+  children:
+  - id: C001
+    kind: class
+    name: ResolutionPolicy
+    children:
+    - id: C001M001
+      kind: callable
+      name: to_mapping
+      callable:
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: returns dict with policy data
+        - id: C001M001E0002
+          condition: executes
+          outcome: '''requires_dist_url_policy'': self.requires_dist_url_policy.value'
+        - id: C001M001E0003
+          condition: executes
+          outcome: start ternary for allowed_requires_dist_url_schemes
+        - id: C001M001E0004
+          condition: executes
+          outcome: sorted(self.allowed_requires_dist_url_schemes)
+        - id: C001M001E0005
+          condition: self.allowed_requires_dist_url_schemes is not None true
+          outcome: sorted(...)
+        - id: C001M001E0006
+          condition: self.allowed_requires_dist_url_schemes is not None false
+          outcome: None
+        - id: C001M001E0007
+          condition: executes
+          outcome: '''yanked_wheel_policy'': self.yanked_wheel_policy.value'
+        - id: C001M001E0008
+          condition: executes
+          outcome: '''prerelease_policy'': self.prerelease_policy.value'
+        - id: C001M001E0009
+          condition: executes
+          outcome: '''invalid_requires_dist_policy'': self.invalid_requires_dist_policy.value'
+    - id: C001M002
+      kind: callable
+      name: from_mapping
+      callable:
+        branches:
+        - id: C001M002E0001
+          condition: executes
+          outcome: schemes = mapping.get('allowed_requires_dist_url_schemes')
+        - id: C001M002E0002
+          condition: executes
+          outcome: start ternary for allowed_schemes
+        - id: C001M002E0003
+          condition: schemes is None
+          outcome: None
+        - id: C001M002E0004
+          condition: schemes is not None, schemes empty
+          outcome: frozenset()
+        - id: C001M002E0005
+          condition: schemes is not None, schemes has items
+          outcome: frozenset with items
+        - id: C001M002E0006
+          condition: executes
+          outcome: req_dist_url_policy = mapping.get(...)
+        - id: C001M002E0007
+          condition: executes
+          outcome: yanked_wheel_policy = mapping.get(...)
+        - id: C001M002E0008
+          condition: executes
+          outcome: prerelease_policy = mapping.get(...)
+        - id: C001M002E0009
+          condition: executes
+          outcome: invalid_requires_dist_policy = mapping.get(...)
+        - id: C001M002E0010
+          condition: executes
+          outcome: return cls(...)
+        - id: C001M002E0011
+          condition: executes
+          outcome: RequiresDistUrlPolicy(req_dist_url_policy) succeeds
+        - id: C001M002E0012
+          condition: executes
+          outcome: RequiresDistUrlPolicy(req_dist_url_policy) raises ValueError
+        - id: C001M002E0013
+          condition: executes
+          outcome: YankedWheelPolicy(yanked_wheel_policy) succeeds
+        - id: C001M002E0014
+          condition: executes
+          outcome: YankedWheelPolicy(yanked_wheel_policy) raises ValueError
+        - id: C001M002E0015
+          condition: executes
+          outcome: PreReleasePolicy(prerelease_policy) succeeds
+        - id: C001M002E0016
+          condition: executes
+          outcome: PreReleasePolicy(prerelease_policy) raises ValueError
+        - id: C001M002E0017
+          condition: executes
+          outcome: InvalidRequiresDistPolicy(invalid_requires_dist_policy) succeeds
+        - id: C001M002E0018
+          condition: executes
+          outcome: InvalidRequiresDistPolicy(invalid_requires_dist_policy) raises ValueError
+  - id: C002
+    kind: class
+    name: ResolutionEnv
+    children:
+    - id: C002M001
+      kind: callable
+      name: to_mapping
+      callable:
+        branches:
+        - id: C002M001E0001
+          condition: executes
+          outcome: returns dict with environment data
+        - id: C002M001E0002
+          condition: executes
+          outcome: '''identifier'': self.identifier'
+        - id: C002M001E0003
+          condition: executes
+          outcome: '''supported_tags'': list(self.supported_tags)'
+        - id: C002M001E0004
+          condition: executes
+          outcome: '''marker_environment'': self.marker_environment'
+        - id: C002M001E0005
+          condition: executes
+          outcome: '''policy'': self.policy.to_mapping()'
+    - id: C002M002
+      kind: callable
+      name: from_mapping
+      callable:
+        branches:
+        - id: C002M002E0001
+          condition: executes
+          outcome: 'env_map: dict[str, str] = mapping.get(''marker_environment'', {})'
+        - id: C002M002E0002
+          condition: executes
+          outcome: validate_typed_dict('marker_environment', env_map, Environment, str)
+        - id: C002M002E0003
+          condition: executes
+          outcome: mrk_env = cast(Environment, cast(object, env_map))
+        - id: C002M002E0004
+          condition: executes
+          outcome: 'policy_map: dict[str, Any] = mapping.get(...)'
+        - id: C002M002E0005
+          condition: executes
+          outcome: return cls(...)
+        integration:
+          interunit:
+          - id: IC002M002E0002
+            target: validate_typed_dict
+            kind: call
+            signature: validate_typed_dict('marker_environment', env_map, Environment, str)
+            executionPaths:
+            - - C002M002E0001
+              - C002M002E0002
+  - id: C003
+    kind: class
+    name: WheelSpec
+    children:
+    - id: C003M001
+      kind: callable
+      name: __post_init__
+      callable:
+        branches:
+        - id: C003M001E0001
+          condition: self.uri is not None true
+          outcome: (self.uri.strip() or None)
+        - id: C003M001E0002
+          condition: self.uri is not None false
+          outcome: None
+        - id: C003M001E0003
+          condition: executes
+          outcome: object.__setattr__(self, 'uri', u)
+        - id: C003M001E0004
+          condition: self.uri is None and self.version is None true
+          outcome: raise ValueError
+        - id: C003M001E0005
+          condition: self.uri is None and self.version is None false
+          outcome: method completes
+    - id: C003M002
+      kind: callable
+      name: identifier
+      callable:
+        branches:
+        - id: C003M002E0001
+          condition: executes
+          outcome: returns f'{self.name}-{self.version}'
+    - id: C003M003
+      kind: callable
+      name: __str__
+      callable:
+        branches:
+        - id: C003M003E0001
+          condition: executes
+          outcome: returns self.identifier
+    - id: C003M004
+      kind: callable
+      name: to_mapping
+      callable:
+        branches:
+        - id: C003M004E0001
+          condition: executes
+          outcome: returns dict with wheel spec data
+        - id: C003M004E0002
+          condition: executes
+          outcome: '''name'': self.name'
+        - id: C003M004E0003
+          condition: self.version is not None true
+          outcome: str(self.version)
+        - id: C003M004E0004
+          condition: self.version is not None false
+          outcome: None
+        - id: C003M004E0005
+          condition: executes
+          outcome: '''extras'': list(self.extras)'
+        - id: C003M004E0006
+          condition: self.marker is not None true
+          outcome: str(self.marker)
+        - id: C003M004E0007
+          condition: self.marker is not None false
+          outcome: None
+        - id: C003M004E0008
+          condition: executes
+          outcome: '''uri'': self.uri'
+    - id: C003M005
+      kind: callable
+      name: from_mapping
+      callable:
+        branches:
+        - id: C003M005E0001
+          condition: executes
+          outcome: return cls(...)
+        - id: C003M005E0002
+          condition: executes
+          outcome: name=mapping['name']
+        - id: C003M005E0003
+          condition: executes
+          outcome: start ternary for version
+        - id: C003M005E0004
+          condition: mapping['version'] is not None true
+          outcome: SpecifierSet(mapping['version'])
+        - id: C003M005E0005
+          condition: mapping['version'] is not None false
+          outcome: None
+        - id: C003M005E0006
+          condition: executes
+          outcome: SpecifierSet(mapping['version']) succeeds
+        - id: C003M005E0007
+          condition: executes
+          outcome: SpecifierSet(mapping['version']) raises exception
+        - id: C003M005E0008
+          condition: executes
+          outcome: extras=frozenset(mapping['extras'])
+        - id: C003M005E0009
+          condition: mapping['marker'] is not None true
+          outcome: Marker(mapping['marker'])
+        - id: C003M005E0010
+          condition: mapping['marker'] is not None false
+          outcome: None
+        - id: C003M005E0011
+          condition: executes
+          outcome: Marker(mapping['marker']) succeeds
+        - id: C003M005E0012
+          condition: executes
+          outcome: Marker(mapping['marker']) raises exception
+        - id: C003M005E0013
+          condition: executes
+          outcome: uri=mapping['uri']
+        integration:
+          interunit:
+          - id: IC003M005E0006
+            target: SpecifierSet
+            kind: construct
+            signature: SpecifierSet(mapping['version'])
+            executionPaths:
+            - - C003M005E0001
+              - C003M005E0002
+              - C003M005E0003
+              - C003M005E0004
+              - C003M005E0006
+          - id: IC003M005E0011
+            target: Marker
+            kind: construct
+            signature: Marker(mapping['marker'])
+            executionPaths:
+            - - C003M005E0001
+              - C003M005E0002
+              - C003M005E0003
+              - C003M005E0004
+              - C003M005E0006
+              - C003M005E0007
+              - C003M005E0008
+              - C003M005E0011
+            - - C003M005E0001
+              - C003M005E0002
+              - C003M005E0003
+              - C003M005E0005
+              - C003M005E0007
+              - C003M005E0008
+              - C003M005E0011
+  - id: C004
+    kind: class
+    name: ArtifactResolutionError
+    children:
+    - id: C004M001
+      kind: callable
+      name: __init__
+      callable:
+        branches:
+        - id: C004M001E0001
+          condition: executes
+          outcome: super().__init__(message)
+        - id: C004M001E0002
+          condition: executes
+          outcome: self.key = key
+        - id: C004M001E0003
+          condition: executes
+          outcome: self.causes = tuple(causes)
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: resolution
+  language: python
+findings:
+- severity: info
+  category: assumption
+  message: Enum constructors (RequiresDistUrlPolicy, YankedWheelPolicy, PreReleasePolicy, InvalidRequiresDistPolicy) can raise
+    ValueError for invalid enum values.
+  notes: Per Python companion guide section 2.1.6, enum constructors create 2 EIs (success, ValueError). This enables test
+    coverage of invalid enum value handling.
+- severity: info
+  category: assumption
+  message: 'Generator expression in ternary at line 96 creates 3 outcomes: None path, empty comprehension, non-empty comprehension.'
+  notes: The expression 'None if schemes is None else frozenset(cast(str, s) for s in schemes)' has distinct execution paths
+    for each outcome.
+- severity: info
+  category: assumption
+  message: SpecifierSet and Marker constructors (lines 210-211, 215-216) can raise exceptions for invalid input.
+  notes: Per Python companion guide section 2.1.6, external library constructors are assumed to have success/exception outcomes.
+- severity: info
+  category: assumption
+  message: Enum class definitions (ResolutionMode, RequiresDistUrlPolicy, etc.) contain no executable code and were not analyzed as callables.
+  notes: Enum definitions only declare constants. However, enum constructor CALLS (e.g., RequiresDistUrlPolicy(value)) are analyzed where they appear and can raise ValueError - see finding #1.
+- severity: info
+  category: assumption
+  message: ResolutionParams and ResolutionResult dataclasses have no explicit methods, only auto-generated ones. No callables
+    were analyzed for these classes.
+  notes: Dataclasses with default factory functions use built-in behavior that is not part of this unit.
+- severity: info
+  category: assumption
+  message: ResolutionError exception class has no __init__ override, inherits from Exception. No callable analyzed.
+  notes: Standard exception inheritance with no custom behavior.

@@ -1,0 +1,82 @@
+docKind: derived-ids
+schemaVersion: "1.0.0"
+unit:
+  name: builtin
+  language: python
+  unitId: C000
+assigned:
+  entries:
+    - id: C001
+      kind: class
+      name: RepoFactory
+      address: 'builtin::RepoFactory@L9'
+    - id: C000F001
+      kind: callable
+      name: _create_ephemeral
+      address: 'builtin::_create_ephemeral@L15'
+  branches:
+    - id: C000F001E0001
+      address: 'builtin::_create_ephemeral@import@L16'
+      summary: 'executes import of EphemeralArtifactRepository'
+    - id: C000F001E0002
+      address: 'builtin::_create_ephemeral@return@L20'
+      summary: 'returns EphemeralArtifactRepository instance'
+---
+docKind: ledger
+schemaVersion: "1.0.0"
+unit:
+  id: C000
+  kind: unit
+  name: builtin
+  children:
+    - id: C001
+      kind: class
+      name: RepoFactory
+      notes: 'Protocol class - defines interface contract, no executable implementation'
+    - id: C000F001
+      kind: callable
+      name: _create_ephemeral
+      signature: '_create_ephemeral(*, config: Mapping[str, Any] | None = None) -> ArtifactRepository'
+      callable:
+        params:
+          - name: config
+            type:
+              name: 'Mapping[str, Any] | None'
+        returnType:
+          name: ArtifactRepository
+        branches:
+          - id: C000F001E0001
+            condition: 'from project_resolution_engine.internal.builtin_repository import (EphemeralArtifactRepository,)'
+            outcome: 'imports EphemeralArtifactRepository'
+          - id: C000F001E0002
+            condition: 'return EphemeralArtifactRepository()'
+            outcome: 'returns new EphemeralArtifactRepository instance'
+        integration:
+          interunit:
+            - id: IC000F001E0001
+              target: project_resolution_engine.internal.builtin_repository.EphemeralArtifactRepository
+              kind: import
+              signature: 'from project_resolution_engine.internal.builtin_repository import (EphemeralArtifactRepository,)'
+              executionPaths:
+                - [C000F001E0001]
+              notes: 'Dynamic import executed at function call time'
+            - id: IC000F001E0002
+              target: EphemeralArtifactRepository.__init__
+              kind: construct
+              signature: 'EphemeralArtifactRepository()'
+              executionPaths:
+                - [C000F001E0001, C000F001E0002]
+              notes: 'Constructs new ephemeral repository instance'
+---
+docKind: ledger-generation-review
+schemaVersion: "1.0.0"
+unit:
+  name: builtin
+  language: python
+findings:
+  - severity: info
+    category: assumption
+    message: 'Protocol class RepoFactory is a type interface definition with no executable implementation - __call__ method contains only ellipsis stub'
+  - severity: info
+    category: assumption
+    message: 'Module-level constants (DEFAULT_REPOSITORY_ID, BUILTIN_REPOSITORY_FACTORIES) are not included as callables per spec - they are module initialization code'

@@ -1,0 +1,1341 @@
+docKind: derived-ids
+schemaVersion: 1.0.0
+unit:
+  name: keys
+  language: python
+  unitId: C000
+assigned:
+  entries:
+  - id: C000
+    kind: unit
+    name: keys
+    address: keys
+  - id: C000F001
+    kind: callable
+    name: _is_empty_collection
+    address: keys::_is_empty_collection@L32
+  - id: C000F002
+    kind: callable
+    name: normalize_project_name
+    address: keys::normalize_project_name@L36
+  - id: C000F003
+    kind: callable
+    name: reqtxt
+    address: keys::reqtxt@L45
+  - id: C000F004
+    kind: callable
+    name: _reqtxt_comment_lines
+    address: keys::_reqtxt_comment_lines@L54
+  - id: C001
+    kind: class
+    name: BaseArtifactKey
+    address: keys::BaseArtifactKey@L74
+  - id: C001M001
+    kind: callable
+    name: from_mapping
+    address: keys::BaseArtifactKey::from_mapping@L77
+  - id: C002
+    kind: class
+    name: IndexMetadataKey
+    address: keys::IndexMetadataKey@L96
+  - id: C002M001
+    kind: callable
+    name: to_mapping
+    address: keys::IndexMetadataKey::to_mapping@L101
+  - id: C002M002
+    kind: callable
+    name: from_mapping
+    address: keys::IndexMetadataKey::from_mapping@L108
+  - id: C003
+    kind: class
+    name: CoreMetadataKey
+    address: keys::CoreMetadataKey@L114
+  - id: C003M001
+    kind: callable
+    name: to_mapping
+    address: keys::CoreMetadataKey::to_mapping@L121
+  - id: C003M002
+    kind: callable
+    name: from_mapping
+    address: keys::CoreMetadataKey::from_mapping@L130
+  - id: C004
+    kind: class
+    name: WheelKey
+    address: keys::WheelKey@L142
+  - id: C004M001
+    kind: callable
+    name: _validate_hash_and_set_spec
+    address: keys::WheelKey::_validate_hash_and_set_spec@L198
+  - id: C004M002
+    kind: callable
+    name: __post_init__
+    address: keys::WheelKey::__post_init__@L217
+  - id: C004M003
+    kind: callable
+    name: set_dependency_ids
+    address: keys::WheelKey::set_dependency_ids@L231
+  - id: C004M004
+    kind: callable
+    name: set_origin_uri
+    address: keys::WheelKey::set_origin_uri@L238
+  - id: C004M005
+    kind: callable
+    name: set_content_hash
+    address: keys::WheelKey::set_content_hash@L244
+  - id: C004M006
+    kind: callable
+    name: _proj_name_with_underscores
+    address: keys::WheelKey::_proj_name_with_underscores@L255
+  - id: C004M007
+    kind: callable
+    name: identifier
+    address: keys::WheelKey::identifier@L258
+  - id: C004M008
+    kind: callable
+    name: as_tuple
+    address: keys::WheelKey::as_tuple@L265
+  - id: C004M009
+    kind: callable
+    name: __lt__
+    address: keys::WheelKey::__lt__@L278
+  - id: C004M010
+    kind: callable
+    name: __eq__
+    address: keys::WheelKey::__eq__@L281
+  - id: C004M011
+    kind: callable
+    name: __hash__
+    address: keys::WheelKey::__hash__@L284
+  - id: C004M012
+    kind: callable
+    name: __str__
+    address: keys::WheelKey::__str__@L287
+  - id: C004M013
+    kind: callable
+    name: requirement_str
+    address: keys::WheelKey::requirement_str@L290
+  - id: C004M014
+    kind: callable
+    name: requirement_str_basic
+    address: keys::WheelKey::requirement_str_basic@L302
+  - id: C004M015
+    kind: callable
+    name: req_txt_block
+    address: keys::WheelKey::req_txt_block@L306
+  - id: C004M016
+    kind: callable
+    name: to_mapping
+    address: keys::WheelKey::to_mapping@L337
+  - id: C004M017
+    kind: callable
+    name: from_mapping
+    address: keys::WheelKey::from_mapping@L355
+  branches:
+  - id: C000F001E0001
+    address: keys::_is_empty_collection@L33
+    summary: 'executes: returns isinstance(v, (set, frozenset, list, tuple, dict))
+      and len(v) == 0'
+  - id: C000F002E0001
+    address: keys::normalize_project_name@L42
+    summary: 'executes: returns canonicalize_name(project)'
+  - id: C000F003E0001
+    address: keys::reqtxt@L46
+    summary: 'executes: md = {''reqtxt'': True}'
+  - id: C000F003E0002
+    address: keys::reqtxt@L47
+    summary: key is not None true → continues to line 48
+  - id: C000F003E0003
+    address: keys::reqtxt@L47
+    summary: key is not None false → continues to line 49
+  - id: C000F003E0004
+    address: keys::reqtxt@L48
+    summary: 'executes: md[''reqtxt_key''] = key'
+  - id: C000F003E0005
+    address: keys::reqtxt@L49
+    summary: fmt is not None true → continues to line 50
+  - id: C000F003E0006
+    address: keys::reqtxt@L49
+    summary: fmt is not None false → continues to line 51
+  - id: C000F003E0007
+    address: keys::reqtxt@L50
+    summary: 'executes: md[''reqtxt_fmt''] = fmt'
+  - id: C000F003E0008
+    address: keys::reqtxt@L51
+    summary: 'executes: returns md'
+  - id: C000F004E0001
+    address: keys::_reqtxt_comment_lines@L55
+    summary: 'executes: lines = []'
+  - id: C000F004E0002
+    address: keys::_reqtxt_comment_lines@L56
+    summary: fields(obj) empty → 0 iterations
+  - id: C000F004E0003
+    address: keys::_reqtxt_comment_lines@L56
+    summary: fields(obj) has items → ≥1 iterations
+  - id: C000F004E0004
+    address: keys::_reqtxt_comment_lines@L57
+    summary: not f.metadata.get('reqtxt') true → continues to line 56 (next iteration)
+  - id: C000F004E0005
+    address: keys::_reqtxt_comment_lines@L57
+    summary: not f.metadata.get('reqtxt') false → continues to line 60
+  - id: C000F004E0006
+    address: keys::_reqtxt_comment_lines@L60
+    summary: 'executes: val = getattr(obj, f.name)'
+  - id: C000F004E0007
+    address: keys::_reqtxt_comment_lines@L61
+    summary: val is None or _is_empty_collection(val) true → continues to line 56
+      (next iteration)
+  - id: C000F004E0008
+    address: keys::_reqtxt_comment_lines@L61
+    summary: val is None or _is_empty_collection(val) false → continues to line 64
+  - id: C000F004E0009
+    address: keys::_reqtxt_comment_lines@L64
+    summary: 'executes: key = f.metadata.get(''reqtxt_key'', f.name)'
+  - id: C000F004E0010
+    address: keys::_reqtxt_comment_lines@L65
+    summary: 'executes: fmt_name = f.metadata.get(''reqtxt_fmt'')'
+  - id: C000F004E0011
+    address: keys::_reqtxt_comment_lines@L66
+    summary: fmt_name truthy → _REQ_TXT_FMT[str(fmt_name)](val) executes
+  - id: C000F004E0012
+    address: keys::_reqtxt_comment_lines@L66
+    summary: fmt_name falsy → str(val) executes
+  - id: C000F004E0013
+    address: keys::_reqtxt_comment_lines@L68
+    summary: 'executes: lines.append(f''# {key}: {val_str}'')'
+  - id: C000F004E0014
+    address: keys::_reqtxt_comment_lines@L70
+    summary: 'executes: returns lines'
+  - id: C001M001E0001
+    address: keys::from_mapping@L79
+    summary: 'executes: kind_mapping = mapping.get(''kind'', ''none'')'
+  - id: C001M001E0002
+    address: keys::from_mapping@L80
+    summary: 'executes: kind = ArtifactKind(kind_mapping)'
+  - id: C001M001E0003
+    address: keys::from_mapping@L81
+    summary: 'match kind statement: evaluates kind'
+  - id: C001M001E0004
+    address: keys::from_mapping@L82
+    summary: case ArtifactKind.INDEX_METADATA matches → continues to line 83
+  - id: C001M001E0005
+    address: keys::from_mapping@L82
+    summary: case ArtifactKind.INDEX_METADATA does not match → continues to line 84
+  - id: C001M001E0006
+    address: keys::from_mapping@L83
+    summary: 'executes: returns IndexMetadataKey.from_mapping(mapping)'
+  - id: C001M001E0007
+    address: keys::from_mapping@L84
+    summary: case ArtifactKind.CORE_METADATA matches → continues to line 85
+  - id: C001M001E0008
+    address: keys::from_mapping@L84
+    summary: case ArtifactKind.CORE_METADATA does not match → continues to line 86
+  - id: C001M001E0009
+    address: keys::from_mapping@L85
+    summary: 'executes: returns CoreMetadataKey.from_mapping(mapping)'
+  - id: C001M001E0010
+    address: keys::from_mapping@L86
+    summary: case ArtifactKind.WHEEL matches → continues to line 87
+  - id: C001M001E0011
+    address: keys::from_mapping@L86
+    summary: case ArtifactKind.WHEEL does not match → continues to line 88
+  - id: C001M001E0012
+    address: keys::from_mapping@L87
+    summary: 'executes: returns WheelKey.from_mapping(mapping)'
+  - id: C001M001E0013
+    address: keys::from_mapping@L89
+    summary: 'executes: raises ValueError(f''Unknown artifact key kind: {kind_mapping!r}'')'
+  - id: C002M001E0001
+    address: keys::to_mapping@L102
+    summary: 'executes: returns dict with kind, index_base, project'
+  - id: C002M002E0001
+    address: keys::from_mapping@L110
+    summary: 'executes: returns cls(index_base=mapping[''index_base''], project=mapping[''project''])'
+  - id: C003M001E0001
+    address: keys::to_mapping@L122
+    summary: 'executes: returns dict with kind, name, version, tag, file_url'
+  - id: C003M002E0001
+    address: keys::from_mapping@L132
+    summary: 'executes: returns cls(name=mapping[''name''], version=mapping[''version''],
+      tag=mapping[''tag''], file_url=mapping[''file_url''])'
+  - id: C004M001E0001
+    address: keys::_validate_hash_and_set_spec@L199
+    summary: self.hash_algorithm is None or self.content_hash is None true → continues
+      to line 200
+  - id: C004M001E0002
+    address: keys::_validate_hash_and_set_spec@L199
+    summary: self.hash_algorithm is None or self.content_hash is None false → continues
+      to line 201
+  - id: C004M001E0003
+    address: keys::_validate_hash_and_set_spec@L200
+    summary: 'executes: returns'
+  - id: C004M001E0004
+    address: keys::_validate_hash_and_set_spec@L201
+    summary: 'executes: alg = self.hash_algorithm.strip().lower()'
+  - id: C004M001E0005
+    address: keys::_validate_hash_and_set_spec@L202
+    summary: 'executes: h = self.content_hash.strip()'
+  - id: C004M001E0006
+    address: keys::_validate_hash_and_set_spec@L203
+    summary: 'match alg statement: evaluates alg'
+  - id: C004M001E0007
+    address: keys::_validate_hash_and_set_spec@L204
+    summary: case 'sha256' matches → continues to line 205
+  - id: C004M001E0008
+    address: keys::_validate_hash_and_set_spec@L204
+    summary: case 'sha256' does not match → continues to line 207
+  - id: C004M001E0009
+    address: keys::_validate_hash_and_set_spec@L205
+    summary: not _SHA256_RE.match(h) true → continues to line 206
+  - id: C004M001E0010
+    address: keys::_validate_hash_and_set_spec@L205
+    summary: not _SHA256_RE.match(h) false → continues to line 207
+  - id: C004M001E0011
+    address: keys::_validate_hash_and_set_spec@L206
+    summary: 'executes: raises ValueError(f''Invalid SHA256 hash: {self.content_hash}'')'
+  - id: C004M001E0012
+    address: keys::_validate_hash_and_set_spec@L207
+    summary: case 'sha384' matches → continues to line 208
+  - id: C004M001E0013
+    address: keys::_validate_hash_and_set_spec@L207
+    summary: case 'sha384' does not match → continues to line 210
+  - id: C004M001E0014
+    address: keys::_validate_hash_and_set_spec@L208
+    summary: not _SHA384_RE.match(h) true → continues to line 209
+  - id: C004M001E0015
+    address: keys::_validate_hash_and_set_spec@L208
+    summary: not _SHA384_RE.match(h) false → continues to line 210
+  - id: C004M001E0016
+    address: keys::_validate_hash_and_set_spec@L209
+    summary: 'executes: raises ValueError(f''Invalid SHA384 hash: {self.content_hash}'')'
+  - id: C004M001E0017
+    address: keys::_validate_hash_and_set_spec@L210
+    summary: case 'sha512' matches → continues to line 211
+  - id: C004M001E0018
+    address: keys::_validate_hash_and_set_spec@L210
+    summary: case 'sha512' does not match → continues to line 213
+  - id: C004M001E0019
+    address: keys::_validate_hash_and_set_spec@L211
+    summary: not _SHA512_RE.match(h) true → continues to line 212
+  - id: C004M001E0020
+    address: keys::_validate_hash_and_set_spec@L211
+    summary: not _SHA512_RE.match(h) false → continues to line 213
+  - id: C004M001E0021
+    address: keys::_validate_hash_and_set_spec@L212
+    summary: 'executes: raises ValueError(f''Invalid SHA512 hash: {self.content_hash}'')'
+  - id: C004M001E0022
+    address: keys::_validate_hash_and_set_spec@L214
+    summary: 'executes: pass'
+  - id: C004M001E0023
+    address: keys::_validate_hash_and_set_spec@L215
+    summary: 'executes: object.__setattr__(self, ''_hash_spec'', f''{alg}:{h}'')'
+  - id: C004M002E0001
+    address: keys::__post_init__@L218
+    summary: 'executes: object.__setattr__(self, ''name'', normalize_project_name(self.name))'
+  - id: C004M002E0002
+    address: keys::__post_init__@L219
+    summary: 'executes: normalized_version = self.version'
+  - id: C004M002E0003
+    address: keys::__post_init__@L220
+    summary: 'try block: enters try'
+  - id: C004M002E0004
+    address: keys::__post_init__@L221
+    summary: str(Version(self.version)) succeeds → continues to line 222
+  - id: C004M002E0005
+    address: keys::__post_init__@L221
+    summary: str(Version(self.version)) raises InvalidVersion → continues to line
+      223
+  - id: C004M002E0006
+    address: keys::__post_init__@L222
+    summary: 'executes: normalized_version = str(Version(self.version))'
+  - id: C004M002E0007
+    address: keys::__post_init__@L224
+    summary: 'executes: object.__setattr__(self, ''version'', normalized_version)'
+  - id: C004M002E0008
+    address: keys::__post_init__@L225
+    summary: 'executes: self._validate_hash_and_set_spec()'
+  - id: C004M003E0001
+    address: keys::set_dependency_ids@L232
+    summary: self.dependency_ids is not None true → continues to line 233
+  - id: C004M003E0002
+    address: keys::set_dependency_ids@L232
+    summary: self.dependency_ids is not None false → continues to line 234
+  - id: C004M003E0003
+    address: keys::set_dependency_ids@L233
+    summary: 'executes: raises ValueError(''WheelKey.dependency_ids is already set'')'
+  - id: C004M003E0004
+    address: keys::set_dependency_ids@L234
+    summary: 'executes: object.__setattr__(self, ''dependency_ids'', frozenset(dep.identifier
+      for dep in dependencies))'
+  - id: C004M004E0001
+    address: keys::set_origin_uri@L239
+    summary: self.origin_uri is None true → continues to line 240
+  - id: C004M004E0002
+    address: keys::set_origin_uri@L239
+    summary: self.origin_uri is None false → continues to line 241
+  - id: C004M004E0003
+    address: keys::set_origin_uri@L240
+    summary: 'executes: object.__setattr__(self, ''origin_uri'', origin_uri)'
+  - id: C004M004E0004
+    address: keys::set_origin_uri@L242
+    summary: 'executes: raises ValueError(''WheelKey.origin_uri is already set'')'
+  - id: C004M005E0001
+    address: keys::set_content_hash@L245
+    summary: self.content_hash is not None or self.hash_algorithm is not None true
+      → continues to line 246
+  - id: C004M005E0002
+    address: keys::set_content_hash@L245
+    summary: self.content_hash is not None or self.hash_algorithm is not None false
+      → continues to line 247
+  - id: C004M005E0003
+    address: keys::set_content_hash@L246
+    summary: 'executes: raises ValueError(''WheelKey content hash is already set'')'
+  - id: C004M005E0004
+    address: keys::set_content_hash@L247
+    summary: 'executes: object.__setattr__(self, ''hash_algorithm'', hash_algorithm)'
+  - id: C004M005E0005
+    address: keys::set_content_hash@L248
+    summary: 'executes: object.__setattr__(self, ''content_hash'', content_hash)'
+  - id: C004M005E0006
+    address: keys::set_content_hash@L249
+    summary: 'executes: self._validate_hash_and_set_spec()'
+  - id: C004M006E0001
+    address: keys::_proj_name_with_underscores@L256
+    summary: 'executes: returns self.name.replace(''-'', ''_'')'
+  - id: C004M007E0001
+    address: keys::identifier@L260
+    summary: 'executes: name = self._proj_name_with_underscores()'
+  - id: C004M007E0002
+    address: keys::identifier@L261
+    summary: 'executes: version = self.version'
+  - id: C004M007E0003
+    address: keys::identifier@L262
+    summary: 'executes: tag = self.tag'
+  - id: C004M007E0004
+    address: keys::identifier@L263
+    summary: 'executes: returns ''-''.join((name, version, tag))'
+  - id: C004M008E0001
+    address: keys::as_tuple@L276
+    summary: 'executes: returns (self.name, self.version, self.tag)'
+  - id: C004M009E0001
+    address: keys::__lt__@L279
+    summary: 'executes: returns self.as_tuple() < other.as_tuple()'
+  - id: C004M010E0001
+    address: keys::__eq__@L282
+    summary: 'executes: returns isinstance(other, WheelKey) and self.as_tuple() ==
+      other.as_tuple()'
+  - id: C004M011E0001
+    address: keys::__hash__@L285
+    summary: 'executes: returns hash(self.as_tuple())'
+  - id: C004M012E0001
+    address: keys::__str__@L288
+    summary: 'executes: returns self.identifier'
+  - id: C004M013E0001
+    address: keys::requirement_str@L292
+    summary: self.origin_uri is None true → continues to line 293
+  - id: C004M013E0002
+    address: keys::requirement_str@L292
+    summary: self.origin_uri is None false → continues to line 296
+  - id: C004M013E0003
+    address: keys::requirement_str@L293
+    summary: 'executes: raises ValueError(f''{self.identifier}: origin_uri is required
+      to render a requirement string'')'
+  - id: C004M013E0004
+    address: keys::requirement_str@L296
+    summary: self._hash_spec is None true → continues to line 297
+  - id: C004M013E0005
+    address: keys::requirement_str@L296
+    summary: self._hash_spec is None false → continues to line 300
+  - id: C004M013E0006
+    address: keys::requirement_str@L297
+    summary: 'executes: raises ValueError(f''{self.identifier}: _hash_spec is required
+      to render a requirement string'')'
+  - id: C004M013E0007
+    address: keys::requirement_str@L300
+    summary: 'executes: returns f''{self.name} @ {self.origin_uri} --hash={self._hash_spec}'''
+  - id: C004M014E0001
+    address: keys::requirement_str_basic@L304
+    summary: 'executes: returns f''{self.name}=={self.version}'''
+  - id: C004M015E0001
+    address: keys::req_txt_block@L324
+    summary: self.origin_uri is None true → continues to line 325
+  - id: C004M015E0002
+    address: keys::req_txt_block@L324
+    summary: self.origin_uri is None false → continues to line 328
+  - id: C004M015E0003
+    address: keys::req_txt_block@L325
+    summary: 'executes: raises ValueError(f''{self.identifier}: origin_uri is required
+      to render requirements'')'
+  - id: C004M015E0004
+    address: keys::req_txt_block@L328
+    summary: self._hash_spec is None true → continues to line 329
+  - id: C004M015E0005
+    address: keys::req_txt_block@L328
+    summary: self._hash_spec is None false → continues to line 333
+  - id: C004M015E0006
+    address: keys::req_txt_block@L329
+    summary: 'executes: raises ValueError(f''{self.identifier}: _hash_spec is required
+      to render requirements'')'
+  - id: C004M015E0007
+    address: keys::req_txt_block@L333
+    summary: 'executes: meta_lines = _reqtxt_comment_lines(self)'
+  - id: C004M015E0008
+    address: keys::req_txt_block@L334
+    summary: 'executes: req_line = self.requirement_str'
+  - id: C004M015E0009
+    address: keys::req_txt_block@L335
+    summary: 'executes: returns ''\n''.join([*meta_lines, req_line])'
+  - id: C004M016E0001
+    address: keys::to_mapping@L338
+    summary: 'executes: returns dict with all fields'
+  - id: C004M017E0001
+    address: keys::from_mapping@L357
+    summary: 'executes: dependencies_mapping = mapping.get(''dependencies'')'
+  - id: C004M017E0002
+    address: keys::from_mapping@L358
+    summary: 'executes: extras_mapping = mapping.get(''extras'')'
+  - id: C004M017E0003
+    address: keys::from_mapping@L359
+    summary: 'executes: returns cls(...)'
+---
+docKind: ledger
+schemaVersion: 1.0.0
+unit:
+  id: C000
+  kind: unit
+  name: keys
+  children:
+  - id: C000F001
+    kind: callable
+    name: _is_empty_collection
+    signature: '_is_empty_collection(v: object) -> bool'
+    callable:
+      params:
+      - name: v
+        type:
+          name: object
+      returnType:
+        name: bool
+      branches:
+      - id: C000F001E0001
+        condition: executes
+        outcome: returns isinstance(v, (set, frozenset, list, tuple, dict)) and len(v)
+          == 0
+  - id: C000F002
+    kind: callable
+    name: normalize_project_name
+    signature: 'normalize_project_name(project: str) -> str'
+    callable:
+      params:
+      - name: project
+        type:
+          name: str
+      returnType:
+        name: str
+      branches:
+      - id: C000F002E0001
+        condition: executes
+        outcome: returns canonicalize_name(project)
+      integration:
+        interunit:
+        - id: IC000F002E0001
+          target: packaging.utils.canonicalize_name
+          kind: call
+          signature: canonicalize_name(project)
+          executionPaths:
+          - - C000F002E0001
+  - id: C000F003
+    kind: callable
+    name: reqtxt
+    signature: 'reqtxt(*, key: str | None = None, fmt: str | None = None) -> dict[str,
+      object]'
+    callable:
+      params:
+      - name: key
+        type:
+          name: str | None
+      - name: fmt
+        type:
+          name: str | None
+      returnType:
+        name: dict[str, object]
+      branches:
+      - id: C000F003E0001
+        condition: executes
+        outcome: 'md = {''reqtxt'': True}'
+      - id: C000F003E0002
+        condition: key is not None true
+        outcome: continues to line 48
+      - id: C000F003E0003
+        condition: key is not None false
+        outcome: continues to line 49
+      - id: C000F003E0004
+        condition: executes
+        outcome: md['reqtxt_key'] = key
+      - id: C000F003E0005
+        condition: fmt is not None true
+        outcome: continues to line 50
+      - id: C000F003E0006
+        condition: fmt is not None false
+        outcome: continues to line 51
+      - id: C000F003E0007
+        condition: executes
+        outcome: md['reqtxt_fmt'] = fmt
+      - id: C000F003E0008
+        condition: executes
+        outcome: returns md
+  - id: C000F004
+    kind: callable
+    name: _reqtxt_comment_lines
+    signature: '_reqtxt_comment_lines(obj: WheelKey) -> list[str]'
+    callable:
+      params:
+      - name: obj
+        type:
+          name: WheelKey
+      returnType:
+        name: list[str]
+      branches:
+      - id: C000F004E0001
+        condition: executes
+        outcome: lines = []
+      - id: C000F004E0002
+        condition: fields(obj) empty
+        outcome: 0 iterations
+      - id: C000F004E0003
+        condition: fields(obj) has items
+        outcome: ≥1 iterations
+      - id: C000F004E0004
+        condition: not f.metadata.get('reqtxt') true
+        outcome: continues to line 56 (next iteration)
+      - id: C000F004E0005
+        condition: not f.metadata.get('reqtxt') false
+        outcome: continues to line 60
+      - id: C000F004E0006
+        condition: executes
+        outcome: val = getattr(obj, f.name)
+      - id: C000F004E0007
+        condition: val is None or _is_empty_collection(val) true
+        outcome: continues to line 56 (next iteration)
+      - id: C000F004E0008
+        condition: val is None or _is_empty_collection(val) false
+        outcome: continues to line 64
+      - id: C000F004E0009
+        condition: executes
+        outcome: key = f.metadata.get('reqtxt_key', f.name)
+      - id: C000F004E0010
+        condition: executes
+        outcome: fmt_name = f.metadata.get('reqtxt_fmt')
+      - id: C000F004E0011
+        condition: fmt_name truthy
+        outcome: _REQ_TXT_FMT[str(fmt_name)](val) executes
+      - id: C000F004E0012
+        condition: fmt_name falsy
+        outcome: str(val) executes
+      - id: C000F004E0013
+        condition: executes
+        outcome: 'lines.append(f''# {key}: {val_str}'')'
+      - id: C000F004E0014
+        condition: executes
+        outcome: returns lines
+      integration:
+        interunit:
+        - id: IC000F004E0002
+          target: dataclasses.fields
+          kind: call
+          signature: fields(obj)
+          executionPaths:
+          - - C000F004E0001
+            - C000F004E0002
+        - id: IC000F004E0004
+          target: builtins.getattr
+          kind: call
+          signature: getattr(obj, f.name)
+          executionPaths:
+          - - C000F004E0001
+            - C000F004E0002
+            - C000F004E0003
+            - C000F004E0004
+  - id: C001
+    kind: class
+    name: BaseArtifactKey
+    children:
+    - id: C001M001
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> BaseArtifactKey'
+      modifiers:
+      - classmethod
+      callable:
+        params:
+        - name: cls
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+        returnType:
+          name: BaseArtifactKey
+        branches:
+        - id: C001M001E0001
+          condition: executes
+          outcome: kind_mapping = mapping.get('kind', 'none')
+        - id: C001M001E0002
+          condition: executes
+          outcome: kind = ArtifactKind(kind_mapping)
+        - id: C001M001E0003
+          condition: 'match kind statement: evaluates kind'
+          outcome: 'match kind statement: evaluates kind'
+        - id: C001M001E0004
+          condition: case ArtifactKind.INDEX_METADATA matches
+          outcome: continues to line 83
+        - id: C001M001E0005
+          condition: case ArtifactKind.INDEX_METADATA does not match
+          outcome: continues to line 84
+        - id: C001M001E0006
+          condition: executes
+          outcome: returns IndexMetadataKey.from_mapping(mapping)
+        - id: C001M001E0007
+          condition: case ArtifactKind.CORE_METADATA matches
+          outcome: continues to line 85
+        - id: C001M001E0008
+          condition: case ArtifactKind.CORE_METADATA does not match
+          outcome: continues to line 86
+        - id: C001M001E0009
+          condition: executes
+          outcome: returns CoreMetadataKey.from_mapping(mapping)
+        - id: C001M001E0010
+          condition: case ArtifactKind.WHEEL matches
+          outcome: continues to line 87
+        - id: C001M001E0011
+          condition: case ArtifactKind.WHEEL does not match
+          outcome: continues to line 88
+        - id: C001M001E0012
+          condition: executes
+          outcome: returns WheelKey.from_mapping(mapping)
+        - id: C001M001E0013
+          condition: executes
+          outcome: 'raises ValueError(f''Unknown artifact key kind: {kind_mapping!r}'')'
+        integration:
+          interunit:
+          - id: IC001M001E0003
+            target: IndexMetadataKey.from_mapping
+            kind: call
+            signature: IndexMetadataKey.from_mapping(mapping)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0004
+          - id: IC001M001E0006
+            target: CoreMetadataKey.from_mapping
+            kind: call
+            signature: CoreMetadataKey.from_mapping(mapping)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0005
+              - C001M001E0006
+              - C001M001E0007
+          - id: IC001M001E0009
+            target: WheelKey.from_mapping
+            kind: call
+            signature: WheelKey.from_mapping(mapping)
+            executionPaths:
+            - - C001M001E0001
+              - C001M001E0002
+              - C001M001E0003
+              - C001M001E0005
+              - C001M001E0006
+              - C001M001E0008
+              - C001M001E0009
+              - C001M001E0010
+  - id: C002
+    kind: class
+    name: IndexMetadataKey
+    children:
+    - id: C002M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      callable:
+        params:
+        - name: self
+        - name: args
+        - name: kwargs
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C002M001E0001
+          condition: executes
+          outcome: returns dict with kind, index_base, project
+    - id: C002M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      modifiers:
+      - classmethod
+      callable:
+        params:
+        - name: cls
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+        returnType:
+          name: Self
+        branches:
+        - id: C002M002E0001
+          condition: executes
+          outcome: returns cls(index_base=mapping['index_base'], project=mapping['project'])
+  - id: C003
+    kind: class
+    name: CoreMetadataKey
+    children:
+    - id: C003M001
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      callable:
+        params:
+        - name: self
+        - name: args
+        - name: kwargs
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C003M001E0001
+          condition: executes
+          outcome: returns dict with kind, name, version, tag, file_url
+    - id: C003M002
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      modifiers:
+      - classmethod
+      callable:
+        params:
+        - name: cls
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+        returnType:
+          name: Self
+        branches:
+        - id: C003M002E0001
+          condition: executes
+          outcome: returns cls(name=mapping['name'], version=mapping['version'], tag=mapping['tag'],
+            file_url=mapping['file_url'])
+  - id: C004
+    kind: class
+    name: WheelKey
+    decorators:
+    - name: total_ordering
+    - name: dataclass
+      kwargs:
+        frozen: true
+        slots: true
+    children:
+    - id: C004M001
+      kind: callable
+      name: _validate_hash_and_set_spec
+      signature: _validate_hash_and_set_spec(self) -> None
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: None
+        branches:
+        - id: C004M001E0001
+          condition: self.hash_algorithm is None or self.content_hash is None true
+          outcome: continues to line 200
+        - id: C004M001E0002
+          condition: self.hash_algorithm is None or self.content_hash is None false
+          outcome: continues to line 201
+        - id: C004M001E0003
+          condition: executes
+          outcome: returns
+        - id: C004M001E0004
+          condition: executes
+          outcome: alg = self.hash_algorithm.strip().lower()
+        - id: C004M001E0005
+          condition: executes
+          outcome: h = self.content_hash.strip()
+        - id: C004M001E0006
+          condition: 'match alg statement: evaluates alg'
+          outcome: 'match alg statement: evaluates alg'
+        - id: C004M001E0007
+          condition: case 'sha256' matches
+          outcome: continues to line 205
+        - id: C004M001E0008
+          condition: case 'sha256' does not match
+          outcome: continues to line 207
+        - id: C004M001E0009
+          condition: not _SHA256_RE.match(h) true
+          outcome: continues to line 206
+        - id: C004M001E0010
+          condition: not _SHA256_RE.match(h) false
+          outcome: continues to line 207
+        - id: C004M001E0011
+          condition: executes
+          outcome: 'raises ValueError(f''Invalid SHA256 hash: {self.content_hash}'')'
+        - id: C004M001E0012
+          condition: case 'sha384' matches
+          outcome: continues to line 208
+        - id: C004M001E0013
+          condition: case 'sha384' does not match
+          outcome: continues to line 210
+        - id: C004M001E0014
+          condition: not _SHA384_RE.match(h) true
+          outcome: continues to line 209
+        - id: C004M001E0015
+          condition: not _SHA384_RE.match(h) false
+          outcome: continues to line 210
+        - id: C004M001E0016
+          condition: executes
+          outcome: 'raises ValueError(f''Invalid SHA384 hash: {self.content_hash}'')'
+        - id: C004M001E0017
+          condition: case 'sha512' matches
+          outcome: continues to line 211
+        - id: C004M001E0018
+          condition: case 'sha512' does not match
+          outcome: continues to line 213
+        - id: C004M001E0019
+          condition: not _SHA512_RE.match(h) true
+          outcome: continues to line 212
+        - id: C004M001E0020
+          condition: not _SHA512_RE.match(h) false
+          outcome: continues to line 213
+        - id: C004M001E0021
+          condition: executes
+          outcome: 'raises ValueError(f''Invalid SHA512 hash: {self.content_hash}'')'
+        - id: C004M001E0022
+          condition: executes
+          outcome: pass
+        - id: C004M001E0023
+          condition: executes
+          outcome: object.__setattr__(self, '_hash_spec', f'{alg}:{h}')
+    - id: C004M002
+      kind: callable
+      name: __post_init__
+      signature: __post_init__(self) -> None
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: None
+        branches:
+        - id: C004M002E0001
+          condition: executes
+          outcome: object.__setattr__(self, 'name', normalize_project_name(self.name))
+        - id: C004M002E0002
+          condition: executes
+          outcome: normalized_version = self.version
+        - id: C004M002E0003
+          condition: 'try block: enters try'
+          outcome: 'try block: enters try'
+        - id: C004M002E0004
+          condition: str(Version(self.version)) succeeds
+          outcome: continues to line 222
+        - id: C004M002E0005
+          condition: str(Version(self.version)) raises InvalidVersion
+          outcome: continues to line 223
+        - id: C004M002E0006
+          condition: executes
+          outcome: normalized_version = str(Version(self.version))
+        - id: C004M002E0007
+          condition: executes
+          outcome: object.__setattr__(self, 'version', normalized_version)
+        - id: C004M002E0008
+          condition: executes
+          outcome: self._validate_hash_and_set_spec()
+        integration:
+          interunit:
+          - id: IC004M002E0001
+            target: normalize_project_name
+            kind: call
+            signature: normalize_project_name(self.name)
+            executionPaths:
+            - - C004M002E0001
+          - id: IC004M002E0004
+            target: packaging.version.Version
+            kind: construct
+            signature: Version(self.version)
+            executionPaths:
+            - - C004M002E0001
+              - C004M002E0002
+              - C004M002E0003
+              - C004M002E0004
+    - id: C004M003
+      kind: callable
+      name: set_dependency_ids
+      signature: 'set_dependency_ids(self, dependencies: Iterable[WheelKey]) -> None'
+      callable:
+        params:
+        - name: self
+        - name: dependencies
+          type:
+            name: Iterable[WheelKey]
+        returnType:
+          name: None
+        branches:
+        - id: C004M003E0001
+          condition: self.dependency_ids is not None true
+          outcome: continues to line 233
+        - id: C004M003E0002
+          condition: self.dependency_ids is not None false
+          outcome: continues to line 234
+        - id: C004M003E0003
+          condition: executes
+          outcome: raises ValueError('WheelKey.dependency_ids is already set')
+        - id: C004M003E0004
+          condition: executes
+          outcome: object.__setattr__(self, 'dependency_ids', frozenset(dep.identifier
+            for dep in dependencies))
+    - id: C004M004
+      kind: callable
+      name: set_origin_uri
+      signature: 'set_origin_uri(self, origin_uri: str) -> None'
+      callable:
+        params:
+        - name: self
+        - name: origin_uri
+          type:
+            name: str
+        returnType:
+          name: None
+        branches:
+        - id: C004M004E0001
+          condition: self.origin_uri is None true
+          outcome: continues to line 240
+        - id: C004M004E0002
+          condition: self.origin_uri is None false
+          outcome: continues to line 241
+        - id: C004M004E0003
+          condition: executes
+          outcome: object.__setattr__(self, 'origin_uri', origin_uri)
+        - id: C004M004E0004
+          condition: executes
+          outcome: raises ValueError('WheelKey.origin_uri is already set')
+    - id: C004M005
+      kind: callable
+      name: set_content_hash
+      signature: 'set_content_hash(self, *, hash_algorithm: str, content_hash: str)
+        -> None'
+      callable:
+        params:
+        - name: self
+        - name: hash_algorithm
+          type:
+            name: str
+        - name: content_hash
+          type:
+            name: str
+        returnType:
+          name: None
+        branches:
+        - id: C004M005E0001
+          condition: self.content_hash is not None or self.hash_algorithm is not None
+            true
+          outcome: continues to line 246
+        - id: C004M005E0002
+          condition: self.content_hash is not None or self.hash_algorithm is not None
+            false
+          outcome: continues to line 247
+        - id: C004M005E0003
+          condition: executes
+          outcome: raises ValueError('WheelKey content hash is already set')
+        - id: C004M005E0004
+          condition: executes
+          outcome: object.__setattr__(self, 'hash_algorithm', hash_algorithm)
+        - id: C004M005E0005
+          condition: executes
+          outcome: object.__setattr__(self, 'content_hash', content_hash)
+        - id: C004M005E0006
+          condition: executes
+          outcome: self._validate_hash_and_set_spec()
+    - id: C004M006
+      kind: callable
+      name: _proj_name_with_underscores
+      signature: _proj_name_with_underscores(self) -> str
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M006E0001
+          condition: executes
+          outcome: returns self.name.replace('-', '_')
+    - id: C004M007
+      kind: callable
+      name: identifier
+      signature: identifier(self) -> str
+      decorators:
+      - name: property
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M007E0001
+          condition: executes
+          outcome: name = self._proj_name_with_underscores()
+        - id: C004M007E0002
+          condition: executes
+          outcome: version = self.version
+        - id: C004M007E0003
+          condition: executes
+          outcome: tag = self.tag
+        - id: C004M007E0004
+          condition: executes
+          outcome: returns '-'.join((name, version, tag))
+    - id: C004M008
+      kind: callable
+      name: as_tuple
+      signature: as_tuple(self) -> tuple[str, str, str]
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: tuple[str, str, str]
+        branches:
+        - id: C004M008E0001
+          condition: executes
+          outcome: returns (self.name, self.version, self.tag)
+    - id: C004M009
+      kind: callable
+      name: __lt__
+      signature: '__lt__(self, other: WheelKey) -> bool'
+      callable:
+        params:
+        - name: self
+        - name: other
+          type:
+            name: WheelKey
+        returnType:
+          name: bool
+        branches:
+        - id: C004M009E0001
+          condition: executes
+          outcome: returns self.as_tuple() < other.as_tuple()
+    - id: C004M010
+      kind: callable
+      name: __eq__
+      signature: '__eq__(self, other: Any) -> bool'
+      callable:
+        params:
+        - name: self
+        - name: other
+          type:
+            name: Any
+        returnType:
+          name: bool
+        branches:
+        - id: C004M010E0001
+          condition: executes
+          outcome: returns isinstance(other, WheelKey) and self.as_tuple() == other.as_tuple()
+    - id: C004M011
+      kind: callable
+      name: __hash__
+      signature: __hash__(self) -> int
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: int
+        branches:
+        - id: C004M011E0001
+          condition: executes
+          outcome: returns hash(self.as_tuple())
+    - id: C004M012
+      kind: callable
+      name: __str__
+      signature: __str__(self) -> str
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M012E0001
+          condition: executes
+          outcome: returns self.identifier
+    - id: C004M013
+      kind: callable
+      name: requirement_str
+      signature: requirement_str(self) -> str
+      decorators:
+      - name: property
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M013E0001
+          condition: self.origin_uri is None true
+          outcome: continues to line 293
+        - id: C004M013E0002
+          condition: self.origin_uri is None false
+          outcome: continues to line 296
+        - id: C004M013E0003
+          condition: executes
+          outcome: 'raises ValueError(f''{self.identifier}: origin_uri is required
+            to render a requirement string'')'
+        - id: C004M013E0004
+          condition: self._hash_spec is None true
+          outcome: continues to line 297
+        - id: C004M013E0005
+          condition: self._hash_spec is None false
+          outcome: continues to line 300
+        - id: C004M013E0006
+          condition: executes
+          outcome: 'raises ValueError(f''{self.identifier}: _hash_spec is required
+            to render a requirement string'')'
+        - id: C004M013E0007
+          condition: executes
+          outcome: returns f'{self.name} @ {self.origin_uri} --hash={self._hash_spec}'
+    - id: C004M014
+      kind: callable
+      name: requirement_str_basic
+      signature: requirement_str_basic(self) -> str
+      decorators:
+      - name: property
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M014E0001
+          condition: executes
+          outcome: returns f'{self.name}=={self.version}'
+    - id: C004M015
+      kind: callable
+      name: req_txt_block
+      signature: req_txt_block(self) -> str
+      decorators:
+      - name: property
+      callable:
+        params:
+        - name: self
+        returnType:
+          name: str
+        branches:
+        - id: C004M015E0001
+          condition: self.origin_uri is None true
+          outcome: continues to line 325
+        - id: C004M015E0002
+          condition: self.origin_uri is None false
+          outcome: continues to line 328
+        - id: C004M015E0003
+          condition: executes
+          outcome: 'raises ValueError(f''{self.identifier}: origin_uri is required
+            to render requirements'')'
+        - id: C004M015E0004
+          condition: self._hash_spec is None true
+          outcome: continues to line 329
+        - id: C004M015E0005
+          condition: self._hash_spec is None false
+          outcome: continues to line 333
+        - id: C004M015E0006
+          condition: executes
+          outcome: 'raises ValueError(f''{self.identifier}: _hash_spec is required
+            to render requirements'')'
+        - id: C004M015E0007
+          condition: executes
+          outcome: meta_lines = _reqtxt_comment_lines(self)
+        - id: C004M015E0008
+          condition: executes
+          outcome: req_line = self.requirement_str
+        - id: C004M015E0009
+          condition: executes
+          outcome: returns '\n'.join([*meta_lines, req_line])
+        integration:
+          interunit:
+          - id: IC004M015E0005
+            target: _reqtxt_comment_lines
+            kind: call
+            signature: _reqtxt_comment_lines(self)
+            executionPaths:
+            - - C004M015E0001
+              - C004M015E0002
+              - C004M015E0003
+              - C004M015E0004
+              - C004M015E0005
+    - id: C004M016
+      kind: callable
+      name: to_mapping
+      signature: to_mapping(self, *args, **kwargs) -> dict[str, Any]
+      callable:
+        params:
+        - name: self
+        - name: args
+        - name: kwargs
+        returnType:
+          name: dict[str, Any]
+        branches:
+        - id: C004M016E0001
+          condition: executes
+          outcome: returns dict with all fields
+    - id: C004M017
+      kind: callable
+      name: from_mapping
+      signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
+      modifiers:
+      - classmethod
+      callable:
+        params:
+        - name: cls
+        - name: mapping
+          type:
+            name: Mapping[str, Any]
+        - name: _
+          type:
+            name: Any
+        returnType:
+          name: Self
+        branches:
+        - id: C004M017E0001
+          condition: executes
+          outcome: dependencies_mapping = mapping.get('dependencies')
+        - id: C004M017E0002
+          condition: executes
+          outcome: extras_mapping = mapping.get('extras')
+        - id: C004M017E0003
+          condition: executes
+          outcome: returns cls(...)
+---
+docKind: ledger-generation-review
+schemaVersion: 1.0.0
+unit:
+  name: keys
+  language: python
+findings:
+- severity: info
+  category: assumption
+  message: Treated @property decorated methods (identifier, requirement_str, requirement_str_basic,
+    req_txt_block) as callables that execute code when accessed
+  notes: Per Python companion guide section 4.1, properties execute code and should
+    be enumerated as callables
+- severity: info
+  category: assumption
+  message: Integration points only include calls to external units (packaging, dataclasses,
+    builtins.getattr); same-unit method calls like self._validate_hash_and_set_spec()
+    are not integration points
+  notes: Per spec, integration points are calls between DIFFERENT units, not within
+    the same unit
+- severity: info
+  category: assumption
+  message: Builtin functions (isinstance, len, hash, getattr) and standard library
+    pattern methods (regex.match, str.replace, str.join) are treated as integration
+    points only when they cross unit boundaries
+  notes: builtins.getattr is listed as interunit integration in _reqtxt_comment_lines

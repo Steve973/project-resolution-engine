@@ -726,7 +726,7 @@ This shape is used in `TestGuide.proof`.
 Required:
 
 * `kind`: string, one of `raises`, `returns`, `calls`, `mutates`, `logs`,
-`other`
+  `other`
 
 Optional (omit if empty):
 
@@ -759,17 +759,17 @@ This is the primary guardrail for putting the right values in the right fields.
 
 * `decorators`: observed decorator or annotation syntax
 
-  * Python: any `@something` line applied to an entry
-  * Java and Kotlin: any `@Annotation` applied to an entry
-  * Store as Decorator objects
-  * Never put keyword modifiers here
+    * Python: any `@something` line applied to an entry
+    * Java and Kotlin: any `@Annotation` applied to an entry
+    * Store as Decorator objects
+    * Never put keyword modifiers here
 
 * `modifiers`: observed keyword modifiers
 
-  * Java and Kotlin: `public`, `private`, `static`, `final`, etc
-  * Python: generally omit, do not invent them
-  * Never put decorator names here (`staticmethod`, `classmethod`, `dataclass`,
-    etc.)
+    * Java and Kotlin: `public`, `private`, `static`, `final`, etc
+    * Python: generally omit, do not invent them
+    * Never put decorator names here (`staticmethod`, `classmethod`, `dataclass`,
+      etc.)
 
 ### Inferred semantics
 
@@ -966,8 +966,8 @@ Required:
 Optional (omit if empty):
 
 * `appliesTo`: string or list[string]
-  * prefer ledger IDs (Entry IDs, Branch IDs, etc.)
-  * if no ID applies, use a stable address selector
+    * prefer ledger IDs (Entry IDs, Branch IDs, etc.)
+    * if no ID applies, use a stable address selector
 * `evidence`: Evidence
 * `extra`: map
 * `notes`: string
@@ -993,8 +993,8 @@ Evidence exists to point a reviewer at the source quickly.
 Optional (omit if empty):
 
 * `address`: string
-  * same concept as Document 1 addresses
-  * examples: qualified name plus line number, signature text, AST path
+    * same concept as Document 1 addresses
+    * examples: qualified name plus line number, signature text, AST path
 * `lineEnd`: int
 * `lineStart`: int
 * `snippet`: string, short excerpt (do not paste large blocks)

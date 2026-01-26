@@ -1,5 +1,20 @@
 from __future__ import annotations
 
+import re
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import pytest
+
+from project_resolution_engine.internal import builtin_repository as uut
+from unit.helpers.models_helper import (
+    FakeArtifactRecord,
+    FakeCoreMetadataKey,
+    FakeIndexMetadataKey,
+    FakeWheelKey,
+)
+
 # ==============================================================================
 # BRANCH LEDGER: builtin_repository (C000)
 # ==============================================================================
@@ -100,22 +115,6 @@ from __future__ import annotations
 # C001M012B0008: (WheelKey path return) -> returns self._root / "wheels" / _safe_segment(k.name) / _safe_segment(k.version) / _safe_segment(k.tag) / filename
 # C001M012B0009: case _: -> raises TypeError (message contains "Unsupported artifact key type:")
 #
-
-import re
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
-
-import pytest
-
-from project_resolution_engine.internal import builtin_repository as uut
-
-from unit.helpers.models_helper import (
-    FakeArtifactRecord,
-    FakeCoreMetadataKey,
-    FakeIndexMetadataKey,
-    FakeWheelKey,
-)
 
 # ==============================================================================
 # Case matrices (per TESTING_CONTRACT.md)
@@ -234,7 +233,9 @@ ALLOCATE_PATH_CASES: list[dict[str, Any]] = [
     },
     {
         "name": "wheel_key_missing_origin_raises",
-        "key_factory": lambda: FakeWheelKey(name="requests", version="2.0", tag="py3-none-any", origin_uri=None),
+        "key_factory": lambda: FakeWheelKey(
+            name="requests", version="2.0", tag="py3-none-any", origin_uri=None
+        ),
         "expect_exception": (ValueError, "WheelKey must have an origin_uri"),
         "assertions": None,
         "covers": ["C001M012B0003", "C001M012B0004"],
@@ -290,12 +291,16 @@ class _FakeTemporaryDirectory:
         self.cleanup_calls += 1
 
 
-def _install_fake_tempdir(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> _FakeTemporaryDirectory:
+def _install_fake_tempdir(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> _FakeTemporaryDirectory:
     root = tmp_path / "ephemeral-root"
     root.mkdir(parents=True, exist_ok=True)
     fake = _FakeTemporaryDirectory(name=str(root))
 
-    def _factory(*, prefix: str = "ignored") -> _FakeTemporaryDirectory:  # matches uut call signature
+    def _factory(
+        *, prefix: str = "ignored"
+    ) -> _FakeTemporaryDirectory:  # matches uut call signature
         return fake
 
     monkeypatch.setattr(uut.tempfile, "TemporaryDirectory", _factory)
@@ -311,8 +316,12 @@ def _patch_key_types(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(uut, "WheelKey", FakeWheelKey)
 
 
-def _mk_record(*, key: Any, destination_uri: str, origin_uri: str = "mem://origin") -> FakeArtifactRecord:
-    return FakeArtifactRecord(key=key, destination_uri=destination_uri, origin_uri=origin_uri)
+def _mk_record(
+    *, key: Any, destination_uri: str, origin_uri: str = "mem://origin"
+) -> FakeArtifactRecord:
+    return FakeArtifactRecord(
+        key=key, destination_uri=destination_uri, origin_uri=origin_uri
+    )
 
 
 # ==============================================================================
@@ -320,7 +329,9 @@ def _mk_record(*, key: Any, destination_uri: str, origin_uri: str = "mem://origi
 # ==============================================================================
 
 
-def test_init_sets_root_and_empty_index(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_init_sets_root_and_empty_index(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M001B0001
     fake_tmp = _install_fake_tempdir(monkeypatch, tmp_path)
 
@@ -331,7 +342,9 @@ def test_init_sets_root_and_empty_index(tmp_path: Path, monkeypatch: pytest.Monk
     assert repo._index == {}
 
 
-def test_root_path_and_root_uri(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_root_path_and_root_uri(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M002B0001, C001M003B0001
     fake_tmp = _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -341,7 +354,9 @@ def test_root_path_and_root_uri(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
 
 
 # noinspection PyTypeChecker
-def test_close_clears_index_and_cleans_tempdir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_close_clears_index_and_cleans_tempdir(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M004B0001
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -354,7 +369,9 @@ def test_close_clears_index_and_cleans_tempdir(tmp_path: Path, monkeypatch: pyte
 
 
 # noinspection PyTypeChecker
-def test_enter_returns_self_and_exit_calls_close(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_enter_returns_self_and_exit_calls_close(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M005B0001, C001M006B0001 (and close side-effects)
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -370,7 +387,9 @@ def test_enter_returns_self_and_exit_calls_close(tmp_path: Path, monkeypatch: py
 
 # noinspection PyTypeChecker
 @pytest.mark.parametrize("case", GET_CASES, ids=[c["name"] for c in GET_CASES])
-def test_get_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_get_branches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # covers: see case["covers"]
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -409,7 +428,9 @@ def test_get_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dic
 
 
 # noinspection PyTypeChecker
-def test_put_stores_record_by_key(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_put_stores_record_by_key(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M008B0001
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -424,7 +445,9 @@ def test_put_stores_record_by_key(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
 
 # noinspection PyTypeChecker
 @pytest.mark.parametrize("case", DELETE_CASES, ids=[c["name"] for c in DELETE_CASES])
-def test_delete_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_delete_branches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # covers: see case["covers"]
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -467,7 +490,9 @@ def test_delete_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: 
 
 
 # noinspection PyTypeChecker
-def test_allocate_destination_uri_mkdirs_parent_and_returns_file_uri(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_allocate_destination_uri_mkdirs_parent_and_returns_file_uri(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # covers: C001M010B0001
     _install_fake_tempdir(monkeypatch, tmp_path)
     _patch_key_types(monkeypatch)
@@ -484,12 +509,24 @@ def test_allocate_destination_uri_mkdirs_parent_and_returns_file_uri(tmp_path: P
 @pytest.mark.parametrize(
     "case",
     [
-        {"name": "under_root_true", "rel": Path("a/b/c.txt"), "expect": True, "covers": ["C001M011B0001"]},
-        {"name": "under_root_false", "rel": None, "expect": False, "covers": ["C001M011B0002"]},
+        {
+            "name": "under_root_true",
+            "rel": Path("a/b/c.txt"),
+            "expect": True,
+            "covers": ["C001M011B0001"],
+        },
+        {
+            "name": "under_root_false",
+            "rel": None,
+            "expect": False,
+            "covers": ["C001M011B0002"],
+        },
     ],
     ids=lambda c: c["name"],
 )
-def test_is_under_root_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_is_under_root_branches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # covers: see case["covers"]
     _install_fake_tempdir(monkeypatch, tmp_path)
     repo = uut.EphemeralArtifactRepository()
@@ -502,8 +539,12 @@ def test_is_under_root_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
         assert repo._is_under_root(inside) is True
 
 
-@pytest.mark.parametrize("case", ALLOCATE_PATH_CASES, ids=[c["name"] for c in ALLOCATE_PATH_CASES])
-def test_allocate_path_for_key_branches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+@pytest.mark.parametrize(
+    "case", ALLOCATE_PATH_CASES, ids=[c["name"] for c in ALLOCATE_PATH_CASES]
+)
+def test_allocate_path_for_key_branches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # covers: see case["covers"]
     _install_fake_tempdir(monkeypatch, tmp_path)
     _patch_key_types(monkeypatch)

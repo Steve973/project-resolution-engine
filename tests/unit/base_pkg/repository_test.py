@@ -7,10 +7,10 @@ import pytest
 
 from project_resolution_engine import repository as uut
 
-
 # ==============================================================================
 # Helpers (not test classes; allowed)
 # ==============================================================================
+
 
 @dataclass(frozen=True, slots=True)
 class _FakeKey:
@@ -197,14 +197,18 @@ def test_artifact_record_to_mapping(case: dict[str, Any]) -> None:
     FROM_MAPPING_SUCCESS_CASES,
     ids=[c["id"] for c in FROM_MAPPING_SUCCESS_CASES],
 )
-def test_artifact_record_from_mapping_success(monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]) -> None:
+def test_artifact_record_from_mapping_success(
+    monkeypatch: pytest.MonkeyPatch, case: dict[str, Any]
+) -> None:
     # Covers: C005M002B0001, B0002, B0004, B0005, B0008 (see FROM_MAPPING_SUCCESS_CASES[*]["covers"])
     monkeypatch.setattr(uut, "BaseArtifactKey", _FakeBaseArtifactKey)
 
     # Ensure content_hashes is copied (not referenced) when provided
     mapping = dict(case["mapping"])
     if "content_hashes" in mapping:
-        mapping["content_hashes"] = dict(mapping["content_hashes"])  # ensure a mutable input we can mutate later
+        mapping["content_hashes"] = dict(
+            mapping["content_hashes"]
+        )  # ensure a mutable input we can mutate later
         original_hashes = mapping["content_hashes"]
     else:
         original_hashes = None
@@ -219,7 +223,9 @@ def test_artifact_record_from_mapping_success(monkeypatch: pytest.MonkeyPatch, c
 
     if original_hashes is not None:
         original_hashes["sha256"] = "CHANGED"
-        assert rec.content_hashes == case["expect_hashes"]  # unchanged due to dict() copy
+        assert (
+            rec.content_hashes == case["expect_hashes"]
+        )  # unchanged due to dict() copy
 
 
 @pytest.mark.parametrize(
@@ -228,8 +234,8 @@ def test_artifact_record_from_mapping_success(monkeypatch: pytest.MonkeyPatch, c
     ids=[c["id"] for c in FROM_MAPPING_MISSING_REQUIRED_CASES],
 )
 def test_artifact_record_from_mapping_missing_required_raises_keyerror(
-        monkeypatch: pytest.MonkeyPatch,
-        case: dict[str, Any],
+    monkeypatch: pytest.MonkeyPatch,
+    case: dict[str, Any],
 ) -> None:
     # Covers: C005M002B0003
     monkeypatch.setattr(uut, "BaseArtifactKey", _FakeBaseArtifactKey)
@@ -247,8 +253,8 @@ def test_artifact_record_from_mapping_missing_required_raises_keyerror(
     ids=[c["id"] for c in FROM_MAPPING_INVALID_SOURCE_CASES],
 )
 def test_artifact_record_from_mapping_invalid_source_raises_valueerror(
-        monkeypatch: pytest.MonkeyPatch,
-        case: dict[str, Any],
+    monkeypatch: pytest.MonkeyPatch,
+    case: dict[str, Any],
 ) -> None:
     # Covers: C005M002B0006
     monkeypatch.setattr(uut, "BaseArtifactKey", _FakeBaseArtifactKey)
@@ -259,7 +265,9 @@ def test_artifact_record_from_mapping_invalid_source_raises_valueerror(
     assert case["substr"] in str(excinfo.value)
 
 
-def test_artifact_record_from_mapping_propagates_key_parse_error(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_artifact_record_from_mapping_propagates_key_parse_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Covers: C005M002B0007
     class _ExplodingBaseArtifactKey:
         @classmethod
