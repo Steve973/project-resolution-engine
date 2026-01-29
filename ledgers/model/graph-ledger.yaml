@@ -394,6 +394,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params:
               - name: self
@@ -421,6 +426,10 @@ unit:
           name: from_mapping
           signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
           decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
             - name: classmethod
           callable:
             params:
@@ -531,6 +540,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(self, *args, **kwargs) -> dict[str, Any]'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params:
               - name: self
@@ -564,6 +578,10 @@ unit:
           name: from_mapping
           signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
           decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
             - name: classmethod
           callable:
             params:

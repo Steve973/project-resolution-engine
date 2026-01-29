@@ -14,6 +14,7 @@ from project_resolution_engine.internal.util.toml import (
 )
 
 
+# :: MechanicalOperation | type=formatting
 def _normalize(value: Any) -> Any:
     """
     Normalizes various types of Python objects to consistent, standardized forms.
@@ -98,6 +99,7 @@ class MultiformatSerializableMixin:
 
         return hashlib.new("sha512", payload).hexdigest()
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
         """
         Converts data into a mapping-like structure.
@@ -195,6 +197,7 @@ class MultiformatSerializableMixin:
             str: A TOML-formatted string representation of the object's data.
         """
 
+        # MechanicalOperation | type=formatting
         def sort_dict(obj):
             match obj:
                 case dict():
@@ -324,6 +327,7 @@ class MultiformatDeserializableMixin:
 
     # ---- core contract ----
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls: type[Self], mapping: Mapping[str, Any], **_: Any) -> Self:
         """

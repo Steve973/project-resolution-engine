@@ -61,6 +61,7 @@ class ArtifactRecord(MultiformatModelMixin):
     created_at_epoch_s: float | None = None
     content_hashes: dict[str, str] = field(default_factory=dict)
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         mapping: dict[str, Any] = {
             "key": self.key.to_mapping(),
@@ -75,6 +76,7 @@ class ArtifactRecord(MultiformatModelMixin):
             mapping.update({"content_hashes": self.content_hashes})
         return mapping
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         incoming_hashes = mapping.get("content_hashes", {})

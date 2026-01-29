@@ -10,6 +10,7 @@ from packaging.markers import Environment
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
 
 
+# :: MechanicalOperation | type=validation
 def validate_typed_dict(
     desc: str,
     mapping: Mapping[str, Any],
@@ -107,12 +108,14 @@ class MarkerEnvConfig(MultiformatModelMixin):
     )
     mode: MarkerModeType = MarkerModeType.MERGE
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         return {
             "overrides": self.overrides,
             "mode": self.mode.value,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> MarkerEnvConfig:
         overrides = mapping.get("overrides", {})
@@ -155,6 +158,7 @@ class Filter(MultiformatModelMixin):
         False  # If true, ignore generation and only use the include list
     )
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         return {
             "include": self.include,
@@ -162,6 +166,7 @@ class Filter(MultiformatModelMixin):
             "specific_only": self.specific_only,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Filter:
         return cls(
@@ -192,6 +197,7 @@ class VersionSpec(MultiformatModelMixin):
     range: str | None = None  # PEP 440: ">=3.10,<4.0" or None for "all"
     filters: Filter | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {}
         if self.range is not None:
@@ -200,6 +206,7 @@ class VersionSpec(MultiformatModelMixin):
             result["filters"] = self.filters.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> VersionSpec:
         filters_data = mapping.get("filters")
@@ -231,6 +238,7 @@ class InterpreterConfig(MultiformatModelMixin):
     accept_universal: bool = True
     filters: Filter | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "python_version": self.python_version.to_mapping(),
@@ -241,6 +249,7 @@ class InterpreterConfig(MultiformatModelMixin):
             result["filters"] = self.filters.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> InterpreterConfig:
         filters_data = mapping.get("filters")
@@ -279,6 +288,7 @@ class AbiConfig(MultiformatModelMixin):
     include_stable: bool = True  # abi3
     filters: Filter | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "include_debug": self.include_debug,
@@ -288,6 +298,7 @@ class AbiConfig(MultiformatModelMixin):
             result["filters"] = self.filters.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> AbiConfig:
         filters_data = mapping.get("filters")
@@ -319,6 +330,7 @@ class PlatformVariant(MultiformatModelMixin):
     enabled: bool = True
     version: VersionSpec | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "enabled": self.enabled,
@@ -327,6 +339,7 @@ class PlatformVariant(MultiformatModelMixin):
             result["version"] = self.version.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformVariant:
         version_data = mapping.get("version")
@@ -363,6 +376,7 @@ class PlatformConfig(MultiformatModelMixin):
     )  # "manylinux", "musllinux", etc.
     filters: Filter | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "enabled": self.enabled,
@@ -375,6 +389,7 @@ class PlatformConfig(MultiformatModelMixin):
             result["filters"] = self.filters.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformConfig:
         filters_data = mapping.get("filters")
@@ -418,6 +433,7 @@ class PlatformContext(MultiformatModelMixin):
     compatibility_tags: Filter | None = None
     marker_env: MarkerEnvConfig | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {}
         if self.interpreter is not None:
@@ -432,6 +448,7 @@ class PlatformContext(MultiformatModelMixin):
             result["marker_env"] = self.marker_env.to_mapping()
         return result
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformContext:
         interpreter_data = mapping.get("interpreter")
@@ -513,6 +530,7 @@ class ResolutionContext(MultiformatModelMixin):
         default_factory=lambda: cast(PlatformOverrides, cast(object, {}))
     )
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self) -> Mapping[str, Any]:
         out: dict[str, Any] = {
             "name": self.name,
@@ -527,6 +545,7 @@ class ResolutionContext(MultiformatModelMixin):
             )
         return out
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> ResolutionContext:
         raw = mapping.get("platform_overrides", {})

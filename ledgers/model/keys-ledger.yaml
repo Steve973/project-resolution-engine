@@ -663,8 +663,12 @@ unit:
       kind: callable
       name: from_mapping
       signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> BaseArtifactKey'
-      modifiers:
-      - classmethod
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: validation
+            comment: 'TypedDict schema validation'
+        - name: classmethod
       callable:
         params:
         - name: cls
@@ -774,8 +778,12 @@ unit:
       kind: callable
       name: from_mapping
       signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
-      modifiers:
-      - classmethod
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: validation
+            comment: 'TypedDict schema validation'
+        - name: classmethod
       callable:
         params:
         - name: cls
@@ -814,8 +822,12 @@ unit:
       kind: callable
       name: from_mapping
       signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
-      modifiers:
-      - classmethod
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: validation
+            comment: 'TypedDict schema validation'
+        - name: classmethod
       callable:
         params:
         - name: cls
@@ -1290,8 +1302,12 @@ unit:
       kind: callable
       name: from_mapping
       signature: 'from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self'
-      modifiers:
-      - classmethod
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: validation
+            comment: 'TypedDict schema validation'
+        - name: classmethod
       callable:
         params:
         - name: cls

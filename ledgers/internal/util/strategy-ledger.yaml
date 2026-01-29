@@ -2105,6 +2105,11 @@ unit:
   - id: C000F014
     kind: callable
     name: _scan_deps
+    decorators:
+      - name: UtilityOperation
+        kwargs:
+          type: formatting
+          comment: 'scans strategy dependencies'
     callable:
       branches:
       - id: C000F014E0001
@@ -3253,6 +3258,10 @@ unit:
   - id: C000F033
     kind: callable
     name: load_strategies
+    decorators:
+      - name: MechanicalOperation
+        kwargs:
+          type: configuration
     callable:
       branches:
       - id: C000F033E0001

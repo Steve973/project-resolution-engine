@@ -45,9 +45,11 @@ class ResolverRequirement(MultiformatModelMixin):
     def uri(self) -> str | None:
         return self.wheel_spec.uri
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {"wheel_spec": self.wheel_spec.to_mapping()}
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(wheel_spec=WheelSpec.from_mapping(mapping["wheel_spec"]))
@@ -93,9 +95,11 @@ class ResolverCandidate(MultiformatModelMixin):
     def extras(self) -> frozenset[str] | None:
         return self.wheel_key.extras
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {"wheel_key": self.wheel_key.to_mapping()}
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(wheel_key=WheelKey.from_mapping(mapping["wheel_key"]))

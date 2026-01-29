@@ -74,6 +74,7 @@ class ResolutionPolicy(MultiformatModelMixin):
         InvalidRequiresDistPolicy.SKIP
     )
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         return {
             "requires_dist_url_policy": self.requires_dist_url_policy.value,
@@ -87,6 +88,7 @@ class ResolutionPolicy(MultiformatModelMixin):
             "invalid_requires_dist_policy": self.invalid_requires_dist_policy.value,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(
         cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any
@@ -125,6 +127,7 @@ class ResolutionEnv(MultiformatModelMixin):
     marker_environment: Environment = field(default_factory=default_environment)
     policy: ResolutionPolicy = field(default_factory=ResolutionPolicy)
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
         return {
             "identifier": self.identifier,
@@ -133,6 +136,7 @@ class ResolutionEnv(MultiformatModelMixin):
             "policy": self.policy.to_mapping(),
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> Self:
         env_map: dict[str, str] = mapping.get("marker_environment", {})
@@ -193,6 +197,7 @@ class WheelSpec(MultiformatModelMixin):
     def __str__(self) -> str:
         return self.identifier
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
         return {
             "name": self.name,
@@ -202,6 +207,7 @@ class WheelSpec(MultiformatModelMixin):
             "uri": self.uri,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> Self:
         return cls(

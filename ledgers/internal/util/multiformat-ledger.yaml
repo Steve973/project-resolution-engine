@@ -388,7 +388,7 @@ assigned:
       summary: 'imports json'
     - id: C002M003E0002
       address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L385'
-      summary: 'json.loads(text or ''{}') executes successfully'
+      summary: 'json.loads(text or ''{}'') executes successfully'
     - id: C002M003E0003
       address: 'multiformat::MultiformatDeserializableMixin::from_json@assignment@L385'
       summary: 'cls._coerce_root_mapping(...) executes with result'
@@ -409,7 +409,7 @@ assigned:
       summary: 'raises RuntimeError(''PyYAML not installed'')'
     - id: C002M004E0004
       address: 'multiformat::MultiformatDeserializableMixin::from_yaml@assignment@L401'
-      summary: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+      summary: 'docs = list(yaml.safe_load_all(text or ''{}'')) executes'
     - id: C002M004E0005
       address: 'multiformat::MultiformatDeserializableMixin::from_yaml@if@L402'
       summary: 'len(docs) > 1 → enters if block'
@@ -547,7 +547,7 @@ assigned:
       summary: 'raises RuntimeError(''PyYAML not installed'')'
     - id: C002M009E0011
       address: 'multiformat::MultiformatDeserializableMixin::_parse_text@assignment@L548'
-      summary: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+      summary: 'docs = list(yaml.safe_load_all(text or ''{}'')) executes'
     - id: C002M009E0012
       address: 'multiformat::MultiformatDeserializableMixin::_parse_text@if@L549'
       summary: 'len(docs) > 1 → enters if block'
@@ -644,6 +644,11 @@ unit:
       kind: callable
       name: _normalize
       signature: '_normalize(value: Any) -> Any'
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: formatting
+            comment: 'Normalize field formats for serialization/deserialization'
       callable:
         params:
           - name: value
@@ -793,6 +798,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(self, *args, **kwargs) -> Mapping[str, Any]'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params:
               - name: self
@@ -907,6 +917,11 @@ unit:
               kind: callable
               name: sort_dict
               signature: 'sort_dict(obj)'
+              decorators:
+                - name: MechanicalOperation
+                  kwargs:
+                    type: formatting
+                    comment: 'Normalize field formats for serialization/deserialization'
               callable:
                 params:
                   - name: obj
@@ -1099,7 +1114,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(cls, mapping: Mapping[str, Any], **context: Any) -> Self'
-          modifiers:
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
             - classmethod
           callable:
             params:
@@ -1195,7 +1214,7 @@ unit:
                 outcome: 'imports json'
               - id: C002M003E0002
                 condition: 'json.loads(text or "{}") call'
-                outcome: 'json.loads(text or ''{}') executes successfully'
+                outcome: 'json.loads(text or ''{}'') executes successfully'
               - id: C002M003E0003
                 condition: 'cls._coerce_root_mapping(...) call'
                 outcome: 'cls._coerce_root_mapping(...) executes with result'
@@ -1235,7 +1254,7 @@ unit:
                 outcome: 'raises RuntimeError(''PyYAML not installed'')'
               - id: C002M004E0004
                 condition: 'docs = list(yaml.safe_load_all(text or "{}"))'
-                outcome: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+                outcome: 'docs = list(yaml.safe_load_all(text or ''{}'')) executes'
               - id: C002M004E0005
                 condition: 'if len(docs) > 1'
                 outcome: 'len(docs) > 1 → enters if block'
@@ -1484,7 +1503,7 @@ unit:
                 outcome: 'raises RuntimeError(''PyYAML not installed'')'
               - id: C002M009E0011
                 condition: 'docs = list(yaml.safe_load_all(text or "{}"))'
-                outcome: 'docs = list(yaml.safe_load_all(text or ''{}')) executes'
+                outcome: 'docs = list(yaml.safe_load_all(text or ''{}'')) executes'
               - id: C002M009E0012
                 condition: 'if len(docs) > 1'
                 outcome: 'len(docs) > 1 → enters if block'

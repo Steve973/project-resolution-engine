@@ -45,6 +45,7 @@ class Pep658Metadata(MultiformatModelMixin):
     requires_dist: frozenset[str]
     _parser: Parser = Parser()
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
@@ -53,6 +54,7 @@ class Pep658Metadata(MultiformatModelMixin):
             "requires_dist": list(self.requires_dist),
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         """
@@ -125,6 +127,7 @@ class Pep691FileMetadata(MultiformatModelMixin):
     core_metadata: bool | Mapping[str, str]
     data_dist_info_metadata: bool | Mapping[str, str]
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "filename": self.filename,
@@ -136,6 +139,7 @@ class Pep691FileMetadata(MultiformatModelMixin):
             "data-dist-info-metadata": self.data_dist_info_metadata,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         core_metadata: bool | Mapping[str, str] = _coerce_field(
@@ -161,6 +165,7 @@ class Pep691Metadata(MultiformatModelMixin):
     files: Sequence[Pep691FileMetadata]
     last_serial: int | None = None
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
@@ -168,6 +173,7 @@ class Pep691Metadata(MultiformatModelMixin):
             "last_serial": self.last_serial,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         files = [

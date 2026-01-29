@@ -74,6 +74,7 @@ def _reqtxt_comment_lines(obj: WheelKey) -> list[str]:
 class BaseArtifactKey(ABC, MultiformatModelMixin):
     kind: ArtifactKind
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> BaseArtifactKey:
         kind_mapping = mapping.get("kind", "none")
@@ -98,6 +99,7 @@ class IndexMetadataKey(BaseArtifactKey):
     index_base: str = field(default="https://pypi.org/simple")
     kind: ArtifactKind = field(default=ArtifactKind.INDEX_METADATA, init=False)
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -105,6 +107,7 @@ class IndexMetadataKey(BaseArtifactKey):
             "project": self.project,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(index_base=mapping["index_base"], project=mapping["project"])
@@ -118,6 +121,7 @@ class CoreMetadataKey(BaseArtifactKey):
     file_url: str
     kind: ArtifactKind = field(default=ArtifactKind.CORE_METADATA, init=False)
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -127,6 +131,7 @@ class CoreMetadataKey(BaseArtifactKey):
             "file_url": self.file_url,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(
@@ -334,6 +339,7 @@ class WheelKey(BaseArtifactKey):
         req_line = self.requirement_str
         return "\n".join([*meta_lines, req_line])
 
+    # :: MechanicalOperation | type=serialization
     def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -352,6 +358,7 @@ class WheelKey(BaseArtifactKey):
             "extras": list(self.extras) if self.extras is not None else None,
         }
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         dependencies_mapping = mapping.get("dependencies")

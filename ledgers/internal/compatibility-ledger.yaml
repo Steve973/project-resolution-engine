@@ -619,6 +619,11 @@ unit:
       kind: callable
       name: validate_typed_dict
       signature: 'validate_typed_dict(...)'
+      decorators:
+        - name: MechanicalOperation
+          kwargs:
+            type: validation
+            comment: 'TypedDict schema validation'
       callable:
         params: []
         returnType:
@@ -677,6 +682,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -689,6 +699,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -735,6 +750,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -747,6 +767,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -763,6 +788,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -805,6 +835,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -840,6 +875,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -881,6 +921,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -923,6 +968,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -956,6 +1006,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -990,6 +1045,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -1023,6 +1083,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -1057,6 +1122,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -1090,6 +1160,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -1138,6 +1213,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -1256,6 +1336,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:
@@ -1364,6 +1449,11 @@ unit:
           kind: callable
           name: to_mapping
           signature: 'to_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: serialization
+                comment: 'Serialize to dictionary'
           callable:
             params: []
             returnType:
@@ -1405,6 +1495,11 @@ unit:
           kind: callable
           name: from_mapping
           signature: 'from_mapping(...)'
+          decorators:
+            - name: MechanicalOperation
+              kwargs:
+                type: validation
+                comment: 'TypedDict schema validation'
           callable:
             params: []
             returnType:

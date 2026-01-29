@@ -339,6 +339,7 @@ def _effective_criticality(
     return StrategyCriticality.OPTIONAL
 
 
+# :: UtilityOperation | type=configuration
 def _scan_deps(val: Any, out: set[str]) -> None:
     if isinstance(val, StrategyRef):
         out.add(val.normalized_instance_id())
@@ -815,6 +816,7 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
 # --------------------------------------------------------------------------- #
 
 
+# :: MechanicalOperation | type=configuration
 def load_strategies(
     *,
     strategy_package: str,
