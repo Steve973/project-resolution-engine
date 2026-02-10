@@ -100,7 +100,7 @@ class BaseArtifactResolutionStrategy(Generic[ArtifactKeyType], ABC):
 
     @abstractmethod
     def resolve(
-        self, *, key: ArtifactKeyType, destination_uri: str
+        self, *, key: ArtifactKeyType, destination_uri: str  # noqa: vulture
     ) -> ArtifactRecord | None:
         """
         Attempt to resolve the key into a destination_uri.

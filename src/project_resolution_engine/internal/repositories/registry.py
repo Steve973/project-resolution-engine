@@ -3,21 +3,14 @@ from __future__ import annotations
 import inspect
 from dataclasses import dataclass
 from importlib.metadata import entry_points
-from typing import Any, Mapping, Protocol
+from typing import Mapping
 
 from project_resolution_engine.internal.repositories.builtin import (
-    BUILTIN_REPOSITORY_FACTORIES,
+    BUILTIN_REPOSITORY_FACTORIES, RepoFactory,
 )
 from project_resolution_engine.repository import (
-    ArtifactRepository,
     REPOSITORY_ENTRYPOINT_GROUP,
 )
-
-
-class RepoFactory(Protocol):
-    def __call__(
-        self, *, config: Mapping[str, Any] | None = None
-    ) -> ArtifactRepository: ...
 
 
 class RepositoryRegistryError(RuntimeError):

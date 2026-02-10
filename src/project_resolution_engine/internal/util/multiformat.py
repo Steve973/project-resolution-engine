@@ -100,7 +100,7 @@ class MultiformatSerializableMixin:
         return hashlib.new("sha512", payload).hexdigest()
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
+    def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:  # noqa: vulture
         """
         Converts data into a mapping-like structure.
 
@@ -249,7 +249,7 @@ class MultiformatSerializableMixin:
         sep=" | ",
         exclude=(),
         include_empty=False,
-    ):
+    ):  # noqa: vulture
         """
         Generate a flat summary representation of the object's data.
 

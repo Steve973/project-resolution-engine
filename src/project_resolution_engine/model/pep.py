@@ -47,7 +47,7 @@ class Pep658Metadata(MultiformatModelMixin):
     _parser: Parser = Parser()
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
             "version": self.version,
@@ -129,7 +129,7 @@ class Pep691FileMetadata(MultiformatModelMixin):
     data_dist_info_metadata: bool | Mapping[str, str]
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "filename": self.filename,
             "url": self.url,
@@ -167,7 +167,7 @@ class Pep691Metadata(MultiformatModelMixin):
     last_serial: int | None = None
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
             "files": [f.to_mapping() for f in self.files],

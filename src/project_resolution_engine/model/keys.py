@@ -100,7 +100,7 @@ class IndexMetadataKey(BaseArtifactKey):
     kind: ArtifactKind = field(default=ArtifactKind.INDEX_METADATA, init=False)
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
             "index_base": self.index_base,
@@ -122,7 +122,7 @@ class CoreMetadataKey(BaseArtifactKey):
     kind: ArtifactKind = field(default=ArtifactKind.CORE_METADATA, init=False)
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
             "name": self.name,
@@ -340,7 +340,7 @@ class WheelKey(BaseArtifactKey):
         return "\n".join([*meta_lines, req_line])
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
             "name": self.name,

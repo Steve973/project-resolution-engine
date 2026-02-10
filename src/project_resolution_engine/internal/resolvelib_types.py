@@ -18,7 +18,7 @@ from project_resolution_engine.model.resolution import WheelSpec
 
 
 class Preference(Protocol):
-    def __lt__(self, __other: Any) -> bool: ...
+    def __lt__(self, __other: Any) -> bool: ...  # noqa: vulture
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -46,7 +46,7 @@ class ResolverRequirement(MultiformatModelMixin):
         return self.wheel_spec.uri
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {"wheel_spec": self.wheel_spec.to_mapping()}
 
     # :: MechanicalOperation | type=deserialization
@@ -96,7 +96,7 @@ class ResolverCandidate(MultiformatModelMixin):
         return self.wheel_key.extras
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {"wheel_key": self.wheel_key.to_mapping()}
 
     # :: MechanicalOperation | type=deserialization
@@ -115,14 +115,14 @@ class ProjectResolutionReporter(
         logging.log(logging.DEBUG, f"Starting round {index}")
 
     def ending_round(
-        self, index: int, state: State[ResolverRequirement, ResolverCandidate, str]
+        self, index: int, _state: State[ResolverRequirement, ResolverCandidate, str]
     ) -> None:
         logging.log(logging.DEBUG, f"Ending round {index}")
 
-    def ending(self, state) -> None:
+    def ending(self, _state) -> None:
         logging.log(logging.INFO, "Resolution complete.")
 
-    def adding_requirement(self, requirement, parent) -> None:
+    def adding_requirement(self, requirement, _parent) -> None:
         logging.log(logging.DEBUG, f"Adding requirement: {requirement}")
 
     def pinning(self, candidate) -> None:

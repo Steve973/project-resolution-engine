@@ -75,7 +75,7 @@ class ResolutionPolicy(MultiformatModelMixin):
     )
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
+    def to_mapping(self, *_args: Any, **_kwargs: Any) -> Mapping[str, Any]:
         return {
             "requires_dist_url_policy": self.requires_dist_url_policy.value,
             "allowed_requires_dist_url_schemes": (
@@ -91,7 +91,7 @@ class ResolutionPolicy(MultiformatModelMixin):
     # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_mapping(
-        cls, mapping: Mapping[str, Any], *args: Any, **kwargs: Any
+        cls, mapping: Mapping[str, Any], *_args: Any, **_kwargs: Any
     ) -> Self:
         schemes = mapping.get("allowed_requires_dist_url_schemes")
         allowed_schemes = (
@@ -128,7 +128,7 @@ class ResolutionEnv(MultiformatModelMixin):
     policy: ResolutionPolicy = field(default_factory=ResolutionPolicy)
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> Mapping[str, Any]:
         return {
             "identifier": self.identifier,
             "supported_tags": list(self.supported_tags),
@@ -138,7 +138,7 @@ class ResolutionEnv(MultiformatModelMixin):
 
     # :: MechanicalOperation | type=deserialization
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> Self:
+    def from_mapping(cls, mapping: Mapping[str, Any], *_args, **_kwargs) -> Self:
         env_map: dict[str, str] = mapping.get("marker_environment", {})
         validate_typed_dict("marker_environment", env_map, Environment, str)
         mrk_env = cast(Environment, cast(object, env_map))
@@ -198,7 +198,7 @@ class WheelSpec(MultiformatModelMixin):
         return self.identifier
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> Mapping[str, Any]:
         return {
             "name": self.name,
             "version": str(self.version) if self.version is not None else None,
@@ -209,7 +209,7 @@ class WheelSpec(MultiformatModelMixin):
 
     # :: MechanicalOperation | type=deserialization
     @classmethod
-    def from_mapping(cls, mapping: Mapping[str, Any], *args, **kwargs) -> Self:
+    def from_mapping(cls, mapping: Mapping[str, Any], *_args, **_kwargs) -> Self:
         return cls(
             name=mapping["name"],
             version=(

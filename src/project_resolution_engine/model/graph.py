@@ -79,14 +79,14 @@ class ResolvedNode(MultiformatModelMixin):
         return self.wheel_key
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         """
         Converts the object into a dictionary representation and returns it.
 
         Args:
-            *args: Additional positional arguments that can be passed but are not
+            *_args: Additional positional arguments that can be passed but are not
                 explicitly used in the method.
-            **kwargs: Additional keyword arguments that can be passed but are not
+            **_kwargs: Additional keyword arguments that can be passed but are not
                 explicitly used in the method.
 
         Returns:
@@ -188,7 +188,7 @@ class ResolvedGraph(MultiformatModelMixin):
         return sorted(list(self._roots))
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         """
         Converts the internal representation of the instance into a mapping (dictionary-like
         structure) format.

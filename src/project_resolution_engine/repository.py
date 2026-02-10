@@ -27,7 +27,7 @@ class ArtifactRepository(ABC):
     def get(self, key: BaseArtifactKey) -> ArtifactRecord | None: ...
 
     @abstractmethod
-    def put(self, record: ArtifactRecord) -> None: ...
+    def put(self, record: ArtifactRecord) -> None: ...  # noqa: vulture
 
     @abstractmethod
     def delete(self, key: BaseArtifactKey) -> None: ...
@@ -62,7 +62,7 @@ class ArtifactRecord(MultiformatModelMixin):
     content_hashes: dict[str, str] = field(default_factory=dict)
 
     # :: MechanicalOperation | type=serialization
-    def to_mapping(self, *args, **kwargs) -> dict[str, Any]:
+    def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         mapping: dict[str, Any] = {
             "key": self.key.to_mapping(),
             "destination_uri": self.destination_uri,
