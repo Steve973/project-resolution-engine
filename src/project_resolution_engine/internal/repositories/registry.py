@@ -41,7 +41,7 @@ class RepositoryRegistry:
     externals: Mapping[str, RepoFactory]
 
     def merged(self) -> dict[str, RepoFactory]:
-        dupes = set(self.builtins).intersection(self.externals)
+        dupes: set[str] = set(self.builtins).intersection(self.externals)
         if dupes:
             raise RepositoryRegistryError(
                 f"duplicate repository ids found in builtins and entry points: {sorted(dupes)}"

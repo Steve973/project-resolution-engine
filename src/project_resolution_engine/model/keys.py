@@ -14,9 +14,9 @@ from typing_extensions import Self
 
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
 
-_SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
-_SHA384_RE = re.compile(r"^[0-9a-fA-F]{96}$")
-_SHA512_RE = re.compile(r"^[0-9a-fA-F]{128}$")
+_SHA256_RE: re.Pattern[str] = re.compile(r"^[0-9a-fA-F]{64}$")
+_SHA384_RE: re.Pattern[str] = re.compile(r"^[0-9a-fA-F]{96}$")
+_SHA512_RE: re.Pattern[str] = re.compile(r"^[0-9a-fA-F]{128}$")
 _REQ_TXT_FMT: dict[str, Callable[[Iterable[str]], str]] = {
     "csv": lambda v: ",".join(sorted(v))
 }

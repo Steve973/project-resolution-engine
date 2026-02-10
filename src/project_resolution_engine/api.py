@@ -173,7 +173,7 @@ def _apply_dependency_ids(
         None
     """
     for parent_name, child_names in deps_by_parent.items():
-        parent_wk = wk_by_name[parent_name]
+        parent_wk: WheelKey = wk_by_name[parent_name]
         dep_wks = [wk_by_name[n] for n in sorted(child_names)]
         parent_wk.set_dependency_ids(dep_wks)
 

@@ -77,15 +77,15 @@ class EphemeralArtifactRepository(ArtifactRepository):
         Return an ArtifactRecord if present. If the record exists but the underlying file
         is missing (e.g., a user deleted it), we drop it from the index and return None.
         """
-        record = self._index.get(key)
+        record: ArtifactRecord = self._index.get(key)
         if record is None:
             return None
 
         # Only enforce existence for file:// destinations we generated.
-        dest = record.destination_uri
+        dest: str = record.destination_uri
         if dest.startswith("file://"):
             try:
-                path = Path(dest.removeprefix("file://"))
+                path: Path = Path(dest.removeprefix("file://"))
                 if not path.exists():
                     self._index.pop(key, None)
                     return None
@@ -99,17 +99,17 @@ class EphemeralArtifactRepository(ArtifactRepository):
         self._index[record.key] = record
 
     def delete(self, key: BaseArtifactKey) -> None:
-        record = self._index.pop(key, None)
+        record: ArtifactRecord = self._index.pop(key, None)
         if record is None:
             return
 
         # Best-effort delete the underlying file if it's in our ephemeral root.
-        dest = record.destination_uri
+        dest: str = record.destination_uri
         if not dest.startswith("file://"):
             return
 
         try:
-            path = Path(dest.removeprefix("file://")).resolve()
+            path: Path = Path(dest.removeprefix("file://")).resolve()
             if self._is_under_root(path) and path.exists():
                 path.unlink()
         except Exception:
@@ -162,19 +162,19 @@ class EphemeralArtifactRepository(ArtifactRepository):
                 )
 
             case WheelKey() as k:
-                name = _safe_segment(k.name)
-                version = _safe_segment(k.version)
-                tag = _safe_segment(k.tag)
+                name: str = _safe_segment(k.name)
+                version: str = _safe_segment(k.version)
+                tag: str = _safe_segment(k.tag)
                 if k.origin_uri is None:
                     raise ValueError("WheelKey must have an origin_uri")
-                url_hash = _short_hash(k.origin_uri)
+                url_hash: str = _short_hash(k.origin_uri)
 
                 # Prefer the basename from the URL if it looks sane, else use hash.
-                base = _url_basename(k.origin_uri)
+                base: str = _url_basename(k.origin_uri)
                 if base is not None and base.endswith(".whl"):
-                    filename = f"{url_hash}-{_safe_segment(base)}"
+                    filename: str = f"{url_hash}-{_safe_segment(base)}"
                 else:
-                    filename = f"{url_hash}.whl"
+                    filename: str = f"{url_hash}.whl"
 
                 return self._root / "wheels" / name / version / tag / filename
 

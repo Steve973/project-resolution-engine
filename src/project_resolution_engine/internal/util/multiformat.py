@@ -197,7 +197,7 @@ class MultiformatSerializableMixin:
             str: A TOML-formatted string representation of the object's data.
         """
 
-        # MechanicalOperation | type=formatting
+        # :: MechanicalOperation | type=serialization
         def sort_dict(obj):
             match obj:
                 case dict():
@@ -241,6 +241,7 @@ class MultiformatSerializableMixin:
             case _:
                 raise ValueError(f"unrecognized format: {fmt}")
 
+    # :: MechanicalOperation | type=serialization
     def flat_summary(
         self,
         first_fields=("timestamp",),

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from email.message import Message
 from email.parser import Parser
 from typing import Any
 
@@ -99,13 +100,13 @@ class Pep658Metadata(MultiformatModelMixin):
             Pep658Metadata: An instance of the Pep658Metadata class populated with
             the parsed metadata.
         """
-        msg = cls._parser.parsestr(text)
-        name = (msg.get("Name") or "").strip()
-        version = (msg.get("Version") or "").strip()
-        rp_raw = msg.get("Requires-Python")
-        requires_python = rp_raw.strip() if rp_raw else None
-        rd_headers = msg.get_all("Requires-Dist") or []
-        requires_dist = [h.strip() for h in rd_headers if h.strip()]
+        msg: Message = cls._parser.parsestr(text)
+        name: str = (msg.get("Name") or "").strip()
+        version: str = (msg.get("Version") or "").strip()
+        rp_raw: str = msg.get("Requires-Python")
+        requires_python: str = rp_raw.strip() if rp_raw else None
+        rd_headers: list[str] = msg.get_all("Requires-Dist") or []
+        requires_dist: list[str] = [h.strip() for h in rd_headers if h.strip()]
 
         return cls.from_mapping(
             {

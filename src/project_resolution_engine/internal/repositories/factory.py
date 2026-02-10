@@ -63,11 +63,11 @@ def open_repository(
         registry = build_repository_registry()
 
     try:
-        selection = _select_repository(repo_id=repo_id, registry=registry)
+        selection: RepositorySelection = _select_repository(repo_id=repo_id, registry=registry)
     except RepositoryRegistryError as e:
         raise RepositorySelectionError(str(e)) from e
 
-    repo = selection.factory(config=config)
+    repo: ArtifactRepository = selection.factory(config=config)
 
     try:
         yield repo

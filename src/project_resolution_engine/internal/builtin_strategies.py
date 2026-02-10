@@ -5,6 +5,7 @@ import json
 import re
 import tempfile
 import zipfile
+from _hashlib import HASH
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -86,7 +87,7 @@ def _ensure_parent_dir(path: Path) -> None:
 
 
 def _sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
+    h: HASH = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
@@ -115,7 +116,7 @@ def _find_dist_info_metadata_path(zf: zipfile.ZipFile) -> str:
     """
     Find a member path that looks like "<something>.dist-info/METADATA".
     """
-    candidates = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+    candidates: list[str] = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
     if not candidates:
         raise FileNotFoundError("Wheel does not contain any *.dist-info/METADATA entry")
     # Deterministic pick.
@@ -150,7 +151,7 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
             "User-Agent": self.user_agent,
         }
 
-        resp = requests.get(url, headers=headers, timeout=self.timeout_s)
+        resp: requests.Response = requests.get(url, headers=headers, timeout=self.timeout_s)
         resp.raise_for_status()
 
         payload: Any = resp.json()
@@ -182,10 +183,10 @@ class HttpWheelFileStrategy(WheelFileStrategy):
         if not isinstance(key, WheelKey):
             raise StrategyNotApplicable()
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
-        headers = {"User-Agent": self.user_agent}
+        headers: dict[str, str] = {"User-Agent": self.user_agent}
 
         if key.origin_uri is None:
             raise ValueError("WheelKey must have origin_uri set")
@@ -199,8 +200,8 @@ class HttpWheelFileStrategy(WheelFileStrategy):
                     if chunk:
                         f.write(chunk)
 
-        size = dest_path.stat().st_size
-        sha256 = _sha256_file(dest_path)
+        size: int = dest_path.stat().st_size
+        sha256: str = _sha256_file(dest_path)
 
         return ArtifactRecord(
             key=key,
@@ -284,7 +285,7 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
         )
 
         with tempfile.TemporaryDirectory(prefix="pre-wheel-extract-") as td:
-            wheel_path = Path(td) / "artifact.whl"
+            wheel_path: Path = Path(td) / "artifact.whl"
             wheel_uri = wheel_path.as_uri()
 
             # Acquire wheel (no repository access here).
@@ -331,7 +332,7 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
         _ensure_parent_dir(dest_path)
 
         # src path
-        src_path = (
+        src_path: Path = (
             Path(src_parsed.path)
             if src_parsed.scheme == "file"
             else Path(key.origin_uri)
@@ -379,7 +380,7 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
         if parsed.scheme not in ("", "file"):
             raise StrategyNotApplicable()
 
-        wheel_path = (
+        wheel_path: Path = (
             Path(unquote(parsed.path))
             if parsed.scheme == "file"
             else Path(key.file_url)

@@ -221,7 +221,7 @@ class WheelExtractedCoreMetadataStrategyConfig(
         wheel_sid = _opt_str(config, "wheel_strategy_id") or "wheel_http"
 
         # Injection is via StrategyRef, not by directly fetching instances here.
-        wheel_ref = StrategyRef(strategy_name=wheel_sid, instance_id=wheel_sid)
+        wheel_ref: StrategyRef = StrategyRef(strategy_name=wheel_sid, instance_id=wheel_sid)
 
         ctor: dict[str, Any] = {
             "wheel_strategy": wheel_ref,

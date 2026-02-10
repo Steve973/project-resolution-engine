@@ -481,7 +481,7 @@ def _plan_all_strategies(
 
     for strategy_name, info in strategy_classes.items():
         strategy_cls = info.strategy_cls
-        spec_cls = config_specs.get(strategy_name, DefaultStrategyConfig)
+        spec_cls: type[BaseArtifactResolutionStrategyConfig] = config_specs.get(strategy_name, DefaultStrategyConfig)
         policy = getattr(
             strategy_cls, "instantiation_policy", InstantiationPolicy.SINGLETON
         )
@@ -678,7 +678,7 @@ def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
             out_edges[dep].add(p.instance_id)
             in_degree[p.instance_id] += 1
 
-    ready = [iid for iid, deg in in_degree.items() if deg == 0]
+    ready: list[str] = [iid for iid, deg in in_degree.items() if deg == 0]
     ready.sort(key=lambda iid: (by_id[iid].precedence, iid))
 
     q: deque[str] = deque(ready)
