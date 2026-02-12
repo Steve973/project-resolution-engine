@@ -421,6 +421,48 @@ class ProjectResolutionProvider(
         except Exception:
             return False
 
+    @staticmethod
+    def _parse_requirement(raw: str) -> Requirement | None:
+        """Parse requirement string, return None on error."""
+        try:
+            return Requirement(raw)
+        except Exception:
+            return None
+
+    @staticmethod
+    def _requirement_applies_to_extras(
+        req: Requirement,
+        requested_extras: frozenset[str],
+        marker_env_base: dict[str, str],
+    ) -> bool:
+        """Check if requirement applies given requested extras."""
+        if req.marker is None:
+            return True
+
+        if not requested_extras:
+            return req.marker.evaluate(environment=marker_env_base)
+
+        # Check if marker evaluates true for any requested extra
+        for extra in requested_extras:
+            marker_env = dict(marker_env_base)
+            marker_env["extra"] = extra
+            if req.marker.evaluate(environment=marker_env):
+                return True
+        return False
+
+    @staticmethod
+    def _requirement_to_resolver_requirement(req: Requirement) -> ResolverRequirement:
+        """Convert packaging Requirement to ResolverRequirement."""
+        return ResolverRequirement(
+            wheel_spec=WheelSpec(
+                name=req.name,
+                version=req.specifier if str(req.specifier) else None,
+                extras=frozenset(req.extras),
+                marker=req.marker,
+                uri=req.url if req.url else None,
+            )
+        )
+
     def get_dependencies(
         self, candidate: ResolverCandidate
     ) -> Iterable[ResolverRequirement]:
@@ -448,37 +490,16 @@ class ProjectResolutionProvider(
 
         deps: list[ResolverRequirement] = []
         for raw in meta.requires_dist:
-            try:
-                req = Requirement(raw)
-            except Exception:
+            req = self._parse_requirement(raw)
+            if req is None:
                 continue
 
-            if req.marker is not None:
-                if requested_extras:
-                    ok = False
-                    for extra in requested_extras:
-                        marker_env = dict(marker_env_base)
-                        marker_env["extra"] = extra
-                        if req.marker.evaluate(environment=marker_env):
-                            ok = True
-                            break
-                    if not ok:
-                        continue
-                else:
-                    if not req.marker.evaluate(environment=marker_env_base):
-                        continue
+            if not self._requirement_applies_to_extras(
+                req, requested_extras, marker_env_base
+            ):
+                continue
 
-            deps.append(
-                ResolverRequirement(
-                    wheel_spec=WheelSpec(
-                        name=req.name,
-                        version=req.specifier if str(req.specifier) else None,
-                        extras=frozenset(req.extras),
-                        marker=req.marker,
-                        uri=req.url if req.url else None,
-                    )
-                )
-            )
+            deps.append(self._requirement_to_resolver_requirement(req))
 
         return deps
 
