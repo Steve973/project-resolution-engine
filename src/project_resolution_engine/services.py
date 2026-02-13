@@ -123,13 +123,19 @@ def load_services(
         key=lambda s: (s.precedence, crit_rank[s.criticality], s.instance_id),
     )
 
-    index_strats = [s for s in discovered if isinstance(s, IndexMetadataStrategy)]
-    core_strats = [s for s in discovered if isinstance(s, CoreMetadataStrategy)]
-    wheel_strats = [s for s in discovered if isinstance(s, WheelFileStrategy)]
+    strats_by_type = {"index": [], "core": [], "wheel": []}
+
+    for s in discovered:
+        if isinstance(s, IndexMetadataStrategy):
+            strats_by_type["index"].append(s)
+        elif isinstance(s, CoreMetadataStrategy):
+            strats_by_type["core"].append(s)
+        elif isinstance(s, WheelFileStrategy):
+            strats_by_type["wheel"].append(s)
 
     return build_services(
         repo=repo,
-        index_metadata_strategies=list(index_strats),
-        core_metadata_strategies=list(core_strats),
-        wheel_strategies=list(wheel_strats),
+        index_metadata_strategies=strats_by_type["index"],
+        core_metadata_strategies=strats_by_type["core"],
+        wheel_strategies=strats_by_type["wheel"],
     )

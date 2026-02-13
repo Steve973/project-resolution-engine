@@ -36,19 +36,19 @@ class StrategyChainArtifactResolver(
     def resolve(self, key: ArtifactKeyType, destination_uri: str) -> ArtifactRecord:
         causes: list[BaseException] = []
 
-        has_imperative = any(
-            strategy.criticality is StrategyCriticality.IMPERATIVE
-            for strategy in self.strategies
-        )
-        if has_imperative:
-            has_non_imperative = any(
-                strategy.criticality is not StrategyCriticality.IMPERATIVE
-                for strategy in self.strategies
+        # Validate no mixing of imperative/non-imperative strategies
+        criticalities = {s.criticality for s in self.strategies}
+        if (
+            StrategyCriticality.IMPERATIVE in criticalities
+            and len(
+                criticalities
+                - {StrategyCriticality.IMPERATIVE, StrategyCriticality.DISABLED}
             )
-            if has_non_imperative:
-                raise RuntimeError(
-                    "All strategies must be imperative or all must be non-imperative, but not both"
-                )
+            > 0
+        ):
+            raise RuntimeError(
+                "All strategies must be imperative or all must be non-imperative, but not both"
+            )
 
         for strategy in self.strategies:
             if strategy.criticality is StrategyCriticality.DISABLED:

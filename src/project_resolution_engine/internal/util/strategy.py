@@ -481,7 +481,9 @@ def _plan_all_strategies(
 
     for strategy_name, info in strategy_classes.items():
         strategy_cls = info.strategy_cls
-        spec_cls: type[BaseArtifactResolutionStrategyConfig] = config_specs.get(strategy_name, DefaultStrategyConfig)
+        spec_cls: type[BaseArtifactResolutionStrategyConfig] = config_specs.get(
+            strategy_name, DefaultStrategyConfig
+        )
         policy = getattr(
             strategy_cls, "instantiation_policy", InstantiationPolicy.SINGLETON
         )
@@ -658,14 +660,10 @@ def _enforce_imperative_closure(
 # --------------------------------------------------------------------------- #
 
 
-def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
-    """
-    Stable Kahn toposort.
-
-    When multiple nodes are available, order by (precedence, instance_id) for determinism.
-    """
-    by_id = {p.instance_id: p for p in plans}
-
+def _build_dependency_graph(
+    plans: Sequence[StrategyPlan], by_id: dict[str, StrategyPlan]
+) -> tuple[dict[str, set[str]], dict[str, int]]:
+    """Build out-edges and in-degree maps for the dependency graph."""
     out_edges: dict[str, set[str]] = {p.instance_id: set() for p in plans}
     in_degree: dict[str, int] = {p.instance_id: 0 for p in plans}
 
@@ -678,25 +676,63 @@ def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
             out_edges[dep].add(p.instance_id)
             in_degree[p.instance_id] += 1
 
+    return out_edges, in_degree
+
+
+def _initialize_ready_queue(
+    plans: Sequence[StrategyPlan],
+    in_degree: dict[str, int],
+    by_id: dict[str, StrategyPlan],
+) -> deque[str]:
+    """Find nodes with no dependencies and create initial queue."""
     ready: list[str] = [iid for iid, deg in in_degree.items() if deg == 0]
     ready.sort(key=lambda iid: (by_id[iid].precedence, iid))
+    return deque(ready)
 
-    q: deque[str] = deque(ready)
+
+def _process_topological_order(
+    queue: deque[str],
+    by_id: dict[str, StrategyPlan],
+    out_edges: dict[str, set[str]],
+    in_degree: dict[str, int],
+) -> list[StrategyPlan]:
+    """Process queue in topological order, maintaining stable sort."""
     ordered: list[StrategyPlan] = []
 
-    while q:
-        iid = q.popleft()
+    while queue:
+        iid = queue.popleft()
         ordered.append(by_id[iid])
 
         for nxt in sorted(out_edges[iid], key=lambda x: (by_id[x].precedence, x)):
             in_degree[nxt] -= 1
             if in_degree[nxt] == 0:
-                q.append(nxt)
+                queue.append(nxt)
 
+    return ordered
+
+
+def _validate_no_cycles(
+    ordered: list[StrategyPlan],
+    plans: Sequence[StrategyPlan],
+    in_degree: dict[str, int],
+) -> None:
+    """Ensure all nodes were processed (no cycles exist)."""
     if len(ordered) != len(plans):
         remaining = [iid for iid, deg in in_degree.items() if deg > 0]
         raise StrategyConfigError(f"dependency cycle detected among: {remaining}")
 
+
+def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
+    """
+    Stable Kahn topo-sort.
+
+    When multiple nodes are available, order by (precedence, instance_id) for determinism.
+    """
+    by_id = {p.instance_id: p for p in plans}
+    out_edges, in_degree = _build_dependency_graph(plans, by_id)
+    ready_queue = _initialize_ready_queue(plans, in_degree, by_id)
+    ordered = _process_topological_order(ready_queue, by_id, out_edges, in_degree)
+    _validate_no_cycles(ordered, plans, in_degree)
     return ordered
 
 

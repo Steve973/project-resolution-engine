@@ -241,7 +241,37 @@ class MultiformatSerializableMixin:
             case _:
                 raise ValueError(f"unrecognized format: {fmt}")
 
+    @staticmethod
+    def _format_value(k: str, v: Any) -> str:
+        match v:
+            case datetime():
+                v_str = v.isoformat(timespec="seconds")
+            case date():
+                v_str = v.isoformat()
+            case dict() if k.lower() == "payload":
+                try:
+                    import json
+
+                    v_str = json.dumps(v, separators=(",", ":"))
+                except Exception:
+                    v_str = repr(v)
+            case dict():
+                v_str = "{" + ", ".join(f"{kk}: {repr(v[kk])}" for kk in v.keys()) + "}"
+            case list() | tuple() | set():
+                v_str = "[" + ", ".join(repr(x) for x in v) + "]"
+            case _:
+                v_str = str(v)
+
+        return v_str
+
     # :: MechanicalOperation | type=serialization
+    @staticmethod
+    def _is_empty_value(v: Any) -> bool:
+        """Check if a value should be considered empty for display purposes."""
+        return (
+            v is None or v == "" or (isinstance(v, (list, tuple, set, dict)) and not v)
+        )
+
     def flat_summary(
         self,
         first_fields=("timestamp",),
@@ -249,66 +279,48 @@ class MultiformatSerializableMixin:
         sep=" | ",
         exclude=(),
         include_empty=False,
-    ):  # noqa: vulture
+    ):
         """
-        Generate a flat summary representation of the object's data.
+        Generates a formatted string representation of the object's mapping data.
 
-        The method retrieves the object's mapping representation, organizes its keys
-        according to specified first and last fields while ordering the rest alphabetically,
-        and creates a flat string representation of the data. Empty or None values are excluded
-        unless explicitly included.
+        The method creates a human-readable string by combining key-value pairs from the
+        object's internal mapping data. Users can control the order, separator, inclusion
+        or exclusion of specific fields, and whether empty values are included in the output.
+        Non-essential fields are sorted alphabetically, and the result is returned as a single
+        string with key-value pairs joined by the provided separator.
 
-        Args:
-            first_fields (tuple): A tuple of keys that should appear first in the summary,
-                in the specified order.
-            last_fields (tuple): A tuple of keys that should appear last in the summary,
-                in the specified order.
-            sep (str): The string used to separate different items in the summary.
-            exclude (tuple): A tuple of keys that should be excluded from the summary.
-            include_empty (bool): Whether to include empty fields (e.g., None, empty lists,
-                dictionaries, or strings) in the summary.
+        Parameters:
+            first_fields (tuple of str): A tuple specifying field names to appear first in the
+                output, in the order they are listed. Defaults to ("timestamp",).
+            last_fields (tuple of str): A tuple specifying field names to appear last in the
+                output, in the order they are listed. Defaults to an empty tuple.
+            sep (str): A string used as the separator between key-value pairs in the
+                final output. Defaults to " | ".
+            exclude (tuple of str): A tuple of field names to be excluded from the output.
+                Defaults to an empty tuple.
+            include_empty (bool): A flag specifying whether to include fields with empty
+                values in the output. If set to False, fields with empty values are omitted.
+                Defaults to False.
 
         Returns:
-            str: A flat string representation of the object's data.
+            str: A formatted string containing the key-value pairs from the object's mapping
+                data, ordered and filtered based on the provided parameters.
         """
         mapping = self.to_mapping()
         all_keys = set(mapping.keys()) - set(exclude)
-        first = [f for f in first_fields if f in all_keys]
-        last = [f for f in last_fields if f in all_keys and f not in first]
-        middle = sorted(all_keys - set(first) - set(last))
-        ordered_keys = list(first) + middle + list(last)
+        ordered_keys = [
+            *[f for f in first_fields if f in all_keys],
+            *sorted(all_keys - set(first_fields) - set(last_fields)),
+            *[f for f in last_fields if f in all_keys],
+        ]
 
         items = []
         for k in ordered_keys:
             v = mapping[k]
-            # Filter if not including empty/None
-            if not include_empty and (
-                v is None
-                or v == ""
-                or (isinstance(v, (list, tuple, set, dict)) and not v)
-            ):
+            if not include_empty and self._is_empty_value(v):
                 continue
+            items.append(f"{k}: {self._format_value(k, v)}")
 
-            if isinstance(v, (datetime, date)):
-                v_str = (
-                    v.isoformat(timespec="seconds")
-                    if isinstance(v, datetime)
-                    else v.isoformat()
-                )
-            elif k.lower() == "payload" and isinstance(v, dict):
-                try:
-                    import json
-
-                    v_str = json.dumps(v, separators=(",", ":"))
-                except Exception:
-                    v_str = repr(v)
-            elif isinstance(v, dict):
-                v_str = "{" + ", ".join(f"{kk}: {repr(v[kk])}" for kk in v.keys()) + "}"
-            elif isinstance(v, (list, tuple, set)):
-                v_str = "[" + ", ".join(repr(x) for x in v) + "]"
-            else:
-                v_str = str(v)
-            items.append(f"{k}: {v_str}")
         return sep.join(items)
 
     def __str__(self):
