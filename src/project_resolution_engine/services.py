@@ -75,6 +75,7 @@ def build_services(
     )
 
 
+# :: FeatureFlow | type=feature_start | name=service_loading
 def load_services(
     *,
     repo: ArtifactRepository,

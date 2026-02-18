@@ -245,9 +245,11 @@ class MultiformatSerializableMixin:
     def _format_value(k: str, v: Any) -> str:
         match v:
             case datetime():
-                v_str = v.isoformat(timespec="seconds")
+                dt: datetime = v
+                v_str = dt.isoformat(timespec="seconds")
             case date():
-                v_str = v.isoformat()
+                dt: date = v
+                v_str = dt.isoformat()
             case dict() if k.lower() == "payload":
                 try:
                     import json

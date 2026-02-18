@@ -517,7 +517,8 @@ class ProjectResolutionProvider(
         if tup in bad:
             return None
 
-        if req.version is not None and not req.version.contains(wk.version):
+        req_version: SpecifierSet | None = req.version
+        if req_version is not None and not req_version.contains(wk.version):
             return None
 
         return ResolverCandidate(wheel_key=wk)

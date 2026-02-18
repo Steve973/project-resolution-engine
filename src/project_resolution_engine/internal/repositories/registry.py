@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import inspect
 from dataclasses import dataclass
-from importlib.metadata import entry_points
+from importlib.metadata import entry_points, EntryPoint
 from typing import Mapping
 
 from project_resolution_engine.internal.repositories.builtin import (
@@ -96,6 +96,7 @@ def _load_entrypoint_repo_factories(*, group: str) -> dict[str, RepoFactory]:
     factories: dict[str, RepoFactory] = {}
     dupes: set[str] = set()
 
+    ep: EntryPoint
     for ep in entry_points().select(group=group):
         repo_id = ep.name
         factory_obj = ep.load()

@@ -33,6 +33,7 @@ class StrategyChainArtifactResolver(
 
     strategies: Sequence[BaseArtifactResolutionStrategy[ArtifactKeyType]]
 
+    # :: FeatureFlow | type=feature_start | name=resolution_orchestration
     def resolve(self, key: ArtifactKeyType, destination_uri: str) -> ArtifactRecord:
         causes: list[BaseException] = []
 

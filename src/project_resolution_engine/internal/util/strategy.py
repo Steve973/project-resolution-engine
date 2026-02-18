@@ -7,7 +7,7 @@ from abc import ABC
 from collections import defaultdict, deque
 from collections.abc import Mapping, Sequence, Iterable
 from dataclasses import dataclass
-from importlib.metadata import entry_points
+from importlib.metadata import entry_points, EntryPoint
 from typing import Any, TypeVar, Generic
 
 from project_resolution_engine.strategies import (
@@ -170,6 +170,7 @@ def _iter_module_objects(package_name: str) -> Iterable[Any]:
 def _iter_entrypoint_objects(group: str) -> Iterable[Any]:
     if not group:
         yield from ()
+    ep: EntryPoint
     for ep in entry_points().select(group=group):
         yield ep.load()
     return None
@@ -342,10 +343,12 @@ def _effective_criticality(
 # :: UtilityOperation | type=configuration
 def _scan_deps(val: Any, out: set[str]) -> None:
     if isinstance(val, StrategyRef):
-        out.add(val.normalized_instance_id())
+        sr: StrategyRef = val
+        out.add(sr.normalized_instance_id())
         return
     if isinstance(val, Mapping):
-        for v in val.values():
+        m: Mapping = val
+        for v in m.values():
             _scan_deps(v, out)
         return
     if isinstance(val, (list, tuple)):
@@ -769,14 +772,16 @@ def _resolve_ctor_kwargs(
 ) -> dict[str, Any]:
     def _resolve(val: Any) -> Any:
         if isinstance(val, StrategyRef):
-            iid = val.normalized_instance_id()
+            sr: StrategyRef = val
+            iid = sr.normalized_instance_id()
             if iid not in registry:
                 raise StrategyConfigError(
                     f"dependency '{iid}' was not instantiated before injection"
                 )
             return registry[iid]
         if isinstance(val, Mapping):
-            return {k: _resolve(v) for k, v in val.items()}
+            m: Mapping = val
+            return {k: _resolve(m) for k, v in m.items()}
         if isinstance(val, list):
             return [_resolve(v) for v in val]
         if isinstance(val, tuple):

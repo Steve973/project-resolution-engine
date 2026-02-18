@@ -7,6 +7,7 @@ import tempfile
 import zipfile
 from _hashlib import HASH
 from dataclasses import dataclass, field
+from io import BufferedReader, BufferedWriter
 from pathlib import Path
 from typing import Any
 from typing import Final
@@ -88,6 +89,7 @@ def _ensure_parent_dir(path: Path) -> None:
 
 def _sha256_file(path: Path) -> str:
     h: HASH = hashlib.sha256()
+    f: BufferedReader
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
@@ -116,7 +118,10 @@ def _find_dist_info_metadata_path(zf: zipfile.ZipFile) -> str:
     """
     Find a member path that looks like "<something>.dist-info/METADATA".
     """
-    candidates: list[str] = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+    n: str
+    candidates: list[str] = [
+        n for n in zf.namelist() if n.endswith(".dist-info/METADATA")
+    ]
     if not candidates:
         raise FileNotFoundError("Wheel does not contain any *.dist-info/METADATA entry")
     # Deterministic pick.
@@ -151,7 +156,9 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
             "User-Agent": self.user_agent,
         }
 
-        resp: requests.Response = requests.get(url, headers=headers, timeout=self.timeout_s)
+        resp: requests.Response = requests.get(
+            url, headers=headers, timeout=self.timeout_s
+        )
         resp.raise_for_status()
 
         payload: Any = resp.json()
@@ -191,6 +198,8 @@ class HttpWheelFileStrategy(WheelFileStrategy):
         if key.origin_uri is None:
             raise ValueError("WheelKey must have origin_uri set")
 
+        f: BufferedReader
+        resp: requests.Response
         with requests.get(
             key.origin_uri, headers=headers, timeout=self.timeout_s, stream=True
         ) as resp:
@@ -237,7 +246,9 @@ class Pep658CoreMetadataHttpStrategy(CoreMetadataStrategy):
         url = _pep658_metadata_url(key.file_url)
         headers = {"User-Agent": self.user_agent}
 
-        resp = requests.get(url, headers=headers, timeout=self.timeout_s)
+        resp: requests.Response = requests.get(
+            url, headers=headers, timeout=self.timeout_s
+        )
         if resp.status_code == 404:
             # Explicitly not applicable: let fallback strategies run.
             raise StrategyNotApplicable()
@@ -284,6 +295,7 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
             name=key.name, version=key.version, tag=key.tag, origin_uri=key.file_url
         )
 
+        zf: zipfile.ZipFile
         with tempfile.TemporaryDirectory(prefix="pre-wheel-extract-") as td:
             wheel_path: Path = Path(td) / "artifact.whl"
             wheel_uri = wheel_path.as_uri()
@@ -291,7 +303,7 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
             # Acquire wheel (no repository access here).
             self.wheel_strategy.resolve(key=wheel_key, destination_uri=wheel_uri)
 
-            with zipfile.ZipFile(wheel_path, "r") as zf:
+            with zipfile.ZipFile(wheel_path, mode="r") as zf:
                 meta_member = _find_dist_info_metadata_path(zf)
                 metadata_bytes = zf.read(meta_member)
 
@@ -341,6 +353,8 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
             raise FileNotFoundError(str(src_path))
 
         # copy
+        w: BufferedWriter
+        r: BufferedReader
         with src_path.open("rb") as r, dest_path.open("wb") as w:
             for chunk in iter(lambda: r.read(self.chunk_bytes), b""):
                 w.write(chunk)
@@ -393,7 +407,8 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
         dest_path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
-        with zipfile.ZipFile(wheel_path) as zf:
+        zf: zipfile.ZipFile
+        with zipfile.ZipFile(wheel_path, mode="r") as zf:
             member = _find_dist_info_metadata_path(zf)
             metadata_bytes = zf.read(member)
             dest_path.write_bytes(metadata_bytes)

@@ -11,6 +11,8 @@ from project_resolution_engine.model.resolution import (
     ResolutionMode,
     ResolutionParams,
     ResolutionResult,
+    WheelSpec,
+    ResolutionEnv,
 )
 from project_resolution_engine.services import load_services
 from project_resolution_engine.strategies import ResolutionStrategyConfig
@@ -47,6 +49,7 @@ def _normalize_strategy_configs(
     if strategy_configs is None:
         return configs_by_instance_id
 
+    c: ResolutionStrategyConfig
     for c in strategy_configs:
         iid = c.get("instance_id", c.get("strategy_name"))
         if not iid:
@@ -83,6 +86,7 @@ def _roots_for_env(params: ResolutionParams, env: Any) -> list[Any]:
     from project_resolution_engine.internal.resolvelib_types import ResolverRequirement
 
     roots: list[ResolverRequirement] = []
+    ws: WheelSpec
     for ws in params.root_wheels:
         marker_env = cast(dict[str, str], cast(object, env.marker_environment))
         if ws.marker is not None and not ws.marker.evaluate(environment=marker_env):
@@ -138,6 +142,7 @@ def _deps_by_parent_from_result(
     """
     deps_by_parent: dict[str, set[str]] = {name: set() for name in wk_by_name.keys()}
 
+    child_name: str
     for child_name, crit in result.criteria.items():
         for info in crit.information:
             parent = info.parent
@@ -199,20 +204,21 @@ def _format_requirements_text(wheel_keys: Iterable[WheelKey]) -> str:
 @dataclass(kw_only=True, frozen=True, slots=True)
 class ProjectResolutionEngine:
     """
-    Represents an immutable and optimized project resolution engine used for resolving
-    package dependencies across different target environments. This class enables
-    dependency resolution based on specified strategies, repositories, and environments.
+    Represents a project resolution engine using strategies and repository configurations.
 
-    Detailed description of the class, its purpose, and usage.
+    This class is designed to handle the resolution process for a given set of parameters.
+    It normalizes strategy configurations, interacts with repositories for loading services,
+    and resolves dependencies for specified target environments. The resolution process
+    produces requirements and resolved wheels categorized by environment.
 
-    Attributes:
-        resolve (Callable[[ResolutionParams], ResolutionResult]): Static method to compute
-            package resolution based on the specified parameters, including repository
-            configurations, resolution strategies, and target environments.
-
+    Methods:
+        resolve(params: ResolutionParams) -> ResolutionResult
+            Resolves dependencies based on the provided parameters, producing requirements
+            and resolved wheels categorized by the target environments.
     """
 
     @staticmethod
+    # :: FeatureFlow | type=feature_start | name=full_resolution
     def resolve(params: ResolutionParams) -> ResolutionResult:
         from project_resolution_engine.internal.resolvelib import resolve as rl_resolve
         from project_resolution_engine.internal.repositories.factory import (
@@ -229,6 +235,7 @@ class ProjectResolutionEngine:
                 repo=repo, strategy_configs_by_instance_id=configs_by_instance_id
             )
 
+            env: ResolutionEnv
             for env in params.target_environments:
                 roots = _roots_for_env(params, env)
 

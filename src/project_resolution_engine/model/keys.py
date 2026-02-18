@@ -284,7 +284,10 @@ class WheelKey(BaseArtifactKey):
         return self.as_tuple() < other.as_tuple()
 
     def __eq__(self, other: Any) -> bool:
-        return isinstance(other, WheelKey) and self.as_tuple() == other.as_tuple()
+        if not isinstance(other, WheelKey):
+            return False
+        other_wk: WheelKey = other
+        return self.as_tuple() == other_wk.as_tuple()
 
     def __hash__(self) -> int:
         return hash(self.as_tuple())
