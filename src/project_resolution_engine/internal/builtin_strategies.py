@@ -147,7 +147,7 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
         if not isinstance(key, IndexMetadataKey):
             raise StrategyNotApplicable()
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
         url = _simple_project_json_url(key.index_base, key.project)
@@ -240,7 +240,7 @@ class Pep658CoreMetadataHttpStrategy(CoreMetadataStrategy):
         if not isinstance(key, CoreMetadataKey):
             raise StrategyNotApplicable()
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
         url = _pep658_metadata_url(key.file_url)
@@ -288,7 +288,7 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
         if not isinstance(key, CoreMetadataKey):
             raise StrategyNotApplicable()
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
         wheel_key = WheelKey(
@@ -340,7 +340,7 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
         if src_parsed.scheme not in ("file", ""):
             raise StrategyNotApplicable()
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
         # src path
@@ -404,7 +404,7 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
         if not wheel_path.is_file():
             raise ValueError(f"Core metadata file_url is not a file: {wheel_path}")
 
-        dest_path = _require_file_destination(destination_uri)
+        dest_path: Path = _require_file_destination(destination_uri)
         _ensure_parent_dir(dest_path)
 
         zf: zipfile.ZipFile

@@ -84,12 +84,14 @@ def _roots_for_env(params: ResolutionParams, env: Any) -> list[Any]:
         evaluated conditions.
     """
     from project_resolution_engine.internal.resolvelib_types import ResolverRequirement
+    from packaging.markers import Marker
 
     roots: list[ResolverRequirement] = []
     ws: WheelSpec
     for ws in params.root_wheels:
         marker_env = cast(dict[str, str], cast(object, env.marker_environment))
-        if ws.marker is not None and not ws.marker.evaluate(environment=marker_env):
+        marker: Marker | None = ws.marker
+        if marker is not None and not marker.evaluate(environment=marker_env):
             continue
         roots.append(ResolverRequirement(wheel_spec=ws))
 

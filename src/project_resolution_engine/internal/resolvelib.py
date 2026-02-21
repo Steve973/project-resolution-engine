@@ -679,8 +679,10 @@ class ProjectResolutionProvider(
         bool: True if the file is a wheel, not marked as yanked, and the current
         yanked wheel policy specifies skipping yanked wheels. Otherwise, False.
         """
+        filename: str = f.filename
+        fname: str = filename.lower()
         return (
-            f.filename.lower().endswith(".whl")
+            fname.endswith(".whl")
             and not f.yanked
             and self._policy.yanked_wheel_policy == YankedWheelPolicy.SKIP
         )
@@ -879,7 +881,8 @@ class ProjectResolutionProvider(
             return True
 
         try:
-            return requirement.version.contains(candidate.version)
+            ver: SpecifierSet = requirement.version
+            return ver.contains(candidate.version)
         except Exception:
             return False
 
