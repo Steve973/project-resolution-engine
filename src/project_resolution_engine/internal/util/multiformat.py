@@ -42,25 +42,43 @@ def _normalize(value: Any) -> Any:
     # Path -> POSIX string
     match value:
         case Path():
-            return value.as_posix()
+            path: Path = value
+            return path.as_posix()
 
         case Enum():
-            return value.value
+            enum: Enum = value
+            return enum.value
 
         case Mapping():
+            mapping: Mapping[Any, Any] = value
             return {
                 str(k): _normalize(v)
-                for k, v in sorted(value.items(), key=lambda kv: str(kv[0]))
+                for k, v in sorted(mapping.items(), key=lambda kv: str(kv[0]))
             }
 
-        case set() | frozenset():
-            return sorted(_normalize(v) for v in value)
+        case set():
+            s: set = value
+            return sorted(_normalize(v) for v in s)
 
-        case list() | tuple():
-            return [_normalize(v) for v in value]
+        case frozenset():
+            fs: frozenset = value
+            return sorted(_normalize(v) for v in fs)
 
-        case datetime() | date():
-            return value.isoformat()
+        case list():
+            l: list = value
+            return [_normalize(v) for v in l]
+
+        case tuple():
+            t: tuple = value
+            return [_normalize(v) for v in t]
+
+        case datetime():
+            dt: datetime = value
+            return dt.isoformat()
+
+        case date():
+            dt: date = value
+            return dt.isoformat()
 
         case _:
             return value
