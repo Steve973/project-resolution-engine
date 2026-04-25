@@ -76,6 +76,7 @@ class BaseArtifactResolutionStrategyConfig(Generic[ArtifactStrategyType], ABC):
       - PROTOTYPE strategies may plan one or more instances.
     """
 
+    # :: CalledThroughAbstraction
     @classmethod
     def defaults(cls) -> Mapping[str, Any]:
         return {}
@@ -857,7 +858,6 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
 # --------------------------------------------------------------------------- #
 
 
-# :: MechanicalOperation | type=configuration
 def load_strategies(
     *,
     strategy_package: str,

@@ -141,6 +141,7 @@ class Pep691IndexMetadataHttpStrategy(IndexMetadataStrategy):
     timeout_s: float = 30.0
     user_agent: str = "project-resolution-engine/0"
 
+    # :: CalledThroughAbstraction
     def resolve(
         self, *, key: IndexMetadataKey, destination_uri: str
     ) -> ArtifactRecord | None:
@@ -186,6 +187,7 @@ class HttpWheelFileStrategy(WheelFileStrategy):
     user_agent: str = "project-resolution-engine/0"
     chunk_bytes: int = 1024 * 1024
 
+    # :: CalledThroughAbstraction
     def resolve(self, *, key: WheelKey, destination_uri: str) -> ArtifactRecord | None:
         if not isinstance(key, WheelKey):
             raise StrategyNotApplicable()
@@ -234,6 +236,7 @@ class Pep658CoreMetadataHttpStrategy(CoreMetadataStrategy):
     timeout_s: float = 30.0
     user_agent: str = "project-resolution-engine/0"
 
+    # :: CalledThroughAbstraction
     def resolve(
         self, *, key: CoreMetadataKey, destination_uri: str
     ) -> ArtifactRecord | None:
@@ -282,6 +285,7 @@ class WheelExtractedCoreMetadataStrategy(CoreMetadataStrategy):
     source: ArtifactSource = ArtifactSource.WHEEL_EXTRACTED
     wheel_strategy: WheelFileStrategy = field(kw_only=True)
 
+    # :: CalledThroughAbstraction
     def resolve(
         self, *, key: CoreMetadataKey, destination_uri: str
     ) -> ArtifactRecord | None:
@@ -330,6 +334,7 @@ class DirectUriWheelFileStrategy(WheelFileStrategy):
     chunk_bytes: int = 1024 * 1024
     source: ArtifactSource = ArtifactSource.URI_WHEEL
 
+    # :: CalledThroughAbstraction
     def resolve(self, *, key: WheelKey, destination_uri: str) -> ArtifactRecord | None:
         if not isinstance(key, WheelKey):
             raise StrategyNotApplicable()
@@ -384,6 +389,7 @@ class DirectUriCoreMetadataStrategy(CoreMetadataStrategy):
     precedence: int = 40
     source: ArtifactSource = ArtifactSource.URI_WHEEL
 
+    # :: CalledThroughAbstraction
     def resolve(
         self, *, key: CoreMetadataKey, destination_uri: str
     ) -> ArtifactRecord | None:

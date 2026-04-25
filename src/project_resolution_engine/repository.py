@@ -35,6 +35,7 @@ class ArtifactRepository(ABC):
     @abstractmethod
     def allocate_destination_uri(self, key: BaseArtifactKey) -> str: ...
 
+    # :: PermitUnused | reason=handled implicitly by repository @contextmanager
     def close(self) -> None:
         """
         Cleanup hook for repositories.
@@ -42,6 +43,7 @@ class ArtifactRepository(ABC):
         The default implementation is a no-op. Override in repositories
         that hold resources (file handles, connections, temp dirs, etc.).
         """
+        print("No cleanup implemented for this repository")
         return None
 
 
@@ -62,6 +64,7 @@ class ArtifactRecord(MultiformatModelMixin):
     content_hashes: dict[str, str] = field(default_factory=dict)
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         mapping: dict[str, Any] = {
             "key": self.key.to_mapping(),
@@ -77,6 +80,7 @@ class ArtifactRecord(MultiformatModelMixin):
         return mapping
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         incoming_hashes = mapping.get("content_hashes", {})

@@ -33,8 +33,8 @@ class StrategyChainArtifactResolver(
 
     strategies: Sequence[BaseArtifactResolutionStrategy[ArtifactKeyType]]
 
-    # :: FeatureFlow | type=feature_start | name=resolution_orchestration
     def resolve(self, key: ArtifactKeyType, destination_uri: str) -> ArtifactRecord:
+        # :: FeatureStart | name=resolution_orchestration
         causes: list[BaseException] = []
 
         # Validate no mixing of imperative/non-imperative strategies
@@ -63,6 +63,7 @@ class StrategyChainArtifactResolver(
                         f"strategy returned None: {strategy.name} key={key!r}"
                     )
                     continue
+                # :: FeatureEnd | name=resolution_orchestration
                 return record
 
             except StrategyNotApplicable:

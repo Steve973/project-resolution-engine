@@ -62,9 +62,11 @@ class EphemeralArtifactRepository(ArtifactRepository):
         self._index.clear()
         self._tmp.cleanup()
 
+    # :: PermitUnused | reason=implicit
     def __enter__(self) -> EphemeralArtifactRepository:
         return self
 
+    # :: PermitUnused | reason=implicit
     def __exit__(self, _exc_type, _exc, _tb) -> None:
         self.close()
 
@@ -98,6 +100,7 @@ class EphemeralArtifactRepository(ArtifactRepository):
     def put(self, record: ArtifactRecord) -> None:
         self._index[record.key] = record
 
+    # :: PermitUnused | reason=contractual
     def delete(self, key: BaseArtifactKey) -> None:
         record: ArtifactRecord = self._index.pop(key, None)
         if record is None:

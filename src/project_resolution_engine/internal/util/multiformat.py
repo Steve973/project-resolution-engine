@@ -94,6 +94,7 @@ class MultiformatSerializableMixin:
     implement specific methods to use this mixin effectively.
     """
 
+    # :: PermitUnused
     def mapping_hash(self) -> str:
         """
         Generates a SHA-512 hash based on the normalized representation of a mapping.
@@ -118,6 +119,7 @@ class MultiformatSerializableMixin:
         return hashlib.new("sha512", payload).hexdigest()
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *args, **kwargs) -> Mapping[str, Any]:  # noqa: vulture
         """
         Converts data into a mapping-like structure.
@@ -228,6 +230,7 @@ class MultiformatSerializableMixin:
         sorted_mapping = sort_dict(self.to_mapping())
         return dump_toml_to_str(sorted_mapping, indent)
 
+    # :: PermitUnused
     def serialize(self, *, fmt="json", indent=2) -> str:
         """
         Serializes the object to a string in the specified format.
@@ -361,6 +364,7 @@ class MultiformatDeserializableMixin:
     # ---- core contract ----
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls: type[Self], mapping: Mapping[str, Any], **_: Any) -> Self:
         """
@@ -382,6 +386,7 @@ class MultiformatDeserializableMixin:
 
     # ---- public entrypoints ----
 
+    # :: PermitUnused
     @classmethod
     def deserialize(
         cls: type[Self], text: str, *, fmt: str = "json", **context: Any
@@ -409,6 +414,7 @@ class MultiformatDeserializableMixin:
         inst = cls.from_mapping(mapping, **context)
         return cls._postprocess_instance(inst, fmt=fmt, path=None, **context)
 
+    # :: PermitUnused
     @classmethod
     def from_json(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -428,6 +434,7 @@ class MultiformatDeserializableMixin:
         """
         return cls.deserialize(text, fmt="json", **context)
 
+    # :: PermitUnused
     @classmethod
     def from_yaml(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -447,6 +454,7 @@ class MultiformatDeserializableMixin:
         """
         return cls.deserialize(text, fmt="yaml", **context)
 
+    # :: PermitUnused
     @classmethod
     def from_toml(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -468,6 +476,7 @@ class MultiformatDeserializableMixin:
         """
         return cls.deserialize(text, fmt="toml", **context)
 
+    # :: PermitUnused
     @classmethod
     def from_file(
         cls: type[Self], path: str | Path, fmt: str | None = None, **context: Any

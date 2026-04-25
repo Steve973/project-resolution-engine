@@ -75,7 +75,6 @@ def build_services(
     )
 
 
-# :: FeatureFlow | type=feature_start | name=service_loading
 def load_services(
     *,
     repo: ArtifactRepository,
@@ -91,6 +90,7 @@ def load_services(
 
     strategy_configs_by_instance_id is the ONLY customization input here.
     """
+    # :: FeatureStart | name=service_loading
     discovered: list[BaseArtifactResolutionStrategy] = load_strategies(
         strategy_package=BUILTIN_STRATEGY_PACKAGE,
         strategy_entrypoint_group=STRATEGY_ENTRYPOINT_GROUP,
@@ -134,6 +134,7 @@ def load_services(
         elif isinstance(s, WheelFileStrategy):
             strats_by_type["wheel"].append(s)
 
+    # :: FeatureEnd | name=service_loading
     return build_services(
         repo=repo,
         index_metadata_strategies=strats_by_type["index"],

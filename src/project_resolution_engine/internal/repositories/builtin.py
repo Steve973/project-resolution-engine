@@ -8,6 +8,7 @@ from project_resolution_engine.repository import ArtifactRepository
 RepoFactory: TypeAlias = Callable[..., ArtifactRepository]
 
 
+# :: PermitUnused | reason=called during class initialization
 def _create_ephemeral(
     *, _config: Mapping[str, Any] | None = None
 ) -> ArtifactRepository:

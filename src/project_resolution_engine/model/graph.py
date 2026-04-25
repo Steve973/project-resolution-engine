@@ -79,6 +79,7 @@ class ResolvedNode(MultiformatModelMixin):
         return self.wheel_key
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         """
         Converts the object into a dictionary representation and returns it.
@@ -96,6 +97,7 @@ class ResolvedNode(MultiformatModelMixin):
         return {"wheel_key": self.wheel_key.to_mapping()}
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         """
@@ -188,6 +190,7 @@ class ResolvedGraph(MultiformatModelMixin):
         return sorted(list(self._roots))
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         """
         Converts the internal representation of the instance into a mapping (dictionary-like
@@ -211,6 +214,7 @@ class ResolvedGraph(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         """

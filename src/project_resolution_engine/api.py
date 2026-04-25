@@ -219,14 +219,15 @@ class ProjectResolutionEngine:
             and resolved wheels categorized by the target environments.
     """
 
+    # :: ExternalApiMethod
     @staticmethod
-    # :: FeatureFlow | type=feature_start | name=full_resolution
     def resolve(params: ResolutionParams) -> ResolutionResult:
         from project_resolution_engine.internal.resolvelib import resolve as rl_resolve
         from project_resolution_engine.internal.repositories.factory import (
             open_repository,
         )
 
+        # :: FeatureStart | name=full_resolution
         reqs_by_env: dict[str, str] = {}
         wheels_by_env: dict[str, list[str]] = {}
 
@@ -256,6 +257,7 @@ class ProjectResolutionEngine:
                     # You currently never populate URIs here. Leaving behavior unchanged.
                     wheels_by_env[env.identifier] = []
 
+        # :: FeatureEnd | name=full_resolution
         return ResolutionResult(
             requirements_by_env=reqs_by_env, resolved_wheels_by_env=wheels_by_env
         )

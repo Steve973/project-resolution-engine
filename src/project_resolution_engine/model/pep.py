@@ -47,6 +47,7 @@ class Pep658Metadata(MultiformatModelMixin):
     _parser: Parser = Parser()
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
@@ -56,6 +57,7 @@ class Pep658Metadata(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         """
@@ -129,6 +131,7 @@ class Pep691FileMetadata(MultiformatModelMixin):
     data_dist_info_metadata: bool | Mapping[str, str]
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "filename": self.filename,
@@ -141,6 +144,7 @@ class Pep691FileMetadata(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         core_metadata: bool | Mapping[str, str] = _coerce_field(
@@ -167,6 +171,7 @@ class Pep691Metadata(MultiformatModelMixin):
     last_serial: int | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "name": self.name,
@@ -175,6 +180,7 @@ class Pep691Metadata(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         files = [

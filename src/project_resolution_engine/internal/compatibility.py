@@ -109,6 +109,7 @@ class MarkerEnvConfig(MultiformatModelMixin):
     mode: MarkerModeType = MarkerModeType.MERGE
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         return {
             "overrides": self.overrides,
@@ -116,6 +117,7 @@ class MarkerEnvConfig(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> MarkerEnvConfig:
         overrides = mapping.get("overrides", {})
@@ -159,6 +161,7 @@ class Filter(MultiformatModelMixin):
     )
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         return {
             "include": self.include,
@@ -167,6 +170,7 @@ class Filter(MultiformatModelMixin):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Filter:
         return cls(
@@ -198,6 +202,7 @@ class VersionSpec(MultiformatModelMixin):
     filters: Filter | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {}
         if self.range is not None:
@@ -207,6 +212,7 @@ class VersionSpec(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> VersionSpec:
         filters_data = mapping.get("filters")
@@ -239,6 +245,7 @@ class InterpreterConfig(MultiformatModelMixin):
     filters: Filter | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "python_version": self.python_version.to_mapping(),
@@ -250,6 +257,7 @@ class InterpreterConfig(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> InterpreterConfig:
         filters_data = mapping.get("filters")
@@ -289,6 +297,7 @@ class AbiConfig(MultiformatModelMixin):
     filters: Filter | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "include_debug": self.include_debug,
@@ -299,6 +308,7 @@ class AbiConfig(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> AbiConfig:
         filters_data = mapping.get("filters")
@@ -331,6 +341,7 @@ class PlatformVariant(MultiformatModelMixin):
     version: VersionSpec | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "enabled": self.enabled,
@@ -340,6 +351,7 @@ class PlatformVariant(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformVariant:
         version_data = mapping.get("version")
@@ -377,6 +389,7 @@ class PlatformConfig(MultiformatModelMixin):
     filters: Filter | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {
             "enabled": self.enabled,
@@ -390,6 +403,7 @@ class PlatformConfig(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformConfig:
         filters_data = mapping.get("filters")
@@ -434,6 +448,7 @@ class PlatformContext(MultiformatModelMixin):
     marker_env: MarkerEnvConfig | None = None
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         result: dict[str, Any] = {}
         if self.interpreter is not None:
@@ -449,6 +464,7 @@ class PlatformContext(MultiformatModelMixin):
         return result
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformContext:
         interpreter_data = mapping.get("interpreter")
@@ -531,6 +547,7 @@ class ResolutionContext(MultiformatModelMixin):
     )
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self) -> Mapping[str, Any]:
         out: dict[str, Any] = {
             "name": self.name,
@@ -546,6 +563,7 @@ class ResolutionContext(MultiformatModelMixin):
         return out
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> ResolutionContext:
         raw = mapping.get("platform_overrides", {})

@@ -42,6 +42,7 @@ def normalize_project_name(project: str) -> str:
     return canonicalize_name(project)
 
 
+# :: PermitUnused | reason=called during class initialization
 def reqtxt(*, key: str | None = None, fmt: str | None = None) -> dict[str, object]:
     md: dict[str, object] = {"reqtxt": True}
     if key is not None:
@@ -75,6 +76,7 @@ class BaseArtifactKey(ABC, MultiformatModelMixin):
     kind: ArtifactKind
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> BaseArtifactKey:
         kind_mapping = mapping.get("kind", "none")
@@ -100,6 +102,7 @@ class IndexMetadataKey(BaseArtifactKey):
     kind: ArtifactKind = field(default=ArtifactKind.INDEX_METADATA, init=False)
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -108,6 +111,7 @@ class IndexMetadataKey(BaseArtifactKey):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(index_base=mapping["index_base"], project=mapping["project"])
@@ -122,6 +126,7 @@ class CoreMetadataKey(BaseArtifactKey):
     kind: ArtifactKind = field(default=ArtifactKind.CORE_METADATA, init=False)
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -132,6 +137,7 @@ class CoreMetadataKey(BaseArtifactKey):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         return cls(
@@ -240,12 +246,14 @@ class WheelKey(BaseArtifactKey):
             self, "dependency_ids", frozenset(dep.identifier for dep in dependencies)
         )
 
+    # :: PermitUnused | reason=may be set in constructor
     def set_origin_uri(self, origin_uri: str) -> None:
         if self.origin_uri is None:
             object.__setattr__(self, "origin_uri", origin_uri)
         else:
             raise ValueError("WheelKey.origin_uri is already set")
 
+    # :: PermitUnused | reason=may be set in constructor
     def set_content_hash(self, *, hash_algorithm: str, content_hash: str) -> None:
         if self.content_hash is not None or self.hash_algorithm is not None:
             raise ValueError("WheelKey content hash is already set")
@@ -343,6 +351,7 @@ class WheelKey(BaseArtifactKey):
         return "\n".join([*meta_lines, req_line])
 
     # :: MechanicalOperation | type=serialization
+    # :: PermitUnused
     def to_mapping(self, *_args, **_kwargs) -> dict[str, Any]:
         return {
             "kind": self.kind.value,
@@ -362,6 +371,7 @@ class WheelKey(BaseArtifactKey):
         }
 
     # :: MechanicalOperation | type=deserialization
+    # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> Self:
         dependencies_mapping = mapping.get("dependencies")

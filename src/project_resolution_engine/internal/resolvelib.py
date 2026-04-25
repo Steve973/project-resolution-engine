@@ -243,6 +243,7 @@ class ProjectResolutionProvider(
         self._core_metadata_cache: dict[tuple[str, str, str, str], Pep658Metadata] = {}
         self._requested_extras_by_name: dict[str, frozenset[str]] = {}
 
+    # :: FrameworkCallback | contract=AbstractProvider
     def identify(
         self, requirement_or_candidate: ResolverRequirement | ResolverCandidate
     ) -> str:
@@ -294,6 +295,7 @@ class ProjectResolutionProvider(
                     return alg, h
         return None
 
+    # :: FrameworkCallback | contract=AbstractProvider
     def find_matches(
         self,
         identifier: str,
@@ -725,6 +727,11 @@ class ProjectResolutionProvider(
         if not self._matches_tag(f, name, combined_spec, py_version, dist, ver):
             return None
 
+        # TODO: Need to figure out how to get the context tag!
+        expanded_tags = _expand_tags_for_context(
+            python_version=Version(py_version),
+            context_tag=Tag(py_version, "none", "any"),
+        )
         file_tag_set = {str(t) for t in tags}
         best_tag = self._best_tag(file_tag_set)
         hash_spec = self._best_hash(f)
@@ -846,6 +853,7 @@ class ProjectResolutionProvider(
         )
         return candidates
 
+    # :: FrameworkCallback | contract=AbstractProvider
     def is_satisfied_by(
         self, requirement: ResolverRequirement, candidate: ResolverCandidate
     ) -> bool:
@@ -978,6 +986,7 @@ class ProjectResolutionProvider(
             )
         )
 
+    # :: FrameworkCallback | contract=AbstractProvider
     def get_dependencies(
         self, candidate: ResolverCandidate
     ) -> Iterable[ResolverRequirement]:
@@ -1035,6 +1044,7 @@ class ProjectResolutionProvider(
 
         return deps
 
+    # :: FrameworkCallback | contract=AbstractProvider
     def get_preference(
         self,
         identifier: str,

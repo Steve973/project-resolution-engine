@@ -8,6 +8,7 @@ import tomli
 import tomli_w
 
 
+# :: PermitUnused | reason=optional
 def load_toml_file(path: str | Path) -> dict[str, Any]:
     """
     Loads and parses a TOML file, returning its content as a dictionary.
@@ -32,6 +33,7 @@ def load_toml_file(path: str | Path) -> dict[str, Any]:
         return tomli.load(f)
 
 
+# :: PermitUnused | reason=optional
 def load_toml_text(text: str) -> dict[str, Any]:
     """
     Parses a TOML formatted string and converts it into a dictionary.
@@ -49,6 +51,7 @@ def load_toml_text(text: str) -> dict[str, Any]:
     return tomli.loads(text)
 
 
+# :: PermitUnused | reason=optional
 def dump_toml_to_str(data: Mapping[str, Any], indent: int = 2) -> str:
     """
     Converts a given mapping of data into a TOML string with a specified indentation.
@@ -68,6 +71,7 @@ def dump_toml_to_str(data: Mapping[str, Any], indent: int = 2) -> str:
     return tomli_w.dumps(data, indent=indent)
 
 
+# :: PermitUnused | reason=optional
 def dump_toml_to_file(data: Mapping[str, Any], path: str | Path) -> None:
     """
     Write a TOML (Tom's Obvious, Minimal Language) representation of the provided data
