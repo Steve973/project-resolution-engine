@@ -642,7 +642,7 @@ class ProjectResolutionProvider(
         ensures compatibility with a specified Python version if required.
 
         Args:
-            f: An instance of Pep691FileMetadata containing metadata about a file.
+            Pep691FileMetadata containing metadata about a file.
             name: The normalized distribution name to match against.
             combined_spec: An optional SpecifierSet that represents additional constraints
                            on the version to be matched.
@@ -657,7 +657,10 @@ class ProjectResolutionProvider(
         if canonicalize_name(dist) != name:
             return False
 
-        if combined_spec is not None and not combined_spec.contains(str(ver)):
+        combined_spec_contains_ver: bool = (
+            combined_spec.contains(str(ver)) if combined_spec is not None else True
+        )
+        if not combined_spec_contains_ver:
             return False
 
         if f.requires_python:
@@ -689,7 +692,7 @@ class ProjectResolutionProvider(
             and self._policy.yanked_wheel_policy == YankedWheelPolicy.SKIP
         )
 
-    def _validate_and_parse_wheel(
+    def _process_wheel(
         self,
         *,
         f: Pep691FileMetadata,
@@ -780,7 +783,7 @@ class ProjectResolutionProvider(
             successfully and is not listed in the "bad" candidates. If validation
             fails or the candidate is deemed bad, None is returned.
         """
-        result = self._validate_and_parse_wheel(
+        result = self._process_wheel(
             f=f, name=name, combined_spec=combined_spec, py_version=py_version
         )
         if result is None:
@@ -894,6 +897,7 @@ class ProjectResolutionProvider(
         except Exception:
             return False
 
+    # :: UtilityOperation | type=parsing
     @staticmethod
     def _parse_requirement(raw: str) -> Requirement | None:
         """
@@ -948,13 +952,15 @@ class ProjectResolutionProvider(
             return True
 
         if not requested_extras:
-            return req.marker.evaluate(environment=marker_env_base)
+            is_marker_env: bool = req.marker.evaluate(environment=marker_env_base)
+            return is_marker_env
 
         # Check if marker evaluates true for any requested extra
         for extra in requested_extras:
             marker_env = dict(marker_env_base)
             marker_env["extra"] = extra
-            if req.marker.evaluate(environment=marker_env):
+            is_marker_env: bool = req.marker.evaluate(environment=marker_env)
+            if is_marker_env:
                 return True
         return False
 
@@ -1024,7 +1030,7 @@ class ProjectResolutionProvider(
             self._core_metadata_cache[cache_key] = meta
 
         requested_extras = self._requested_extras_by_name.get(wk.name, frozenset())
-        marker_env_base = cast(
+        marker_env_base: dict[str, str] = cast(
             dict[str, str], cast(object, self._env.marker_environment)
         )
         marker_env_base.setdefault("extra", "")

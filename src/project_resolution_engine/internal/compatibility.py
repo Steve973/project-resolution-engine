@@ -215,7 +215,7 @@ class VersionSpec(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> VersionSpec:
-        filters_data = mapping.get("filters")
+        filters_data: Mapping[str, Any] | None = mapping.get("filters")
         filters = Filter.from_mapping(filters_data) if filters_data else None
 
         return cls(range=mapping.get("range"), filters=filters)
@@ -260,7 +260,7 @@ class InterpreterConfig(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> InterpreterConfig:
-        filters_data = mapping.get("filters")
+        filters_data: Mapping[str, Any] | None = mapping.get("filters")
         filters = Filter.from_mapping(filters_data) if filters_data else None
 
         return cls(
@@ -311,7 +311,7 @@ class AbiConfig(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> AbiConfig:
-        filters_data = mapping.get("filters")
+        filters_data: Mapping[str, Any] | None = mapping.get("filters")
         filters = Filter.from_mapping(filters_data) if filters_data else None
 
         return cls(
@@ -354,7 +354,7 @@ class PlatformVariant(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformVariant:
-        version_data = mapping.get("version")
+        version_data: Mapping[str, Any] | None = mapping.get("version")
         version = VersionSpec.from_mapping(version_data) if version_data else None
 
         return cls(enabled=mapping.get("enabled", True), version=version)
@@ -406,7 +406,7 @@ class PlatformConfig(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformConfig:
-        filters_data = mapping.get("filters")
+        filters_data: Mapping[str, Any] | None = mapping.get("filters")
         filters = Filter.from_mapping(filters_data) if filters_data else None
         variants_data = mapping.get("variants", {})
         variants = {
@@ -467,19 +467,19 @@ class PlatformContext(MultiformatModelMixin):
     # :: PermitUnused
     @classmethod
     def from_mapping(cls, mapping: Mapping[str, Any], **_: Any) -> PlatformContext:
-        interpreter_data = mapping.get("interpreter")
+        interpreter_data: Mapping[str, Any] | None = mapping.get("interpreter")
         interpreter = (
             InterpreterConfig.from_mapping(interpreter_data)
             if interpreter_data
             else None
         )
-        abi_data = mapping.get("abi")
+        abi_data: Mapping[str, Any] | None = mapping.get("abi")
         abi = AbiConfig.from_mapping(abi_data) if abi_data else None
-        platform_data = mapping.get("platform")
+        platform_data: Mapping[str, Any] | None = mapping.get("platform")
         platform = PlatformConfig.from_mapping(platform_data) if platform_data else None
-        tags_data = mapping.get("compatibility_tags")
+        tags_data: Mapping[str, Any] | None = mapping.get("compatibility_tags")
         compatibility_tags = Filter.from_mapping(tags_data) if tags_data else None
-        marker_env_data = mapping.get("marker_env")
+        marker_env_data: Mapping[str, Any] | None = mapping.get("marker_env")
         marker_env = (
             MarkerEnvConfig.from_mapping(marker_env_data) if marker_env_data else None
         )

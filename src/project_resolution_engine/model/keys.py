@@ -33,6 +33,7 @@ def _is_empty_collection(v: object) -> bool:
     return isinstance(v, (set, frozenset, list, tuple, dict)) and len(v) == 0
 
 
+# :: UtilityOperation | type=normalization
 def normalize_project_name(project: str) -> str:
     """
     Normalize a project name for consistent keying.
@@ -55,7 +56,8 @@ def reqtxt(*, key: str | None = None, fmt: str | None = None) -> dict[str, objec
 def _reqtxt_comment_lines(obj: WheelKey) -> list[str]:
     lines: list[str] = []
     for f in fields(obj):
-        if not f.metadata.get("reqtxt"):
+        reqtxt_metadata = f.metadata.get("reqtxt", None)
+        if reqtxt_metadata is None:
             continue
 
         val = getattr(obj, f.name)
@@ -206,6 +208,7 @@ class WheelKey(BaseArtifactKey):
         default=None, init=False, repr=False, compare=False, metadata=reqtxt(key="hash")
     )
 
+    # :: UtilityOperation | type=validation
     def _validate_hash_and_set_spec(self) -> None:
         if self.hash_algorithm is None or self.content_hash is None:
             return

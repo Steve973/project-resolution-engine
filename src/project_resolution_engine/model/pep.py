@@ -11,6 +11,7 @@ from typing_extensions import Self
 from project_resolution_engine.internal.util.multiformat import MultiformatModelMixin
 
 
+# :: UtilityOperation | type=conversion
 def _coerce_field(value: Any) -> bool | Mapping[str, str]:
     # If it's a dict, keep it as-is
     if isinstance(value, Mapping):

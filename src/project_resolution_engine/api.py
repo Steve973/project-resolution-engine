@@ -18,6 +18,7 @@ from project_resolution_engine.services import load_services
 from project_resolution_engine.strategies import ResolutionStrategyConfig
 
 
+# :: UtilityOperation | type=normalization
 def _normalize_strategy_configs(
     strategy_configs: Iterable[ResolutionStrategyConfig] | None,
 ) -> dict[str, ResolutionStrategyConfig]:
@@ -91,7 +92,10 @@ def _roots_for_env(params: ResolutionParams, env: Any) -> list[Any]:
     for ws in params.root_wheels:
         marker_env = cast(dict[str, str], cast(object, env.marker_environment))
         marker: Marker | None = ws.marker
-        if marker is not None and not marker.evaluate(environment=marker_env):
+        marker_evaluation: bool = (
+            marker.evaluate(environment=marker_env) if marker else True
+        )
+        if marker is not None and not marker_evaluation:
             continue
         roots.append(ResolverRequirement(wheel_spec=ws))
 
@@ -151,7 +155,9 @@ def _deps_by_parent_from_result(
             if parent is None:
                 continue
             # Preserve existing membership logic exactly.
-            if parent in deps_by_parent and child_name in wk_by_name:
+            known_parent: bool = parent.name in wk_by_name
+            known_child: bool = child_name in wk_by_name
+            if known_parent and known_child:
                 deps_by_parent[parent.name].add(child_name)
 
     return deps_by_parent
@@ -186,6 +192,7 @@ def _apply_dependency_ids(
         parent_wk.set_dependency_ids(dep_wks)
 
 
+# :: UtilityOperation | type=normalization
 def _format_requirements_text(wheel_keys: Iterable[WheelKey]) -> str:
     """
     Formats the requirements text by sorting the given wheel keys and combining their

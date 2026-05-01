@@ -57,7 +57,9 @@ class StrategyChainArtifactResolver(
                 continue
 
             try:
-                record = strategy.resolve(key=key, destination_uri=destination_uri)
+                record: ArtifactRecord | None = strategy.resolve(
+                    key=key, destination_uri=destination_uri
+                )
                 if record is None:
                     logging.debug(
                         f"strategy returned None: {strategy.name} key={key!r}"

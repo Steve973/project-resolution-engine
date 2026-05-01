@@ -76,7 +76,7 @@ def _plan_single(
     precedence = int(config.get("precedence", getattr(strategy_cls, "precedence", 100)))
 
     # Always push precedence/instance_id into ctor kwargs so the instance matches the plan deterministically.
-    full_kwargs = dict(ctor_kwargs)
+    full_kwargs: dict[str, Any] = dict(ctor_kwargs)
     full_kwargs.setdefault("instance_id", instance_id)
     full_kwargs.setdefault("precedence", precedence)
 
@@ -221,7 +221,9 @@ class WheelExtractedCoreMetadataStrategyConfig(
         wheel_sid = _opt_str(config, "wheel_strategy_id") or "wheel_http"
 
         # Injection is via StrategyRef, not by directly fetching instances here.
-        wheel_ref: StrategyRef = StrategyRef(strategy_name=wheel_sid, instance_id=wheel_sid)
+        wheel_ref: StrategyRef = StrategyRef(
+            strategy_name=wheel_sid, instance_id=wheel_sid
+        )
 
         ctor: dict[str, Any] = {
             "wheel_strategy": wheel_ref,

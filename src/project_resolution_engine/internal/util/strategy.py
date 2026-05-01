@@ -38,6 +38,7 @@ class StrategyRef:
     strategy_name: str = ""
     instance_id: str = ""
 
+    # :: UtilityOperation | type=normalization
     def normalized_instance_id(self) -> str:
         iid = self.instance_id or self.strategy_name
         if not iid:
@@ -121,7 +122,7 @@ class DefaultStrategyConfig(BaseArtifactResolutionStrategyConfig, ABC):
             )
 
         # Only forward *strategy-specific* keys here.
-        ctor_kwargs = dict(config)
+        ctor_kwargs: dict[str, object] = dict(config)
         ctor_kwargs.pop("strategy_name", None)
         ctor_kwargs.pop("instance_id", None)
         ctor_kwargs.pop("precedence", None)
@@ -432,6 +433,7 @@ def _ingest_raw_configs(
     )
 
 
+# :: UtilityOperation | type=validation
 def _validate_instance_id_key(iid: Any) -> None:
     if not isinstance(iid, str) or not iid:
         raise StrategyConfigError(
@@ -439,11 +441,13 @@ def _validate_instance_id_key(iid: Any) -> None:
         )
 
 
+# :: UtilityOperation | type=validation
 def _validate_raw_cfg_mapping(iid: str, raw_cfg: Any) -> None:
     if not isinstance(raw_cfg, Mapping):
         raise StrategyConfigError(f"config for instance_id '{iid}' must be a mapping")
 
 
+# :: UtilityOperation | type=validation
 def _validate_or_set_cfg_instance_id(iid: str, cfg: dict[str, Any]) -> None:
     if "instance_id" in cfg and cfg["instance_id"] != iid:
         raise StrategyConfigError(
@@ -452,6 +456,7 @@ def _validate_or_set_cfg_instance_id(iid: str, cfg: dict[str, Any]) -> None:
     cfg["instance_id"] = iid
 
 
+# :: UtilityOperation | type=normalization
 def _normalize_and_validate_strategy_name(
     *, iid: str, cfg: dict[str, Any], strategy_classes: Mapping[str, _StrategyClassInfo]
 ) -> str:
@@ -511,7 +516,7 @@ def _plan_all_strategies(
                     f"internal error: missing config for planned instance_id '{iid}'"
                 )
 
-            merged = dict(spec_cls.defaults())
+            merged: dict[str, object] = dict(spec_cls.defaults())
             merged.update(raw)
             merged["strategy_name"] = strategy_name
             merged["instance_id"] = iid
@@ -611,7 +616,7 @@ def _enable_plans(
 
 
 def _strip_planner_keys(ctor_kwargs: Mapping[str, Any]) -> dict[str, Any]:
-    out = dict(ctor_kwargs)
+    out: dict[str, object] = dict(ctor_kwargs)
     out.pop("strategy_name", None)
     out.pop("instance_id", None)
     out.pop("precedence", None)
@@ -619,6 +624,7 @@ def _strip_planner_keys(ctor_kwargs: Mapping[str, Any]) -> dict[str, Any]:
     return out
 
 
+# :: UtilityOperation | type=validation
 def _validate_enabled_dependencies_exist(enabled_plans: list[StrategyPlan]) -> None:
     enabled_ids = {p.instance_id for p in enabled_plans}
     for p in enabled_plans:
@@ -641,7 +647,7 @@ def _enforce_imperative_closure(
     deps_by_iid = {p.instance_id: set(p.depends_on) for p in enabled_plans}
 
     for root in imperative:
-        stack = list(deps_by_iid[root])
+        stack: list[str] = list(deps_by_iid[root])
         seen_dep: set[str] = set()
 
         while stack:
@@ -650,7 +656,10 @@ def _enforce_imperative_closure(
                 continue
             seen_dep.add(dep)
 
-            if crit_by_iid.get(dep) is not StrategyCriticality.IMPERATIVE:
+            is_imperative_strategy: bool = (
+                crit_by_iid.get(dep) is StrategyCriticality.IMPERATIVE
+            )
+            if not is_imperative_strategy:
                 raise StrategyConfigError(
                     f"IMPERATIVE instance '{root}' depends on non IMPERATIVE instance '{dep}'. "
                     f"Set '{dep}' criticality to IMPERATIVE or disable '{root}'."
@@ -715,6 +724,7 @@ def _process_topological_order(
     return ordered
 
 
+# :: UtilityOperation | type=validation
 def _validate_no_cycles(
     ordered: list[StrategyPlan],
     plans: Sequence[StrategyPlan],
@@ -745,6 +755,7 @@ def topo_sort_plans(plans: Sequence[StrategyPlan]) -> list[StrategyPlan]:
 # --------------------------------------------------------------------------- #
 
 
+# :: UtilityOperation | type=validation
 def _validate_ctor_kwargs(
     *,
     strategy_cls: type[BaseArtifactResolutionStrategy],
@@ -801,7 +812,8 @@ def _apply_plan_metadata(*, inst: Any, plan: StrategyPlan, ctx: str) -> None:
     """
 
     def _set_attr(name: str, value: Any) -> None:
-        if not hasattr(inst, name):
+        has_name_attr: bool = hasattr(inst, name)
+        if not has_name_attr:
             return
         cur = getattr(inst, name, None)
         if cur == value:
@@ -827,7 +839,7 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
         resolved_kwargs = _resolve_ctor_kwargs(plan.ctor_kwargs, registry)
         ctx = f"strategy={plan.strategy_name} instance_id={plan.instance_id}"
 
-        call_kwargs = dict(resolved_kwargs)
+        call_kwargs: dict[str, object] = dict(resolved_kwargs)
         call_kwargs.pop("strategy_name", None)
         call_kwargs.pop("instance_id", None)
         call_kwargs.pop("precedence", None)
@@ -838,10 +850,10 @@ def instantiate_plans(plans: Sequence[StrategyPlan]) -> list:
         )
 
         inst = plan.strategy_cls(**call_kwargs)
-
         _apply_plan_metadata(inst=inst, plan=plan, ctx=ctx)
+        instance_id_attr: str | None = getattr(inst, "instance_id", None)
 
-        if getattr(inst, "instance_id", None) != plan.instance_id:
+        if instance_id_attr != plan.instance_id:
             raise StrategyConfigError(
                 f"{ctx}: constructed instance_id '{getattr(inst, 'instance_id', None)}' "
                 f"does not match planned instance_id '{plan.instance_id}'"

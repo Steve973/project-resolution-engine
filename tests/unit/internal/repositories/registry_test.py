@@ -188,11 +188,11 @@ def test_validate_repo_factory_callable(case: dict) -> None:
     # Covers: C000F001B0001..C000F001B0005
     if case["exp_exc_substr"] is not None:
         with pytest.raises(uut.RepositoryEntrypointError) as ei:
-            uut._validate_repo_factory_callable(case["repo_id"], case["factory_obj"])
+            uut._enforce_repo_factory_callable(case["repo_id"], case["factory_obj"])
         assert case["exp_exc_substr"] in str(ei.value)
         return
 
-    factory = uut._validate_repo_factory_callable(case["repo_id"], case["factory_obj"])
+    factory = uut._enforce_repo_factory_callable(case["repo_id"], case["factory_obj"])
     assert factory is case["factory_obj"]
 
 

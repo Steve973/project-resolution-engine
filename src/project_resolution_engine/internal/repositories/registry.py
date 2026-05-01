@@ -6,7 +6,8 @@ from importlib.metadata import entry_points, EntryPoint
 from typing import Mapping
 
 from project_resolution_engine.internal.repositories.builtin import (
-    BUILTIN_REPOSITORY_FACTORIES, RepoFactory,
+    BUILTIN_REPOSITORY_FACTORIES,
+    RepoFactory,
 )
 from project_resolution_engine.repository import (
     REPOSITORY_ENTRYPOINT_GROUP,
@@ -44,7 +45,7 @@ class RepositoryRegistry:
         return merged
 
 
-def _validate_repo_factory_callable(repo_id: str, factory_obj: object) -> RepoFactory:
+def _enforce_repo_factory_callable(repo_id: str, factory_obj: object) -> RepoFactory:
     """
     Enforce a strict entry point contract.
 
@@ -100,7 +101,7 @@ def _load_entrypoint_repo_factories(*, group: str) -> dict[str, RepoFactory]:
     for ep in entry_points().select(group=group):
         repo_id = ep.name
         factory_obj = ep.load()
-        factory = _validate_repo_factory_callable(repo_id, factory_obj)
+        factory = _enforce_repo_factory_callable(repo_id, factory_obj)
 
         if repo_id in factories:
             dupes.add(repo_id)

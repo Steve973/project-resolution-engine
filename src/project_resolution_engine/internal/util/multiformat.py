@@ -152,6 +152,7 @@ class MultiformatSerializableMixin:
             "to use MultiformatSerializableMixin serialization."
         )
 
+    # :: MechanicalOperation | type=serialization
     def to_json(self, *, indent=2) -> str:
         """
         Converts the object's data to a JSON string.
@@ -173,6 +174,7 @@ class MultiformatSerializableMixin:
             self.to_mapping(), ensure_ascii=False, indent=indent, sort_keys=True
         )
 
+    # :: MechanicalOperation | type=serialization
     def to_yaml(self, *, indent=2) -> str:
         """
         Converts the object's data to a YAML string representation.
@@ -200,6 +202,7 @@ class MultiformatSerializableMixin:
             self.to_mapping(), sort_keys=True, allow_unicode=True, indent=indent
         )
 
+    # :: MechanicalOperation | type=serialization
     def to_toml(self, *, indent=2) -> str:
         """
         Converts the instance's data to a TOML string.
@@ -231,6 +234,7 @@ class MultiformatSerializableMixin:
         return dump_toml_to_str(sorted_mapping, indent)
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=serialization
     def serialize(self, *, fmt="json", indent=2) -> str:
         """
         Serializes the object to a string in the specified format.
@@ -262,8 +266,10 @@ class MultiformatSerializableMixin:
             case _:
                 raise ValueError(f"unrecognized format: {fmt}")
 
+    # :: UtilityOperation | type=conversion
     @staticmethod
-    def _format_value(k: str, v: Any) -> str:
+    def _format_value(k: str, v: object) -> str:
+        v_str: str
         match v:
             case datetime():
                 dt: datetime = v
@@ -295,13 +301,14 @@ class MultiformatSerializableMixin:
             v is None or v == "" or (isinstance(v, (list, tuple, set, dict)) and not v)
         )
 
+    # :: MechanicalOperation | type=serialization
     def flat_summary(
         self,
-        first_fields=("timestamp",),
-        last_fields=(),
-        sep=" | ",
-        exclude=(),
-        include_empty=False,
+        first_fields: tuple[str, ...] = ("timestamp",),
+        last_fields: tuple[str, ...] = (),
+        sep: str = " | ",
+        exclude: tuple[str, ...] = (),
+        include_empty: bool = False,
     ):
         """
         Generates a formatted string representation of the object's mapping data.
@@ -387,6 +394,7 @@ class MultiformatDeserializableMixin:
     # ---- public entrypoints ----
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def deserialize(
         cls: type[Self], text: str, *, fmt: str = "json", **context: Any
@@ -415,6 +423,7 @@ class MultiformatDeserializableMixin:
         return cls._postprocess_instance(inst, fmt=fmt, path=None, **context)
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_json(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -435,6 +444,7 @@ class MultiformatDeserializableMixin:
         return cls.deserialize(text, fmt="json", **context)
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_yaml(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -455,6 +465,7 @@ class MultiformatDeserializableMixin:
         return cls.deserialize(text, fmt="yaml", **context)
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_toml(cls: type[Self], text: str, **context: Any) -> Self:
         """
@@ -477,6 +488,7 @@ class MultiformatDeserializableMixin:
         return cls.deserialize(text, fmt="toml", **context)
 
     # :: PermitUnused
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def from_file(
         cls: type[Self], path: str | Path, fmt: str | None = None, **context: Any
@@ -510,6 +522,7 @@ class MultiformatDeserializableMixin:
 
     # ---- overridable hooks ----
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def _load_text(cls, path: Path, **_: Any) -> str:
         """
@@ -527,6 +540,7 @@ class MultiformatDeserializableMixin:
         """
         return path.read_text(encoding="utf-8")
 
+    # :: UtilityOperation | type=parsing
     @classmethod
     def _infer_format_from_suffix(cls, path: Path) -> str:
         """
@@ -556,6 +570,7 @@ class MultiformatDeserializableMixin:
             case _:
                 raise ValueError(f"Cannot infer format from extension {suffix!r}")
 
+    # :: MechanicalOperation | type=deserialization
     @classmethod
     def _parse_text(cls, text: str, *, fmt: str, path: Path | None, **_: Any) -> Any:
         """
@@ -602,6 +617,7 @@ class MultiformatDeserializableMixin:
             case _:
                 raise ValueError(f"unrecognized format: {fmt!r}")
 
+    # :: UtilityOperation | type=conversion
     @classmethod
     def _coerce_root_mapping(
         cls, raw: Any, *, fmt: str, path: Path | None, **_: Any
@@ -687,7 +703,8 @@ class MultiformatDeserializableMixin:
             The post-processed instance of the same type as the input.
         """
         # Soft opt-in: only touch if the attribute exists and is empty/falsey
-        if hasattr(inst, "source_description"):
+        has_source_description: bool = hasattr(inst, "source_description")
+        if has_source_description:
             current = getattr(inst, "source_description", None)
             if not current:
                 if path is not None:
