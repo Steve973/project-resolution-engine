@@ -8,6 +8,7 @@ import tomli
 import tomli_w
 
 
+# :: MechanicalOperation | type=deserialization
 # :: PermitUnused | reason=optional
 def load_toml_file(path: str | Path) -> dict[str, Any]:
     """
@@ -33,6 +34,7 @@ def load_toml_file(path: str | Path) -> dict[str, Any]:
         return tomli.load(f)
 
 
+# :: MechanicalOperation | type=deserialization
 # :: PermitUnused | reason=optional
 def load_toml_text(text: str) -> dict[str, Any]:
     """
@@ -51,6 +53,7 @@ def load_toml_text(text: str) -> dict[str, Any]:
     return tomli.loads(text)
 
 
+# :: MechanicalOperation | type=serialization
 # :: PermitUnused | reason=optional
 def dump_toml_to_str(data: Mapping[str, Any], indent: int = 2) -> str:
     """
@@ -71,6 +74,7 @@ def dump_toml_to_str(data: Mapping[str, Any], indent: int = 2) -> str:
     return tomli_w.dumps(data, indent=indent)
 
 
+# :: MechanicalOperation | type=serialization
 # :: PermitUnused | reason=optional
 def dump_toml_to_file(data: Mapping[str, Any], path: str | Path) -> None:
     """
