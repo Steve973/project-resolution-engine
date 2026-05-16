@@ -327,10 +327,13 @@ class ProjectResolutionProvider(
 
         bad = self._compute_bad_set(name, incompatibilities)
 
+        # :: FeatureStart | name=direct_uri_candidate_resolution
         uri_candidates = self._build_uri_candidates(name, req_list, bad)
         if uri_candidates is not None:
+            # :: FeatureEnd | name=direct_uri_candidate_resolution | outcome=candidates_returned
             return self._sort_candidates(uri_candidates)
 
+        # :: FeatureStart | name=index_candidate_resolution
         combined_spec = self._combined_spec(req_list)
 
         pep691 = self._load_pep691(name)
@@ -344,6 +347,7 @@ class ProjectResolutionProvider(
             bad=bad,
         )
 
+        # :: FeatureEnd | name=index_candidate_resolution | outcome=candidates_returned
         return self._sort_candidates(named_candidates)
 
     @staticmethod
@@ -457,12 +461,14 @@ class ProjectResolutionProvider(
         """
         uri_reqs = [r for r in req_list if r.uri]
         if not uri_reqs:
+            # :: FeatureEnd | name=direct_uri_candidate_resolution | outcome=no_direct_uri_requirements
             return None
 
         candidates: list[ResolverCandidate] = []
         for r in uri_reqs:
             parsed = urlparse(r.uri)
             if not parsed.scheme:
+                # :: FeatureEnd | name=direct_uri_candidate_resolution | outcome=invalid_uri_format
                 raise ValueError(f"Invalid resolver requirement URI: {r.uri!r}")
             c = self._candidate_from_uri_req(name=name, req=r, bad=bad)
             if c is not None:
@@ -719,15 +725,19 @@ class ProjectResolutionProvider(
                 the wheel version, best matching tag, frozen set of applicable tags,
                 and best hash spec if validation is successful. Returns None otherwise.
         """
+        # :: FeatureStart | name=index_wheel_candidate_filtering
         if not self._is_non_yanked_wheel_file(f):
+            # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_yanked_wheel_policy
             return None
 
         try:
             dist, ver, _build, tags = parse_wheel_filename(f.filename)
         except Exception:
+            # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=invalid_wheel_filename
             return None
 
         if not self._matches_tag(f, name, combined_spec, py_version, dist, ver):
+            # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_tag_compatibility
             return None
 
         # TODO: Need to figure out how to get the context tag!
@@ -740,8 +750,10 @@ class ProjectResolutionProvider(
         hash_spec = self._best_hash(f)
 
         if best_tag is None or hash_spec is None:
+            # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_no_best_tag_or_hash_compatibility
             return None
 
+        # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=accepted
         return str(ver), best_tag, frozenset(file_tag_set), hash_spec
 
     def _candidate_from_index_file(
@@ -1013,8 +1025,10 @@ class ProjectResolutionProvider(
                 An iterable of resolved dependencies for the candidate. If the
                 candidate lacks origin URI, an empty iterable is returned.
         """
+        # :: FeatureStart | name=candidate_dependency_resolution
         wk = candidate.wheel_key
         if wk.origin_uri is None:
+            # :: FeatureEnd | name=candidate_dependency_resolution | outcome=no_origin_uri
             return ()
 
         cache_key = (wk.name, wk.version, wk.tag, wk.origin_uri)
@@ -1048,6 +1062,7 @@ class ProjectResolutionProvider(
 
             deps.append(self._requirement_to_resolver_requirement(req))
 
+        # :: FeatureEnd | name=candidate_dependency_resolution | outcome=resolved
         return deps
 
     # :: FrameworkCallback | contract=AbstractProvider

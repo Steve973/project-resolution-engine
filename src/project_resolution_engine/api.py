@@ -246,6 +246,8 @@ class ProjectResolutionEngine:
             )
 
             env: ResolutionEnv
+            # :: FeatureBranch | name=full_resolution | branch=main | control_polarity=true
+            # :: FeatureBranch | name=full_resolution | branch=resolve_no_env | control_polarity=false
             for env in params.target_environments:
                 roots = _roots_for_env(params, env)
 

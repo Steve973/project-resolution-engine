@@ -47,6 +47,7 @@ class StrategyChainArtifactResolver(
             )
             > 0
         ):
+            # :: FeatureEnd | name=resolution_orchestration | outcome=invalid_strategy_config
             raise RuntimeError(
                 "All strategies must be imperative or all must be non-imperative, but not both"
             )
@@ -65,7 +66,7 @@ class StrategyChainArtifactResolver(
                         f"strategy returned None: {strategy.name} key={key!r}"
                     )
                     continue
-                # :: FeatureEnd | name=resolution_orchestration
+                # :: FeatureEnd | name=resolution_orchestration | outcome=success
                 return record
 
             except StrategyNotApplicable:
@@ -79,6 +80,7 @@ class StrategyChainArtifactResolver(
                 )
                 continue
 
+        # :: FeatureEnd | name=resolution_orchestration | outcome=artifact_resolution_failure
         raise ArtifactResolutionError(
             "No strategy was able to resolve the requested artifact",
             key=key,
@@ -88,15 +90,42 @@ class StrategyChainArtifactResolver(
 
 @dataclass(frozen=True, slots=True)
 class ArtifactCoordinator(Generic[ArtifactKeyType]):
+    """
+    Coordinates the interaction between an artifact repository and a resolver. It
+    looks for the artifact in the repository first, and if not found, it uses the
+    resolver to fetch the artifact and stores it in the repository.
+
+    ArtifactCoordinator is a generic class that supports resolving artifact records
+    and storing them in a repository. It works with any artifact type provided
+    through the type parameter ArtifactKeyType. The class ensures efficient querying
+    by utilizing cached data when available and resolving new artifacts when necessary.
+
+    Attributes:
+        repo (ArtifactRepository): The artifact repository used for storing and
+            retrieving artifact records.
+        resolver (ArtifactResolver[ArtifactKeyType]): The resolver responsible for
+            retrieving artifact records and storing them to a destination.
+
+    Methods:
+        resolve(key: ArtifactKeyType) -> ArtifactRecord:
+            Resolves an artifact identified by the given key. First, it attempts to
+            fetch the artifact from the repository cache. If the artifact is not
+            found, it uses the resolver to fetch the artifact and stores it in the
+            repository.
+    """
+
     repo: ArtifactRepository
     resolver: ArtifactResolver[ArtifactKeyType]
 
     def resolve(self, key: ArtifactKeyType) -> ArtifactRecord:
+        # :: FeatureStart | name=artifact_coordination
         hit = self.repo.get(key)
         if hit is not None:
+            # :: FeatureEnd | name=artifact_coordination | outcome=cache_hit
             return hit
 
         dest_uri = self.repo.allocate_destination_uri(key)
         record = self.resolver.resolve(key=key, destination_uri=dest_uri)
         self.repo.put(record)
+        # :: FeatureEnd | name=artifact_coordination | outcome=resolved_and_stored
         return record
