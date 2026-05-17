@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from pathlib import Path
 from typing import cast
@@ -327,7 +328,6 @@ class ProjectResolutionProvider(
 
         bad = self._compute_bad_set(name, incompatibilities)
 
-        # :: FeatureStart | name=direct_uri_candidate_resolution
         uri_candidates = self._build_uri_candidates(name, req_list, bad)
         if uri_candidates is not None:
             # :: FeatureEnd | name=direct_uri_candidate_resolution | outcome=candidates_returned
@@ -459,6 +459,7 @@ class ProjectResolutionProvider(
         Raises:
         ValueError: If any URI-based requirement contains an invalid URI format.
         """
+        # :: FeatureStart | name=direct_uri_candidate_resolution
         uri_reqs = [r for r in req_list if r.uri]
         if not uri_reqs:
             # :: FeatureEnd | name=direct_uri_candidate_resolution | outcome=no_direct_uri_requirements
@@ -725,7 +726,7 @@ class ProjectResolutionProvider(
                 the wheel version, best matching tag, frozen set of applicable tags,
                 and best hash spec if validation is successful. Returns None otherwise.
         """
-        # :: FeatureStart | name=index_wheel_candidate_filtering
+        # :: FeatureBranch | name=index_wheel_candidate_filtering | branch=wheel_yanked | control_polarity=true
         if not self._is_non_yanked_wheel_file(f):
             # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_yanked_wheel_policy
             return None
@@ -736,6 +737,7 @@ class ProjectResolutionProvider(
             # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=invalid_wheel_filename
             return None
 
+        # :: FeatureBranch | name=index_wheel_candidate_filtering | branch=wheel_rejected | control_polarity=true
         if not self._matches_tag(f, name, combined_spec, py_version, dist, ver):
             # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_tag_compatibility
             return None
@@ -749,6 +751,7 @@ class ProjectResolutionProvider(
         best_tag = self._best_tag(file_tag_set)
         hash_spec = self._best_hash(f)
 
+        # :: FeatureBranch | name=index_wheel_candidate_filtering | branch=wheel_no_tag_or_spec | control_polarity=true
         if best_tag is None or hash_spec is None:
             # :: FeatureEnd | name=index_wheel_candidate_filtering | outcome=rejected_by_no_best_tag_or_hash_compatibility
             return None
@@ -795,6 +798,11 @@ class ProjectResolutionProvider(
             successfully and is not listed in the "bad" candidates. If validation
             fails or the candidate is deemed bad, None is returned.
         """
+        # :: FeatureStart | name=index_wheel_candidate_filtering
+        logging.debug(
+            f"Processing wheel {f.filename} for {name} with py_version={py_version}"
+        )
+
         result = self._process_wheel(
             f=f, name=name, combined_spec=combined_spec, py_version=py_version
         )
